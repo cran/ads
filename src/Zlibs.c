@@ -3401,13 +3401,13 @@ int *t2,double *dt,double *gm,double *km)
 	
 	//On calcule la moyenne des marques
 	cmoy=0;
-	for(i=1;i<=*point_nb;i++)
+	for(i=0;i<*point_nb;i++)
 		cmoy+=c[i];
 	cmoy=cmoy/(*point_nb);
 	
 	//On calcule la variance des marques
 	cvar=0;
-	for(i=1;i<=*point_nb;i++)
+	for(i=0;i<*point_nb;i++)
 		cvar+=(c[i]-cmoy)*(c[i]-cmoy);
 	cvar=cvar/(*point_nb);
 	
@@ -3484,13 +3484,13 @@ int *t2,double *dt,double *gm,double *km)
 	
 	//On calcule la moyenne des marques
 	cmoy=0;
-	for(i=1;i<=*point_nb;i++)
+	for(i=0;i<*point_nb;i++)
 		cmoy+=c[i];
 	cmoy=cmoy/(*point_nb);
 	
 	//On calcule la variance des marques
 	cvar=0;
-	for(i=1;i<=*point_nb;i++)
+	for(i=0;i<*point_nb;i++)
 		cvar+=(c[i]-cmoy)*(c[i]-cmoy);
 	cvar=cvar/(*point_nb);
 	
@@ -3567,13 +3567,13 @@ int *t2,double *dt,double *gm,double *km)
 	
 	//On calcule la moyenne des marques
 	cmoy=0;
-	for(i=1;i<=*point_nb;i++)
+	for(i=0;i<*point_nb;i++)
 		cmoy+=c[i];
 	cmoy=cmoy/(*point_nb);
 	
 	//On calcule la variance des marques
 	cvar=0;
-	for(i=1;i<=*point_nb;i++)
+	for(i=0;i<*point_nb;i++)
 		cvar+=(c[i]-cmoy)*(c[i]-cmoy);
 	cvar=cvar/(*point_nb);
 	
@@ -3661,13 +3661,13 @@ int *t2,double *dt,double *gm,double *km)
 	
 	//On calcule la moyenne des marques
 	cmoy=0;
-	for(i=1;i<=*point_nb;i++)
+	for(i=0;i<*point_nb;i++)
 		cmoy+=c[i];
 	cmoy=cmoy/(*point_nb);
 	
 	//On calcule la variance des marques
 	cvar=0;
-	for(i=1;i<=*point_nb;i++)
+	for(i=0;i<*point_nb;i++)
 		cvar+=(c[i]-cmoy)*(c[i]-cmoy);
 	cvar=cvar/(*point_nb);
 	
