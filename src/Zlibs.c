@@ -869,14 +869,14 @@ int *t2,double *dt,double *g,double *k)
 
 
 	// On rangera dans g le nombre de couples de points par distance tt
-	for(tt=0;tt<*t2;tt=tt+1){
+	for(tt=0;tt<*t2;tt++){
 		g[tt]=0;
 	}
 
 
     //On regarde les couples (i,j) et (j,i) : donc pour i>j seulement
-	for(i=1;i<*point_nb;i=i+1)
-	{	for(j=0;j<i;j=j+1)
+	for(i=1;i<*point_nb;i++)
+	{	for(j=0;j<i;j++)
 		{	d=sqrt((x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]));
 			if (d<*t2*(*dt)){
 				// dans quelle classe de distance est ce couple ?
@@ -905,13 +905,13 @@ int *t2,double *dt,double *g,double *k)
 
 
 	// on moyenne -> densite
-	for(tt=0;tt<*t2;tt=tt+1) {
+	for(tt=0;tt<*t2;tt++) {
 		g[tt]=g[tt]/(*point_nb);
 	}
 
 	// on integre
 	k[0]=g[0];
-  	for(tt=1;tt<*t2;tt=tt+1) {
+  	for(tt=1;tt<*t2;tt++) {
   		k[tt]=k[tt-1]+g[tt];
 	}
 
@@ -928,11 +928,11 @@ int *t2, double *dt, double *g, double *k)
 	//Decalage pour n'avoir que des valeurs positives
 	decalCirc(*point_nb,x,y,x0,y0,*r0);
 
-	for(tt=0;tt<*t2;tt=tt+1) {
+	for(tt=0;tt<*t2;tt++) {
 		g[tt]=0;
 	}
-	for(i=1;i<*point_nb;i=i+1) { // On calcule le nombre de couples de points par distance g
-		for(j=0;j<i;j=j+1)
+	for(i=1;i<*point_nb;i++) { // On calcule le nombre de couples de points par distance g
+		for(j=0;j<i;j++)
 		{	d=sqrt((x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]));
 			if (d<*t2*(*dt))
 			{	tt=d/(*dt);
@@ -959,13 +959,13 @@ int *t2, double *dt, double *g, double *k)
 	}
 
 	// on moyenne -> densite
-	for(tt=0;tt<*t2;tt=tt+1) {
+	for(tt=0;tt<*t2;tt++) {
 		g[tt]=g[tt]/(*point_nb);
 	}
 
 	// on integre
 	k[0]=g[0];
-	for(tt=1;tt<*t2;tt=tt+1) {
+	for(tt=1;tt<*t2;tt++) {
 		k[tt]=k[tt-1]+g[tt];
 	}
 
@@ -985,11 +985,11 @@ int *t2, double *dt, double *g, double *k)
 	decalRectTri(*point_nb,x,y,xmi,xma,ymi,yma,*triangle_nb,ax,ay,bx,by,cx,cy);
 
 	// On calcule le nombre de couples de points par distance g
-	for(tt=0;tt<*t2;tt=tt+1) {
+	for(tt=0;tt<*t2;tt++) {
 		g[tt]=0;
 	}
-	for(i=1;i<*point_nb;i=i+1)
-		for(j=0;j<i;j=j+1)
+	for(i=1;i<*point_nb;i++)
+		for(j=0;j<i;j++)
 		{	d=sqrt((x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]));
 			if (d<*t2*(*dt))
 			{	tt=d/(*dt);
@@ -1025,13 +1025,13 @@ int *t2, double *dt, double *g, double *k)
 		}
 
 	// on moyenne -> densite
-	for(tt=0;tt<*t2;tt=tt+1) {
+	for(tt=0;tt<*t2;tt++) {
 		g[tt]=g[tt]/(*point_nb);
 	}
 
 	// on integre
 	k[0]=g[0];
-	for(tt=1;tt<*t2;tt=tt+1) {
+	for(tt=1;tt<*t2;tt++) {
 		k[tt]=k[tt-1]+g[tt];
 	}
 
@@ -1050,11 +1050,11 @@ int *t2,double *dt,double *g,double *k)
 	decalCircTri(*point_nb,x,y,x0,y0,*r0,*triangle_nb,ax,ay,bx,by,cx,cy);
 
 	// On calcule le nombre de couples de points par distance g
-	for(tt=0;tt<*t2;tt=tt+1) {
+	for(tt=0;tt<*t2;tt++) {
 		g[tt]=0;
 	}
-	for(i=1;i<*point_nb;i=i+1)
-		for(j=0;j<i;j=j+1)
+	for(i=1;i<*point_nb;i++)
+		for(j=0;j<i;j++)
 		{	d=sqrt((x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]));
 			if (d<*t2*(*dt))
 			{	tt=d/(*dt);
@@ -1090,13 +1090,13 @@ int *t2,double *dt,double *g,double *k)
 		}
 
 	// on moyenne -> densite
-	for(tt=0;tt<*t2;tt=tt+1) {
+	for(tt=0;tt<*t2;tt++) {
 		g[tt]=g[tt]/(*point_nb);
 	}
 
 	// on integre
 	k[0]=g[0];
-	for(tt=1;tt<*t2;tt=tt+1) {
+	for(tt=1;tt<*t2;tt++) {
 		k[tt]=k[tt-1]+g[tt];
 	}
 
@@ -1567,8 +1567,8 @@ int *t2,double *dt,double *gi,double *ki)
 
 
 	//Copies des valeurs dans les tableaux resultat
-	for(i=0;i<*point_nb;i=i+1) {
-		for(tt=0;tt<*t2;tt=tt+1) {
+	for(i=0;i<*point_nb;i++) {
+		for(tt=0;tt<*t2;tt++) {
 			gi[i*(*t2)+tt]=g[i][tt];
 			ki[i*(*t2)+tt]=k[i][tt];
 		}
@@ -1598,7 +1598,7 @@ int *t2,double *dt,double *gi,double *ki)
 	taballoc(&k,*point_nb,*t2);
 
 	for(i=0;i<*point_nb;i++)
-		for(tt=0;tt<*t2;tt=tt+1)
+		for(tt=0;tt<*t2;tt++)
 			g[i][tt]=0;
 	for(i=1;i<*point_nb;i++) 	/* On calcule le nombre de couples de points par distance g */
 			for(j=0;j<i;j++)
@@ -1633,8 +1633,8 @@ int *t2,double *dt,double *gi,double *ki)
 	}
 
 	//Copies des valeurs dans les tableaux resultat
-	for(i=0;i<*point_nb;i=i+1) {
-		for(tt=0;tt<*t2;tt=tt+1) {
+	for(i=0;i<*point_nb;i++) {
+		for(tt=0;tt<*t2;tt++) {
 			gi[i*(*t2)+tt]=g[i][tt];
 			ki[i*(*t2)+tt]=k[i][tt];
 		}
@@ -1711,8 +1711,8 @@ int *t2,double *dt,double *gi,double *ki)
 	}
 
 	//Copies des valeurs dans les tableaux resultat
-	for(i=0;i<*point_nb;i=i+1) {
-		for(tt=0;tt<*t2;tt=tt+1) {
+	for(i=0;i<*point_nb;i++) {
+		for(tt=0;tt<*t2;tt++) {
 			gi[i*(*t2)+tt]=g[i][tt];
 			ki[i*(*t2)+tt]=k[i][tt];
 		}
@@ -1742,7 +1742,7 @@ int *t2,double *dt,double *gi,double *ki)
 	taballoc(&k,*point_nb,*t2);
 
 	for(i=0;i<*point_nb;i++)
-		for(tt=0;tt<*t2;tt=tt+1)
+		for(tt=0;tt<*t2;tt++)
 			g[i][tt]=0;
 	for(i=1;i<*point_nb;i++) 	/* On calcule le nombre de couples de points par distance g */
 			for(j=0;j<i;j++)
@@ -1788,8 +1788,8 @@ int *t2,double *dt,double *gi,double *ki)
 	}
 
 	//Copies des valeurs dans les tableaux resultat
-	for(i=0;i<*point_nb;i=i+1) {
-		for(tt=0;tt<*t2;tt=tt+1) {
+	for(i=0;i<*point_nb;i++) {
+		for(tt=0;tt<*t2;tt++) {
 			gi[i*(*t2)+tt]=g[i][tt];
 			ki[i*(*t2)+tt]=k[i][tt];
 		}
@@ -1819,10 +1819,10 @@ double *yma, int *t2, double *dt, double *xx,double *yy,int *sample_nb,double *c
 
 	taballoc(&s,*sample_nb,*t2);
 
-	for(j=0;j<*sample_nb;j=j+1)
-	{	for(tt=0;tt<*t2;tt=tt+1)
+	for(j=0;j<*sample_nb;j++)
+	{	for(tt=0;tt<*t2;tt++)
 			s[j][tt]=0;
-		for(i=0;i<*point_nb;i=i+1) 	// On calcule le nombre de voisins dans chaque disque de rayon r
+		for(i=0;i<*point_nb;i++) 	// On calcule le nombre de voisins dans chaque disque de rayon r
 		{	ddd=sqrt((xx[j]-x[i])*(xx[j]-x[i])+(yy[j]-y[i])*(yy[j]-y[i]));
 			if (ddd<*t2*(*dt)) {
 				tt=ddd/(*dt);
@@ -1837,14 +1837,14 @@ double *yma, int *t2, double *dt, double *xx,double *yy,int *sample_nb,double *c
 			}
 		}
 	}
-	for(i=0;i<*sample_nb;i=i+1)
-		for(tt=1;tt<*t2;tt=tt+1)
+	for(i=0;i<*sample_nb;i++)
+		for(tt=1;tt<*t2;tt++)
 			s[i][tt]+=s[i][tt-1];	// on integre
 
 
 	//Copies des valeurs dans le tableau resultat
-	for(i=0;i<*sample_nb;i=i+1)
-		for(tt=0;tt<*t2;tt=tt+1)
+	for(i=0;i<*sample_nb;i++)
+		for(tt=0;tt<*t2;tt++)
 			count[i*(*t2)+tt]=s[i][tt];
 
 
@@ -1869,10 +1869,10 @@ int density_disq(int *point_nb,double *x,double *y,double *x0,double *y0,double 
 
 	taballoc(&s,*sample_nb,*t2);
 
-	for(j=0;j<*sample_nb;j=j+1)
-	{	for(tt=0;tt<*t2;tt=tt+1)
+	for(j=0;j<*sample_nb;j++)
+	{	for(tt=0;tt<*t2;tt++)
 			s[j][tt]=0;
-		for(i=0;i<*point_nb;i=i+1) 	// On calcule le nombre de voisins dans chaque disque de rayon r
+		for(i=0;i<*point_nb;i++) 	// On calcule le nombre de voisins dans chaque disque de rayon r
 		{	ddd=sqrt((xx[j]-x[i])*(xx[j]-x[i])+(yy[j]-y[i])*(yy[j]-y[i]));
 			if (ddd<*t2*(*dt))
 			{	tt=ddd/(*dt);
@@ -1887,14 +1887,14 @@ int density_disq(int *point_nb,double *x,double *y,double *x0,double *y0,double 
 			}
 		}
 	}
-	for(i=0;i<*sample_nb;i=i+1)
-		for(tt=1;tt<*t2;tt=tt+1)
+	for(i=0;i<*sample_nb;i++)
+		for(tt=1;tt<*t2;tt++)
 			s[i][tt]+=s[i][tt-1];	// on integre
 
 
 	//Copies des valeurs dans le tableau resultat
-	for(i=0;i<*sample_nb;i=i+1)
-		for(tt=0;tt<*t2;tt=tt+1)
+	for(i=0;i<*sample_nb;i++)
+		for(tt=0;tt<*t2;tt++)
 			count[i*(*t2)+tt]=s[i][tt];
 
 
@@ -1921,10 +1921,10 @@ int density_tr_rect(int *point_nb,double *x,double *y,double *xmi,double *xma,
 
 	taballoc(&s,*sample_nb,*t2);
 
-	for(j=0;j<*sample_nb;j=j+1)
-	{	for(tt=0;tt<*t2;tt=tt+1)
+	for(j=0;j<*sample_nb;j++)
+	{	for(tt=0;tt<*t2;tt++)
 			s[j][tt]=0;
-		for(i=0;i<*point_nb;i=i+1) 	// On calcule le nombre de voisins dans chaque disque de rayon r
+		for(i=0;i<*point_nb;i++) 	// On calcule le nombre de voisins dans chaque disque de rayon r
 		{	ddd=sqrt((xx[j]-x[i])*(xx[j]-x[i])+(yy[j]-y[i])*(yy[j]-y[i]));
 			if (ddd<*t2*(*dt))
 			{	tt=ddd/(*dt);
@@ -1944,13 +1944,13 @@ int density_tr_rect(int *point_nb,double *x,double *y,double *xmi,double *xma,
 			}
 		}
 	}
-	for(i=0;i<*sample_nb;i=i+1)
-		for(tt=1;tt<*t2;tt=tt+1)
+	for(i=0;i<*sample_nb;i++)
+		for(tt=1;tt<*t2;tt++)
 			s[i][tt]+=s[i][tt-1];	// on integre
 
 	//Copies des valeurs dans le tableau resultat
-	for(i=0;i<*sample_nb;i=i+1)
-		for(tt=0;tt<*t2;tt=tt+1)
+	for(i=0;i<*sample_nb;i++)
+		for(tt=0;tt<*t2;tt++)
 			count[i*(*t2)+tt]=s[i][tt];
 
 
@@ -1978,10 +1978,10 @@ int density_tr_disq(int *point_nb,double *x,double *y,double *x0,double *y0,doub
 	taballoc(&s,*sample_nb,*t2);
 
 
-	for(j=0;j<*sample_nb;j=j+1)
-	{	for(tt=0;tt<*t2;tt=tt+1)
+	for(j=0;j<*sample_nb;j++)
+	{	for(tt=0;tt<*t2;tt++)
 			s[j][tt]=0;
-		for(i=0;i<*point_nb;i=i+1) 	// On calcule le nombre de voisins dans chaque disque de rayon r
+		for(i=0;i<*point_nb;i++) 	// On calcule le nombre de voisins dans chaque disque de rayon r
 		{	ddd=sqrt((xx[j]-x[i])*(xx[j]-x[i])+(yy[j]-y[i])*(yy[j]-y[i]));
 			if (ddd<*t2*(*dt))
 			{	tt=ddd/(*dt);
@@ -2001,13 +2001,13 @@ int density_tr_disq(int *point_nb,double *x,double *y,double *x0,double *y0,doub
 			}
 		}
 	}
-	for(i=0;i<*sample_nb;i=i+1)
-		for(tt=1;tt<*t2;tt=tt+1)
+	for(i=0;i<*sample_nb;i++)
+		for(tt=1;tt<*t2;tt++)
 			s[i][tt]+=s[i][tt-1];	// on integre
 
 	//Copies des valeurs dans le tableau resultat
-	for(i=0;i<*sample_nb;i=i+1)
-		for(tt=0;tt<*t2;tt=tt+1)
+	for(i=0;i<*sample_nb;i++)
+		for(tt=0;tt<*t2;tt++)
 			count[i*(*t2)+tt]=s[i][tt];
 
 
@@ -2036,13 +2036,13 @@ double *xmi,double *xma,double *ymi,double *yma,int *t2,double *dt,double *g,dou
 	decalRect2(*point_nb1,x1,y1,*point_nb2,x2,y2,xmi,xma,ymi,yma);
 
 	// On rangera dans g le nombre de couples de points par distance tt
-   for(tt=0;tt<*t2;tt=tt+1)
+   for(tt=0;tt<*t2;tt++)
 	{	g[tt]=0;
    }
 
 	// On regarde tous les couples (i,j)
-	for(i=0;i<*point_nb1;i=i+1)
-	{	for(j=0;j<*point_nb2;j=j+1)
+	for(i=0;i<*point_nb1;i++)
+	{	for(j=0;j<*point_nb2;j++)
 		{	d=sqrt((x1[i]-x2[j])*(x1[i]-x2[j])+(y1[i]-y2[j])*(y1[i]-y2[j]));
 			if (d<*t2*(*dt))
 			{	// dans quelle classe de distance est ce couple ?
@@ -2059,13 +2059,13 @@ double *xmi,double *xma,double *ymi,double *yma,int *t2,double *dt,double *g,dou
    }
 
    // on moyenne -> densite
-   for(tt=0;tt<*t2;tt=tt+1)
+   for(tt=0;tt<*t2;tt++)
 	{	g[tt]=g[tt]/(*point_nb1);
    }
 
 	//on integre
    k[0]=g[0];
-  	for(tt=1;tt<*t2;tt=tt+1)
+  	for(tt=1;tt<*t2;tt++)
 	{	k[tt]=k[tt-1]+g[tt];
    }
 
@@ -2082,7 +2082,7 @@ int intertype_disq(int *point_nb1, double *x1, double *y1, int *point_nb2, doubl
 	//Decalage pour n'avoir que des valeurs positives
 	decalCirc2(*point_nb1,x1,y1,*point_nb2,x2,y2,x0,y0,*r0);
 
-	for(tt=0;tt<*t2;tt=tt+1) {
+	for(tt=0;tt<*t2;tt++) {
 		g[tt]=0;
 	}
 	for(i=0;i<*point_nb1;i++) 	// On calcule le nombre de couples de points par distance g
@@ -2126,7 +2126,7 @@ double *cx,double *cy,int *t2,double *dt,double *g,double *k)
 	decalRectTri2(*point_nb1,x1,y1,*point_nb2,x2,y2,xmi,xma,ymi,yma,*triangle_nb,ax,ay,bx,by,cx,cy);
 
 	// On calcule le nombre de couples de points par distance g
-	for(tt=0;tt<*t2;tt=tt+1){
+	for(tt=0;tt<*t2;tt++){
 		g[tt]=0;
 	}
 	for(i=0;i<*point_nb1;i++)
@@ -2173,7 +2173,7 @@ double *cx,double *cy,int *t2,double *dt,double *g,double *k)
 	decalCircTri2(*point_nb1,x1,y1,*point_nb2,x2,y2,x0,y0,*r0,*triangle_nb,ax,ay,bx,by,cx,cy);
 
 	// On calcule le nombre de couples de points par distance g
-	for(tt=0;tt<*t2;tt=tt+1){
+	for(tt=0;tt<*t2;tt++){
 		g[tt]=0;
 	}
 	for(i=0;i<*point_nb1;i++)
@@ -2908,8 +2908,8 @@ int intertypelocal_rect(int *point_nb1,double *x1,double *y1,int *point_nb2,doub
 	}
 
 	//Copies des valeurs dans les tableaux resultat
-	for(i=0;i<*point_nb1;i=i+1) {
-		for(tt=0;tt<*t2;tt=tt+1) {
+	for(i=0;i<*point_nb1;i++) {
+		for(tt=0;tt<*t2;tt++) {
 			gi[i*(*t2)+tt]=g[i][tt];
 			ki[i*(*t2)+tt]=k[i][tt];
 		}
@@ -2965,8 +2965,8 @@ int intertypelocal_disq(int *point_nb1,double *x1,double *y1,int *point_nb2,doub
 	}
 
 	//Copies des valeurs dans les tableaux resultat
-	for(i=0;i<*point_nb1;i=i+1) {
-		for(tt=0;tt<*t2;tt=tt+1) {
+	for(i=0;i<*point_nb1;i++) {
+		for(tt=0;tt<*t2;tt++) {
 			gi[i*(*t2)+tt]=g[i][tt];
 			ki[i*(*t2)+tt]=k[i][tt];
 		}
@@ -3028,8 +3028,8 @@ int *t2,double *dt,double *gi,double *ki)
 	}
 
 	//Copies des valeurs dans les tableaux resultat
-	for(i=0;i<*point_nb1;i=i+1) {
-		for(tt=0;tt<*t2;tt=tt+1) {
+	for(i=0;i<*point_nb1;i++) {
+		for(tt=0;tt<*t2;tt++) {
 			gi[i*(*t2)+tt]=g[i][tt];
 			ki[i*(*t2)+tt]=k[i][tt];
 		}
@@ -3091,8 +3091,8 @@ int *t2,double *dt,double *gi,double *ki)
 	}
 
 	//Copies des valeurs dans les tableaux resultat
-	for(i=0;i<*point_nb1;i=i+1) {
-		for(tt=0;tt<*t2;tt=tt+1) {
+	for(i=0;i<*point_nb1;i++) {
+		for(tt=0;tt<*t2;tt++) {
 			gi[i*(*t2)+tt]=g[i][tt];
 			ki[i*(*t2)+tt]=k[i][tt];
 		}
@@ -3127,7 +3127,7 @@ void s_alea_rect(int point_nb,double x[], double y[],
 	xr=xma-xmi;
 	yr=yma-ymi;
 	GetRNGstate();
-	for(i=0;i<point_nb;i=i+1)
+	for(i=0;i<point_nb;i++)
 	{	x[i]=xmi+(unif_rand()*(xr/p))*p;
 		y[i]=ymi+(unif_rand()*(yr/p))*p;
 	}
@@ -3145,9 +3145,10 @@ void s_alea_disq(int point_nb, double *x, double *y, double x0, double y0, doubl
 	{	xx=x0-r0+(unif_rand()*(rr/p))*p;
 		yy=y0-r0+(unif_rand()*(rr/p))*p;
 		if ((xx-x0)*(xx-x0)+(yy-y0)*(yy-y0)<r0*r0)
-		{	i=i+1;
+		{	//i++;
 			x[i]=xx;
 			y[i]=yy;
+			i++;
 		}
 	}
 	PutRNGstate();
@@ -3176,10 +3177,10 @@ double *ax,double *ay,double *bx,double *by,double *cx,double *cy,double p)
 			{
 				erreur=1;
 			}
-			j=j+1;
+			j++;
 		}
 		if (erreur==0)
-		{	i=i+1;
+		{	i++;
 		}
 	}
 	PutRNGstate();
@@ -3208,10 +3209,10 @@ double *ax,double *ay,double *bx,double *by,double *cx,double *cy,double p)
 			{
 				erreur=1;
 			}
-			j=j+1;
+			j++;
 		}
 		if (erreur==0)
-		{	i=i+1;
+		{	i++;
 		}
 	}
 	PutRNGstate();
@@ -3243,7 +3244,7 @@ int randlabelling(double *x, double *y, int point_nb1, double *x1, double *y1,in
 	   type[jj]=1;
 	   x1[j]=x[jj];
 	   y1[j]=y[jj];
-	   j=j+1;
+	   j++;
 	}
 	PutRNGstate();
 	//Il reste point_nb2 type 2
@@ -3314,7 +3315,7 @@ double x0, double y0, double r0, double prec) {
 			i=i-1;
 			*point_nb=*point_nb-1;
 		}
-		i=i+1;
+		i++;
 	}
 
 	return 0;
@@ -3335,7 +3336,7 @@ double *cx, double *cy,double prec) {
 	{	j=0;
 		while ((j<triangle_nb)&&(erreur==0))
 		{	if (in_triangle(x[i],y[i],ax[j],ay[j],bx[j],by[j],cx[j],cy[j],1)) erreur=1;
-			j=j+1;
+			j++;
 		}
 		if (erreur == 1)
 		{	x[i]=x[*point_nb];
@@ -3343,7 +3344,7 @@ double *cx, double *cy,double prec) {
 			i=i-1;
 			*point_nb=*point_nb-1;
 		}
-		i=i+1;
+		i++;
 		erreur=0;
 	}
 
@@ -3365,7 +3366,7 @@ double *cx, double *cy,double prec) {
 	{	j=0;
 		while ((j<triangle_nb)&&(erreur==0))
 		{	if (in_triangle(x[i],y[i],ax[j],ay[j],bx[j],by[j],cx[j],cy[j],1)) erreur=1;
-			j=j+1;
+			j++;
 		}
 		if (erreur == 1)
 		{	x[i]=x[*point_nb];
@@ -3373,7 +3374,7 @@ double *cx, double *cy,double prec) {
 			i=i-1;
 			*point_nb=*point_nb-1;
 		}
-		i=i+1;
+		i++;
 		erreur=0;
 	}
 
@@ -3416,14 +3417,14 @@ int *t2,double *dt,double *gm,double *km)
 	
 	// On rangera dans g le nombre de couples de points par distance tt
 	// et dans gm la somme des covariances des marques 
-	for(tt=0;tt<*t2;tt=tt+1) {
+	for(tt=0;tt<*t2;tt++) {
 		g[tt]=0;
 		gm[tt]=0;
 	}
 
     //On regarde les couples (i,j) et (j,i) : donc pour i>j seulement
-	for(i=1;i<*point_nb;i=i+1)
-	{	for(j=0;j<i;j=j+1)
+	for(i=1;i<*point_nb;i++)
+	{	for(j=0;j<i;j++)
 		{	d=sqrt((x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]));
 			if (d<*t2*(*dt)){
 				// dans quelle classe de distance est ce couple ?
@@ -3456,13 +3457,13 @@ int *t2,double *dt,double *gm,double *km)
 	// on integre
 	k[0]=g[0];
 	km[0]=gm[0];
-  	for(tt=1;tt<*t2;tt=tt+1) {
+  	for(tt=1;tt<*t2;tt++) {
   		k[tt]=k[tt-1]+g[tt];
 		km[tt]=km[tt-1]+gm[tt];
 	}
 
 	// on normalise
-	for(tt=0;tt<*t2;tt=tt+1) {
+	for(tt=0;tt<*t2;tt++) {
 		gm[tt]=gm[tt]/(g[tt]*cvar);
 		km[tt]=km[tt]/(k[tt]*cvar);
 	}
@@ -3499,14 +3500,14 @@ int *t2,double *dt,double *gm,double *km)
 	
 	// On rangera dans g le nombre de couples de points par distance tt
 	// et dans gm la somme des covariances des marques 
-	for(tt=0;tt<*t2;tt=tt+1) {
+	for(tt=0;tt<*t2;tt++) {
 		g[tt]=0;
 		gm[tt]=0;
 	}
 
     //On regarde les couples (i,j) et (j,i) : donc pour i>j seulement
-	for(i=1;i<*point_nb;i=i+1)
-	{	for(j=0;j<i;j=j+1)
+	for(i=1;i<*point_nb;i++)
+	{	for(j=0;j<i;j++)
 		{	d=sqrt((x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]));
 			if (d<*t2*(*dt)){
 				// dans quelle classe de distance est ce couple ?
@@ -3538,13 +3539,13 @@ int *t2,double *dt,double *gm,double *km)
 	// on integre
 	k[0]=g[0];
 	km[0]=gm[0];
-  	for(tt=1;tt<*t2;tt=tt+1) {
+  	for(tt=1;tt<*t2;tt++) {
   		k[tt]=k[tt-1]+g[tt];
 		km[tt]=km[tt-1]+gm[tt];
 	}
 
 	// on normalise
-	for(tt=0;tt<*t2;tt=tt+1) {
+	for(tt=0;tt<*t2;tt++) {
 		gm[tt]=gm[tt]/(g[tt]*cvar);
 		km[tt]=km[tt]/(k[tt]*cvar);
 	}
@@ -3582,14 +3583,14 @@ int *t2,double *dt,double *gm,double *km)
 	
 	// On rangera dans g le nombre de couples de points par distance tt
 	// et dans gm la somme des covariances des marques 
-	for(tt=0;tt<*t2;tt=tt+1) {
+	for(tt=0;tt<*t2;tt++) {
 		g[tt]=0;
 		gm[tt]=0;
 	}
 
     //On regarde les couples (i,j) et (j,i) : donc pour i>j seulement
-	for(i=1;i<*point_nb;i=i+1)
-	{	for(j=0;j<i;j=j+1)
+	for(i=1;i<*point_nb;i++)
+	{	for(j=0;j<i;j++)
 		{	d=sqrt((x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]));
 			if (d<*t2*(*dt)){
 				// dans quelle classe de distance est ce couple ?
@@ -3632,13 +3633,13 @@ int *t2,double *dt,double *gm,double *km)
 	// on integre
 	k[0]=g[0];
 	km[0]=gm[0];
-  	for(tt=1;tt<*t2;tt=tt+1) {
+  	for(tt=1;tt<*t2;tt++) {
   		k[tt]=k[tt-1]+g[tt];
 		km[tt]=km[tt-1]+gm[tt];
 	}
 
 	// on normalise
-	for(tt=0;tt<*t2;tt=tt+1) {
+	for(tt=0;tt<*t2;tt++) {
 		gm[tt]=gm[tt]/(g[tt]*cvar);
 		km[tt]=km[tt]/(k[tt]*cvar);
 	}
@@ -3676,14 +3677,14 @@ int *t2,double *dt,double *gm,double *km)
 	
 	// On rangera dans g le nombre de couples de points par distance tt
 	// et dans gm la somme des covariances des marques 
-	for(tt=0;tt<*t2;tt=tt+1) {
+	for(tt=0;tt<*t2;tt++) {
 		g[tt]=0;
 		gm[tt]=0;
 	}
 
     //On regarde les couples (i,j) et (j,i) : donc pour i>j seulement
-	for(i=1;i<*point_nb;i=i+1)
-	{	for(j=0;j<i;j=j+1)
+	for(i=1;i<*point_nb;i++)
+	{	for(j=0;j<i;j++)
 		{	d=sqrt((x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]));
 			if (d<*t2*(*dt)){
 				// dans quelle classe de distance est ce couple ?
@@ -3725,13 +3726,13 @@ int *t2,double *dt,double *gm,double *km)
 	// on integre
 	k[0]=g[0];
 	km[0]=gm[0];
-  	for(tt=1;tt<*t2;tt=tt+1) {
+  	for(tt=1;tt<*t2;tt++) {
   		k[tt]=k[tt-1]+g[tt];
 		km[tt]=km[tt-1]+gm[tt];
 	}
 
 	// on normalise
-	for(tt=0;tt<*t2;tt=tt+1) {
+	for(tt=0;tt<*t2;tt++) {
 		gm[tt]=gm[tt]/(g[tt]*cvar);
 		km[tt]=km[tt]/(k[tt]*cvar);
 	}
@@ -4094,7 +4095,7 @@ void randmark(int point_nb,double *c,double *c2)
 			jj=unif_rand()*(point_nb);
 		}
 		c2[jj]=c[j];
-		j=j+1;
+		j++;
 	}
 	PutRNGstate();
 }

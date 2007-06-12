@@ -32,7 +32,8 @@ double *X1, double *Y1,double *X2, double *Y2,double *X3, double *Y3) {
 				for(j=1;j<=npt;j++)
 				{	vertices[j+l][0]=x[k];
 					vertices[j+l][1]=y[k];
-					k-=1;
+					//k-=1;
+					k--;
 				}
 			}
 			else { //anti-clockwise order
@@ -48,7 +49,8 @@ double *X1, double *Y1,double *X2, double *Y2,double *X3, double *Y3) {
 				for(j=1;j<=npt;j++)
 				{	vertices[j+l][0]=x[k];
 					vertices[j+l][1]=y[k];
-					k-=1;
+					//k-=1;
+					k--;
 				}
 			}
 			else { //clockwise order
