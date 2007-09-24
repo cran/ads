@@ -1,3 +1,4 @@
+\encoding{latin1}
 \name{k12fun}
 \alias{k12fun}
 \title{Multiscale second-order neigbourhood analysis of a bivariate spatial point pattern}
@@ -72,7 +73,7 @@ k12fun(p, upto, by, nsim = 0, H0=c("pi","rl"), prec = 0.01, alpha = 0.01,  marks
  Ripley B.D. 1977. Modelling spatial patterns. \emph{Journal of the Royal Statistical Society B}, 39:172-192.\cr\cr
  Wiegand, T. & Moloney, K.A. 2004. Rings, circles, and null-models for point pattern analysis in ecology. \emph{Oikos}, 104:209-229.
 }
-\author{\email{Raphael.Pelissier@mpl.ird.fr}}
+\author{\email{Raphael.Pelissier@ird.fr}}
 \note{
   There are printing and plotting methods for \code{"fads"} objects.
 }

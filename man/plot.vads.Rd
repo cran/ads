@@ -1,3 +1,4 @@
+\encoding{latin1}
 \name{plot.vads}
 \alias{plot.vads}
 \alias{plot.vads.dval}
@@ -43,7 +44,7 @@ type of \code{'vads'} object:
 \value{
   none.
 }
-\author{\email{Raphael.Pelissier@mpl.ird.fr}}
+\author{\email{Raphael.Pelissier@ird.fr}}
 \seealso{
   \code{\link{dval}},
   \code{\link{kval}},

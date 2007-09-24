@@ -1,3 +1,4 @@
+\encoding{latin1}
 \name{kmfun}
 \alias{kmfun}
 \title{Multiscale second-order neigbourhood analysis of a marked spatial point pattern}
@@ -55,7 +56,7 @@ Madelaine, C., Pélissier, R., Vincent, G., Molino, J.-F., Sabatier, D., Prévost,
 Oddou-Muratorio, S., Demesure-Musch, B., Pélissier, R. & Gouyon, P.-H. 2004. Impacts of gene flow and logging history on the local genetic structure of a scattered tree species, Sorbus torminalis L. \emph{Molecular Ecology}, 13:3689-3702.\cr\cr
 Ripley B.D. 1977. Modelling spatial patterns. \emph{Journal of the Royal Statistical Society B}, 39:172-192.
 }
-\author{\email{Raphael.Pelissier@mpl.ird.fr}}
+\author{\email{Raphael.Pelissier@ird.fr}}
 \seealso{
 \code{\link{plot.fads}},
  \code{\link{spp}},

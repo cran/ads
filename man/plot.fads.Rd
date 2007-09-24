@@ -1,3 +1,4 @@
+\encoding{latin1}
 \name{plot.fads}
 \alias{plot.fads}
 \alias{plot.fads.kfun}
@@ -31,7 +32,7 @@
   \link{k12fun}, \link{kmfun}, \link{kijfun} or \link{ki.fun}}. 
 }
 \value{none.}
-\author{\email{Raphael.Pelissier@mpl.ird.fr}}
+\author{\email{Raphael.Pelissier@ird.fr}}
 \seealso{
   \code{\link{kfun}},
   \code{\link{k12fun}},

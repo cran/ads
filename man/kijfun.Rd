@@ -1,3 +1,4 @@
+\encoding{latin1}
 \name{kijfun}
 \alias{kijfun}
 \title{Multiscale second-order neigbourhood analysis of a multivariate spatial point pattern}
@@ -31,7 +32,7 @@ A list of class \code{"fads"} with essentially the following components:
  \item{theo }{a vector of theoretical values expected under the null hypotheses of spatial randomness (see \code{\link{kfun}}) and
   population independence (see \code{\link{kijfun}}).}
 }
-\author{\email{Raphael.Pelissier@mpl.ird.fr}}
+\author{\email{Raphael.Pelissier@ird.fr}}
 \note{
   There are printing and plotting methods for \code{"fads"} objects.
 }

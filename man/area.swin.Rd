@@ -1,3 +1,4 @@
+\encoding{latin1}
 \name{area.swin}
 \alias{area.swin}
 \title{Area of a sampling window}
@@ -19,7 +20,7 @@ triangles to remove (see \code{\link{swin}}).
 The area of the sampling window.
 }
 \author{
-  \email{Raphael.Pelissier@mpl.ird.fr}
+  \email{Raphael.Pelissier@ird.fr}
 }
 \seealso{
   \code{\link{swin}}.

@@ -1,3 +1,4 @@
+\encoding{latin1}
 \name{plot.spp}
 \alias{plot.spp}
 \title{Plot a Spatial Point Pattern object}
@@ -54,7 +55,7 @@ Then the points themselves are plotted, in a fashion that depends on the type of
   none.
 }
 \author{
- \email{Raphael.Pelissier@ird.mpl.fr}
+ \email{Raphael.Pelissier@mpl.fr}
 }
 \seealso{
   \code{\link{spp}},

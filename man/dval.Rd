@@ -1,3 +1,4 @@
+\encoding{latin1}
 \name{dval}
 \alias{dval}
 \alias{print.dval}
@@ -37,7 +38,7 @@ dval(p, upto, by, nx, ny)
   Pélissier, R. and Goreaud, F. 2001. A practical approach to the study of spatial structure in simple cases of heterogeneous vegetation. \emph{Journal of Vegetation Science}, 12:99-108.\cr\cr
   Ripley, B.D. 1977. Modelling spatial patterns. \emph{Journal of the Royal Statistical Society B}, 39:172-212.
 }
-\author{\email{Raphael.Pelissier@mpl.ird.fr}}
+\author{\email{Raphael.Pelissier@ird.fr}}
 \note{
   There are printing, summary and plotting methods for \code{"vads"} objects.
 }

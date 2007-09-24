@@ -2,7 +2,7 @@ C Output from Public domain Ratfor, version 1.0
       subroutine inpoly(x,y,xp,yp,npts,nedges,score,onbndry)
       implicit double precision(a-h,o-z)
       dimension x(npts), y(npts), xp(nedges), yp(nedges), score(npts)
-      logical first, onbndry(npts)
+      logical onbndry(npts)
       zero = 0.d0
       half = 0.5d0
       one = 1.d0
@@ -41,9 +41,7 @@ C Output from Public domain Ratfor, version 1.0
       endif
       endif
 23004 continue
-23005 continue
 23000 continue
-23001 continue
       return
       end
       

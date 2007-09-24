@@ -1,3 +1,4 @@
+\encoding{latin1}
 \name{Couepia}
 \alias{Couepia}
 \docType{data}

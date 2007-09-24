@@ -1,3 +1,4 @@
+\encoding{latin1}
 \name{inside.swin}
 \alias{inside.swin}
 \title{Test wether points are inside a sampling window}
@@ -21,7 +22,7 @@ inside.swin(x, y, w, bdry=TRUE)
  For \code{"complex"} sampling windows, points inside the triangles to remove or on their boundary, are considered outside.  
 }
 \author{
-  \email{Raphael.Pelissier@mpl.ird.fr}
+  \email{Raphael.Pelissier@ird.fr}
 }
 \seealso{
   \code{\link{swin}}.

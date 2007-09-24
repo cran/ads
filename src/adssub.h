@@ -3,14 +3,9 @@
 #include <limits.h>
 #include <R_ext/PrtUtil.h>
 
-
-
 double Pi();
-
 void progress(int,int*, int);
-
 double alea ();
-
 void freeintvec (int *);
 void freetab (double **);
 void freevec (double *);
@@ -19,9 +14,7 @@ void tabintalloc (int ***,int,int);
 void freeinttab (int **);
 void vecalloc (double **vec, int n);
 void vecintalloc (int **vec, int n);
-
 double bacos(double a);
-
 void decalVal(double *,int,double);
 void decalRect(int,double *,double *,double *,double *,double *,double *);
 void decalCirc(int,double *,double *,double *,double *,double);
@@ -36,4 +29,3 @@ void decalRectTri2(int,double *,double *,int,double *,double *,double *,double *
 void decalCircTri2(int,double *,double *,int,double *,double *,double *,double *,double,int,
 	double *,double *,double *,double *,double *,double *);
 void decalSample(int,double *,double *,double,double);
-

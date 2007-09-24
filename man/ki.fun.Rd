@@ -1,3 +1,4 @@
+\encoding{latin1}
 \name{ki.fun}
 \alias{ki.fun}
 \title{ Multiscale second-order neigbourhood analysis of a multivariate spatial point pattern}
@@ -30,7 +31,7 @@ ki.fun(p, upto, by)
  \item{obs }{a vector of estimated values for the observed point pattern.}
  \item{theo }{a vector of theoretical values expected under the null hypothesis of population independence (see \code{\link{k12fun}}).}
 }
-\author{\email{Raphael.Pelissier@mpl.ird.fr}}
+\author{\email{Raphael.Pelissier@ird.fr}}
 \note{
   There are printing and plotting methods for \code{"fads"} objects.
 }

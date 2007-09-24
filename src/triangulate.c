@@ -3,17 +3,13 @@
 #include <sys/time.h>
 #include <string.h>
 #include <math.h>
-
 #define CROSS_SINE(v0, v1) ((v0).x * (v1).y - (v1).x * (v0).y)
 #define LENGTH(v0) (sqrt((v0).x * (v0).x + (v0).y * (v0).y))
-
-
 #ifdef __STDC__
 extern double log2(double);
 #else
 extern double log2();
 #endif
-
 
 node_t qs[QSIZE];		/* Query structure */
 trap_t tr[TRSIZE];		/* Trapezoid structure */
@@ -793,16 +789,15 @@ int testclock(double *x,double *y,int last) {
 		ang2=bacos((x[rang]-x[rang+1])/d);
 	}
 
-	if (ang1>ang2) return 1; //clockwise order
-	else return 0; //anti-clockwise order
+	if (ang1>ang2) return 1; /*clockwise order*/
+	else return 0; /*anti-clockwise order*/
 }
 
 
 /* Generate a random permutation of the segments 1..n */
-int generate_random_ordering(int n)
-{	int lig, i,j, k;
+int generate_random_ordering(int n) {	
+	int lig, i,j, k;
 	double z;
-
 	choose_idx = 1;
 	for (i = 1; i <= n; i++)
 		permute[i]=i;
@@ -818,20 +813,16 @@ int generate_random_ordering(int n)
 	return 0;
 }
 
-
 /* Return the next segment in the generated random ordering of all the */
 /* segments in S */
-int choose_segment()
-{
+int choose_segment() {
 #ifdef DEBUG
   Rprintf("choose_segment: %d\n", permute[choose_idx]);
 #endif
   return permute[choose_idx++];
 }
 
-
 #ifdef STANDALONE
-
 /* Read in the list of vertices from infile */
 int read_segments(filename, genus)
      char *filename;

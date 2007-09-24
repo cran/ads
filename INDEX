@@ -1,0 +1,20 @@
+Allogny					Spatial pattern of oaks suffering from frost shake in Allogny, France.
+area.swin				Area of a sampling window.
+BPoirier				Tree spatial pattern in Beau Poirier plot, Haye forest, France.
+Couepia					Spatial pattern of Couepia caryophylloides in Paracou, a canopy tree species of French Guiana.
+dval					Multiscale local density of a spatial point pattern.
+inside.swin             Test wether points are inside a sampling window.
+ads-internal            Internal ads functions.
+k12fun					Multiscale second-order neigbourhood analysis of a bivariate spatial point pattern.
+k12val					Multiscale local second-order neighbour density of a bivariate spatial point pattern.
+kfun					Multiscale second-order neigbourhood analysis of an univariate spatial point pattern.
+ki.fun					Multiscale second-order neigbourhood analysis of a multivariate spatial point pattern.
+kijfun					Multiscale second-order neigbourhood analysis of a multivariate spatial point pattern.
+kmfun					Multiscale second-order neigbourhood analysis of a marked spatial point pattern.
+kval					Multiscale local second-order neighbour density of a spatial point pattern.
+plot.fads				Plot second-order neigbourhood functions.
+plot.spp				Plot a Spatial Point Pattern object.
+plot.vads				Plot local density values.
+spp						Creating a spatial point pattern.
+swin					Creating a sampling window.
+triangulate				Triangulate polygon.

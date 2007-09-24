@@ -1,3 +1,4 @@
+\encoding{latin1}
 \name{kval}
 \alias{kval}
 \alias{print.kval}
@@ -35,7 +36,7 @@ A list of class \code{c("vads","kval")} with essentially the following component
   Pélissier, R. and Goreaud, F. 2001. A practical approach to the study of spatial structure in simple cases of heterogeneous vegetation. \emph{Journal of Vegetation Science}, 12:99-108.
 }
 \author{
-	\email{Raphael.Pelissier@mpl.ird.fr}
+	\email{Raphael.Pelissier@ird.fr}
 }
 \note{
  There are printing, summary and plotting methods for \code{"vads"} objects.

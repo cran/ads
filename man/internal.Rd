@@ -1,3 +1,4 @@
+\encoding{latin1}
 \name{ads-internal}
 \alias{adjust.marks.size}
 \alias{area.poly}

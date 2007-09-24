@@ -1,3 +1,4 @@
+\encoding{latin1}
 \name{triangulate}
 \alias{triangulate}
 \title{Triangulate polygon}
@@ -35,7 +36,7 @@ is \eqn{(n-2)+2t}, with \eqn{n<200} in this version of the program.
   \emph{Graphics Gems V}. Academic Press. \url{http://www.cs.unc.edu/~dm/CODE/GEM/chapter.html}.
 }
 \author{
- \email{Raphael.Pelissier@ird.mpl.fr}
+ \email{Raphael.Pelissier@ird.fr}
 }
 \seealso{
   \code{\link{spp}},

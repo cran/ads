@@ -3,14 +3,12 @@
 #include <math.h>
 #include <R.h>
 
-
-// a exterieur ; b et c interieur
+/* a exterieur ; b et c interieur*/
 double un_point( double ax, double ay, double bx, double by, double cx, double cy, double x, double y, double d)
 {	double alpha, beta, gamma, delta, ttt, ang;
 	double ex,ey,fx,fy;
-
-	// premier point d'intersection
-
+	
+	/*premier point d'intersection*/
 	alpha=(bx-ax)*(bx-ax)+(by-ay)*(by-ay);
 	beta=(2*(ax-x)*(bx-ax)+2*(ay-y)*(by-ay));
 	gamma=((ax-x)*(ax-x)+(ay-y)*(ay-y)-d*d);
@@ -23,8 +21,7 @@ double un_point( double ax, double ay, double bx, double by, double cx, double c
 	ex=ax+ttt*(bx-ax);
 	ey=ay+ttt*(by-ay);
 
-	// deuxieme point d'intersection
-
+	/* deuxieme point d'intersection*/
 	alpha=(cx-ax)*(cx-ax)+(cy-ay)*(cy-ay);
 	beta=(2*(ax-x)*(cx-ax)+2*(ay-y)*(cy-ay));
 	delta=beta*beta-4*alpha*gamma;
@@ -36,18 +33,18 @@ double un_point( double ax, double ay, double bx, double by, double cx, double c
 	fx=ax+ttt*(cx-ax);
 	fy=ay+ttt*(cy-ay);
 
-	// calcul de l'angle
+	/*calcul de l'angle*/
 	ang=bacos(((ex-x)*(fx-x)+(ey-y)*(fy-y))/(d*d));
 	return ang;
 }
 
-// a interieur , b et c exterieur
+/* a interieur , b et c exterieur*/
 double deux_point(double ax, double ay, double bx, double by, double cx, double cy,double x, double y, double d)
 {	double alpha, beta, gamma, delta, ttt, ang;
 	double ex,ey,fx,fy,gx,gy,hx,hy;
 	int cas;
 
-	// premier point d'intersection
+	/* premier point d'intersection*/
 	alpha=((bx-ax)*(bx-ax)+(by-ay)*(by-ay));
 	beta=(2*(ax-x)*(bx-ax)+2*(ay-y)*(by-ay));
 	gamma=((ax-x)*(ax-x)+(ay-y)*(ay-y)-d*d);
@@ -60,7 +57,7 @@ double deux_point(double ax, double ay, double bx, double by, double cx, double 
 	ex=ax+ttt*(bx-ax);
 	ey=ay+ttt*(by-ay);
 
-	// deuxieme point d'intersection
+	/* deuxieme point d'intersection*/
 	alpha=((cx-ax)*(cx-ax)+(cy-ay)*(cy-ay));
 	beta=(2*(ax-x)*(cx-ax)+2*(ay-y)*(cy-ay));
 	delta=beta*beta-4*alpha*gamma;
@@ -72,7 +69,7 @@ double deux_point(double ax, double ay, double bx, double by, double cx, double 
 	fx=ax+ttt*(cx-ax);
 	fy=ay+ttt*(cy-ay);
 
-	// y a t il deux autres intersections?
+	/* y a t il deux autres intersections?*/
 	cas=0;
 	alpha=((cx-bx)*(cx-bx)+(cy-by)*(cy-by));
 	beta=(2*(bx-x)*(cx-bx)+2*(by-y)*(cy-by));
@@ -94,7 +91,7 @@ double deux_point(double ax, double ay, double bx, double by, double cx, double 
 		}
 	}
 
-	// calcul de l'angle
+	/* calcul de l'angle*/
 	if (cas==0)
 		ang=bacos(((ex-x)*(fx-x)+(ey-y)*(fy-y))/(d*d));
 	else
@@ -105,12 +102,12 @@ double deux_point(double ax, double ay, double bx, double by, double cx, double 
 	return ang;
 }
 
-// a exterieur, b interieur, c sur le bord
+/* a exterieur, b interieur, c sur le bord*/
 double ununun_point(double ax, double ay, double bx, double by, double cx, double cy, double x, double y, double d)
 {	double alpha, beta, gamma, delta, ttt, ang;
 	double ex,ey,fx,fy;
 
-	// premier point d'intersection sur ab
+	/* premier point d'intersection sur ab*/
 	alpha=(bx-ax)*(bx-ax)+(by-ay)*(by-ay);
 	beta=(2*(ax-x)*(bx-ax)+2*(ay-y)*(by-ay));
 	gamma=((ax-x)*(ax-x)+(ay-y)*(ay-y)-d*d);
@@ -123,7 +120,7 @@ double ununun_point(double ax, double ay, double bx, double by, double cx, doubl
 	ex=ax+ttt*(bx-ax);
 	ey=ay+ttt*(by-ay);
 
-	// deuxieme point d'intersection ac
+	/* deuxieme point d'intersection ac*/
 	alpha=(cx-ax)*(cx-ax)+(cy-ay)*(cy-ay);
 	beta=(2*(ax-x)*(cx-ax)+2*(ay-y)*(cy-ay));
 	delta=beta*beta-4*alpha*gamma;
@@ -138,17 +135,17 @@ double ununun_point(double ax, double ay, double bx, double by, double cx, doubl
 	fx=ax+ttt*(cx-ax);
 	fy=ay+ttt*(cy-ay);
 
-	// calcul de l'angle
+	/* calcul de l'angle*/
 	ang=bacos(((ex-x)*(fx-x)+(ey-y)*(fy-y))/(d*d));
 	return ang;
 }
 
-// a,b et c exterieurs
+/* a,b et c exterieurs*/
 double trois_point(double ax, double ay, double bx, double by, double cx, double cy, double x, double y, double d)
 {	double alpha, beta, gamma, delta, te,tf,tg,th,ti,tj, ang;
 	double ex=0,ey=0,fx=0,fy=0,gx=0,gy=0,hx=0,hy=0,ix=0,iy=0,jx=0,jy=0;
 
-	// premier segment ab
+	/* premier segment ab*/
 	alpha=(bx-ax)*(bx-ax)+(by-ay)*(by-ay);
 	beta=2*(ax-x)*(bx-ax)+2*(ay-y)*(by-ay);
 	gamma=(ax-x)*(ax-x)+(ay-y)*(ay-y)-d*d;
@@ -174,7 +171,7 @@ double trois_point(double ax, double ay, double bx, double by, double cx, double
 		}
 	}
 
-	// deuxieme segment bc
+	/* deuxieme segment bc*/
 	alpha=(cx-bx)*(cx-bx)+(cy-by)*(cy-by);
 	beta=2*(bx-x)*(cx-bx)+2*(by-y)*(cy-by);
 	gamma=(bx-x)*(bx-x)+(by-y)*(by-y)-d*d;
@@ -200,7 +197,7 @@ double trois_point(double ax, double ay, double bx, double by, double cx, double
 		}
 	}
 
-	// troisieme segment ca
+	/* troisieme segment ca*/
 	alpha=(ax-cx)*(ax-cx)+(ay-cy)*(ay-cy);
 	beta=2*(cx-x)*(ax-cx)+2*(cy-y)*(ay-cy);
 	gamma=(cx-x)*(cx-x)+(cy-y)*(cy-y)-d*d;
@@ -226,22 +223,22 @@ double trois_point(double ax, double ay, double bx, double by, double cx, double
 		}
 	}
 
-	// quelle configuration ?
+	/* quelle configuration ?*/
 	if (te<0)
 	{	if (tg<0)
 		{	if (ti<0)
-				// pas d'intersection... ouf!
+				/* pas d'intersection... ouf!*/
 				ang=0;
 			else
-				// un seul cote (ca) coupe le cercle en i,j
+				/* un seul cote (ca) coupe le cercle en i,j*/
 				ang=bacos(((ix-x)*(jx-x)+(iy-y)*(jy-y))/(d*d));
 		}
 		else
 		{	if (ti<0)
-				// un seul cote (bc) coupe le cercle en g,h
+				/* un seul cote (bc) coupe le cercle en g,h*/
 				ang=bacos(((gx-x)*(hx-x)+(gy-y)*(hy-y))/(d*d));
 			else
-			{	// deux cotes (bc et ca) coupent le cercle en g,h,i,j
+			{	/* deux cotes (bc et ca) coupent le cercle en g,h,i,j*/
 				ang=bacos(((gx-x)*(jx-x)+(gy-y)*(jy-y))/(d*d));
 				ang+=bacos(((hx-x)*(ix-x)+(hy-y)*(iy-y))/(d*d));
 			}
@@ -250,22 +247,22 @@ double trois_point(double ax, double ay, double bx, double by, double cx, double
 	else
 	{	if (tg<0)
 		{	if (ti<0)
-				// un seul cote (ab) coupe le cercle en e,f
+				/* un seul cote (ab) coupe le cercle en e,f*/
 				ang=bacos(((ex-x)*(fx-x)+(ey-y)*(fy-y))/(d*d));
 			else
-			{	// deux cotes (ab et ca) coupent le cercle en e,f,i,j
+			{	/* deux cotes (ab et ca) coupent le cercle en e,f,i,j*/
 				ang=bacos(((ex-x)*(jx-x)+(ey-y)*(jy-y))/(d*d));
 				ang+=bacos(((fx-x)*(ix-x)+(fy-y)*(iy-y))/(d*d));
 			}
 		}
 		else
 		{	if (ti<0)
-			{	// deux cotes (ab et bc) coupent le cercle en e,f,g,h
+			{	/* deux cotes (ab et bc) coupent le cercle en e,f,g,h*/
 				ang=bacos(((ex-x)*(hx-x)+(ey-y)*(hy-y))/(d*d));
 				ang+=bacos(((fx-x)*(gx-x)+(fy-y)*(gy-y))/(d*d));
 			}
 			else
-			{	// les trois cotes coupent le cercle
+			{	/* les trois cotes coupent le cercle*/
 				ang=bacos(((ex-x)*(jx-x)+(ey-y)*(jy-y))/(d*d));
 				ang+=bacos(((hx-x)*(ix-x)+(hy-y)*(iy-y))/(d*d));
 				ang+=bacos(((fx-x)*(gx-x)+(fy-y)*(gy-y))/(d*d));
@@ -273,20 +270,20 @@ double trois_point(double ax, double ay, double bx, double by, double cx, double
 		}
 	}
 
-	//if ((ang<0)||(ang>Pi()))
+	/*if ((ang<0)||(ang>Pi()))*/
 	if ((ang<0)||(ang>3.141593))
 		Rprintf("erreur12 : ang=%11.10f, %d %d %d %d %d %d\n",ang,te,tf,tg,th,ti,tj);
 
 	return ang;
 }
 
-// a est le point sur le bord , b et c exterieur
+/* a est le point sur le bord , b et c exterieur*/
 double deuxun_point(double ax, double ay, double bx, double by, double cx, double cy,double x, double y, double d)
 {	double alpha, beta, gamma, delta, te,tf,tg,th, ang;
 	double ex,ey,fx,fy,gx,gy,hx,hy;
 	int cas;
 
-	// premier point d'intersection
+	/* premier point d'intersection*/
 	alpha=((bx-ax)*(bx-ax)+(by-ay)*(by-ay));
 	beta=(2*(ax-x)*(bx-ax)+2*(ay-y)*(by-ay));
 	gamma=((ax-x)*(ax-x)+(ay-y)*(ay-y)-d*d);
@@ -302,7 +299,7 @@ double deuxun_point(double ax, double ay, double bx, double by, double cx, doubl
 	ex=ax+te*(bx-ax);
 	ey=ay+te*(by-ay);
 
-	// deuxieme point d'intersection
+	/* deuxieme point d'intersection*/
 	alpha=((cx-ax)*(cx-ax)+(cy-ay)*(cy-ay));
 	beta=(2*(ax-x)*(cx-ax)+2*(ay-y)*(cy-ay));
 	delta=beta*beta-4*alpha*gamma;
@@ -317,7 +314,7 @@ double deuxun_point(double ax, double ay, double bx, double by, double cx, doubl
 	fx=ax+tf*(cx-ax);
 	fy=ay+tf*(cy-ay);
 
-	// y a t il deux autres intersections?
+	/* y a t il deux autres intersections?*/
 	cas=0;
 	alpha=((cx-bx)*(cx-bx)+(cy-by)*(cy-by));
 	beta=(2*(bx-x)*(cx-bx)+2*(by-y)*(cy-by));
@@ -339,7 +336,7 @@ double deuxun_point(double ax, double ay, double bx, double by, double cx, doubl
 		}
 	}
 
-	// calcul de l'angle
+	/* calcul de l'angle*/
 	if (cas==0)
 	{	if ((te==0)&&(tf==0))
 			ang=0;
@@ -353,12 +350,12 @@ double deuxun_point(double ax, double ay, double bx, double by, double cx, doubl
 	return ang;
 }
 
-// a exterieur, b et c sur le bord
+/* a exterieur, b et c sur le bord*/
 double deuxbord_point(double ax, double ay, double bx, double by, double cx, double cy, double x, double y, double d)
 {	double alpha, beta, gamma, delta, te,tf, ang;
 	double ex,ey,fx,fy;
 
-	// premier point d'intersection sur ab
+	/* premier point d'intersection sur ab*/
 	alpha=(bx-ax)*(bx-ax)+(by-ay)*(by-ay);
 	beta=(2*(ax-x)*(bx-ax)+2*(ay-y)*(by-ay));
 	gamma=((ax-x)*(ax-x)+(ay-y)*(ay-y)-d*d);
@@ -374,7 +371,7 @@ double deuxbord_point(double ax, double ay, double bx, double by, double cx, dou
 	ex=ax+te*(bx-ax);
 	ey=ay+te*(by-ay);
 
-	// deuxieme point d'intersection ac
+	/* deuxieme point d'intersection ac*/
 	alpha=(cx-ax)*(cx-ax)+(cy-ay)*(cy-ay);
 	beta=(2*(ax-x)*(cx-ax)+2*(ay-y)*(cy-ay));
 	delta=beta*beta-4*alpha*gamma;
@@ -389,14 +386,12 @@ double deuxbord_point(double ax, double ay, double bx, double by, double cx, dou
 	fx=ax+tf*(cx-ax);
 	fy=ay+tf*(cy-ay);
 
-	// calcul de l'angle
+	/* calcul de l'angle*/
 	ang=bacos(((ex-x)*(fx-x)+(ey-y)*(fy-y))/(d*d));
 	return ang;
 }
 
-
-
-//retourne 1 si le point x,y est du meme cote de la droite (ab) que c (seg=0) ou sur la droite (seg=1)
+/*retourne 1 si le point x,y est du meme cote de la droite (ab) que c (seg=0) ou sur la droite (seg=1)*/
 int in_droite(double x,double y,double ax,double ay,double bx,double by,double cx,double cy,int seg)
 {	double vabx,vaby,vacx,vacy,vamx,vamy,pv1,pv2;
 
@@ -410,13 +405,13 @@ int in_droite(double x,double y,double ax,double ay,double bx,double by,double c
 	pv2=vabx*vamy-vaby*vamx;
 
 	if(seg==0)
-	{	if (((pv1>0)&&(pv2>0))||((pv1<0)&&(pv2<0))) //pour overlap
+	{	if (((pv1>0)&&(pv2>0))||((pv1<0)&&(pv2<0))) /*pour overlap*/
 			return 1;
 		else
 			return 0;
 	}
 	if(seg==1)
-	{	if (((pv1>0)&&(pv2>=0))||((pv1<0)&&(pv2<=0))) //pour points
+	{	if (((pv1>0)&&(pv2>=0))||((pv1<0)&&(pv2<=0))) /*pour points*/
 			return 1;
 		else
 			return 0;
@@ -424,7 +419,7 @@ int in_droite(double x,double y,double ax,double ay,double bx,double by,double c
 	return -1;
 }
 
-//retourne 1 si (x,y) est dans le triangle abc (seg=0) ou sur ses bords (seg=1)
+/*retourne 1 si (x,y) est dans le triangle abc (seg=0) ou sur ses bords (seg=1)*/
 int in_triangle(double x,double y,double ax,double ay,double bx,double by,double cx,double cy,int seg)
 {	int res;
 
@@ -436,13 +431,12 @@ int in_triangle(double x,double y,double ax,double ay,double bx,double by,double
 	return res;
 }
 
-
-//Range les resultats pour l'ic
+/*Range les resultats pour l'ic*/
 void ic(int i,int i0,double **gic,double **kic,double *gic1,double *kic1,int nbInt) {
 	int j,cro;
 	double mer;
 
-	//On stocke les 2i0+1 premieres valeurs en les triant au fur et a mesure
+	/*On stocke les 2i0+1 premieres valeurs en les triant au fur et a mesure*/
 	if (i<=2*i0+1) {
 
 		for(j=1;j<=nbInt;j++) {
@@ -450,10 +444,10 @@ void ic(int i,int i0,double **gic,double **kic,double *gic1,double *kic1,int nbI
 			kic[j][i]=kic1[j-1];
 		}
 
-		//De la deuxieme a la 2i0+1 eme valeur : on trie la nouvelle valeur en direct
+		/*De la deuxieme a la 2i0+1 eme valeur : on trie la nouvelle valeur en direct*/
 		if (i>1) {
 
-			//Tri bulle de g vers le bas
+			/*Tri bulle de g vers le bas*/
 			for(j=1;j<=nbInt;j++) {
 				if (gic[j][i-1]>gic[j][i]) {
 					mer=gic[j][i];
@@ -464,9 +458,9 @@ void ic(int i,int i0,double **gic,double **kic,double *gic1,double *kic1,int nbI
 					}
 					gic[j][cro+1]=mer;
 				}
-			}// fin for tri bulle g
+			}
 
-			//Tri bulle de k vers le bas
+			/*Tri bulle de k vers le bas*/
 			for(j=1;j<=nbInt;j++) {
 				if (kic[j][i-1]>kic[j][i]) {
 					mer=kic[j][i];
@@ -477,21 +471,20 @@ void ic(int i,int i0,double **gic,double **kic,double *gic1,double *kic1,int nbI
 					}
 					kic[j][cro+1]=mer;
 				}
-			}// fin for tri bulle k
-
-		}// fin if (i>1)
-	}// fin if (i<=2*i0+1)
+			}
+		}
+	}
 	else {
-	//On a deja rempli et trié le tableau des 2i0+1 valeurs, on met la nouvelle valeur en i0
+	/*On a deja rempli et trie le tableau des 2i0+1 valeurs, on met la nouvelle valeur en i0*/
 		for(j=1;j<=nbInt;j++) {
 				gic[j][i0+1]=gic1[j-1];
 				kic[j][i0+1]=kic1[j-1];
 		}
 
-		//On trie les nouvelles valeurs de k et g
+		/*On trie les nouvelles valeurs de k et g*/
 		for(j=1;j<=nbInt;j++) {
 
-			// si g doit descendre
+			/* si g doit descendre*/
 			if (gic[j][i0+1]<gic[j][i0]) {
 				mer=gic[j][i0+1];
 				cro=i0;
@@ -500,8 +493,8 @@ void ic(int i,int i0,double **gic,double **kic,double *gic1,double *kic1,int nbI
 					cro=cro-1;
 				}
 				gic[j][cro+1]=mer;
-			}// fin if g descendre
-			// si g doit monter
+			}
+			/* si g doit monter*/
 			else {
 				if (gic[j][i0+1]>gic[j][i0+2]) {
 					mer=gic[j][i0+1];
@@ -512,10 +505,9 @@ void ic(int i,int i0,double **gic,double **kic,double *gic1,double *kic1,int nbI
 					}
 					gic[j][cro-1]=mer;
 				}
-			} //Fin if g monter
+			}
 
-
-			// si k doit descendre
+			/* si k doit descendre*/
 			if (kic[j][i0+1]<kic[j][i0]) {
 				mer=kic[j][i0+1];
 				cro=i0;
@@ -524,8 +516,8 @@ void ic(int i,int i0,double **gic,double **kic,double *gic1,double *kic1,int nbI
 					cro=cro-1;
 				}
 				kic[j][cro+1]=mer;
-			}// fin if k descendre
-			// si k doit monter
+			}
+			/* si k doit monter*/
 			else {
 				if (kic[j][i0+1]>kic[j][i0+2]) {
 					mer=kic[j][i0+1];
@@ -536,13 +528,10 @@ void ic(int i,int i0,double **gic,double **kic,double *gic1,double *kic1,int nbI
 					}
 					kic[j][cro-1]=mer;
 				}
-			} //Fin if k monter
-
-		} //Fin for tt trie nouvelle valeur
-
-	} //Fin if cas sup 2k+i, trier
+			}
+		}
+	}
 }
-
 
 /******************************************************************************/
 /* Cette routine donne le perimetre/ddd du cercle centre en (xxx,yyy) et      */
@@ -550,160 +539,186 @@ void ic(int i,int i0,double **gic,double **kic,double *gic1,double *kic1,int nbI
 /* Elle traite les cas 1 bord, 2 bords d'angle (2), 2 bords opposes, 3 bords  */
 /* Ce resultat correspond a la correction des effets de bord pour Ripley      */
 /******************************************************************************/
-
 double perim_in_rect(double xxx, double yyy, double ddd, double xmi, double xma, double ymi, double yma)
 {	double d1,d2,d3,d4;
 
    if ((xxx>=xmi+ddd)&&(yyy>=ymi+ddd)&&(xxx<=xma-ddd)&&(yyy<=yma-ddd))
-   {	//Rprintf("*");
+   {	/*Rprintf("*");*/
 		return 2*Pi();
    }
    else
    {	d1=(xxx-xmi)/ddd;
-      d2=(yyy-ymi)/ddd;
-      d3=(xma-xxx)/ddd;
-      d4=(yma-yyy)/ddd;
-      if (d1>=1)
-      {	if (d2>=1)
-         {	if (d3>=1)
-         	{  if (d4>=1)      		/* cercle dans le rectangle */
-            	{  return 2*Pi();
-               }
-               else                /* bord seul en d4 */
-               {	//Rprintf(":a(%f-%f-%f-%f-%f-%f-%f)",xxx,yyy,ddd,xmi,xma,ymi,yma);
-               	return (2*(Pi()-acos(d4)));
-               }
+		d2=(yyy-ymi)/ddd;
+		d3=(xma-xxx)/ddd;
+		d4=(yma-yyy)/ddd;
+		if (d1>=1)
+		{	if (d2>=1)
+			{	if (d3>=1)
+				{  if (d4>=1)      		/* cercle dans le rectangle */
+					{  return 2*Pi();
 				}
+				else                /* bord seul en d4 */
+				{
+					return (2*(Pi()-acos(d4)));
+				}
+			}
             else
-            {  if (d4>=1)				/* bord seul en d3 */
-               {  //Rprintf(":b(%f)",d3);
-               	return (2*(Pi()-acos(d3)));
-               }
-               else    					/* 2 bords d3 et d4 */
-					{	if (d3*d3+d4*d4<1)
-               	{	//Rprintf(":c(%f-%f)",d3,d4);
-                  	return (1.5*Pi()-acos(d3)-acos(d4));
-                  }
-                  else
-                  {  //Rprintf(":d(%f-%f)",d3,d4);
-                  	return (2*(Pi()-acos(d3)-acos(d4)));
-                  }
-               }
-            }
+            {	if (d4>=1)				/* bord seul en d3 */
+				{  
+					return (2*(Pi()-acos(d3)));
+				}
+				else    					/* 2 bords d3 et d4 */
+					{	
+						if (d3*d3+d4*d4<1)
+						{
+							return (1.5*Pi()-acos(d3)-acos(d4));
+						}
+					else
+					{
+						return (2*(Pi()-acos(d3)-acos(d4)));
+					}
+				}
+			}
          }
          else
-      	{  if (d3>=1)
-            {	if (d4>=1)			/* bord seul en d2 */
-            	{	//Rprintf(":e(%f)",d2,d4);
-               	return (2*(Pi()-acos(d2)));
-               }
-               else       			/* 2 bords d2 et d4 */
-            	{	//Rprintf(":f(%f-%f)",d2,d4);
-               	return (2*(Pi()-acos(d2)-acos(d4)));
-               }
-            }
-            else
-            {  if (d4>=1)			/* 2 bords d2 et d3 */
-            	{	if (d2*d2+d3*d3<1)
-               	{	//Rprintf(":g(%f-%f)",d2,d3);
-                  	return	((1.5*Pi()-acos(d2)-acos(d3)));
-                  }
-               	else
-               	{  //Rprintf(":h(%f-%f)",d2,d3);
-               		return (2*(Pi()-acos(d2)-acos(d3)));
-               	}
-            	}
-            	else	/* 3 bords d2,d3,d4 */
-            	{  if (d2*d2+d3*d3<1)
-               	{	if (d3*d3+d4*d4<1)
-               		{	//Rprintf(":i(%f-%f)",d2,d4);
-                  		return((Pi()-acos(d2)-acos(d4)));
-                  	}
-                  	else
-                  	{	//Rprintf(":j(%f-%f-%f)",d2,d3,d4);
-                  		return((1.5*Pi()-acos(d2)-acos(d3)-2*acos(d4)));
-                  	}
-              		}
-               	else
-               	{	if (d3*d3+d4*d4<1)
-               		{	//Rprintf(":k(%f-%f-%f)",d2,d3,d4);
-                  		return((1.5*Pi()-2*acos(d2)-acos(d3)-acos(d4)));
-                  	}
-                  	else
-                  	{	//Rprintf(":l(%f-%f-%f)",d2,d3,d4);
-                  		return(2*(Pi()-acos(d2)-acos(d3)-acos(d4)));
-                  	}
-               	}
-            	}
-         	}
-      	}
-   	}
-   	else
-   	{	if (d2>=1)
-      	{	if (d3>=1)
-         	{	if (d4>=1)					/* bord seul en d1 */
-            	{	return (2*(Pi()-acos(d1)));
-            	}
-            	else							/* 2 bords d1 et d4 */
-            	{  if (d1*d1+d4*d4<1)
-            		{	return ((1.5*Pi()-acos(d1)-acos(d4)));
-               	}
-               	else
-               	{	return (2*(Pi()-acos(d1)-acos(d4)));
-               	}
-            	}
-         	}
-         	else
-         	{  if (d4>=1)					/* 2 bords d1 et d3 */
-            	{	return (2*(Pi()-acos(d1)-acos(d3)));
-            	}
-            	else							/* 3 bords d1,d3,d4 */
-            	{	if (d3*d3+d4*d4<1)
-            		{	if (d4*d4+d1*d1<1)
-               		{	return ((Pi()-acos(d3)-acos(d1)));
-                  	}
-                  	else
-                  	{	return ((1.5*Pi()-acos(d3)-acos(d4)-2*acos(d1)));
-                  	}
-               	}
-               	else
-               	{  if (d4*d4+d1*d1<1)
-               		{	return ((1.5*Pi()-2*acos(d3)-acos(d4)-acos(d1)));
-                  	}
-                  	else
-                  	{	return (2*(Pi()-acos(d3)-acos(d4)-acos(d1)));
-                  	}
-               	}
+			{  if (d3>=1)
+				{	if (d4>=1)			/* bord seul en d2 */
+					{
+						return (2*(Pi()-acos(d2)));
+					}
+					else       			/* 2 bords d2 et d4 */
+					{
+						return (2*(Pi()-acos(d2)-acos(d4)));
+					}
+				}
+				else
+				{  if (d4>=1)			/* 2 bords d2 et d3 */
+					{	if (d2*d2+d3*d3<1)
+						{
+							return	((1.5*Pi()-acos(d2)-acos(d3)));
+						}
+						else
+						{
+							return (2*(Pi()-acos(d2)-acos(d3)));
+						}
+					}
+					else	/* 3 bords d2,d3,d4 */
+					{  if (d2*d2+d3*d3<1)
+						{	if (d3*d3+d4*d4<1)
+							{
+								return((Pi()-acos(d2)-acos(d4)));
+							}
+							else
+							{                  
+								return((1.5*Pi()-acos(d2)-acos(d3)-2*acos(d4)));
+							}
+						}
+						else
+						{	if (d3*d3+d4*d4<1)
+							{
+								return((1.5*Pi()-2*acos(d2)-acos(d3)-acos(d4)));
+							}
+							else
+							{	
+								return(2*(Pi()-acos(d2)-acos(d3)-acos(d4)));
+							}
+						}
+					}
+				}
+			}
+		}
+		else
+		{
+			if (d2>=1)
+			{
+				if (d3>=1)
+				{	
+					if (d4>=1)					/* bord seul en d1 */
+					{	
+						return (2*(Pi()-acos(d1)));
+					}
+					else							/* 2 bords d1 et d4 */
+					{ 
+						if (d1*d1+d4*d4<1)
+						{
+							return ((1.5*Pi()-acos(d1)-acos(d4)));
+						}
+						else
+						{
+							return (2*(Pi()-acos(d1)-acos(d4)));
+						}
+					}
+				}
+				else
+				{  if (d4>=1)					/* 2 bords d1 et d3 */
+					{
+						return (2*(Pi()-acos(d1)-acos(d3)));
+					}
+					else							/* 3 bords d1,d3,d4 */
+					{
+						if (d3*d3+d4*d4<1)
+						{	if (d4*d4+d1*d1<1)
+							{
+								return ((Pi()-acos(d3)-acos(d1)));
+							}
+						else
+						{
+							return ((1.5*Pi()-acos(d3)-acos(d4)-2*acos(d1)));
+						}
+					}
+					else
+					{ 
+						if (d4*d4+d1*d1<1)
+						{
+							return ((1.5*Pi()-2*acos(d3)-acos(d4)-acos(d1)));
+						}
+						else
+						{
+							return (2*(Pi()-acos(d3)-acos(d4)-acos(d1)));
+						}
+					}
             	}
          	}
       	}
       	else
-      	{	if (d3>=1)
-      		{	if (d4>=1)    				/* 2 bords d1 et d2 */
-      			{	if (d1*d1+d2*d2<1)
-            		{	return ((1.5*Pi()-acos(d1)-acos(d2)));
-               	}
-               	else
-               	{	return (2*(Pi()-acos(d1)-acos(d2)));
-               	}
+      	{
+			if (d3>=1)
+      		{
+				if (d4>=1)    				/* 2 bords d1 et d2 */
+      			{
+					if (d1*d1+d2*d2<1)
+            		{
+						return ((1.5*Pi()-acos(d1)-acos(d2)));
+					}
+					else
+					{
+						return (2*(Pi()-acos(d1)-acos(d2)));
+					}
          		}
             	else							/* 3 bords d1,d2,d4 */
-            	{	if (d4*d4+d1*d1<1)
-            		{	if (d1*d1+d2*d2<1)
-               		{	return ((Pi()-acos(d4)-acos(d2)));
-                  	}
-                  	else
-                  	{	return ((1.5*Pi()-acos(d4)-acos(d1)-2*acos(d2)));
-                  	}
+            	{
+					if (d4*d4+d1*d1<1)
+            		{
+						if (d1*d1+d2*d2<1)
+						{
+							return ((Pi()-acos(d4)-acos(d2)));
+						}
+						else
+						{
+							return ((1.5*Pi()-acos(d4)-acos(d1)-2*acos(d2)));
+						}
             		}
-               	else
-               	{	if (d1*d1+d2*d2<1)
-               		{	return ((1.5*Pi()-2*acos(d4)-acos(d1)-acos(d2)));
-                  	}
+					else
+					{	
+						if (d1*d1+d2*d2<1)
+						{
+							return ((1.5*Pi()-2*acos(d4)-acos(d1)-acos(d2)));
+						}
                  		else
-                  	{	return (2*(Pi()-acos(d4)-acos(d1)-acos(d2)));
-                  	}
-               	}
+						{
+							return (2*(Pi()-acos(d4)-acos(d1)-acos(d2)));
+						}
+					}
             	}
        		}
          	else
@@ -735,7 +750,7 @@ double perim_in_rect(double xxx, double yyy, double ddd, double xmi, double xma,
 	}
 }
 
-//pour une zone circulaire définie par x0, y0, r0
+/*pour une zone circulaire definie par x0, y0, r0*/
 double perim_in_disq(double xxx, double yyy, double ddd,
 	double x0, double y0,double r0)
 {	double d1;
@@ -747,7 +762,7 @@ double perim_in_disq(double xxx, double yyy, double ddd,
 		return 2*(Pi()-acos((r0*r0-d1*d1-ddd*ddd)/(2*d1*ddd)));
 }
 
-// renvoie la somme des angles du perim a l'interieur des triangles
+/* renvoie la somme des angles du perim a l'interieur des triangles*/
 double perim_triangle(double x,double y, double d, int triangle_nb, double *ax,double *ay, double *bx, double *by, double *cx, double *cy)
 {	double angle, epsilon;
 	double doa,dob,doc;
@@ -764,11 +779,11 @@ double perim_triangle(double x,double y, double d, int triangle_nb, double *ax,d
 		if (doa-d<-epsilon)
 		{	if (dob-d<-epsilon)
 			{	if (doc-d<-epsilon)
-					i=1;	// le triangle est dans le cercle, TVB
+					i=1;	/* le triangle est dans le cercle, TVB*/
 				else if (doc-d>epsilon)
 					angle+=un_point(cx[h],cy[h],ax[h],ay[h],bx[h],by[h],x,y,d);
 				else
-					i=1;	// le triangle est dans le cercle, TVB
+					i=1;	/* le triangle est dans le cercle, TVB*/
 			}
 			else if (dob-d>epsilon)
 			{	if (doc-d<-epsilon)
@@ -778,13 +793,13 @@ double perim_triangle(double x,double y, double d, int triangle_nb, double *ax,d
 				else
 					angle+=ununun_point(bx[h],by[h],ax[h],ay[h],cx[h],cy[h],x,y,d);
 			}
-			else // b sur le bord
+			else /* b sur le bord*/
 			{	if (doc-d<-epsilon)
-					i=1;	// le triangle est dans le cercle, TVB
+					i=1;	/* le triangle est dans le cercle, TVB*/
 				else if (doc-d>epsilon)
 					angle+=ununun_point(cx[h],cy[h],ax[h],ay[h],bx[h],by[h],x,y,d);
 				else
-					i=1; 	// le triangle est dans le cercle, TVB
+					i=1; 	/* le triangle est dans le cercle, TVB*/
 			}
 		}
 		else if (doa-d>epsilon)
@@ -804,7 +819,7 @@ double perim_triangle(double x,double y, double d, int triangle_nb, double *ax,d
 				else
 					angle+=deuxun_point(cx[h],cy[h],ax[h],ay[h],bx[h],by[h],x,y,d);
 			}
-			else	// b sur le bord
+			else	/* b sur le bord*/
 			{	if (doc-d<-epsilon)
 					angle+=ununun_point(ax[h],ay[h],cx[h],cy[h],bx[h],by[h],x,y,d);
 				else if (doc-d>epsilon)
@@ -813,14 +828,14 @@ double perim_triangle(double x,double y, double d, int triangle_nb, double *ax,d
 					angle+=deuxbord_point(ax[h],ay[h],bx[h],by[h],cx[h],cy[h],x,y,d);
 			}
 		}
-		else	// a sur le bord
+		else	/* a sur le bord*/
 		{	if (dob-d<-epsilon)
 			{	if (doc-d<-epsilon)
-					i=1;	// le triangle est dans le cercle, TVB
+					i=1;	/* le triangle est dans le cercle, TVB*/
 				else if (doc-d>epsilon)
 					angle+=ununun_point(cx[h],cy[h],bx[h],by[h],ax[h],ay[h],x,y,d);
 				else
-					i=1;	// le triangle est	dans le cercle, TVB
+					i=1;	/* le triangle est	dans le cercle, TVB*/
 			}
 			else if (dob-d>epsilon)
 			{	if (doc-d<-epsilon)
@@ -830,13 +845,13 @@ double perim_triangle(double x,double y, double d, int triangle_nb, double *ax,d
 				else
 					angle+=deuxbord_point(bx[h],by[h],ax[h],ay[h],cx[h],cy[h],x,y,d);
 			}
-			else	// b sur le bord
+			else	/* b sur le bord*/
 			{	if (doc-d<-epsilon)
-					i=1;	// le triangle est dans le cercle, TVB
+					i=1;	/* le triangle est dans le cercle, TVB*/
 				else if (doc-d>epsilon)
 					angle+=deuxbord_point(cx[h],cy[h],ax[h],ay[h],bx[h],by[h],x,y,d);
 				else
-					i=1;	// le triangle est dans le cercle, TVB
+					i=1;	/* le triangle est dans le cercle, TVB*/
 			}
 		}
 	}
@@ -864,38 +879,34 @@ int *t2,double *dt,double *g,double *k)
 {	int i,j,tt;
 	double d,cin;
 
-	//Decalage pour n'avoir que des valeurs positives
+	/*Decalage pour n'avoir que des valeurs positives*/
 	decalRect(*point_nb,x,y,xmi,xma,ymi,yma);
 
-
-	// On rangera dans g le nombre de couples de points par distance tt
-	for(tt=0;tt<*t2;tt++){
-		g[tt]=0;
+	/* On rangera dans g le nombre de couples de points par distance tt*/
+	for(tt=0;tt<*t2;tt++)
+	{	g[tt]=0;
 	}
 
-
-    //On regarde les couples (i,j) et (j,i) : donc pour i>j seulement
+    /*On regarde les couples (i,j) et (j,i) : donc pour i>j seulement*/
 	for(i=1;i<*point_nb;i++)
 	{	for(j=0;j<i;j++)
 		{	d=sqrt((x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]));
 			if (d<*t2*(*dt)){
-				// dans quelle classe de distance est ce couple ?
+				/* dans quelle classe de distance est ce couple ?*/
 				tt=d/(*dt);
 
-				///// pour [i,j] :
-				// correction des effets de bord
+				/*pour [i,j] : correction des effets de bord*/
 				cin=perim_in_rect(x[i],y[i],d,*xmi,*xma,*ymi,*yma);
-				if (cin<0) {
-					Rprintf("cin<0 sur i AVANT\n");
+				if (cin<0)
+				{	Rprintf("cin<0 sur i AVANT\n");
 					return -1;
 				}
 				g[tt]+=2*Pi()/cin;
 
-				///// pour [j,i] :
-				// correction des effets de bord
+				/* pour [j,i] : correction des effets de bord*/
 				cin=perim_in_rect(x[j],y[j],d,*xmi,*xma,*ymi,*yma);
-				if (cin<0) {
-					Rprintf("cin<0 sur j AVANT\n");
+				if (cin<0)
+				{	Rprintf("cin<0 sur j AVANT\n");
 					return -1;
 				}
 				g[tt]+=2*Pi()/cin;
@@ -903,54 +914,50 @@ int *t2,double *dt,double *g,double *k)
 		}
    }
 
-
-	// on moyenne -> densite
+	/* on moyenne -> densite*/
 	for(tt=0;tt<*t2;tt++) {
 		g[tt]=g[tt]/(*point_nb);
 	}
 
-	// on integre
+	/* on integre*/
 	k[0]=g[0];
-  	for(tt=1;tt<*t2;tt++) {
-  		k[tt]=k[tt-1]+g[tt];
+  	for(tt=1;tt<*t2;tt++)
+	{	k[tt]=k[tt-1]+g[tt];
 	}
-
 
    return 0;
 }
 
-//fonction de Ripley pour une zone circulaire
+/*fonction de Ripley pour une zone circulaire*/
 int ripley_disq(int *point_nb, double *x, double *y, double *x0, double *y0, double *r0,
 int *t2, double *dt, double *g, double *k)
 {	int tt,i,j;
 	double d,cin;
 
-	//Decalage pour n'avoir que des valeurs positives
+	/*Decalage pour n'avoir que des valeurs positives*/
 	decalCirc(*point_nb,x,y,x0,y0,*r0);
 
 	for(tt=0;tt<*t2;tt++) {
 		g[tt]=0;
 	}
-	for(i=1;i<*point_nb;i++) { // On calcule le nombre de couples de points par distance g
+	for(i=1;i<*point_nb;i++) { /*On calcule le nombre de couples de points par distance g*/
 		for(j=0;j<i;j++)
 		{	d=sqrt((x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]));
 			if (d<*t2*(*dt))
 			{	tt=d/(*dt);
 
-				///// pour [i,j] :
-				// correction des effets de bord
+				/*pour [i,j] : correction des effets de bord*/
 				cin=perim_in_disq(x[i],y[i],d,*x0,*y0,*r0);
-				if (cin<0) {
-					Rprintf("cin<0 sur i AVANT\n");
+				if (cin<0)
+				{	Rprintf("cin<0 sur i AVANT\n");
 					return -1;
 				}
 				g[tt]+=2*Pi()/cin;
 
-				///// pour [j,i] :
-				// correction des effets de bord
+				/*pour [j,i] : correction des effets de bord*/
 				cin=perim_in_disq(x[j],y[j],d,*x0,*y0,*r0);
-				if (cin<0) {
-					Rprintf("cin<0 sur j AVANT\n");
+				if (cin<0)
+				{	Rprintf("cin<0 sur j AVANT\n");
 					return -1;
 				}
 				g[tt]+=2*Pi()/cin;
@@ -958,35 +965,33 @@ int *t2, double *dt, double *g, double *k)
 		}
 	}
 
-	// on moyenne -> densite
-	for(tt=0;tt<*t2;tt++) {
-		g[tt]=g[tt]/(*point_nb);
+	/* on moyenne -> densite*/
+	for(tt=0;tt<*t2;tt++)
+	{	g[tt]=g[tt]/(*point_nb);
 	}
 
-	// on integre
+	/* on integre*/
 	k[0]=g[0];
-	for(tt=1;tt<*t2;tt++) {
-		k[tt]=k[tt-1]+g[tt];
+	for(tt=1;tt<*t2;tt++)
+	{	k[tt]=k[tt-1]+g[tt];
 	}
-
 
 	return 0;
 }
 
-
-//Ripley triangles dans rectangle
+/*Ripley triangles dans rectangle*/
 int ripley_tr_rect(int *point_nb, double *x, double *y, double *xmi, double *xma, double *ymi, double *yma,
 int *triangle_nb, double *ax, double *ay, double *bx, double *by, double *cx, double *cy,
 int *t2, double *dt, double *g, double *k)
 {	int i,j,tt;
 	double d,cin;
 
-	//Decalage pour n'avoir que des valeurs positives
+	/*Decalage pour n'avoir que des valeurs positives*/
 	decalRectTri(*point_nb,x,y,xmi,xma,ymi,yma,*triangle_nb,ax,ay,bx,by,cx,cy);
 
-	// On calcule le nombre de couples de points par distance g
-	for(tt=0;tt<*t2;tt++) {
-		g[tt]=0;
+	/* On calcule le nombre de couples de points par distance g*/
+	for(tt=0;tt<*t2;tt++)
+	{	g[tt]=0;
 	}
 	for(i=1;i<*point_nb;i++)
 		for(j=0;j<i;j++)
@@ -994,42 +999,40 @@ int *t2, double *dt, double *g, double *k)
 			if (d<*t2*(*dt))
 			{	tt=d/(*dt);
 
-				///// pour [i,j] :
-				// correction des effets de bord
+				/*pour [i,j] : correction des effets de bord*/
 				cin=perim_in_rect(x[i],y[i],d,*xmi,*xma,*ymi,*yma);
-				if (cin<0) {
-					Rprintf("cin<0 sur i AVANT\n");
+				if (cin<0)
+				{	Rprintf("cin<0 sur i AVANT\n");
 					return -1;
 				}
 				cin=cin-perim_triangle(x[i],y[i],d,*triangle_nb,ax,ay,bx,by,cx,cy);
-				if (cin<0)	{
-					Rprintf("Overlapping triangles\n");
+				if (cin<0)
+				{	Rprintf("Overlapping triangles\n");
 					return -1;
 				}
 				g[tt]+=2*Pi()/cin;
 
-				///// pour [j,i] :
-				// correction des effets de bord
+				/*pour [j,i] : correction des effets de bord*/
 				cin=perim_in_rect(x[j],y[j],d,*xmi,*xma,*ymi,*yma);
-				if (cin<0) {
-					Rprintf("cin<0 sur j AVANT\n");
+				if (cin<0)
+				{	Rprintf("cin<0 sur j AVANT\n");
 					return -1;
 				}
 				cin=cin-perim_triangle(x[j],y[j],d,*triangle_nb,ax,ay,bx,by,cx,cy);
-				if (cin<0)	{
-					Rprintf("Overlapping triangles\n");
+				if (cin<0)
+				{	Rprintf("Overlapping triangles\n");
 					return -1;
 				}
 				g[tt]+=2*Pi()/cin;
 			}
 		}
 
-	// on moyenne -> densite
+	/* on moyenne -> densite*/
 	for(tt=0;tt<*t2;tt++) {
 		g[tt]=g[tt]/(*point_nb);
 	}
 
-	// on integre
+	/* on integre*/
 	k[0]=g[0];
 	for(tt=1;tt<*t2;tt++) {
 		k[tt]=k[tt-1]+g[tt];
@@ -1038,20 +1041,19 @@ int *t2, double *dt, double *g, double *k)
 	return 0;
 }
 
-
-//Ripley triangle dans disque
+/*Ripley triangle dans disque*/
 int ripley_tr_disq(int *point_nb,double *x,double *y,double *x0,double *y0,double *r0,int *triangle_nb,
 double *ax,double *ay,double *bx,double *by,double *cx,double *cy,
 int *t2,double *dt,double *g,double *k)
 {	int i,j,tt;
 	double d,cin;
 
-	//Decalage pour n'avoir que des valeurs positives
+	/*Decalage pour n'avoir que des valeurs positives*/
 	decalCircTri(*point_nb,x,y,x0,y0,*r0,*triangle_nb,ax,ay,bx,by,cx,cy);
 
-	// On calcule le nombre de couples de points par distance g
-	for(tt=0;tt<*t2;tt++) {
-		g[tt]=0;
+	/* On calcule le nombre de couples de points par distance g*/
+	for(tt=0;tt<*t2;tt++)
+	{	g[tt]=0;
 	}
 	for(i=1;i<*point_nb;i++)
 		for(j=0;j<i;j++)
@@ -1059,52 +1061,49 @@ int *t2,double *dt,double *g,double *k)
 			if (d<*t2*(*dt))
 			{	tt=d/(*dt);
 
-				///// pour [i,j] :
-				// correction des effets de bord
+				/* pour [i,j] : correction des effets de bord*/
 				cin=perim_in_disq(x[i],y[i],d,*x0,*y0,*r0);
-				if (cin<0) {
-					Rprintf("cin<0 sur i AVANT\n");
+				if (cin<0)
+				{	Rprintf("cin<0 sur i AVANT\n");
 					return -1;
 				}
 				cin=cin-perim_triangle(x[i],y[i],d,*triangle_nb,ax,ay,bx,by,cx,cy);
-				if (cin<0)	{
-					Rprintf("Overlapping triangles\n");
+				if (cin<0)
+				{	Rprintf("Overlapping triangles\n");
 					return -1;
 				}
 				g[tt]+=2*Pi()/cin;
 
-				///// pour [j,i] :
-				// correction des effets de bord
+				/* pour [j,i] : correction des effets de bord*/
 				cin=perim_in_disq(x[j],y[j],d,*x0,*y0,*r0);
-				if (cin<0) {
-					Rprintf("cin<0 sur j AVANT\n");
+				if (cin<0)
+				{	Rprintf("cin<0 sur j AVANT\n");
 					return -1;
 				}
 				cin=cin-perim_triangle(x[j],y[j],d,*triangle_nb,ax,ay,bx,by,cx,cy);
-				if (cin<0)	{
-					Rprintf("Overlapping triangles\n");
+				if (cin<0)
+				{	Rprintf("Overlapping triangles\n");
 					return -1;
 				}
 				g[tt]+=2*Pi()/cin;
 			}
 		}
 
-	// on moyenne -> densite
-	for(tt=0;tt<*t2;tt++) {
-		g[tt]=g[tt]/(*point_nb);
+	/* on moyenne -> densite*/
+	for(tt=0;tt<*t2;tt++)
+	{	g[tt]=g[tt]/(*point_nb);
 	}
 
-	// on integre
+	/* on integre*/
 	k[0]=g[0];
-	for(tt=1;tt<*t2;tt++) {
-		k[tt]=k[tt-1]+g[tt];
+	for(tt=1;tt<*t2;tt++)
+	{	k[tt]=k[tt-1]+g[tt];
 	}
 
 	return 0;
 }
 
-
-//fonction de Ripley avec intervalle de confiance pour une zone rectangulaire
+/*fonction de Ripley avec intervalle de confiance pour une zone rectangulaire*/
 int ripley_rect_ic(int *point_nb,double *x,double *y, double *xmi,double *xma,double *ymi,double *yma,double *densite,
 int *t2,double *dt,int *nbSimu, double *prec, double *lev,double *g,double *k,
 double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval, double *lval, double *nval) {
@@ -1114,65 +1113,62 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 	int erreur=0;
 
 	erreur=ripley_rect(point_nb,x,y,xmi,xma,ymi,yma,t2,dt,g,k);
-	if (erreur!=0) {
-		return -1;
+	if (erreur!=0)
+	{	return -1;
 	}
 
-	///Définition de i0 : indice où sera stocké l'estimation des bornes de l'IC
+	/*Definition de i0 : indice ou sera stocke l'estimation des bornes de l'IC*/
 	i0=*lev/2*(*nbSimu+1);
 	if (i0<1) i0=1;
 
-	///Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC
+	/*Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC*/
 	taballoc(&gic,*t2+1,2*i0+10+1);
 	taballoc(&kic,*t2+1,2*i0+10+1);
 
 
-	//Normalisation de g et k et calcul de l et n pour le calcul des p-values
+	/*Normalisation de g et k et calcul de l et n pour le calcul des p-values*/
 	vecalloc(&gg,*t2);
 	vecalloc(&kk,*t2);
 	vecalloc(&ll,*t2);
 	vecalloc(&nn,*t2);
-	for(i=0;i<*t2;i++) {
-		gg[i]=g[i]/(*densite*(Pi()*(i+1)*(i+1)*(*dt)*(*dt)-Pi()*i*i*(*dt)*(*dt)));
+	for(i=0;i<*t2;i++)
+	{	gg[i]=g[i]/(*densite*(Pi()*(i+1)*(i+1)*(*dt)*(*dt)-Pi()*i*i*(*dt)*(*dt)));
 		nn[i]=k[i]/(Pi()*(i+1)*(i+1)*(*dt)*(*dt));
 		kk[i]=k[i]/(*densite);
 		ll[i]=sqrt(kk[i]/Pi())-(i+1)*(*dt);
-
 		gval[i]=1;
 		kval[i]=1;
 		nval[i]=1;
 		lval[i]=1;
 	}
-
-
+	
 	int lp=0;
 
-	// boucle principale de MC
+	/*boucle principale de MC*/
 	Rprintf("Monte Carlo simulation\n");
-	for(i=1;i<=*nbSimu;i++) {
-		s_alea_rect(*point_nb,x,y,*xmi,*xma,*ymi,*yma,*prec);
+	for(i=1;i<=*nbSimu;i++)
+	{	s_alea_rect(*point_nb,x,y,*xmi,*xma,*ymi,*yma,*prec);
 		erreur=ripley_rect(point_nb,x,y,xmi,xma,ymi,yma,t2,dt,gic1,kic1);
-		// si il y a une erreur on recommence une simulation
-		if (erreur!=0) {
-			i=i-1;
+		/* si il y a une erreur on recommence une simulation*/
+		if (erreur!=0)
+		{	i=i-1;
 			Rprintf("ERREUR Ripley\n");
 		}
 		else {
-			//comptage du nombre de |¶obs|<=|¶simu| pour test local
+			/*comptage du nombre de |¶obs|<=|¶simu| pour test local*/
 			double gictmp,kictmp,lictmp,nictmp;
-			for(j=0;j<*t2;j++) {
-				gictmp=gic1[j]/(*densite*(Pi()*(j+1)*(j+1)*(*dt)*(*dt)-Pi()*j*j*(*dt)*(*dt)));
+			for(j=0;j<*t2;j++)
+			{	gictmp=gic1[j]/(*densite*(Pi()*(j+1)*(j+1)*(*dt)*(*dt)-Pi()*j*j*(*dt)*(*dt)));
 				nictmp=kic1[j]/(Pi()*(j+1)*(j+1)*(*dt)*(*dt));
 				kictmp=kic1[j]/(*densite);
 				lictmp=sqrt(kictmp/Pi())-(j+1)*(*dt);
-
 				if ((float)fabs(gg[j]-1)<=(float)fabs(gictmp-1)) {gval[j]+=1;}
 				if ((float)fabs(nn[j]-*densite)<=(float)fabs(nictmp-*densite)) {nval[j]+=1;}
 				if ((float)fabs(kk[j]-Pi()*(j+1)*(j+1)*(*dt)*(*dt))<=(float)fabs(kictmp-Pi()*(j+1)*(j+1)*(*dt)*(*dt))) {kval[j]+=1;}
 				if ((float)fabs(ll[j])<=(float)fabs(lictmp)) {lval[j]+=1;}
 			}
 
-			////Traitement des résultats
+			/*Traitement des resultats*/
 			ic(i,i0,gic,kic,gic1,kic1,*t2);
 		}
 		R_FlushConsole();
@@ -1182,52 +1178,48 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 	i1=i0+2;
 	i2=i0;
 
-	//Copies des valeurs dans les tableaux résultats
-	for(i=0;i<*t2;i++) {
-		gic1[i]=gic[i+1][i1];
+	/*Copies des valeurs dans les tableaux resultats*/
+	for(i=0;i<*t2;i++)
+	{	gic1[i]=gic[i+1][i1];
 		gic2[i]=gic[i+1][i2];
 		kic1[i]=kic[i+1][i1];
 		kic2[i]=kic[i+1][i2];
 	}
 
-
 	freetab(gic);
 	freetab(kic);
-
 	freevec(gg);
 	freevec(kk);
 	freevec(ll);
 	freevec(nn);
 
-
 	return 0;
 }
 
-
-//fonction de Ripley avec intervalle de confiance pour une zone circulaire
+/*fonction de Ripley avec intervalle de confiance pour une zone circulaire*/
 int ripley_disq_ic(int *point_nb,double *x,double *y, double *x0,double *y0,double *r0,double *densite,
 int *t2,double *dt,int *nbSimu, double *prec, double *lev,double *g,double *k,
-double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval, double *lval, double *nval) {
+double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval, double *lval, double *nval)
+{
 	int i,j,i0,i1,i2;
 	double **gic,**kic;
 	double *gg,*kk,*ll,*nn;
 	int erreur=0;
 
 	erreur=ripley_disq(point_nb,x,y,x0,y0,r0,t2,dt,g,k);
-	if (erreur!=0) {
-		return -1;
+	if (erreur!=0)
+	{	return -1;
 	}
 
-	///Définition de i0 : indice où sera stocké l'estimation des bornes de l'IC
+	/*Definition de i0 : indice ou sera stocke l'estimation des bornes de l'IC*/
 	i0=*lev/2*(*nbSimu+1);
 	if (i0<1) i0=1;
 
-	///Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC
+	/*Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC*/
 	taballoc(&gic,*t2+1,2*i0+10+1);
 	taballoc(&kic,*t2+1,2*i0+10+1);
 
-
-	//Normalisation de g et k et calcul de l et n pour le calcul des p-values
+	/*Normalisation de g et k et calcul de l et n pour le calcul des p-values*/
 	vecalloc(&gg,*t2);
 	vecalloc(&kk,*t2);
 	vecalloc(&ll,*t2);
@@ -1237,42 +1229,39 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 		nn[i]=k[i]/(Pi()*(i+1)*(i+1)*(*dt)*(*dt));
 		kk[i]=k[i]/(*densite);
 		ll[i]=sqrt(kk[i]/Pi())-(i+1)*(*dt);
-
 		gval[i]=1;
 		kval[i]=1;
 		nval[i]=1;
 		lval[i]=1;
 	}
 
-
 	int lp=0;
 
-	// boucle principale de MC
+	/* boucle principale de MC*/
 	Rprintf("Monte Carlo simulation\n");
 	for(i=1;i<=*nbSimu;i++) {
 		s_alea_disq(*point_nb,x,y,*x0,*y0,*r0,*prec);
 		erreur=ripley_disq(point_nb,x,y,x0,y0,r0,t2,dt,gic1,kic1);
-		// si il y a une erreur on recommence une simulation
-		if (erreur!=0) {
-			i=i-1;
+		/* si il y a une erreur on recommence une simulation*/
+		if (erreur!=0)
+		{	i--;
 			Rprintf("ERREUR Ripley\n");
 		}
-		else {
-			//comptage du nombre de |¶obs|<=|¶simu| pour test local
+		else 
+		{	/*comptage du nombre de |¶obs|<=|¶simu| pour test local*/
 			double gictmp,kictmp,lictmp,nictmp;
-			for(j=0;j<*t2;j++) {
-				gictmp=gic1[j]/(*densite*(Pi()*(j+1)*(j+1)*(*dt)*(*dt)-Pi()*j*j*(*dt)*(*dt)));
+			for(j=0;j<*t2;j++)
+			{	gictmp=gic1[j]/(*densite*(Pi()*(j+1)*(j+1)*(*dt)*(*dt)-Pi()*j*j*(*dt)*(*dt)));
 				nictmp=kic1[j]/(Pi()*(j+1)*(j+1)*(*dt)*(*dt));
 				kictmp=kic1[j]/(*densite);
 				lictmp=sqrt(kictmp/Pi())-(j+1)*(*dt);
-
 				if ((float)fabs(gg[j]-1)<=(float)fabs(gictmp-1)) {gval[j]+=1;}
 				if ((float)fabs(nn[j]-*densite)<=(float)fabs(nictmp-*densite)) {nval[j]+=1;}
 				if ((float)fabs(kk[j]-Pi()*(j+1)*(j+1)*(*dt)*(*dt))<=(float)fabs(kictmp-Pi()*(j+1)*(j+1)*(*dt)*(*dt))) {kval[j]+=1;}
 				if ((float)fabs(ll[j])<=(float)fabs(lictmp)) {lval[j]+=1;}
 			}
 
-			////Traitement des résultats
+			/*Traitement des resultats*/
 			ic(i,i0,gic,kic,gic1,kic1,*t2);
 		}
 		R_FlushConsole();
@@ -1282,7 +1271,7 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 	i1=i0+2;
 	i2=i0;
 
-	//Copies des valeurs dans les tableaux résultats
+	/*Copies des valeurs dans les tableaux resultats*/
 	for(i=0;i<*t2;i++) {
 		gic1[i]=gic[i+1][i1];
 		gic2[i]=gic[i+1][i2];
@@ -1290,21 +1279,17 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 		kic2[i]=kic[i+1][i2];
 	}
 
-
 	freetab(gic);
 	freetab(kic);
-
 	freevec(gg);
 	freevec(kk);
 	freevec(ll);
 	freevec(nn);
 
-
 	return 0;
 }
 
-
-//fonction de Ripley avec intervalle de confiance pour une zone rectangulaire + triangles
+/*fonction de Ripley avec intervalle de confiance pour une zone rectangulaire + triangles*/
 int ripley_tr_rect_ic(int *point_nb,double *x,double *y, double *xmi,double *xma,double *ymi,double *yma,double *densite,
 int *triangle_nb, double *ax, double *ay, double *bx, double *by, double *cx, double *cy,
 int *t2,double *dt,int *nbSimu, double *prec, double *lev,double *g,double *k,
@@ -1319,63 +1304,58 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 		return -1;
 	}
 
-	///Définition de i0 : indice où sera stocké l'estimation des bornes de l'IC
+	/* definition de i0 : indice ou sera stocké l'estimation des bornes de l'IC*/
 	i0=*lev/2*(*nbSimu+1);
 	if (i0<1) i0=1;
 
-	///Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC
+	/*Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC*/
 	taballoc(&gic,*t2+1,2*i0+10+1);
 	taballoc(&kic,*t2+1,2*i0+10+1);
 
-
-	//Normalisation de g et k et calcul de l et n pour le calcul des p-values
+	/*Normalisation de g et k et calcul de l et n pour le calcul des p-values*/
 	vecalloc(&gg,*t2);
 	vecalloc(&kk,*t2);
 	vecalloc(&ll,*t2);
 	vecalloc(&nn,*t2);
-	for(i=0;i<*t2;i++) {
-		gg[i]=g[i]/(*densite*(Pi()*(i+1)*(i+1)*(*dt)*(*dt)-Pi()*i*i*(*dt)*(*dt)));
+	for(i=0;i<*t2;i++)
+	{	gg[i]=g[i]/(*densite*(Pi()*(i+1)*(i+1)*(*dt)*(*dt)-Pi()*i*i*(*dt)*(*dt)));
 		nn[i]=k[i]/(Pi()*(i+1)*(i+1)*(*dt)*(*dt));
 		kk[i]=k[i]/(*densite);
 		ll[i]=sqrt(kk[i]/Pi())-(i+1)*(*dt);
-
 		gval[i]=1;
 		kval[i]=1;
 		nval[i]=1;
 		lval[i]=1;
 	}
 
-
 	int lp=0;
 
-	// boucle principale de MC
+	/* boucle principale de MC*/
 	Rprintf("Monte Carlo simulation\n");
-	for(i=1;i<=*nbSimu;i++) {
-
-		s_alea_tr_rect(*point_nb,x,y,*xmi,*xma,*ymi,*yma,*triangle_nb,ax,ay,bx,by,cx,cy,*prec);
+	for(i=1;i<=*nbSimu;i++)
+	{	s_alea_tr_rect(*point_nb,x,y,*xmi,*xma,*ymi,*yma,*triangle_nb,ax,ay,bx,by,cx,cy,*prec);
 		erreur=ripley_tr_rect(point_nb,x,y,xmi,xma,ymi,yma,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,gic1,kic1);
 
-		// si il y a une erreur on recommence une simulation
-		if (erreur!=0) {
-			i=i-1;
+		/* si il y a une erreur on recommence une simulation*/
+		if (erreur!=0)
+		{	i=i-1;
 			Rprintf("ERREUR Ripley\n");
 		}
-		else {
-			//comptage du nombre de |¶obs|<=|¶simu| pour test local
+		else 
+		{	/*comptage du nombre de |¶obs|<=|¶simu| pour test local*/
 			double gictmp,kictmp,lictmp,nictmp;
-			for(j=0;j<*t2;j++) {
-				gictmp=gic1[j]/(*densite*(Pi()*(j+1)*(j+1)*(*dt)*(*dt)-Pi()*j*j*(*dt)*(*dt)));
+			for(j=0;j<*t2;j++)
+			{	gictmp=gic1[j]/(*densite*(Pi()*(j+1)*(j+1)*(*dt)*(*dt)-Pi()*j*j*(*dt)*(*dt)));
 				nictmp=kic1[j]/(Pi()*(j+1)*(j+1)*(*dt)*(*dt));
 				kictmp=kic1[j]/(*densite);
 				lictmp=sqrt(kictmp/Pi())-(j+1)*(*dt);
-
 				if ((float)fabs(gg[j]-1)<=(float)fabs(gictmp-1)) {gval[j]+=1;}
 				if ((float)fabs(nn[j]-*densite)<=(float)fabs(nictmp-*densite)) {nval[j]+=1;}
 				if ((float)fabs(kk[j]-Pi()*(j+1)*(j+1)*(*dt)*(*dt))<=(float)fabs(kictmp-Pi()*(j+1)*(j+1)*(*dt)*(*dt))) {kval[j]+=1;}
 				if ((float)fabs(ll[j])<=(float)fabs(lictmp)) {lval[j]+=1;}
 			}
 
-			////Traitement des résultats
+			/*Traitement des resultats*/
 			ic(i,i0,gic,kic,gic1,kic1,*t2);
 		}
 		R_FlushConsole();
@@ -1385,100 +1365,93 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 	i1=i0+2;
 	i2=i0;
 
-	//Copies des valeurs dans les tableaux résultats
-	for(i=0;i<*t2;i++) {
-		gic1[i]=gic[i+1][i1];
+	/*Copies des valeurs dans les tableaux resultats*/
+	for(i=0;i<*t2;i++)
+	{	gic1[i]=gic[i+1][i1];
 		gic2[i]=gic[i+1][i2];
 		kic1[i]=kic[i+1][i1];
 		kic2[i]=kic[i+1][i2];
 	}
 
-
 	freetab(gic);
 	freetab(kic);
-
 	freevec(gg);
 	freevec(kk);
 	freevec(ll);
 	freevec(nn);
 
-
 	return 0;
 }
 
-
-//fonction de Ripley avec intervalle de confiance pour une zone circulaire + triangles
+/*fonction de Ripley avec intervalle de confiance pour une zone circulaire + triangles*/
 int ripley_tr_disq_ic(int *point_nb,double *x,double *y, double *x0,double *y0,double *r0,double *densite,
 int *triangle_nb, double *ax, double *ay, double *bx, double *by, double *cx, double *cy,
 int *t2,double *dt,int *nbSimu, double *prec, double *lev,double *g,double *k,
-double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval, double *lval, double *nval) {
-	int i,j,i0,i1,i2;
+double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval, double *lval, double *nval)
+{	int i,j,i0,i1,i2;
 	double **gic,**kic;
 	double *gg,*kk,*ll,*nn;
 	int erreur=0;
 
 	erreur=ripley_tr_disq(point_nb,x,y,x0,y0,r0,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,g,k);
-	if (erreur!=0) {
-		return -1;
+	if (erreur!=0)
+	{	return -1;
 	}
 
-	///Définition de i0 : indice où sera stocké l'estimation des bornes de l'IC
+	/* definition de i0 : indice ou sera stocke l'estimation des bornes de l'IC*/
 	i0=*lev/2*(*nbSimu+1);
 	if (i0<1) i0=1;
 
-	///Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC
+	/*Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC*/
 	taballoc(&gic,*t2+1,2*i0+10+1);
 	taballoc(&kic,*t2+1,2*i0+10+1);
 
 
-	//Normalisation de g et k et calcul de l et n pour le calcul des p-values
+	/*Normalisation de g et k et calcul de l et n pour le calcul des p-values*/
 	vecalloc(&gg,*t2);
 	vecalloc(&kk,*t2);
 	vecalloc(&ll,*t2);
 	vecalloc(&nn,*t2);
-	for(i=0;i<*t2;i++) {
-		gg[i]=g[i]/(*densite*(Pi()*(i+1)*(i+1)*(*dt)*(*dt)-Pi()*i*i*(*dt)*(*dt)));
+	for(i=0;i<*t2;i++)
+	{	gg[i]=g[i]/(*densite*(Pi()*(i+1)*(i+1)*(*dt)*(*dt)-Pi()*i*i*(*dt)*(*dt)));
 		nn[i]=k[i]/(Pi()*(i+1)*(i+1)*(*dt)*(*dt));
 		kk[i]=k[i]/(*densite);
 		ll[i]=sqrt(kk[i]/Pi())-(i+1)*(*dt);
-
 		gval[i]=1;
 		kval[i]=1;
 		nval[i]=1;
 		lval[i]=1;
 	}
 
-
 	int lp=0;
 
-	// boucle principale de MC
+	/* boucle principale de MC*/
 	Rprintf("Monte Carlo simulation\n");
 	for(i=1;i<=*nbSimu;i++) {
 
 		s_alea_tr_disq(*point_nb,x,y,*x0,*y0,*r0,*triangle_nb,ax,ay,bx,by,cx,cy,*prec);
 		erreur=ripley_tr_disq(point_nb,x,y,x0,y0,r0,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,gic1,kic1);
 
-		// si il y a une erreur on recommence une simulation
+		/* si il y a une erreur on recommence une simulation*/
 		if (erreur!=0) {
 			i=i-1;
 			Rprintf("ERREUR Ripley\n");
 		}
 		else {
-			//comptage du nombre de |¶obs|<=|¶simu| pour test local
+			/*comptage du nombre de |¶obs|<=|¶simu| pour test local*/
 			double gictmp,kictmp,lictmp,nictmp;
-			for(j=0;j<*t2;j++) {
-				gictmp=gic1[j]/(*densite*(Pi()*(j+1)*(j+1)*(*dt)*(*dt)-Pi()*j*j*(*dt)*(*dt)));
+			for(j=0;j<*t2;j++)
+			{	gictmp=gic1[j]/(*densite*(Pi()*(j+1)*(j+1)*(*dt)*(*dt)-Pi()*j*j*(*dt)*(*dt)));
 				nictmp=kic1[j]/(Pi()*(j+1)*(j+1)*(*dt)*(*dt));
 				kictmp=kic1[j]/(*densite);
 				lictmp=sqrt(kictmp/Pi())-(j+1)*(*dt);
-
 				if ((float)fabs(gg[j]-1)<=(float)fabs(gictmp-1)) {gval[j]+=1;}
 				if ((float)fabs(nn[j]-*densite)<=(float)fabs(nictmp-*densite)) {nval[j]+=1;}
 				if ((float)fabs(kk[j]-Pi()*(j+1)*(j+1)*(*dt)*(*dt))<=(float)fabs(kictmp-Pi()*(j+1)*(j+1)*(*dt)*(*dt))) {kval[j]+=1;}
 				if ((float)fabs(ll[j])<=(float)fabs(lictmp)) {lval[j]+=1;}
 			}
 
-			////Traitement des résultats
+			/*Traitement des résultats*/
 			ic(i,i0,gic,kic,gic1,kic1,*t2);
 		}
 		R_FlushConsole();
@@ -1488,7 +1461,7 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 	i1=i0+2;
 	i2=i0;
 
-	//Copies des valeurs dans les tableaux résultats
+	/*Copies des valeurs dans les tableaux résultats*/
 	for(i=0;i<*t2;i++) {
 		gic1[i]=gic[i+1][i1];
 		gic2[i]=gic[i+1][i2];
@@ -1496,32 +1469,24 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 		kic2[i]=kic[i+1][i2];
 	}
 
-
 	freetab(gic);
 	freetab(kic);
-
 	freevec(gg);
 	freevec(kk);
 	freevec(ll);
 	freevec(nn);
 
-
 	return 0;
 }
 
-
-
-
-
-
-//fonction de Ripley locale pour une zone rectangulaire
+/*fonction de Ripley locale pour une zone rectangulaire*/
 int ripleylocal_rect(int *point_nb,double *x,double *y,double *xmi,double *xma,double *ymi,double *yma,
 int *t2,double *dt,double *gi,double *ki)
 {	int tt,i,j;
 	double d,cin;
 	double **g, **k;
 
-	//Decalage pour n'avoir que des valeurs positives
+	/*Decalage pour n'avoir que des valeurs positives*/
 	decalRect(*point_nb,x,y,xmi,xma,ymi,yma);
 
 
@@ -1538,8 +1503,7 @@ int *t2,double *dt,double *gi,double *ki)
 				if (d<*t2*(*dt)) {
 					tt=d/(*dt);
 
-					//// pour [i,j] :
-					// correction des effets de bord
+					/* pour [i,j] : correction des effets de bord*/
 					cin=perim_in_rect(x[i],y[i],d,*xmi,*xma,*ymi,*yma);
 					if (cin<0)	{
 						Rprintf("cin<0 sur i AVANT\n");
@@ -1547,8 +1511,7 @@ int *t2,double *dt,double *gi,double *ki)
 					}
 					g[i][tt]+=2*Pi()/cin;
 
-					/// pour [j,i] :
-					// correction des effets de bord
+					/*pour [j,i] : correction des effets de bord*/
 					cin=perim_in_rect(x[j],y[j],d,*xmi,*xma,*ymi,*yma);
 					if (cin<0) {
 						Rprintf("cin<0 sur j AVANT\n");
@@ -1558,15 +1521,13 @@ int *t2,double *dt,double *gi,double *ki)
 				}
 			}
 
-
 	for(i=0;i<*point_nb;i++)
 	{	k[i][0]=g[i][0];
 		for(tt=1;tt<*t2;tt++)
 			k[i][tt]=k[i][tt-1]+g[i][tt];	/* on integre */
 	}
 
-
-	//Copies des valeurs dans les tableaux resultat
+	/*Copies des valeurs dans les tableaux resultat*/
 	for(i=0;i<*point_nb;i++) {
 		for(tt=0;tt<*t2;tt++) {
 			gi[i*(*t2)+tt]=g[i][tt];
@@ -1574,25 +1535,21 @@ int *t2,double *dt,double *gi,double *ki)
 		}
 	}
 
-
-
 	freetab(g);
 	freetab(k);
 
 	return 0;
 }
 
-
-//fonction de Ripley locale pour une zone circulaire
+/*fonction de Ripley locale pour une zone circulaire*/
 int ripleylocal_disq(int *point_nb,double *x,double *y,double *x0,double *y0,double *r0,
 int *t2,double *dt,double *gi,double *ki)
 {	int tt,i,j;
 	double d,cin;
 	double **g, **k;
 
-	//Decalage pour n'avoir que des valeurs positives
+	/*Decalage pour n'avoir que des valeurs positives*/
 	decalCirc(*point_nb,x,y,x0,y0,*r0);
-
 
 	taballoc(&g,*point_nb,*t2);
 	taballoc(&k,*point_nb,*t2);
@@ -1606,8 +1563,7 @@ int *t2,double *dt,double *gi,double *ki)
 				if (d<*t2*(*dt))
 				{	tt=d/(*dt);
 
-					//// pour [i,j] :
-					// correction des effets de bord
+					/*pour [i,j] : correction des effets de bord*/
 					cin=perim_in_disq(x[i],y[i],d,*x0,*y0,*r0);
 					if (cin<0)	{
 						Rprintf("cin<0 sur i AVANT\n");
@@ -1615,8 +1571,7 @@ int *t2,double *dt,double *gi,double *ki)
 					}
 					g[i][tt]+=2*Pi()/cin;
 
-					/// pour [j,i] :
-					// correction des effets de bord
+					/*pour [j,i] : correction des effets de bord*/
 					cin=perim_in_disq(x[j],y[j],d,*x0,*y0,*r0);
 					if (cin<0) {
 						Rprintf("cin<0 sur j AVANT\n");
@@ -1632,7 +1587,7 @@ int *t2,double *dt,double *gi,double *ki)
 			k[i][tt]+=k[i][tt-1]+g[i][tt];	/* on integre */
 	}
 
-	//Copies des valeurs dans les tableaux resultat
+	/*Copies des valeurs dans les tableaux resultat*/
 	for(i=0;i<*point_nb;i++) {
 		for(tt=0;tt<*t2;tt++) {
 			gi[i*(*t2)+tt]=g[i][tt];
@@ -1640,15 +1595,13 @@ int *t2,double *dt,double *gi,double *ki)
 		}
 	}
 
-
 	freetab(g);
 	freetab(k);
 
 	return 0;
 }
 
-
-//fonction de Ripley locale triangles dans rectangle
+/*fonction de Ripley locale triangles dans rectangle*/
 int ripleylocal_tr_rect(int *point_nb,double *x,double *y,double *xmi,double *xma,double *ymi,double *yma,
 int *triangle_nb,double *ax,double *ay,double *bx,double *by,double *cx,double *cy,
 int *t2,double *dt,double *gi,double *ki)
@@ -1656,9 +1609,8 @@ int *t2,double *dt,double *gi,double *ki)
 	double d,cin;
 	double **g, **k;
 
-	//Decalage pour n'avoir que des valeurs positives
+	/*Decalage pour n'avoir que des valeurs positives*/
 	decalRectTri(*point_nb,x,y,xmi,xma,ymi,yma,*triangle_nb,ax,ay,bx,by,cx,cy);
-
 
 	taballoc(&g,*point_nb,*t2);
 	taballoc(&k,*point_nb,*t2);
@@ -1673,9 +1625,7 @@ int *t2,double *dt,double *gi,double *ki)
 				if (d<*t2*(*dt))
 				{	tt=d/(*dt);
 
-
-					//// pour [i,j] :
-					// correction des effets de bord
+					/*pour [i,j] : correction des effets de bord*/
 					cin=perim_in_rect(x[i],y[i],d,*xmi,*xma,*ymi,*yma);
 					if (cin<0)	{
 						Rprintf("cin<0 sur i AVANT\n");
@@ -1688,8 +1638,7 @@ int *t2,double *dt,double *gi,double *ki)
 					}
 					g[i][tt]+=2*Pi()/cin;
 
-					/// pour [j,i] :
-					// correction des effets de bord
+					/*pour [j,i] : correction des effets de bord*/
 					cin=perim_in_rect(x[j],y[j],d,*xmi,*xma,*ymi,*yma);
 					if (cin<0) {
 						Rprintf("cin<0 sur j AVANT\n");
@@ -1710,7 +1659,7 @@ int *t2,double *dt,double *gi,double *ki)
 			k[i][tt]=k[i][tt-1]+g[i][tt];	/* on integre */
 	}
 
-	//Copies des valeurs dans les tableaux resultat
+	/*Copies des valeurs dans les tableaux resultat*/
 	for(i=0;i<*point_nb;i++) {
 		for(tt=0;tt<*t2;tt++) {
 			gi[i*(*t2)+tt]=g[i][tt];
@@ -1718,15 +1667,13 @@ int *t2,double *dt,double *gi,double *ki)
 		}
 	}
 
-
 	freetab(g);
 	freetab(k);
 
 	return 0;
 }
 
-
-//fonction de Ripley locale triangles dans cercle
+/*fonction de Ripley locale triangles dans cercle*/
 int ripleylocal_tr_disq(int *point_nb,double *x,double *y,double *x0,double *y0,double *r0,
 int *triangle_nb,double *ax,double *ay,double *bx,double *by,double *cx,double *cy,
 int *t2,double *dt,double *gi,double *ki)
@@ -1734,10 +1681,8 @@ int *t2,double *dt,double *gi,double *ki)
 	double d,cin;
 	double **g, **k;
 
-	//Decalage pour n'avoir que des valeurs positives
+	/*Decalage pour n'avoir que des valeurs positives*/
 	decalCircTri(*point_nb,x,y,x0,y0,*r0,*triangle_nb,ax,ay,bx,by,cx,cy);
-
-
 	taballoc(&g,*point_nb,*t2);
 	taballoc(&k,*point_nb,*t2);
 
@@ -1750,9 +1695,7 @@ int *t2,double *dt,double *gi,double *ki)
 				if (d<*t2*(*dt))
 				{	tt=d/(*dt);
 
-
-					//// pour [i,j] :
-					// correction des effets de bord
+					/* pour [i,j] : correction des effets de bord*/
 					cin=perim_in_disq(x[i],y[i],d,*x0,*y0,*r0);
 					if (cin<0)	{
 						Rprintf("cin<0 sur i AVANT\n");
@@ -1765,8 +1708,7 @@ int *t2,double *dt,double *gi,double *ki)
 					}
 					g[i][tt]+=2*Pi()/cin;
 
-					/// pour [j,i] :
-					// correction des effets de bord
+					/*pour [j,i] : correction des effets de bord*/
 					cin=perim_in_disq(x[j],y[j],d,*x0,*y0,*r0);
 					if (cin<0) {
 						Rprintf("cin<0 sur j AVANT\n");
@@ -1787,7 +1729,7 @@ int *t2,double *dt,double *gi,double *ki)
 			k[i][tt]+=k[i][tt-1]+g[i][tt];	/* on integre */
 	}
 
-	//Copies des valeurs dans les tableaux resultat
+	/*Copies des valeurs dans les tableaux resultat*/
 	for(i=0;i<*point_nb;i++) {
 		for(tt=0;tt<*t2;tt++) {
 			gi[i*(*t2)+tt]=g[i][tt];
@@ -1795,39 +1737,33 @@ int *t2,double *dt,double *gi,double *ki)
 		}
 	}
 
-
 	freetab(g);
 	freetab(k);
 
 	return 0;
 }
 
-
-
-
-//Densité locale pour une zone rectangulaire
+/*Densite locale pour une zone rectangulaire*/
 int density_rect(int *point_nb,double *x,double *y,double *xmi,double *xma,double *ymi,
 double *yma, int *t2, double *dt, double *xx,double *yy,int *sample_nb,double *count)
 {	int tt,i,j;
 	double ddd,cin;
 	double **s;
 
-	//Decalage pour n'avoir que des valeurs positives
+	/*Decalage pour n'avoir que des valeurs positives*/
 	decalSample(*sample_nb,xx,yy,*xmi,*ymi);
 	decalRect(*point_nb,x,y,xmi,xma,ymi,yma);
-
-
 	taballoc(&s,*sample_nb,*t2);
 
 	for(j=0;j<*sample_nb;j++)
 	{	for(tt=0;tt<*t2;tt++)
 			s[j][tt]=0;
-		for(i=0;i<*point_nb;i++) 	// On calcule le nombre de voisins dans chaque disque de rayon r
+		for(i=0;i<*point_nb;i++) 	/* On calcule le nombre de voisins dans chaque disque de rayon r*/
 		{	ddd=sqrt((xx[j]-x[i])*(xx[j]-x[i])+(yy[j]-y[i])*(yy[j]-y[i]));
 			if (ddd<*t2*(*dt)) {
 				tt=ddd/(*dt);
 
-				// correction des effets de bord
+				/* correction des effets de bord*/
 				cin=perim_in_rect(xx[j],yy[j],ddd,*xmi,*xma,*ymi,*yma);
 				if (cin<0)	{
 					Rprintf("cin<0 sur i AVANT\n");
@@ -1839,30 +1775,26 @@ double *yma, int *t2, double *dt, double *xx,double *yy,int *sample_nb,double *c
 	}
 	for(i=0;i<*sample_nb;i++)
 		for(tt=1;tt<*t2;tt++)
-			s[i][tt]+=s[i][tt-1];	// on integre
+			s[i][tt]+=s[i][tt-1];	/* on integre*/
 
-
-	//Copies des valeurs dans le tableau resultat
+	/*Copies des valeurs dans le tableau resultat*/
 	for(i=0;i<*sample_nb;i++)
 		for(tt=0;tt<*t2;tt++)
 			count[i*(*t2)+tt]=s[i][tt];
-
 
 	freetab(s);
 
 	return 0;
 }
 
-
-//Densité locale pour une zone circulaire
+/*Densite locale pour une zone circulaire*/
 int density_disq(int *point_nb,double *x,double *y,double *x0,double *y0,double *r0,
 	int *t2,double *dt,double *xx,double *yy,int *sample_nb,double *count)
 {	int tt,i,j;
 	double ddd,cin;
 	double **s;
 
-
-	//Decalage pour n'avoir que des valeurs positives
+	/*Decalage pour n'avoir que des valeurs positives*/
 	decalSample(*sample_nb,xx,yy,*x0-*r0,*y0-*r0);
 	decalCirc(*point_nb,x,y,x0,y0,*r0);
 
@@ -1872,12 +1804,12 @@ int density_disq(int *point_nb,double *x,double *y,double *x0,double *y0,double 
 	for(j=0;j<*sample_nb;j++)
 	{	for(tt=0;tt<*t2;tt++)
 			s[j][tt]=0;
-		for(i=0;i<*point_nb;i++) 	// On calcule le nombre de voisins dans chaque disque de rayon r
+		for(i=0;i<*point_nb;i++) 	/* On calcule le nombre de voisins dans chaque disque de rayon r*/
 		{	ddd=sqrt((xx[j]-x[i])*(xx[j]-x[i])+(yy[j]-y[i])*(yy[j]-y[i]));
 			if (ddd<*t2*(*dt))
 			{	tt=ddd/(*dt);
 
-				// correction des effets de bord
+				/* correction des effets de bord*/
 				cin=perim_in_disq(xx[j],yy[j],ddd,*x0,*y0,*r0);
 				if (cin<0)	{
 					Rprintf("cin<0 sur i AVANT\n");
@@ -1889,10 +1821,9 @@ int density_disq(int *point_nb,double *x,double *y,double *x0,double *y0,double 
 	}
 	for(i=0;i<*sample_nb;i++)
 		for(tt=1;tt<*t2;tt++)
-			s[i][tt]+=s[i][tt-1];	// on integre
+			s[i][tt]+=s[i][tt-1];	/* on integre*/
 
-
-	//Copies des valeurs dans le tableau resultat
+	/*Copies des valeurs dans le tableau resultat*/
 	for(i=0;i<*sample_nb;i++)
 		for(tt=0;tt<*t2;tt++)
 			count[i*(*t2)+tt]=s[i][tt];
@@ -1903,8 +1834,7 @@ int density_disq(int *point_nb,double *x,double *y,double *x0,double *y0,double 
 	return 0;
 }
 
-
-//Densité locale pour triangles dans rectangle
+/*Densite locale pour triangles dans rectangle*/
 int density_tr_rect(int *point_nb,double *x,double *y,double *xmi,double *xma,
 	double *ymi,double *yma,int *triangle_nb,double *ax,double *ay,double *bx,
 	double *by,double *cx,double *cy,int *t2,double *dt,double *xx,
@@ -1913,23 +1843,20 @@ int density_tr_rect(int *point_nb,double *x,double *y,double *xmi,double *xma,
 	double ddd,cin;
 	double **s;
 
-
-	//Decalage pour n'avoir que des valeurs positives
+	/*Decalage pour n'avoir que des valeurs positives*/
 	decalSample(*sample_nb,xx,yy,*xmi,*ymi);
 	decalRectTri(*point_nb,x,y,xmi,xma,ymi,yma,*triangle_nb,ax,ay,bx,by,cx,cy);
-
-
 	taballoc(&s,*sample_nb,*t2);
 
 	for(j=0;j<*sample_nb;j++)
 	{	for(tt=0;tt<*t2;tt++)
 			s[j][tt]=0;
-		for(i=0;i<*point_nb;i++) 	// On calcule le nombre de voisins dans chaque disque de rayon r
+		for(i=0;i<*point_nb;i++) 	/* On calcule le nombre de voisins dans chaque disque de rayon r*/
 		{	ddd=sqrt((xx[j]-x[i])*(xx[j]-x[i])+(yy[j]-y[i])*(yy[j]-y[i]));
 			if (ddd<*t2*(*dt))
 			{	tt=ddd/(*dt);
 
-				//correction des effets de bord
+				/*correction des effets de bord*/
 				cin=perim_in_rect(xx[j],yy[j],ddd,*xmi,*xma,*ymi,*yma);
 				if (cin<0)	{
 					Rprintf("cin<0 sur i AVANT\n");
@@ -1946,21 +1873,19 @@ int density_tr_rect(int *point_nb,double *x,double *y,double *xmi,double *xma,
 	}
 	for(i=0;i<*sample_nb;i++)
 		for(tt=1;tt<*t2;tt++)
-			s[i][tt]+=s[i][tt-1];	// on integre
+			s[i][tt]+=s[i][tt-1];	/* on integre */
 
-	//Copies des valeurs dans le tableau resultat
+/* Copies des valeurs dans le tableau resultat*/
 	for(i=0;i<*sample_nb;i++)
 		for(tt=0;tt<*t2;tt++)
 			count[i*(*t2)+tt]=s[i][tt];
-
 
 	freetab(s);
 
 	return 0;
 }
 
-
-//Densité locale pour triangles dans cercle
+/*Densite locale pour triangles dans cercle*/
 int density_tr_disq(int *point_nb,double *x,double *y,double *x0,double *y0,double *r0,
 	int *triangle_nb,double *ax,double *ay,double *bx,double *by,
 	double *cx,double *cy,int *t2,double *dt,double *xx,double *yy,
@@ -1969,24 +1894,20 @@ int density_tr_disq(int *point_nb,double *x,double *y,double *x0,double *y0,doub
 	double ddd,cin;
 	double **s;
 
-
-	//Decalage pour n'avoir que des valeurs positives
+	/*Decalage pour n'avoir que des valeurs positives*/
 	decalSample(*sample_nb,xx,yy,*x0-*r0,*y0-*r0);
 	decalCircTri(*point_nb,x,y,x0,y0,*r0,*triangle_nb,ax,ay,bx,by,cx,cy);
-
-
 	taballoc(&s,*sample_nb,*t2);
-
 
 	for(j=0;j<*sample_nb;j++)
 	{	for(tt=0;tt<*t2;tt++)
 			s[j][tt]=0;
-		for(i=0;i<*point_nb;i++) 	// On calcule le nombre de voisins dans chaque disque de rayon r
+		for(i=0;i<*point_nb;i++) 	/* On calcule le nombre de voisins dans chaque disque de rayon r*/
 		{	ddd=sqrt((xx[j]-x[i])*(xx[j]-x[i])+(yy[j]-y[i])*(yy[j]-y[i]));
 			if (ddd<*t2*(*dt))
 			{	tt=ddd/(*dt);
 
-				//correction des effets de bord
+				/*correction des effets de bord*/
 				cin=perim_in_disq(xx[j],yy[j],ddd,*x0,*y0,*r0);
 				if (cin<0)	{
 					Rprintf("cin<0 sur i AVANT\n");
@@ -2003,19 +1924,17 @@ int density_tr_disq(int *point_nb,double *x,double *y,double *x0,double *y0,doub
 	}
 	for(i=0;i<*sample_nb;i++)
 		for(tt=1;tt<*t2;tt++)
-			s[i][tt]+=s[i][tt-1];	// on integre
+			s[i][tt]+=s[i][tt-1];	/* on integre*/
 
-	//Copies des valeurs dans le tableau resultat
+	/*Copies des valeurs dans le tableau resultat*/
 	for(i=0;i<*sample_nb;i++)
 		for(tt=0;tt<*t2;tt++)
 			count[i*(*t2)+tt]=s[i][tt];
-
 
 	freetab(s);
 
 	return 0;
 }
-
 
 /******************************************************************************/
 /* Calcule la fonction intertype pour les semis (x,y) et (x2,y2) en parametres*/
@@ -2032,22 +1951,22 @@ double *xmi,double *xma,double *ymi,double *yma,int *t2,double *dt,double *g,dou
 {	int i,j,tt;
 	double d,cin;
 
-	//Decalage pour n'avoir que des valeurs positives
+	/*Decalage pour n'avoir que des valeurs positives*/
 	decalRect2(*point_nb1,x1,y1,*point_nb2,x2,y2,xmi,xma,ymi,yma);
 
-	// On rangera dans g le nombre de couples de points par distance tt
+	/*On rangera dans g le nombre de couples de points par distance tt*/
    for(tt=0;tt<*t2;tt++)
 	{	g[tt]=0;
    }
 
-	// On regarde tous les couples (i,j)
+	/* On regarde tous les couples (i,j)*/
 	for(i=0;i<*point_nb1;i++)
 	{	for(j=0;j<*point_nb2;j++)
 		{	d=sqrt((x1[i]-x2[j])*(x1[i]-x2[j])+(y1[i]-y2[j])*(y1[i]-y2[j]));
 			if (d<*t2*(*dt))
-			{	// dans quelle classe de distance est ce couple ?
+			{	/* dans quelle classe de distance est ce couple ?*/
 				tt=d/(*dt);
-				// correction des effets de bord
+				/* correction des effets de bord*/
 				cin=perim_in_rect(x1[i],y1[i],d,*xmi,*xma,*ymi,*yma);
 				if (cin<0) {
 					Rprintf("\ncin<0 sur i AVANT");
@@ -2058,12 +1977,12 @@ double *xmi,double *xma,double *ymi,double *yma,int *t2,double *dt,double *g,dou
 		}
    }
 
-   // on moyenne -> densite
+   /* on moyenne -> densite*/
    for(tt=0;tt<*t2;tt++)
 	{	g[tt]=g[tt]/(*point_nb1);
    }
 
-	//on integre
+	/*on integre*/
    k[0]=g[0];
   	for(tt=1;tt<*t2;tt++)
 	{	k[tt]=k[tt-1]+g[tt];
@@ -2072,26 +1991,25 @@ double *xmi,double *xma,double *ymi,double *yma,int *t2,double *dt,double *g,dou
    return 0;
 }
 
-
-//fonction intertype pour une zone circulaire
+/*fonction intertype pour une zone circulaire*/
 int intertype_disq(int *point_nb1, double *x1, double *y1, int *point_nb2, double *x2,
 	double *y2, double *x0, double *y0, double *r0,int *t2, double *dt, double *g, double *k)
 {	int tt,i,j;
 	double d,cin;
 
-	//Decalage pour n'avoir que des valeurs positives
+	/*Decalage pour n'avoir que des valeurs positives*/
 	decalCirc2(*point_nb1,x1,y1,*point_nb2,x2,y2,x0,y0,*r0);
 
 	for(tt=0;tt<*t2;tt++) {
 		g[tt]=0;
 	}
-	for(i=0;i<*point_nb1;i++) 	// On calcule le nombre de couples de points par distance g
+	for(i=0;i<*point_nb1;i++) 	/* On calcule le nombre de couples de points par distance g*/
 			for(j=0;j<*point_nb2;j++)
 			{	d=sqrt((x1[i]-x2[j])*(x1[i]-x2[j])+(y1[i]-y2[j])*(y1[i]-y2[j]));
 				if (d<*t2*(*dt))
 				{	tt=d/(*dt);
 
-					// correction des effets de bord
+					/* correction des effets de bord*/
 					cin=perim_in_disq(x1[i],y1[i],d,*x0,*y0,*r0);
 					if (cin<0) {
 						Rprintf("\ncin<0 sur i AVANT");
@@ -2101,12 +2019,12 @@ int intertype_disq(int *point_nb1, double *x1, double *y1, int *point_nb2, doubl
 				}
 			}
 
-	// on moyenne -> densite
+	/* on moyenne -> densite*/
 	for(tt=0;tt<*t2;tt++) {
 		g[tt]=g[tt]/(*point_nb1);
 	}
 
-	// on integre
+	/* on integre*/
 	k[0]=g[0];
 	for(tt=1;tt<*t2;tt++) {
 		k[tt]=k[tt-1]+g[tt];
@@ -2115,17 +2033,17 @@ int intertype_disq(int *point_nb1, double *x1, double *y1, int *point_nb2, doubl
 	return 0;
 }
 
-//Intertype triangles dans rectangle
+/*Intertype triangles dans rectangle*/
 int intertype_tr_rect(int *point_nb1,double *x1,double *y1,int *point_nb2,double *x2,double *y2,
 double *xmi,double *xma,double *ymi,double *yma,int *triangle_nb,double *ax,double *ay,double *bx,double *by,
 double *cx,double *cy,int *t2,double *dt,double *g,double *k)
 {	int i,j,tt;
 	double d,cin;
 
-	//Decalage pour n'avoir que des valeurs positives
+	/*Decalage pour n'avoir que des valeurs positives*/
 	decalRectTri2(*point_nb1,x1,y1,*point_nb2,x2,y2,xmi,xma,ymi,yma,*triangle_nb,ax,ay,bx,by,cx,cy);
 
-	// On calcule le nombre de couples de points par distance g
+	/* On calcule le nombre de couples de points par distance g*/
 	for(tt=0;tt<*t2;tt++){
 		g[tt]=0;
 	}
@@ -2148,12 +2066,12 @@ double *cx,double *cy,int *t2,double *dt,double *g,double *k)
 			}
 		}
 
-	// on moyenne -> densite
+	/* on moyenne -> densite*/
 	for(tt=0;tt<*t2;tt++) {
 		g[tt]=g[tt]/(*point_nb1);
 	}
 
-	// on integre
+	/* on integre*/
 	k[0]=g[0];
 	for(tt=1;tt<*t2;tt++){
 		k[tt]=k[tt-1]+g[tt];
@@ -2162,17 +2080,17 @@ double *cx,double *cy,int *t2,double *dt,double *g,double *k)
 	return 0;
 }
 
-//Intertype triangles dans cercle
+/*Intertype triangles dans cercle*/
 int intertype_tr_disq(int *point_nb1,double *x1,double *y1,int *point_nb2,double *x2,double *y2,
 double *x0,double *y0,double *r0,int *triangle_nb,double *ax,double *ay,double *bx,double *by,
 double *cx,double *cy,int *t2,double *dt,double *g,double *k)
 {	int i,j,tt;
 	double d,cin;
 
-	//Decalage pour n'avoir que des valeurs positives
+	/*Decalage pour n'avoir que des valeurs positives*/
 	decalCircTri2(*point_nb1,x1,y1,*point_nb2,x2,y2,x0,y0,*r0,*triangle_nb,ax,ay,bx,by,cx,cy);
 
-	// On calcule le nombre de couples de points par distance g
+	/* On calcule le nombre de couples de points par distance g*/
 	for(tt=0;tt<*t2;tt++){
 		g[tt]=0;
 	}
@@ -2195,12 +2113,12 @@ double *cx,double *cy,int *t2,double *dt,double *g,double *k)
 			}
 		}
 
-	// on moyenne -> densite
+	/* on moyenne -> densite*/
 	for(tt=0;tt<*t2;tt++) {
 		g[tt]=g[tt]/(*point_nb1);
 	}
 
-	// on integre
+	/* on integre*/
 	k[0]=g[0];
 	for(tt=1;tt<*t2;tt++){
 		k[tt]=k[tt-1]+g[tt];
@@ -2209,9 +2127,7 @@ double *cx,double *cy,int *t2,double *dt,double *g,double *k)
 	return 0;
 }
 
-
-
-//fonction intertype avec intervalle de confiance pour une zone rectangulaire
+/*fonction intertype avec intervalle de confiance pour une zone rectangulaire*/
 int intertype_rect_ic(int *point_nb1,double *x1,double *y1,int *point_nb2, double *x2, double *y2,
 double *xmi,double *xma,double *ymi,double *yma,double *densite2,
 int *t2,double *dt,int *nbSimu,int *h0, double *prec, double *lev,double *densite,double *g,double *k,
@@ -2230,15 +2146,15 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 		return -1;
 	}
 
-	///Définition de i0 : indice où sera stocké l'estimation des bornes de l'IC
+	/*Definition de i0 : indice ou sera stocke l'estimation des bornes de l'IC*/
 	i0=*lev/2*(*nbSimu+1);
 	if (i0<1) i0=1;
 
-	///Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC
+	/*Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC*/
 	taballoc(&gic,*t2+1,2*i0+10+1);
 	taballoc(&kic,*t2+1,2*i0+10+1);
 
-	//Normalisation de g et k et calcul de l et n pour le calcul des p-values
+	/*Normalisation de g et k et calcul de l et n pour le calcul des p-values*/
 		vecalloc(&gg,*t2);
 		vecalloc(&kk,*t2);
 		vecalloc(&ll,*t2);
@@ -2255,11 +2171,11 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 			lval[i]=1;
 	}
 
-	//Initialisations avant la boucle principale
+	/*Initialisations avant la boucle principale*/
 	vecalloc(&x,*point_nb1+*point_nb2);
 	vecalloc(&y,*point_nb1+*point_nb2);
 	vecintalloc(&type,*point_nb1+*point_nb2);
-	if (*h0==1) { //Option 1 : substitutions : on stocke tous les points
+	if (*h0==1) { /*Option 1 : substitutions : on stocke tous les points*/
 		for(i=0;i<*point_nb1;i++) {
 			x[i]=x1[i];
 			y[i]=y1[i];
@@ -2268,7 +2184,7 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 			x[*point_nb1+i]=x2[i];
 			y[*point_nb1+i]=y2[i];
 		}
-		//on lance Ripley sur tous les points + normalization pour le calcul des p-values
+		/*on lance Ripley sur tous les points + normalization pour le calcul des p-values*/
 		vecalloc(&gt,*t2);
 		vecalloc(&kt,*t2);
 		vecalloc(&lt,*t2);
@@ -2285,14 +2201,14 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 			lt[j]=sqrt(kt[j]/Pi())-(j+1)*(*dt);
 		}
 	}
-	//Sinon option 2 : rien a initialiser
+	/*Sinon option 2 : rien a initialiser*/
 	int lp=0;
 
-	// boucle principale de MC
+	/*boucle principale de MC*/
 	Rprintf("Monte Carlo simulation\n");
 	for(i=1;i<=*nbSimu;i++) {
 
-		//On simule les hypothèses nulles
+		/*On simule les hypotheses nulles*/
 		if(*h0==1) {
 			erreur=randlabelling(x,y,*point_nb1,x1,y1,*point_nb2,x2,y2,type);
 		}
@@ -2302,21 +2218,21 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 
 		if (erreur==0) {
 			if (*h0==1) {
-				// étiquetage aléatoire
+				/*etiquetage aleatoire*/
 				erreur=intertype_rect(point_nb1,x1,y1,point_nb2,x2,y2,xmi,xma,ymi,yma,t2,dt,gic1,kic1);
          	}
          	else {
-				// décallage avec rectangle
+				/* décallage avec rectangle*/
         	 	erreur=intertype_rect(&point_nb,x,y,point_nb2,x2,y2,xmi,xma,ymi,yma,t2,dt,gic1,kic1);
          	}
       	}
-		// si il y a une erreur on recommence une simulation
+		/* si il y a une erreur on recommence une simulation*/
 		if (erreur!=0) {
 			i=i-1;
 			Rprintf("ERREUR Intertype\n");
 		}
 		else {
-			//comptage du nombre de |¶obs|<=|¶simu| pour test local
+			/*comptage du nombre de |¶obs|<=|¶simu| pour test local*/
 			double gictmp,kictmp,lictmp,nictmp;
 			for(j=0;j<*t2;j++) {
 				gictmp=gic1[j]/(*densite2*(Pi()*(j+1)*(j+1)*(*dt)*(*dt)-Pi()*j*j*(*dt)*(*dt)));
@@ -2337,7 +2253,7 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 				}
 			}
 
-			////Traitement des résultats
+			/*Traitement des résultats*/
 			ic(i,i0,gic,kic,gic1,kic1,*t2);
 		}
 		R_FlushConsole();
@@ -2347,7 +2263,7 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 	i1=i0+2;
 	i2=i0;
 
-	//Copies des valeurs dans les tableaux résultats
+	/*Copies des valeurs dans les tableaux résultats*/
 	for(i=0;i<*t2;i++) {
 		gic1[i]=gic[i+1][i1];
 		gic2[i]=gic[i+1][i2];
@@ -2374,8 +2290,7 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 	return 0;
 }
 
-
-//fonction intertype avec intervalle de confiance pour une zone circulaire
+/*fonction intertype avec intervalle de confiance pour une zone circulaire*/
 int intertype_disq_ic(int *point_nb1,double *x1,double *y1,int *point_nb2, double *x2, double *y2,
 double *x0,double *y0,double *r0,double *densite2,
 int *t2,double *dt,int *nbSimu,int *h0, double *prec, double *lev,double *densite,double *g,double *k,
@@ -2394,15 +2309,15 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 		return -1;
 	}
 
-	///Définition de i0 : indice où sera stocké l'estimation des bornes de l'IC
+	/*Définition de i0 : indice où sera stocké l'estimation des bornes de l'IC*/
 	i0=*lev/2*(*nbSimu+1);
 	if (i0<1) i0=1;
 
-	///Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC
+	/*Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC*/
 	taballoc(&gic,*t2+1,2*i0+10+1);
 	taballoc(&kic,*t2+1,2*i0+10+1);
 
-	//Normalisation de g et k et calcul de l et n pour le calcul des p-values
+	/*Normalisation de g et k et calcul de l et n pour le calcul des p-values*/
 		vecalloc(&gg,*t2);
 		vecalloc(&kk,*t2);
 		vecalloc(&ll,*t2);
@@ -2419,11 +2334,11 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 			lval[i]=1;
 	}
 
-	//Initialisations avant la boucle principale
+	/*Initialisations avant la boucle principale*/
 	vecalloc(&x,*point_nb1+*point_nb2);
 	vecalloc(&y,*point_nb1+*point_nb2);
 	vecintalloc(&type,*point_nb1+*point_nb2);
-	if (*h0==1) { //Option 1 : substitutions : on stocke tous les points
+	if (*h0==1) { /*Option 1 : substitutions : on stocke tous les points*/
 		for(i=0;i<*point_nb1;i++) {
 			x[i]=x1[i];
 			y[i]=y1[i];
@@ -2432,7 +2347,7 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 			x[*point_nb1+i]=x2[i];
 			y[*point_nb1+i]=y2[i];
 		}
-		//on lance Ripley sur tous les points + normalization pour le calcul des p-values
+		/*on lance Ripley sur tous les points + normalization pour le calcul des p-values*/
 		vecalloc(&gt,*t2);
 		vecalloc(&kt,*t2);
 		vecalloc(&lt,*t2);
@@ -2449,14 +2364,14 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 			lt[j]=sqrt(kt[j]/Pi())-(j+1)*(*dt);
 		}
 	}
-	//Sinon option 2 : rien a initialiser
+	/*Sinon option 2 : rien a initialiser*/
 	int lp=0;
 
-	// boucle principale de MC
+	/* boucle principale de MC*/
 	Rprintf("Monte Carlo simulation\n");
 	for(i=1;i<=*nbSimu;i++) {
 
-		//On simule les hypothèses nulles
+		/*On simule les hypothèses nulles*/
 		if(*h0==1) {
 			erreur=randlabelling(x,y,*point_nb1,x1,y1,*point_nb2,x2,y2,type);
 		}
@@ -2472,13 +2387,13 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
         	 	erreur=intertype_disq(&point_nb,x,y,point_nb2,x2,y2,x0,y0,r0,t2,dt,gic1,kic1);
          	}
       	}
-		// si il y a une erreur on recommence une simulation
+		/* si il y a une erreur on recommence une simulation*/
 		if (erreur!=0) {
 			i=i-1;
 			Rprintf("ERREUR Intertype\n");
 		}
 		else {
-			//comptage du nombre de |¶obs|<=|¶simu| pour test local
+			/*comptage du nombre de |¶obs|<=|¶simu| pour test local*/
 			double gictmp,kictmp,lictmp,nictmp;
 			for(j=0;j<*t2;j++) {
 				gictmp=gic1[j]/(*densite2*(Pi()*(j+1)*(j+1)*(*dt)*(*dt)-Pi()*j*j*(*dt)*(*dt)));
@@ -2498,7 +2413,7 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 					if ((float)fabs(ll[j])<=(float)fabs(lictmp)) {lval[j]+=1;}
 				}
 			}
-			////Traitement des résultats
+			/*Traitement des résultats*/
 			ic(i,i0,gic,kic,gic1,kic1,*t2);
 		}
 		R_FlushConsole();
@@ -2506,7 +2421,7 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 	}
 	i1=i0+2;
 	i2=i0;
-	//Copies des valeurs dans les tableaux résultats
+	/*Copies des valeurs dans les tableaux résultats*/
 	for(i=0;i<*t2;i++) {
 		gic1[i]=gic[i+1][i1];
 		gic2[i]=gic[i+1][i2];
@@ -2531,8 +2446,7 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 	return 0;
 }
 
-
-//fonction intertype avec intervalle de confiance pour une zone rectangulaire + triangles
+/*fonction intertype avec intervalle de confiance pour une zone rectangulaire + triangles*/
 int intertype_tr_rect_ic(int *point_nb1,double *x1,double *y1,int *point_nb2, double *x2, double *y2,
 double *xmi,double *xma,double *ymi,double *yma,double *densite2,
 int *triangle_nb,double *ax,double *ay,double *bx,double *by,double *cx,double *cy,
@@ -2552,15 +2466,15 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 		return -1;
 	}
 
-	///Définition de i0 : indice où sera stocké l'estimation des bornes de l'IC
+	/*Définition de i0 : indice où sera stocké l'estimation des bornes de l'IC*/
 	i0=*lev/2*(*nbSimu+1);
 	if (i0<1) i0=1;
 
-	///Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC
+	/*Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC*/
 	taballoc(&gic,*t2+1,2*i0+10+1);
 	taballoc(&kic,*t2+1,2*i0+10+1);
 
-	//Normalisation de g et k et calcul de l et n pour le calcul des p-values
+	/*Normalisation de g et k et calcul de l et n pour le calcul des p-values*/
 		vecalloc(&gg,*t2);
 		vecalloc(&kk,*t2);
 		vecalloc(&ll,*t2);
@@ -2577,11 +2491,11 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 			lval[i]=1;
 	}
 
-	//Initialisations avant la boucle principale
+	/*Initialisations avant la boucle principale*/
 	vecalloc(&x,*point_nb1+*point_nb2);
 	vecalloc(&y,*point_nb1+*point_nb2);
 	vecintalloc(&type,*point_nb1+*point_nb2);
-	if (*h0==1) { //Option 1 : substitutions : on stocke tous les points
+	if (*h0==1) { /*Option 1 : substitutions : on stocke tous les points*/
 		for(i=0;i<*point_nb1;i++) {
 			x[i]=x1[i];
 			y[i]=y1[i];
@@ -2590,7 +2504,7 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 			x[*point_nb1+i]=x2[i];
 			y[*point_nb1+i]=y2[i];
 		}
-		//on lance Ripley sur tous les points + normalization pour le calcul des p-values
+		/*on lance Ripley sur tous les points + normalization pour le calcul des p-values*/
 		vecalloc(&gt,*t2);
 		vecalloc(&kt,*t2);
 		vecalloc(&lt,*t2);
@@ -2607,14 +2521,14 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 			lt[j]=sqrt(kt[j]/Pi())-(j+1)*(*dt);
 		}
 	}
-	//Sinon option 2 : rien a initialiser
+	/*Sinon option 2 : rien a initialiser*/
 	int lp=0;
 
-	// boucle principale de MC
+	/* boucle principale de MC*/
 	Rprintf("Monte Carlo simulation\n");
 	for(i=1;i<=*nbSimu;i++) {
 
-		//On simule les hypothèses nulles
+		/*On simule les hypothèses nulles*/
 		if(*h0==1) {
 			erreur=randlabelling(x,y,*point_nb1,x1,y1,*point_nb2,x2,y2,type);
 		}
@@ -2624,21 +2538,21 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 
 		if (erreur==0) {
 			if (*h0==1) {
-				// étiquetage aléatoire
+				/* étiquetage aléatoire*/
 				erreur=intertype_tr_rect(point_nb1,x1,y1,point_nb2,x2,y2,xmi,xma,ymi,yma,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,gic1,kic1);
          	}
          	else {
-				// décallage avec rectangle
+				/* décallage avec rectangle*/
         	 	erreur=intertype_tr_rect(&point_nb,x,y,point_nb2,x2,y2,xmi,xma,ymi,yma,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,gic1,kic1);
          	}
       	}
-		// si il y a une erreur on recommence une simulation
+		/* si il y a une erreur on recommence une simulation*/
 		if (erreur!=0) {
 			i=i-1;
 			Rprintf("ERREUR Intertype\n");
 		}
 		else {
-			//comptage du nombre de |¶obs|<=|¶simu| pour test local
+			/*comptage du nombre de |¶obs|<=|¶simu| pour test local*/
 			double gictmp,kictmp,lictmp,nictmp;
 			for(j=0;j<*t2;j++) {
 				gictmp=gic1[j]/(*densite2*(Pi()*(j+1)*(j+1)*(*dt)*(*dt)-Pi()*j*j*(*dt)*(*dt)));
@@ -2659,7 +2573,7 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 				}
 			}
 
-			////Traitement des résultats
+			/*Traitement des résultats*/
 			ic(i,i0,gic,kic,gic1,kic1,*t2);
 		}
 		R_FlushConsole();
@@ -2669,7 +2583,7 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 	i1=i0+2;
 	i2=i0;
 
-	//Copies des valeurs dans les tableaux résultats
+	/*Copies des valeurs dans les tableaux résultats*/
 	for(i=0;i<*t2;i++) {
 		gic1[i]=gic[i+1][i1];
 		gic2[i]=gic[i+1][i2];
@@ -2697,7 +2611,7 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 }
 
 
-//fonction intertype avec intervalle de confiance pour une zone circulaire + triangles
+/*fonction intertype avec intervalle de confiance pour une zone circulaire + triangles*/
 int intertype_tr_disq_ic(int *point_nb1,double *x1,double *y1,int *point_nb2, double *x2, double *y2,
 double *x0,double *y0,double *r0,double *densite2,
 int *triangle_nb,double *ax,double *ay,double *bx,double *by,double *cx,double *cy,
@@ -2717,15 +2631,15 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 		return -1;
 	}
 
-	///Définition de i0 : indice où sera stocké l'estimation des bornes de l'IC
+	/*Définition de i0 : indice où sera stocké l'estimation des bornes de l'IC*/
 	i0=*lev/2*(*nbSimu+1);
 	if (i0<1) i0=1;
 
-	///Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC
+	/*Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC*/
 	taballoc(&gic,*t2+1,2*i0+10+1);
 	taballoc(&kic,*t2+1,2*i0+10+1);
 
-	//Normalisation de g et k et calcul de l et n pour le calcul des p-values
+	/*Normalisation de g et k et calcul de l et n pour le calcul des p-values*/
 		vecalloc(&gg,*t2);
 		vecalloc(&kk,*t2);
 		vecalloc(&ll,*t2);
@@ -2742,11 +2656,11 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 			lval[i]=1;
 	}
 
-	//Initialisations avant la boucle principale
+	/*Initialisations avant la boucle principale*/
 	vecalloc(&x,*point_nb1+*point_nb2);
 	vecalloc(&y,*point_nb1+*point_nb2);
 	vecintalloc(&type,*point_nb1+*point_nb2);
-	if (*h0==1) { //Option 1 : substitutions : on stocke tous les points
+	if (*h0==1) { /*Option 1 : substitutions : on stocke tous les points*/
 		for(i=0;i<*point_nb1;i++) {
 			x[i]=x1[i];
 			y[i]=y1[i];
@@ -2755,7 +2669,7 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 			x[*point_nb1+i]=x2[i];
 			y[*point_nb1+i]=y2[i];
 		}
-		//on lance Ripley sur tous les points + normalization pour le calcul des p-values
+		/*on lance Ripley sur tous les points + normalization pour le calcul des p-values*/
 		vecalloc(&gt,*t2);
 		vecalloc(&kt,*t2);
 		vecalloc(&lt,*t2);
@@ -2772,14 +2686,14 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 			lt[j]=sqrt(kt[j]/Pi())-(j+1)*(*dt);
 		}
 	}
-	//Sinon option 2 : rien a initialiser
+	/*Sinon option 2 : rien a initialiser*/
 	int lp=0;
 
-	// boucle principale de MC
+	/* boucle principale de MC*/
 	Rprintf("Monte Carlo simulation\n");
 	for(i=1;i<=*nbSimu;i++) {
 
-		//On simule les hypothèses nulles
+		/*On simule les hypothèses nulles*/
 		if(*h0==1) {
 			erreur=randlabelling(x,y,*point_nb1,x1,y1,*point_nb2,x2,y2,type);
 		}
@@ -2789,21 +2703,21 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 
 		if (erreur==0) {
 			if (*h0==1) {
-				// étiquetage aléatoire
+				/* étiquetage aléatoire*/
 				erreur=intertype_tr_disq(point_nb1,x1,y1,point_nb2,x2,y2,x0,y0,r0,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,gic1,kic1);
          	}
          	else {
-				// décallage avec rectangle
+				/* décallage avec rectangle*/
         	 	erreur=intertype_tr_disq(&point_nb,x,y,point_nb2,x2,y2,x0,y0,r0,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,gic1,kic1);
          	}
       	}
-		// si il y a une erreur on recommence une simulation
+		/* si il y a une erreur on recommence une simulation*/
 		if (erreur!=0) {
 			i=i-1;
 			Rprintf("ERREUR Intertype\n");
 		}
 		else {
-			//comptage du nombre de |¶obs|<=|¶simu| pour test local
+			/*comptage du nombre de |¶obs|<=|¶simu| pour test local*/
 			double gictmp,kictmp,lictmp,nictmp;
 			for(j=0;j<*t2;j++) {
 				gictmp=gic1[j]/(*densite2*(Pi()*(j+1)*(j+1)*(*dt)*(*dt)-Pi()*j*j*(*dt)*(*dt)));
@@ -2824,7 +2738,7 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 				}
 			}
 
-			////Traitement des résultats
+			/*Traitement des résultats*/
 			ic(i,i0,gic,kic,gic1,kic1,*t2);
 		}
 		R_FlushConsole();
@@ -2834,7 +2748,7 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 	i1=i0+2;
 	i2=i0;
 
-	//Copies des valeurs dans les tableaux résultats
+	/*Copies des valeurs dans les tableaux résultats*/
 	for(i=0;i<*t2;i++) {
 		gic1[i]=gic[i+1][i1];
 		gic2[i]=gic[i+1][i2];
@@ -2861,23 +2775,15 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 	return 0;
 }
 
-
-
-
-
-
-
-//fonction intertype locale pour une zone rectangulaire
+/*fonction intertype locale pour une zone rectangulaire*/
 int intertypelocal_rect(int *point_nb1,double *x1,double *y1,int *point_nb2,double *x2,double *y2,double *xmi,double *xma,
 	double *ymi,double *yma,int *t2,double *dt,double *gi,double *ki)
 {	int tt,i,j;
 	double d,cin;
 	double **g, **k;
 
-	//Decalage pour n'avoir que des valeurs positives
+	/*Decalage pour n'avoir que des valeurs positives*/
 	decalRect2(*point_nb1,x1,y1,*point_nb2,x2,y2,xmi,xma,ymi,yma);
-
-
 	taballoc(&g,*point_nb1,*t2);
 	taballoc(&k,*point_nb1,*t2);
 
@@ -2891,7 +2797,7 @@ int intertypelocal_rect(int *point_nb1,double *x1,double *y1,int *point_nb2,doub
 				if (d<*t2*(*dt)) {
 					tt=d/(*dt);
 
-					// correction des effets de bord
+					/* correction des effets de bord*/
 					cin=perim_in_rect(x1[i],y1[i],d,*xmi,*xma,*ymi,*yma);
 					if (cin<0)	{
 						Rprintf("cin<0 sur i AVANT\n");
@@ -2907,7 +2813,7 @@ int intertypelocal_rect(int *point_nb1,double *x1,double *y1,int *point_nb2,doub
 			k[i][tt]=k[i][tt-1]+g[i][tt];	/* on integre */
 	}
 
-	//Copies des valeurs dans les tableaux resultat
+	/*Copies des valeurs dans les tableaux resultat*/
 	for(i=0;i<*point_nb1;i++) {
 		for(tt=0;tt<*t2;tt++) {
 			gi[i*(*t2)+tt]=g[i][tt];
@@ -2915,23 +2821,20 @@ int intertypelocal_rect(int *point_nb1,double *x1,double *y1,int *point_nb2,doub
 		}
 	}
 
-
-
 	freetab(g);
 	freetab(k);
 
 	return 0;
 }
 
-
-//fonction intertype locale pour une zone circulaire
+/*fonction intertype locale pour une zone circulaire*/
 int intertypelocal_disq(int *point_nb1,double *x1,double *y1,int *point_nb2,double *x2,double *y2,double *x0,double *y0,
 	double *r0,int *t2,double *dt,double *gi,double *ki)
 {	int tt,i,j;
 	double d,cin;
 	double **g, **k;
 
-	//Decalage pour n'avoir que des valeurs positives
+	/*Decalage pour n'avoir que des valeurs positives*/
 	decalCirc2(*point_nb1,x1,y1,*point_nb2,x2,y2,x0,y0,*r0);
 
 
@@ -2948,7 +2851,7 @@ int intertypelocal_disq(int *point_nb1,double *x1,double *y1,int *point_nb2,doub
 				if (d<*t2*(*dt)) {
 					tt=d/(*dt);
 
-					// correction des effets de bord
+					/* correction des effets de bord*/
 					cin=perim_in_disq(x1[i],y1[i],d,*x0,*y0,*r0);
 					if (cin<0)	{
 						Rprintf("cin<0 sur i AVANT\n");
@@ -2964,7 +2867,7 @@ int intertypelocal_disq(int *point_nb1,double *x1,double *y1,int *point_nb2,doub
 			k[i][tt]=k[i][tt-1]+g[i][tt];	/* on integre */
 	}
 
-	//Copies des valeurs dans les tableaux resultat
+	/*Copies des valeurs dans les tableaux resultat*/
 	for(i=0;i<*point_nb1;i++) {
 		for(tt=0;tt<*t2;tt++) {
 			gi[i*(*t2)+tt]=g[i][tt];
@@ -2972,16 +2875,13 @@ int intertypelocal_disq(int *point_nb1,double *x1,double *y1,int *point_nb2,doub
 		}
 	}
 
-
-
 	freetab(g);
 	freetab(k);
 
 	return 0;
 }
 
-
-//fonction intertype locale pour une zone rectangulaire + triangles
+/*fonction intertype locale pour une zone rectangulaire + triangles*/
 int intertypelocal_tr_rect(int *point_nb1,double *x1,double *y1,int *point_nb2,double *x2,double *y2,double *xmi,double *xma,
 double *ymi,double *yma,int *triangle_nb,double *ax,double *ay,double *bx,double *by,double *cx,double *cy,
 int *t2,double *dt,double *gi,double *ki)
@@ -2989,10 +2889,8 @@ int *t2,double *dt,double *gi,double *ki)
 	double d,cin;
 	double **g, **k;
 
-	//Decalage pour n'avoir que des valeurs positives
+	/*Decalage pour n'avoir que des valeurs positives*/
 	decalRectTri2(*point_nb1,x1,y1,*point_nb2,x2,y2,xmi,xma,ymi,yma,*triangle_nb,ax,ay,bx,by,cx,cy);
-
-
 	taballoc(&g,*point_nb1,*t2);
 	taballoc(&k,*point_nb1,*t2);
 
@@ -3006,7 +2904,7 @@ int *t2,double *dt,double *gi,double *ki)
 				if (d<*t2*(*dt)) {
 					tt=d/(*dt);
 
-					// correction des effets de bord
+					/* correction des effets de bord*/
 					cin=perim_in_rect(x1[i],y1[i],d,*xmi,*xma,*ymi,*yma);
 					if (cin<0)	{
 						Rprintf("cin<0 sur i AVANT\n");
@@ -3027,7 +2925,7 @@ int *t2,double *dt,double *gi,double *ki)
 			k[i][tt]=k[i][tt-1]+g[i][tt];	/* on integre */
 	}
 
-	//Copies des valeurs dans les tableaux resultat
+	/*Copies des valeurs dans les tableaux resultat*/
 	for(i=0;i<*point_nb1;i++) {
 		for(tt=0;tt<*t2;tt++) {
 			gi[i*(*t2)+tt]=g[i][tt];
@@ -3035,16 +2933,13 @@ int *t2,double *dt,double *gi,double *ki)
 		}
 	}
 
-
-
 	freetab(g);
 	freetab(k);
 
 	return 0;
 }
 
-
-//fonction intertype locale pour une zone circulaire + triangles
+/*fonction intertype locale pour une zone circulaire + triangles*/
 int intertypelocal_tr_disq(int *point_nb1,double *x1,double *y1,int *point_nb2,double *x2,double *y2,double *x0,double *y0,
 double *r0,int *triangle_nb,double *ax,double *ay,double *bx,double *by,double *cx,double *cy,
 int *t2,double *dt,double *gi,double *ki)
@@ -3052,10 +2947,8 @@ int *t2,double *dt,double *gi,double *ki)
 	double d,cin;
 	double **g, **k;
 
-	//Decalage pour n'avoir que des valeurs positives
+	/*Decalage pour n'avoir que des valeurs positives*/
 	decalCircTri2(*point_nb1,x1,y1,*point_nb2,x2,y2,x0,y0,*r0,*triangle_nb,ax,ay,bx,by,cx,cy);
-
-
 	taballoc(&g,*point_nb1,*t2);
 	taballoc(&k,*point_nb1,*t2);
 
@@ -3069,7 +2962,7 @@ int *t2,double *dt,double *gi,double *ki)
 				if (d<*t2*(*dt)) {
 					tt=d/(*dt);
 
-					// correction des effets de bord
+					/* correction des effets de bord*/
 					cin=perim_in_disq(x1[i],y1[i],d,*x0,*y0,*r0);
 					if (cin<0)	{
 						Rprintf("cin<0 sur i AVANT\n");
@@ -3090,7 +2983,7 @@ int *t2,double *dt,double *gi,double *ki)
 			k[i][tt]=k[i][tt-1]+g[i][tt];	/* on integre */
 	}
 
-	//Copies des valeurs dans les tableaux resultat
+	/*Copies des valeurs dans les tableaux resultat*/
 	for(i=0;i<*point_nb1;i++) {
 		for(tt=0;tt<*t2;tt++) {
 			gi[i*(*t2)+tt]=g[i][tt];
@@ -3098,22 +2991,11 @@ int *t2,double *dt,double *gi,double *ki)
 		}
 	}
 
-
-
 	freetab(g);
 	freetab(k);
 
 	return 0;
 }
-
-
-
-
-
-
-
-
-
 
 /******************************************************************************/
 /* Cette routine cree un semis poissonnien a la precision p pour x et y,      */
@@ -3134,7 +3016,7 @@ void s_alea_rect(int point_nb,double x[], double y[],
 	PutRNGstate();
 }
 
-//pour un zone circulaire
+/*pour un zone circulaire*/
 void s_alea_disq(int point_nb, double *x, double *y, double x0, double y0, double r0, double p)
 {	int i;
 	double xx, yy, rr;
@@ -3145,8 +3027,7 @@ void s_alea_disq(int point_nb, double *x, double *y, double x0, double y0, doubl
 	{	xx=x0-r0+(unif_rand()*(rr/p))*p;
 		yy=y0-r0+(unif_rand()*(rr/p))*p;
 		if ((xx-x0)*(xx-x0)+(yy-y0)*(yy-y0)<r0*r0)
-		{	//i++;
-			x[i]=xx;
+		{	x[i]=xx;
 			y[i]=yy;
 			i++;
 		}
@@ -3154,7 +3035,7 @@ void s_alea_disq(int point_nb, double *x, double *y, double x0, double y0, doubl
 	PutRNGstate();
 }
 
-//pour une zone rectangulaire avec exclusion de triangles
+/*pour une zone rectangulaire avec exclusion de triangles*/
 void s_alea_tr_rect(int point_nb,double *x, double *y,double xmi,double xma, double ymi,double yma,int triangle_nb,
 double *ax,double *ay,double *bx,double *by,double *cx,double *cy,double p)
 {	int i,j,erreur;
@@ -3165,11 +3046,11 @@ double *ax,double *ay,double *bx,double *by,double *cx,double *cy,double p)
 
 	i=0;
    while (i<point_nb)
-	{  // on simule le ieme point dans le rectangle
+	{  /* on simule le ieme point dans le rectangle*/
    	x[i]=xmi+(unif_rand()*(xr/p))*p;
 	y[i]=ymi+(unif_rand()*(yr/p))*p;
 
-      // si il n'est dans aucun triangle, on passe au suivant, sinon on recommence
+      /* si il n'est dans aucun triangle, on passe au suivant, sinon on recommence*/
       erreur=0;
 		j=0;
 		while ((j<triangle_nb)&&(erreur==0))
@@ -3186,7 +3067,7 @@ double *ax,double *ay,double *bx,double *by,double *cx,double *cy,double p)
 	PutRNGstate();
 }
 
-//pour une zone circulaire avec exclusion de triangles
+/*pour une zone circulaire avec exclusion de triangles*/
 void s_alea_tr_disq(int point_nb,double *x, double *y,double x0,double y0, double r0,int triangle_nb,
 double *ax,double *ay,double *bx,double *by,double *cx,double *cy,double p)
 {	int i,j,erreur;
@@ -3197,12 +3078,12 @@ double *ax,double *ay,double *bx,double *by,double *cx,double *cy,double p)
 	i=0;
 	while (i<point_nb) {
 		erreur=0;
-		// on simule le ieme point dans le cercle
+		/* on simule le ieme point dans le cercle*/
 		x[i]=x0-r0+(unif_rand()*(rr/p))*p;
 		y[i]=y0-r0+(unif_rand()*(rr/p))*p;
 		if ((x[i]-x0)*(x[i]-x0)+(y[i]-y0)*(y[i]-y0)>r0*r0) erreur=1;
 
-		// si il n'est dans aucun triangle, on passe au suivant, sinon on recommence
+		/* si il n'est dans aucun triangle, on passe au suivant, sinon on recommence*/
 		j=0;
 		while ((j<triangle_nb)&&(erreur==0))
 		{	if (in_triangle(x[i],y[i],ax[j],ay[j],bx[j],by[j],cx[j],cy[j],1))
@@ -3218,13 +3099,9 @@ double *ax,double *ay,double *bx,double *by,double *cx,double *cy,double p)
 	PutRNGstate();
 }
 
+/*hypotheses nulles pour intertype :*/
 
-
-
-
-//hypotheses nulles pour intertype :
-
-//1 : etiquetage aleatoire
+/*1 : etiquetage aleatoire*/
 int randlabelling(double *x, double *y, int point_nb1, double *x1, double *y1,int point_nb2, double *x2, double *y2,int *type) {
 	int j,jj;
 	int erreur=0;
@@ -3234,7 +3111,7 @@ int randlabelling(double *x, double *y, int point_nb1, double *x1, double *y1,in
 	for(j=0;j<point_nb1+point_nb2;j++) {
 			type[j]=2;
 	}
-	// on tire point_nb type 1
+	/* on tire point_nb type 1*/
 	j=0;
 	while (j<point_nb1) {
 		jj=unif_rand()*(point_nb1+point_nb2);
@@ -3247,7 +3124,7 @@ int randlabelling(double *x, double *y, int point_nb1, double *x1, double *y1,in
 	   j++;
 	}
 	PutRNGstate();
-	//Il reste point_nb2 type 2
+	/*Il reste point_nb2 type 2*/
 	jj=0;
 	for(j=0;j<point_nb1+point_nb2;j++) {
 		if (type[j]==2) {
@@ -3267,7 +3144,7 @@ int randlabelling(double *x, double *y, int point_nb1, double *x1, double *y1,in
 	return erreur;
 }
 
-//2 : decallage
+/*2 : decallage*/
 int randshifting_rect(int *point_nb,double *x, double *y, int point_nb1, double *x1, double *y1,
 double xmi, double xma, double ymi, double yma, double prec) {
 	int j;
@@ -3275,10 +3152,10 @@ double xmi, double xma, double ymi, double yma, double prec) {
 
 	GetRNGstate();
 
-	//On decalle type 1
+	/*On decalle type 1*/
 	*point_nb=point_nb1;
 
-	//en x d'abord
+	/*en x d'abord*/
 	dx=unif_rand()*((xma-xmi)/prec)*prec;
 	for(j=0;j<*point_nb;j++) {
 		x[j]=x1[j]+dx;
@@ -3286,7 +3163,7 @@ double xmi, double xma, double ymi, double yma, double prec) {
 			x[j]=x[j]-(xma-xmi);
 	   }
 	}
-	//en y ensuite
+	/*en y ensuite*/
 	dy=unif_rand()*((yma-ymi)/prec)*prec;
 	for(j=0;j<*point_nb;j++) {
 		y[j]=y1[j]+dy;
@@ -3306,13 +3183,13 @@ double x0, double y0, double r0, double prec) {
 
 	randshifting_rect(point_nb,x,y,point_nb1,x1,y1,x0-r0,x0+r0,y0-r0,y0+r0,prec);
 
-	//suppression des points hors cercle
+	/*suppression des points hors cercle*/
 	i=0;
 	while (i<*point_nb)
 	{	if((x[i]-x0)*(x[i]-x0)+(y[i]-y0)*(y[i]-y0)>r0*r0)
 		{	x[i]=x[*point_nb];
 			y[i]=y[*point_nb];
-			i=i-1;
+			i--;
 			*point_nb=*point_nb-1;
 		}
 		i++;
@@ -3329,7 +3206,7 @@ double *cx, double *cy,double prec) {
 
 	randshifting_rect(point_nb,x,y,point_nb1,x1,y1,xmi,xma,ymi,yma,prec);
 
-	//suppression des points dans triangles
+	/*suppression des points dans triangles*/
 	i=0;
 	erreur=0;
 	while (i<*point_nb)
@@ -3341,7 +3218,7 @@ double *cx, double *cy,double prec) {
 		if (erreur == 1)
 		{	x[i]=x[*point_nb];
 			y[i]=y[*point_nb];
-			i=i-1;
+			i--;
 			*point_nb=*point_nb-1;
 		}
 		i++;
@@ -3359,7 +3236,7 @@ double *cx, double *cy,double prec) {
 
 	randshifting_disq(point_nb,x,y,point_nb1,x1,y1,x0,y0,r0,prec);
 
-	//suppression des points dans triangles
+	/*suppression des points dans triangles*/
 	i=0;
 	erreur=0;
 	while (i<*point_nb)
@@ -3371,7 +3248,7 @@ double *cx, double *cy,double prec) {
 		if (erreur == 1)
 		{	x[i]=x[*point_nb];
 			y[i]=y[*point_nb];
-			i=i-1;
+			i--;
 			*point_nb=*point_nb-1;
 		}
 		i++;
@@ -3397,16 +3274,16 @@ int *t2,double *dt,double *gm,double *km)
 	double d,cin,cmoy,cvar;
 	double *g,*k;
 
-	//Decalage pour n'avoir que des valeurs positives
+	/*Decalage pour n'avoir que des valeurs positives*/
 	decalRect(*point_nb,x,y,xmi,xma,ymi,yma);
 	
-	//On calcule la moyenne des marques
+	/*On calcule la moyenne des marques*/
 	cmoy=0;
 	for(i=0;i<*point_nb;i++)
 		cmoy+=c[i];
 	cmoy=cmoy/(*point_nb);
 	
-	//On calcule la variance des marques
+	/*On calcule la variance des marques*/
 	cvar=0;
 	for(i=0;i<*point_nb;i++)
 		cvar+=(c[i]-cmoy)*(c[i]-cmoy);
@@ -3415,23 +3292,22 @@ int *t2,double *dt,double *gm,double *km)
 	vecalloc(&g,*t2);
 	vecalloc(&k,*t2);
 	
-	// On rangera dans g le nombre de couples de points par distance tt
-	// et dans gm la somme des covariances des marques 
+	/* On rangera dans g le nombre de couples de points par distance tt
+	 et dans gm la somme des covariances des marques */
 	for(tt=0;tt<*t2;tt++) {
 		g[tt]=0;
 		gm[tt]=0;
 	}
 
-    //On regarde les couples (i,j) et (j,i) : donc pour i>j seulement
+    /*On regarde les couples (i,j) et (j,i) : donc pour i>j seulement*/
 	for(i=1;i<*point_nb;i++)
 	{	for(j=0;j<i;j++)
 		{	d=sqrt((x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]));
 			if (d<*t2*(*dt)){
-				// dans quelle classe de distance est ce couple ?
+				/* dans quelle classe de distance est ce couple ?*/
 				tt=d/(*dt);
 
-				///// pour [i,j] :
-				// correction des effets de bord
+				/*pour [i,j] : correction des effets de bord*/
 				cin=perim_in_rect(x[i],y[i],d,*xmi,*xma,*ymi,*yma);
 				if (cin<0) {
 					Rprintf("cin<0 sur i AVANT\n");
@@ -3440,8 +3316,7 @@ int *t2,double *dt,double *gm,double *km)
 				g[tt]+=2*Pi()/cin;
 				gm[tt]+=(c[i]-cmoy)*(c[j]-cmoy)*2*Pi()/cin;
 
-				///// pour [j,i] :
-				// correction des effets de bord
+				/*pour [j,i] : correction des effets de bord*/
 				cin=perim_in_rect(x[j],y[j],d,*xmi,*xma,*ymi,*yma);
 				if (cin<0) {
 					Rprintf("cin<0 sur j AVANT\n");
@@ -3453,8 +3328,7 @@ int *t2,double *dt,double *gm,double *km)
 		}
    }
 
-
-	// on integre
+	/* on integre*/
 	k[0]=g[0];
 	km[0]=gm[0];
   	for(tt=1;tt<*t2;tt++) {
@@ -3462,7 +3336,7 @@ int *t2,double *dt,double *gm,double *km)
 		km[tt]=km[tt-1]+gm[tt];
 	}
 
-	// on normalise
+	/* on normalise*/
 	for(tt=0;tt<*t2;tt++) {
 		gm[tt]=gm[tt]/(g[tt]*cvar);
 		km[tt]=km[tt]/(k[tt]*cvar);
@@ -3473,23 +3347,23 @@ int *t2,double *dt,double *gm,double *km)
    return 0;
 }
 
-//function de corrŽlation dans forme circulaire
+/*function de corrŽlation dans forme circulaire*/
 int corr_disq(int *point_nb,double *x,double *y,double *c, double *x0,double *y0,double *r0,
 int *t2,double *dt,double *gm,double *km)
 {	int i,j,tt;
 	double d,cin,cmoy,cvar;
 	double *g,*k;
 
-	//Decalage pour n'avoir que des valeurs positives
+	/*Decalage pour n'avoir que des valeurs positives*/
 	decalCirc(*point_nb,x,y,x0,y0,*r0);
 	
-	//On calcule la moyenne des marques
+	/*On calcule la moyenne des marques*/
 	cmoy=0;
 	for(i=0;i<*point_nb;i++)
 		cmoy+=c[i];
 	cmoy=cmoy/(*point_nb);
 	
-	//On calcule la variance des marques
+	/*On calcule la variance des marques*/
 	cvar=0;
 	for(i=0;i<*point_nb;i++)
 		cvar+=(c[i]-cmoy)*(c[i]-cmoy);
@@ -3498,23 +3372,22 @@ int *t2,double *dt,double *gm,double *km)
 	vecalloc(&g,*t2);
 	vecalloc(&k,*t2);
 	
-	// On rangera dans g le nombre de couples de points par distance tt
-	// et dans gm la somme des covariances des marques 
+	/*On rangera dans g le nombre de couples de points par distance tt
+	 et dans gm la somme des covariances des marques */
 	for(tt=0;tt<*t2;tt++) {
 		g[tt]=0;
 		gm[tt]=0;
 	}
 
-    //On regarde les couples (i,j) et (j,i) : donc pour i>j seulement
+    /*On regarde les couples (i,j) et (j,i) : donc pour i>j seulement*/
 	for(i=1;i<*point_nb;i++)
 	{	for(j=0;j<i;j++)
 		{	d=sqrt((x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]));
 			if (d<*t2*(*dt)){
-				// dans quelle classe de distance est ce couple ?
+				/* dans quelle classe de distance est ce couple ?*/
 				tt=d/(*dt);
 
-				///// pour [i,j] :
-				// correction des effets de bord
+				/* pour [i,j] : correction des effets de bord*/
 				cin=perim_in_disq(x[i],y[i],d,*x0,*y0,*r0);
 				if (cin<0) {
 					Rprintf("cin<0 sur i AVANT\n");
@@ -3523,8 +3396,7 @@ int *t2,double *dt,double *gm,double *km)
 				g[tt]+=2*Pi()/cin;
 				gm[tt]+=(c[i]-cmoy)*(c[j]-cmoy)*2*Pi()/cin;
 
-				///// pour [j,i] :
-				// correction des effets de bord
+				/*pour [j,i] : correction des effets de bord*/
 				cin=perim_in_disq(x[j],y[j],d,*x0,*y0,*r0);
 				if (cin<0) {
 					Rprintf("cin<0 sur j AVANT\n");
@@ -3536,7 +3408,7 @@ int *t2,double *dt,double *gm,double *km)
 		}
    }
 
-	// on integre
+	/* on integre*/
 	k[0]=g[0];
 	km[0]=gm[0];
   	for(tt=1;tt<*t2;tt++) {
@@ -3544,7 +3416,7 @@ int *t2,double *dt,double *gm,double *km)
 		km[tt]=km[tt-1]+gm[tt];
 	}
 
-	// on normalise
+	/* on normalise*/
 	for(tt=0;tt<*t2;tt++) {
 		gm[tt]=gm[tt]/(g[tt]*cvar);
 		km[tt]=km[tt]/(k[tt]*cvar);
@@ -3555,7 +3427,7 @@ int *t2,double *dt,double *gm,double *km)
    return 0;
 }
 
-//Kcor triangles dans rectangle
+/*Kcor triangles dans rectangle*/
 int corr_tr_rect(int *point_nb,double *x,double *y,double *c, double *xmi,double *xma,double *ymi,double *yma,
 int *triangle_nb, double *ax, double *ay, double *bx, double *by, double *cx, double *cy,
 int *t2,double *dt,double *gm,double *km)
@@ -3563,16 +3435,16 @@ int *t2,double *dt,double *gm,double *km)
 	double d,cin,cmoy,cvar;
 	double *g,*k;
 
-	//Decalage pour n'avoir que des valeurs positives
+	/*Decalage pour n'avoir que des valeurs positives*/
 	decalRectTri(*point_nb,x,y,xmi,xma,ymi,yma,*triangle_nb,ax,ay,bx,by,cx,cy);
 	
-	//On calcule la moyenne des marques
+	/*On calcule la moyenne des marques*/
 	cmoy=0;
 	for(i=0;i<*point_nb;i++)
 		cmoy+=c[i];
 	cmoy=cmoy/(*point_nb);
 	
-	//On calcule la variance des marques
+	/*On calcule la variance des marques*/
 	cvar=0;
 	for(i=0;i<*point_nb;i++)
 		cvar+=(c[i]-cmoy)*(c[i]-cmoy);
@@ -3581,23 +3453,22 @@ int *t2,double *dt,double *gm,double *km)
 	vecalloc(&g,*t2);
 	vecalloc(&k,*t2);
 	
-	// On rangera dans g le nombre de couples de points par distance tt
-	// et dans gm la somme des covariances des marques 
+	/*On rangera dans g le nombre de couples de points par distance tt
+	 et dans gm la somme des covariances des marques */
 	for(tt=0;tt<*t2;tt++) {
 		g[tt]=0;
 		gm[tt]=0;
 	}
 
-    //On regarde les couples (i,j) et (j,i) : donc pour i>j seulement
+    /*On regarde les couples (i,j) et (j,i) : donc pour i>j seulement*/
 	for(i=1;i<*point_nb;i++)
 	{	for(j=0;j<i;j++)
 		{	d=sqrt((x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]));
 			if (d<*t2*(*dt)){
-				// dans quelle classe de distance est ce couple ?
+				/*dans quelle classe de distance est ce couple ?*/
 				tt=d/(*dt);
 
-				///// pour [i,j] :
-				// correction des effets de bord
+				/*pour [i,j] : correction des effets de bord*/
 				cin=perim_in_rect(x[i],y[i],d,*xmi,*xma,*ymi,*yma);
 				if (cin<0) {
 					Rprintf("cin<0 sur i AVANT\n");
@@ -3611,8 +3482,7 @@ int *t2,double *dt,double *gm,double *km)
 				g[tt]+=2*Pi()/cin;
 				gm[tt]+=(c[i]-cmoy)*(c[j]-cmoy)*2*Pi()/cin;
 
-				///// pour [j,i] :
-				// correction des effets de bord
+				/*pour [j,i] : correction des effets de bord*/
 				cin=perim_in_rect(x[j],y[j],d,*xmi,*xma,*ymi,*yma);
 				if (cin<0) {
 					Rprintf("cin<0 sur j AVANT\n");
@@ -3630,7 +3500,7 @@ int *t2,double *dt,double *gm,double *km)
    }
 
 
-	// on integre
+	/*on integre*/
 	k[0]=g[0];
 	km[0]=gm[0];
   	for(tt=1;tt<*t2;tt++) {
@@ -3638,7 +3508,7 @@ int *t2,double *dt,double *gm,double *km)
 		km[tt]=km[tt-1]+gm[tt];
 	}
 
-	// on normalise
+	/* on normalise*/
 	for(tt=0;tt<*t2;tt++) {
 		gm[tt]=gm[tt]/(g[tt]*cvar);
 		km[tt]=km[tt]/(k[tt]*cvar);
@@ -3649,7 +3519,7 @@ int *t2,double *dt,double *gm,double *km)
    return 0;
 }
 
-//kcor triangles dans disque
+/*kcor triangles dans disque*/
 int corr_tr_disq(int *point_nb,double *x,double *y,double *c, double *x0,double *y0,double *r0,
 int *triangle_nb,double *ax,double *ay,double *bx,double *by,double *cx,double *cy,
 int *t2,double *dt,double *gm,double *km)
@@ -3657,16 +3527,16 @@ int *t2,double *dt,double *gm,double *km)
 	double d,cin,cmoy,cvar;
 	double *g,*k;
 
-	//Decalage pour n'avoir que des valeurs positives
+	/*Decalage pour n'avoir que des valeurs positives*/
 	decalCircTri(*point_nb,x,y,x0,y0,*r0,*triangle_nb,ax,ay,bx,by,cx,cy);
 	
-	//On calcule la moyenne des marques
+	/*On calcule la moyenne des marques*/
 	cmoy=0;
 	for(i=0;i<*point_nb;i++)
 		cmoy+=c[i];
 	cmoy=cmoy/(*point_nb);
 	
-	//On calcule la variance des marques
+	/*On calcule la variance des marques*/
 	cvar=0;
 	for(i=0;i<*point_nb;i++)
 		cvar+=(c[i]-cmoy)*(c[i]-cmoy);
@@ -3675,23 +3545,22 @@ int *t2,double *dt,double *gm,double *km)
 	vecalloc(&g,*t2);
 	vecalloc(&k,*t2);
 	
-	// On rangera dans g le nombre de couples de points par distance tt
-	// et dans gm la somme des covariances des marques 
+	/* On rangera dans g le nombre de couples de points par distance tt
+	 et dans gm la somme des covariances des marques */
 	for(tt=0;tt<*t2;tt++) {
 		g[tt]=0;
 		gm[tt]=0;
 	}
 
-    //On regarde les couples (i,j) et (j,i) : donc pour i>j seulement
+    /*On regarde les couples (i,j) et (j,i) : donc pour i>j seulement*/
 	for(i=1;i<*point_nb;i++)
 	{	for(j=0;j<i;j++)
 		{	d=sqrt((x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]));
 			if (d<*t2*(*dt)){
-				// dans quelle classe de distance est ce couple ?
+				/* dans quelle classe de distance est ce couple ?*/
 				tt=d/(*dt);
 
-				///// pour [i,j] :
-				// correction des effets de bord
+				/* pour [i,j] : correction des effets de bord*/
 				cin=perim_in_disq(x[i],y[i],d,*x0,*y0,*r0);
 				if (cin<0) {
 					Rprintf("cin<0 sur i AVANT\n");
@@ -3705,8 +3574,7 @@ int *t2,double *dt,double *gm,double *km)
 				g[tt]+=2*Pi()/cin;
 				gm[tt]+=(c[i]-cmoy)*(c[j]-cmoy)*2*Pi()/cin;
 
-				///// pour [j,i] :
-				// correction des effets de bord
+				/*pour [j,i] : correction des effets de bord*/
 				cin=perim_in_disq(x[j],y[j],d,*x0,*y0,*r0);
 				if (cin<0) {
 					Rprintf("cin<0 sur j AVANT\n");
@@ -3723,7 +3591,7 @@ int *t2,double *dt,double *gm,double *km)
 		}
    }
 
-	// on integre
+	/* on integre*/
 	k[0]=g[0];
 	km[0]=gm[0];
   	for(tt=1;tt<*t2;tt++) {
@@ -3731,7 +3599,7 @@ int *t2,double *dt,double *gm,double *km)
 		km[tt]=km[tt-1]+gm[tt];
 	}
 
-	// on normalise
+	/* on normalise*/
 	for(tt=0;tt<*t2;tt++) {
 		gm[tt]=gm[tt]/(g[tt]*cvar);
 		km[tt]=km[tt]/(k[tt]*cvar);
@@ -3742,7 +3610,7 @@ int *t2,double *dt,double *gm,double *km)
    return 0;
 }
 
-//Kcor dans rectangle + ic
+/*Kcor dans rectangle + ic*/
 int corr_rect_ic(int *point_nb,double *x,double *y,double *c, double *xmi,double *xma,double *ymi,double *yma,
 int *t2,double *dt,int *nbSimu, double *lev,double *gm,double *km,
 double *gmic1,double *gmic2, double *kmic1,double *kmic2, double *gmval, double *kmval) {
@@ -3758,15 +3626,15 @@ double *gmic1,double *gmic2, double *kmic1,double *kmic2, double *gmval, double 
 		return -1;
 	}
 
-	///Définition de i0 : indice où sera stocké l'estimation des bornes de l'IC
+	/*Définition de i0 : indice où sera stocké l'estimation des bornes de l'IC*/
 	i0=*lev/2*(*nbSimu+1);
 	if (i0<1) i0=1;
 
-	///Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC
+	/*Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC*/
 	taballoc(&gmic,*t2+1,2*i0+10+1);
 	taballoc(&kmic,*t2+1,2*i0+10+1);
 
-	//Normalisation de g et k et calcul de l et n pour le calcul des p-values
+	/*Normalisation de g et k et calcul de l et n pour le calcul des p-values*/
 		vecalloc(&ggm,*t2);
 		vecalloc(&kkm,*t2);
 		for(i=0;i<*t2;i++) {
@@ -3779,18 +3647,18 @@ double *gmic1,double *gmic2, double *kmic1,double *kmic2, double *gmval, double 
 
 	int lp=0;
 	vecalloc(&c2,*point_nb);
-	// boucle principale de MC
+	/* boucle principale de MC*/
 	Rprintf("Monte Carlo simulation\n");
 	for(i=1;i<=*nbSimu;i++) {
 		randmark(*point_nb,c,c2);
 		erreur=corr_rect(point_nb,x,y,c2,xmi,xma,ymi,yma,t2,dt,gmic1,kmic1);
-		// si il y a une erreur on recommence une simulation
+		/* si il y a une erreur on recommence une simulation*/
 		if (erreur!=0) {
 			i=i-1;
 			Rprintf("ERREUR mark correlation\n");
 		}
 		else {
-			//comptage du nombre de |¶obs|<=|¶simu| pour test local
+			/*comptage du nombre de |¶obs|<=|¶simu| pour test local*/
 			double gmictmp,kmictmp;
 			for(j=0;j<*t2;j++) {
 				gmictmp=gmic1[j];
@@ -3799,7 +3667,7 @@ double *gmic1,double *gmic2, double *kmic1,double *kmic2, double *gmval, double 
 				if ((float)fabs(kkm[j])<=(float)fabs(kmictmp)) {kmval[j]+=1;}
 			}
 
-			////Traitement des résultats
+			/*Traitement des résultats*/
 			ic(i,i0,gmic,kmic,gmic1,kmic1,*t2);
 		}
 		R_FlushConsole();
@@ -3809,7 +3677,7 @@ double *gmic1,double *gmic2, double *kmic1,double *kmic2, double *gmval, double 
 	i1=i0+2;
 	i2=i0;
 
-	//Copies des valeurs dans les tableaux résultats
+	/*Copies des valeurs dans les tableaux résultats*/
 	for(i=0;i<*t2;i++) {
 		gmic1[i]=gmic[i+1][i1];
 		gmic2[i]=gmic[i+1][i2];
@@ -3826,7 +3694,7 @@ double *gmic1,double *gmic2, double *kmic1,double *kmic2, double *gmval, double 
 	return 0;
 }
 
-//Kcor dans disque + ic
+/*Kcor dans disque + ic*/
 int corr_disq_ic(int *point_nb,double *x,double *y,double *c, double *x0,double *y0,double *r0,
 int *t2,double *dt,int *nbSimu, double *lev,double *gm,double *km,
 double *gmic1,double *gmic2, double *kmic1,double *kmic2, double *gmval, double *kmval) {
@@ -3842,15 +3710,15 @@ double *gmic1,double *gmic2, double *kmic1,double *kmic2, double *gmval, double 
 		return -1;
 	}
 
-	///Définition de i0 : indice où sera stocké l'estimation des bornes de l'IC
+	/*Définition de i0 : indice où sera stocké l'estimation des bornes de l'IC*/
 	i0=*lev/2*(*nbSimu+1);
 	if (i0<1) i0=1;
 
-	///Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC
+	/*Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC*/
 	taballoc(&gmic,*t2+1,2*i0+10+1);
 	taballoc(&kmic,*t2+1,2*i0+10+1);
 
-	//Normalisation de g et k et calcul de l et n pour le calcul des p-values
+	/*Normalisation de g et k et calcul de l et n pour le calcul des p-values*/
 		vecalloc(&ggm,*t2);
 		vecalloc(&kkm,*t2);
 		for(i=0;i<*t2;i++) {
@@ -3863,18 +3731,18 @@ double *gmic1,double *gmic2, double *kmic1,double *kmic2, double *gmval, double 
 
 	int lp=0;
 	vecalloc(&c2,*point_nb);
-	// boucle principale de MC
+	/* boucle principale de MC*/
 	Rprintf("Monte Carlo simulation\n");
 	for(i=1;i<=*nbSimu;i++) {
 		randmark(*point_nb,c,c2);
 		erreur=corr_disq(point_nb,x,y,c2,x0,y0,r0,t2,dt,gmic1,kmic1);
-			// si il y a une erreur on recommence une simulation
+			/* si il y a une erreur on recommence une simulation*/
 		if (erreur!=0) {
 			i=i-1;
 			Rprintf("ERREUR mark correlation\n");
 		}
 		else {
-			//comptage du nombre de |¶obs|<=|¶simu| pour test local
+			/*comptage du nombre de |¶obs|<=|¶simu| pour test local*/
 			double gmictmp,kmictmp;
 			for(j=0;j<*t2;j++) {
 				gmictmp=gmic1[j];
@@ -3883,7 +3751,7 @@ double *gmic1,double *gmic2, double *kmic1,double *kmic2, double *gmval, double 
 				if ((float)fabs(kkm[j])<=(float)fabs(kmictmp)) {kmval[j]+=1;}
 			}
 
-			////Traitement des résultats
+			/*Traitement des résultats*/
 			ic(i,i0,gmic,kmic,gmic1,kmic1,*t2);
 		}
 		R_FlushConsole();
@@ -3893,7 +3761,7 @@ double *gmic1,double *gmic2, double *kmic1,double *kmic2, double *gmval, double 
 	i1=i0+2;
 	i2=i0;
 
-	//Copies des valeurs dans les tableaux résultats
+	/*Copies des valeurs dans les tableaux résultats*/
 	for(i=0;i<*t2;i++) {
 		gmic1[i]=gmic[i+1][i1];
 		gmic2[i]=gmic[i+1][i2];
@@ -3911,7 +3779,7 @@ double *gmic1,double *gmic2, double *kmic1,double *kmic2, double *gmval, double 
 }
 
 
-//Kcor triangles dans rectangle + ic
+/*Kcor triangles dans rectangle + ic*/
 int corr_tr_rect_ic(int *point_nb,double *x,double *y,double *c, double *xmi,double *xma,double *ymi,double *yma,
 int *triangle_nb, double *ax, double *ay, double *bx, double *by, double *cx, double *cy,
 int *t2,double *dt,int *nbSimu, double *lev,double *gm,double *km,
@@ -3928,15 +3796,15 @@ double *gmic1,double *gmic2, double *kmic1,double *kmic2, double *gmval, double 
 		return -1;
 	}
 
-	///Définition de i0 : indice où sera stocké l'estimation des bornes de l'IC
+	/*Définition de i0 : indice où sera stocké l'estimation des bornes de l'IC*/
 	i0=*lev/2*(*nbSimu+1);
 	if (i0<1) i0=1;
 
-	///Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC
+	/*Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC*/
 	taballoc(&gmic,*t2+1,2*i0+10+1);
 	taballoc(&kmic,*t2+1,2*i0+10+1);
 
-	//Normalisation de g et k et calcul de l et n pour le calcul des p-values
+	/*Normalisation de g et k et calcul de l et n pour le calcul des p-values*/
 		vecalloc(&ggm,*t2);
 		vecalloc(&kkm,*t2);
 		for(i=0;i<*t2;i++) {
@@ -3949,18 +3817,18 @@ double *gmic1,double *gmic2, double *kmic1,double *kmic2, double *gmval, double 
 
 	int lp=0;
 	vecalloc(&c2,*point_nb);
-	// boucle principale de MC
+	/* boucle principale de MC*/
 	Rprintf("Monte Carlo simulation\n");
 	for(i=1;i<=*nbSimu;i++) {
 		randmark(*point_nb,c,c2);
 		erreur=corr_tr_rect(point_nb,x,y,c2,xmi,xma,ymi,yma,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,gmic1,kmic1);
-		// si il y a une erreur on recommence une simulation
+		/* si il y a une erreur on recommence une simulation*/
 		if (erreur!=0) {
 			i=i-1;
 			Rprintf("ERREUR Intertype\n");
 		}
 		else {
-			//comptage du nombre de |¶obs|<=|¶simu| pour test local
+			/*comptage du nombre de |¶obs|<=|¶simu| pour test local*/
 			double gmictmp,kmictmp;
 			for(j=0;j<*t2;j++) {
 				gmictmp=gmic1[j];
@@ -3969,7 +3837,7 @@ double *gmic1,double *gmic2, double *kmic1,double *kmic2, double *gmval, double 
 				if ((float)fabs(kkm[j])<=(float)fabs(kmictmp)) {kmval[j]+=1;}
 			}
 
-			////Traitement des résultats
+			/*Traitement des résultats*/
 			ic(i,i0,gmic,kmic,gmic1,kmic1,*t2);
 		}
 		R_FlushConsole();
@@ -3979,7 +3847,7 @@ double *gmic1,double *gmic2, double *kmic1,double *kmic2, double *gmval, double 
 	i1=i0+2;
 	i2=i0;
 
-	//Copies des valeurs dans les tableaux résultats
+	/*Copies des valeurs dans les tableaux résultats*/
 	for(i=0;i<*t2;i++) {
 		gmic1[i]=gmic[i+1][i1];
 		gmic2[i]=gmic[i+1][i2];
@@ -3996,7 +3864,7 @@ double *gmic1,double *gmic2, double *kmic1,double *kmic2, double *gmval, double 
 	return 0;
 }
 
-//Kcor triangles dans disque + ic
+/*Kcor triangles dans disque + ic*/
 int corr_tr_disq_ic(int *point_nb,double *x,double *y,double *c, double *x0,double *y0,double *r0,
 int *triangle_nb, double *ax, double *ay, double *bx, double *by, double *cx, double *cy,
 int *t2,double *dt,int *nbSimu, double *lev,double *gm,double *km,
@@ -4013,15 +3881,15 @@ double *gmic1,double *gmic2, double *kmic1,double *kmic2, double *gmval, double 
 		return -1;
 	}
 
-	///Définition de i0 : indice où sera stocké l'estimation des bornes de l'IC
+	/*Définition de i0 : indice où sera stocké l'estimation des bornes de l'IC*/
 	i0=*lev/2*(*nbSimu+1);
 	if (i0<1) i0=1;
 
-	///Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC
+	/*Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC*/
 	taballoc(&gmic,*t2+1,2*i0+10+1);
 	taballoc(&kmic,*t2+1,2*i0+10+1);
 
-	//Calcul de gm et km pour le calcul des p-values
+	/*Calcul de gm et km pour le calcul des p-values*/
 		vecalloc(&ggm,*t2);
 		vecalloc(&kkm,*t2);
 		for(i=0;i<*t2;i++) {
@@ -4034,18 +3902,18 @@ double *gmic1,double *gmic2, double *kmic1,double *kmic2, double *gmval, double 
 
 	int lp=0;
 	vecalloc(&c2,*point_nb);
-	// boucle principale de MC
+	/* boucle principale de MC*/
 	Rprintf("Monte Carlo simulation\n");
 	for(i=1;i<=*nbSimu;i++) {
 		randmark(*point_nb,c,c2);
 		erreur=corr_tr_disq(point_nb,x,y,c2,x0,y0,r0,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,gmic1,kmic1);
-		// si il y a une erreur on recommence une simulation
+		/* si il y a une erreur on recommence une simulation*/
 		if (erreur!=0) {
 			i=i-1;
 			Rprintf("ERREUR Intertype\n");
 		}
 		else {
-			//comptage du nombre de |¶obs|<=|¶simu| pour test local
+			/*comptage du nombre de |¶obs|<=|¶simu| pour test local*/
 			double gmictmp,kmictmp;
 			for(j=0;j<*t2;j++) {
 				gmictmp=gmic1[j];
@@ -4054,7 +3922,7 @@ double *gmic1,double *gmic2, double *kmic1,double *kmic2, double *gmval, double 
 				if ((float)fabs(kkm[j])<=(float)fabs(kmictmp)) {kmval[j]+=1;}
 			}
 
-			////Traitement des résultats
+			/*Traitement des résultats*/
 			ic(i,i0,gmic,kmic,gmic1,kmic1,*t2);
 		}
 		R_FlushConsole();
@@ -4064,7 +3932,7 @@ double *gmic1,double *gmic2, double *kmic1,double *kmic2, double *gmval, double 
 	i1=i0+2;
 	i2=i0;
 
-	//Copies des valeurs dans les tableaux résultats
+	/*Copies des valeurs dans les tableaux résultats*/
 	for(i=0;i<*t2;i++) {
 		gmic1[i]=gmic[i+1][i1];
 		gmic2[i]=gmic[i+1][i2];
@@ -4081,7 +3949,7 @@ double *gmic1,double *gmic2, double *kmic1,double *kmic2, double *gmval, double 
 	return 0;
 }
 
-//mark permutations
+/*mark permutations*/
 void randmark(int point_nb,double *c,double *c2)
 {   int j,jj;
 

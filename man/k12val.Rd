@@ -1,3 +1,4 @@
+\encoding{latin1}
 \name{k12val}
 \alias{k12val}
 \alias{print.k12val}
@@ -37,7 +38,7 @@
   Pélissier, R. and Goreaud, F. 2001. A practical approach to the study of spatial structure in simple cases of heterogeneous vegetation. \emph{Journal of Vegetation Science}, 12:99-108.
 }
 \author{
-	\email{Raphael.Pelissier@mpl.ird.fr}
+	\email{Raphael.Pelissier@ird.fr}
 }
 \note{
  There are printing, summary and plotting methods for \code{"vads"} objects.

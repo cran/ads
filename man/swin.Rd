@@ -1,3 +1,4 @@
+\encoding{latin1}
 \name{swin}
 \alias{swin}
 \alias{print.swin}
@@ -70,7 +71,7 @@ Function \code{swin2owin(swin.object)} coerces an object of class \code{"swin"} 
   \code{\link{spp}}
   }
 \author{
- \email{Raphael.Pelissier@ird.mpl.fr}
+ \email{Raphael.Pelissier@ird.fr}
 }
 \examples{
   #rectangle of size [0,110] x [0,90]

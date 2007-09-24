@@ -1,3 +1,4 @@
+\encoding{latin1}
 \name{spp}
 \alias{spp}
 \alias{print.spp}
@@ -72,7 +73,7 @@ Function \code{spp2ppp(spp.object)} coerces an object of class \code{"spp"} into
   \code{\link{swin}}
   }
 \author{
- \email{Raphael.Pelissier@ird.mpl.fr}
+ \email{Raphael.Pelissier@ird.fr}
 }
 \examples{
 	data(BPoirier)

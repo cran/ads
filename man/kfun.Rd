@@ -1,3 +1,4 @@
+\encoding{latin1}
 \name{kfun}
 \alias{kfun}
 \title{Multiscale second-order neigbourhood analysis of an univariate spatial point pattern}
@@ -62,7 +63,7 @@ kfun(p, upto, by, nsim = 0, prec = 0.01, alpha = 0.01)
   
  Stoyan D., Kendall W.S. & Mecke J. 1987. \emph{Stochastic geometry and its applications}. Wiley, New-York.
 }
-\author{\email{Raphael.Pelissier@mpl.ird.fr}}
+\author{\email{Raphael.Pelissier@ird.fr}}
 \note{
   There are printing and plotting methods for \code{"fads"} objects.
 }

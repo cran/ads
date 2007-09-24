@@ -1,3 +1,4 @@
+\encoding{latin1}
 \name{BPoirier}
 \alias{BPoirier}
 \docType{data}
