@@ -59,7 +59,7 @@ A spatial point pattern is assumed to have been observed within a specific
   \item{\code{$xout}}{(optional) a vector of \eqn{x} coordinates of points located outside the sampling window.}
   \item{\code{$yout}}{(optional) a vector of \eqn{y} coordinates of points located outside the sampling window.}
   \item{\code{$marks}}{(optional) a vector of the marks attached to points located inside the sampling window.}
-  \item{\code{$marksout}}{(optional) a vector of the marks attached to points located outside the sampling window.}}
+  \item{\code{$marksout}}{(optional) a vector of the marks attached to points located outside the sampling window.}
 }
 \references{
  Goreaud, F. and Pélissier, R. 1999. On explicit formula of edge effect correction for Ripley's \emph{K}-function. \emph{Journal of Vegetation Science}, 10:433-438.

@@ -52,10 +52,10 @@ A sampling window may be of simple or complex type. A simple sampling window may
 \value{
  An object of class \code{"swin"} describing the sampling window. It may be of four different types
  with different arguments:
- \item{\code{$type=c("simple","rectangle"),$xmin,$ymin,$xmax,$ymax}}
- \item{\code{$type=c("simple","circle"),$x0,$y0,$r0}}
- \item{\code{$type=c("complex","rectangle"),$xmin,$ymin,$xmax,$ymax,$triangles}}
- \item{\code{$type=c("complex","circle"),$x0,$y0,$r0,$triangles}}
+ \item{\code{$type}}{a vector of two character strings defining the type of sampling window among \code{c("simple","rectangle")}, \code{c("simple","circle")}, \code{c("complex","rectangle")} or \code{c("complex","circle")}.}
+ \item{\code{$xmin,$ymin,$xmax,$ymax}}{(optional) coordinates of the origin and the opposite corner for a rectangular sampling window (see details).}
+ \item{\code{$x0,$y0,$r0}}{(optional) coordinates of the center and radius for a circular sampling window (see details).}
+ \item{\code{$triangles}}{(optional) vertices coordinates of triangles for a complex sampling window (see details).}
 }
 \references{
  Goreaud, F. and Pélissier, R. 1999. On explicit formula of edge effect correction for Ripley's \emph{K}-function. \emph{Journal of Vegetation Science}, 10:433-438.

@@ -28,8 +28,8 @@ plot.vads.dval<-function (x,main,opt=c("dval","cval"),select,chars=c("circles","
 	val<-data.frame(adjust.marks.size(val,x$window,if(!missing(maxsize)) maxsize))
 	def.par <- par(no.readonly = TRUE)
 	on.exit(par(def.par))
-	if(options()$device=="windows")
-		csize<-0.75*csize
+	#if(options()$device=="windows")
+	#	csize<-0.75*csize
 	if (missing(main)) 
         main <- deparse(substitute(x))
 	mylayout<-layout(matrix(c(rep(1,nf),seq(2,((nf*nf)+1),1)),(nf+1),nf,byrow=TRUE))
@@ -123,8 +123,8 @@ plot.vads.kval<-function (x,main,opt=c("lval","kval","nval","gval"),select,chars
 		val<-val*maxsize
 	def.par <- par(no.readonly = TRUE)
 	on.exit(par(def.par))
-	if(options()$device=="windows")
-		csize<-0.75*csize
+	#if(options()$device=="windows")
+	#	csize<-0.75*csize
 	if (missing(main)) 
         main <- deparse(substitute(x))
 	mylayout<-layout(matrix(c(rep(1,nf),seq(2,((nf*nf)+1),1)),(nf+1),nf,byrow=TRUE))
@@ -235,8 +235,8 @@ plot.vads.k12val<-function (x,main,opt=c("lval","kval","nval","gval"),select,cha
 		val<-val*maxsize
 	def.par <- par(no.readonly = TRUE)
 	on.exit(par(def.par))
-	if(options()$device=="windows")
-		csize<-0.75*csize
+	#if(options()$device=="windows")
+	#	csize<-0.75*csize
 	if (missing(main)) 
         main <- deparse(substitute(x))
 	mylayout<-layout(matrix(c(rep(1,nf),seq(2,((nf*nf)+1),1)),(nf+1),nf,byrow=TRUE))

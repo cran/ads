@@ -102,8 +102,8 @@ plot.spp<-function (x,main,out=FALSE,use.marks=TRUE,cols,chars,cols.out,chars.ou
         main <- deparse(substitute(x))
 	#def.par <- par(no.readonly = TRUE)
 	#on.exit(par(def.par))
-	if(options()$device=="windows")
-		csize<-0.75*csize
+	#if(options()$device=="windows")
+	#	csize<-0.75*csize
 	par(cex=csize)
 	#print(par("cex"))
     if (!add) {

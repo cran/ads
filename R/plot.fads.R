@@ -6,8 +6,8 @@ plot.fads.kfun<-function (x,opt=c("all","L","K","n","g"),cols,lty,main,sub,legen
 	ifelse(!is.null(x$call$nsim)&&(x$call$nsim>0),ci<-TRUE,ci<-FALSE)
 	def.par <- par(no.readonly = TRUE)
 	on.exit(par(def.par))
-	if(options()$device=="windows")
-		csize<-0.75*csize
+	#if(options()$device=="windows")
+	#	csize<-0.75*csize
 	opt<-opt[1]
 	if(opt=="all")
 		mylayout<-layout(matrix(c(1,1,1,1,2,2,3,3,2,2,3,3,4,4,5,5,4,4,5,5),ncol=4,byrow=TRUE))
@@ -109,9 +109,8 @@ plot.fads.k12fun<-function(x,opt=c("all","L","K","n","g"),cols,lty,main,sub,lege
 	ifelse((is.null(x$call[["H0"]])||(x$call[["H0"]]=="pi")),h0<-"PI",h0<-"RL")
 	def.par <- par(no.readonly = TRUE)
 	on.exit(par(def.par))
-	if(options()$device=="windows")
-		csize<-0.75*csize
-	#par(cex=csize)
+	#if(options()$device=="windows")
+	#	csize<-0.75*csize
 	opt<-opt[1]
 	if(opt=="all")
 		mylayout<-layout(matrix(c(1,1,1,1,2,2,3,3,2,2,3,3,4,4,5,5,4,4,5,5),ncol=4,byrow=TRUE))
@@ -213,9 +212,8 @@ plot.fads.kijfun<-function (x,opt=c("L","K","n","g"),cols,lty,main,sub,legend=TR
 	nf<-ceiling(sqrt(na))
 	def.par <- par(no.readonly = TRUE)
 	on.exit(par(def.par))
-	if(options()$device=="windows")
-		csize<-0.75*csize
-	#par(cex=csize)
+	#if(options()$device=="windows")
+	#	csize<-0.75*csize
 	mylayout<-layout(matrix(c(rep(1,nf),seq(2,((nf*nf)+1),1)),(nf+1),nf,byrow=TRUE))
 	opt<-opt[1]
 	if(opt=="g") {
@@ -270,9 +268,8 @@ plot.fads.ki.fun<-function (x,opt=c("L","K","n","g"),cols,lty,main,sub,legend=TR
 	nf<-ceiling(sqrt(na))
 	def.par <- par(no.readonly = TRUE)
 	on.exit(par(def.par))
-	if(options()$device=="windows")
-		csize<-0.75*csize
-	#par(cex=csize)
+	#if(options()$device=="windows")
+	#	csize<-0.75*csize
 	mylayout<-layout(matrix(c(rep(1,nf),seq(2,((nf*nf)+1),1)),(nf+1),nf,byrow=TRUE))
 	opt<-opt[1]
 	if(opt=="g") {
@@ -324,13 +321,11 @@ plot.fads.ki.fun<-function (x,opt=c("L","K","n","g"),cols,lty,main,sub,legend=TR
 }
 
 plot.fads.kmfun<-function (x,opt=c("all","K","g"),cols,lty,main,sub,legend=TRUE,csize=1,...) {
-	#ifelse(!is.null(x$call[["nsim"]]),ci<-TRUE,ci<-FALSE)
 	ifelse(!is.null(x$call$nsim)&&(x$call$nsim>0),ci<-TRUE,ci<-FALSE)
 	def.par <- par(no.readonly = TRUE)
 	on.exit(par(def.par))
-	if(options()$device=="windows")
-		csize<-0.75*csize
-	#par(cex=csize)
+	#if(options()$device=="windows")
+	#	csize<-0.75*csize
 	opt<-opt[1]
 	if(opt=="all")
 		mylayout<-layout(matrix(c(1,1,1,1,rep(2,8),rep(3,8)),ncol=4,byrow=TRUE))

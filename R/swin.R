@@ -126,8 +126,8 @@ plot.swin<-function (x,main,edge,scale=TRUE,add=FALSE,csize=1,...) {
         main<-deparse(substitute(x))
 	if(missing(edge))
 		edge<-0
-	if(options()$device=="windows"&&sys.nframe()<=2)
-		csize<-0.75*csize
+	#if(options()$device=="windows"&&sys.nframe()<=2)
+	#	csize<-0.75*csize
 	par(cex=csize)
 	if("rectangle"%in%x$type) {
 		rx<-c(x$xmin,x$xmax)
