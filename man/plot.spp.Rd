@@ -43,11 +43,11 @@ Then the points themselves are plotted, in a fashion that depends on the type of
 	}
 	
 	Arguments \code{cols} and \code{cols.out} (if \code{out = TRUE}) determine the colour(s) used to display the points located inside and outside the sampling window, respectively.
-	Colours may be specified as codes or colour names (see \code{\link[graphics]{par("col")}}). For univariate and marked point patterns, \code{cols} and \code{cols.out} are single character strings, while 
+	Colours may be specified as codes or colour names (see \code{\link[graphics]{par}("col")}). For univariate and marked point patterns, \code{cols} and \code{cols.out} are single character strings, while 
 	for multivariate point patterns they are charcater vectors of same length as \code{levels(x$marks)} and \code{levels(x$marksout)}, respectively.
 
 	Arguments \code{chars} and \code{chars.out} (if \code{out = TRUE}) determine the symbol(s) used to display the points located inside and outside the sampling window, respectively.
-	Symbols may be specified as codes or character strings (see \code{\link[graphics]{par("pch")}}). For univariate point patterns, \code{chars} and \code{chars.out} are single character strings, while 
+	Symbols may be specified as codes or character strings (see \code{\link[graphics]{par}("pch")}). For univariate point patterns, \code{chars} and \code{chars.out} are single character strings, while 
 	for multivariate point patterns they are charcater vectors of same length as \code{levels(x$marks)} and \code{levels(x$marksout)}, respectively. For marked point patterns, 
 	\code{chars} and \code{chars.out} can only take the value \code{"circles"} or \code{"squares"}.	
 }
