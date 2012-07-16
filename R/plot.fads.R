@@ -29,7 +29,7 @@ plot.fads.kfun<-function (x,opt=c("all","L","K","n","g"),cols,lty,main,sub,legen
 		sub<-c("pair density function","second-order neighbour density function","Ripley's K-function","L-function : sqrt[K(r)/pi]-r")
 	if(ci) {
 		alpha<-x$call[["alpha"]]
-		p<-ifelse(!is.null(alpha),signif(100*(1-alpha),digit=6),99)
+		p<-ifelse(!is.null(alpha),signif(100*(1-alpha),digits=6),99)
 		par(mar=c(0.1,0.1,0.1,0.1),cex=csize)
 		plot(x$r,x$g$obs/2,type="n",axes=FALSE,xlab="",ylab="")
 		if(legend)
@@ -132,7 +132,7 @@ plot.fads.k12fun<-function(x,opt=c("all","L","K","n","g"),cols,lty,main,sub,lege
 		sub<-c("pair density function","second-order neighbour density function","intertype function","modified intertype function : sqrt[K12(r)/pi]-r")
 	if(ci) {
 		alpha<-x$call[["alpha"]]
-		p<-ifelse(!is.null(alpha),signif(100*(1-alpha),digit=6),99)
+		p<-ifelse(!is.null(alpha),signif(100*(1-alpha),digits=6),99)
 		par(mar=c(0.1,0.1,0.1,0.1),cex=csize)
 		#ifelse((is.null(x$call[["H0"]])||(x$call[["H0"]]=="pi")),h0<-"PI",h0<-"RL")
 		plot(x$r,x$g12$obs/2,type="n",axes=FALSE,xlab="",ylab="")
@@ -347,7 +347,7 @@ plot.fads.kmfun<-function (x,opt=c("all","K","g"),cols,lty,main,sub,legend=TRUE,
 		sub<-c("pair correlation function","mark correlation function")
 	if(ci) {
 		alpha<-x$call[["alpha"]]
-		p<-ifelse(!is.null(alpha),signif(100*(1-alpha),digit=6),99)
+		p<-ifelse(!is.null(alpha),signif(100*(1-alpha),digits=6),99)
 		par(mar=c(0.1,0.1,0.1,0.1),cex=csize)
 		plot(x$r,x$gm$obs/2,type="n",axes=FALSE,xlab="",ylab="")
 		if(legend)
