@@ -5,11 +5,7 @@
 \description{
  Function \code{triangulate} decomposes a simple polygon (optionally having holes) into contiguous triangles.
 }
-\synopsis{
-triangulate(outer.poly, holes)
-}
 \usage{
-triangulate(outer.poly)
 triangulate(outer.poly, holes)
 }
 \arguments{

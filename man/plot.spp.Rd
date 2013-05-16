@@ -6,7 +6,8 @@
  Plot a Spatial Point Pattern object returned by function \code{\link{spp}}.
 }
 \usage{
-\method{plot}{spp}(x, main, out = FALSE, use.marks = TRUE, cols, chars, cols.out, chars.out, maxsize, scale = TRUE, add = FALSE, legend= TRUE, csize = 1, ...)
+\method{plot}{spp}(x, main, out = FALSE, use.marks = TRUE, cols, chars, cols.out, chars.out,
+ 	maxsize, scale = TRUE, add = FALSE, legend= TRUE, csize = 1, ...)
 }
 \arguments{
   \item{x}{an object of class \code{"spp"} (see \code{\link{spp}}).}
@@ -83,7 +84,8 @@ Then the points themselves are plotted, in a fashion that depends on the type of
  # a multivariate point pattern in a circular sampling window
  #with all points inside the sampling window displayed in blue colour
  #and all points outside displayed with the symbol "+" in red colour
- plot(spp(BP$trees,win=c(55,45,45),marks=BP$species),out=TRUE,cols=c("blue","blue","blue"),chars.out=c("+","+","+"),cols.out=c("red","red","red"))
+ plot(spp(BP$trees,win=c(55,45,45),marks=BP$species),out=TRUE,cols=c("blue","blue","blue"),
+ 	chars.out=c("+","+","+"), cols.out=c("red","red","red"))
  
  # a marked point pattern in a rectangle sampling window
  #with circles in green colour
@@ -91,6 +93,7 @@ Then the points themselves are plotted, in a fashion that depends on the type of
 
  # a marked point pattern in a circular sampling window
  #with squares in red colour inside and circles in blue colour outside
-  plot(spp(BP$trees,win=c(55,45,45),marks=BP$dbh),out=TRUE,chars="squares",cols="red",cols.out="blue")
+  plot(spp(BP$trees,win=c(55,45,45),marks=BP$dbh),out=TRUE,chars="squares",cols="red",
+  	cols.out="blue")
 }
 \keyword{spatial}

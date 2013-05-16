@@ -155,6 +155,7 @@ kfun<-function(p,upto,by,nsim=0,prec=0.01,alpha=0.01) {
 
 k12fun<-function(p,upto,by,nsim=0,H0=c("pi","rl"),prec=0.01,alpha=0.01,marks) {
 	# checking for input parameters
+	options(CBoundsCheck = TRUE)
 	stopifnot(inherits(p,"spp"))
 	stopifnot(p$type=="multivariate")
 	stopifnot(is.numeric(upto))
@@ -233,7 +234,8 @@ k12fun<-function(p,upto,by,nsim=0,H0=c("pi","rl"),prec=0.01,alpha=0.01,marks) {
 					as.double(xmin),as.double(xmax),as.double(ymin),as.double(ymax),					
 					as.integer(tmax),as.double(by),
 					g=double(tmax),k=double(tmax),
-					PACKAGE="ads")					
+					PACKAGE="ads")
+			print("R_intertype_rect")				
 		}
 		else { #with CI
 			res<-.C("intertype_rect_ic",
@@ -246,6 +248,7 @@ k12fun<-function(p,upto,by,nsim=0,H0=c("pi","rl"),prec=0.01,alpha=0.01,marks) {
 					gic1=double(tmax),gic2=double(tmax),kic1=double(tmax),kic2=double(tmax),
 					gval=double(tmax),kval=double(tmax),lval=double(tmax),nval=double(tmax),
 					PACKAGE="ads")
+			print("R_intertype_rect_ic")
 		}
 	}
 	else if(cas==2) { #circle
@@ -256,7 +259,8 @@ k12fun<-function(p,upto,by,nsim=0,H0=c("pi","rl"),prec=0.01,alpha=0.01,marks) {
 					as.double(x0),as.double(y0),as.double(r0),					
 					as.integer(tmax),as.double(by),
 					g=double(tmax),k=double(tmax),
-					PACKAGE="ads")					
+					PACKAGE="ads")
+			print("R_intertype_disq")					
 		}
 		else { #with CI
 			res<-.C("intertype_disq_ic",
@@ -268,7 +272,8 @@ k12fun<-function(p,upto,by,nsim=0,H0=c("pi","rl"),prec=0.01,alpha=0.01,marks) {
 					g=double(tmax),k=double(tmax),
 					gic1=double(tmax),gic2=double(tmax),kic1=double(tmax),kic2=double(tmax),
 					gval=double(tmax),kval=double(tmax),lval=double(tmax),nval=double(tmax),
-					PACKAGE="ads")		
+					PACKAGE="ads")
+			print("R_intertype_disq_ic")		
 		}
 	}
 	else if(cas==3) { #complex within rectangle
@@ -280,7 +285,8 @@ k12fun<-function(p,upto,by,nsim=0,H0=c("pi","rl"),prec=0.01,alpha=0.01,marks) {
 					as.integer(nbTri),as.double(tri$ax),as.double(tri$ay),as.double(tri$bx),as.double(tri$by),as.double(tri$cx),as.double(tri$cy),
 					as.integer(tmax),as.double(by),
 					g=double(tmax),k=double(tmax),
-					PACKAGE="ads")					
+					PACKAGE="ads")
+			print("R_intertype_tr_rect")					
 		}
 		else { #with CI
 			res<-.C("intertype_tr_rect_ic",
@@ -293,7 +299,8 @@ k12fun<-function(p,upto,by,nsim=0,H0=c("pi","rl"),prec=0.01,alpha=0.01,marks) {
 					g=double(tmax),k=double(tmax),
 					gic1=double(tmax),gic2=double(tmax),kic1=double(tmax),kic2=double(tmax),
 					gval=double(tmax),kval=double(tmax),lval=double(tmax),nval=double(tmax),
-					PACKAGE="ads")		
+					PACKAGE="ads")
+			print("R_intertype_tr_rect_ic")		
 		}
 	}
 	else if(cas==4) { #complex within circle
@@ -305,7 +312,8 @@ k12fun<-function(p,upto,by,nsim=0,H0=c("pi","rl"),prec=0.01,alpha=0.01,marks) {
 					as.integer(nbTri),as.double(tri$ax),as.double(tri$ay),as.double(tri$bx),as.double(tri$by),as.double(tri$cx),as.double(tri$cy),
 					as.integer(tmax),as.double(by),
 					g=double(tmax),k=double(tmax),
-					PACKAGE="ads")					
+					PACKAGE="ads")
+			print("R_intertype_tr_disq_ic")					
 		}
 		else { #with CI
 			res<-.C("intertype_tr_disq_ic",
@@ -318,7 +326,8 @@ k12fun<-function(p,upto,by,nsim=0,H0=c("pi","rl"),prec=0.01,alpha=0.01,marks) {
 					g=double(tmax),k=double(tmax),
 					gic1=double(tmax),gic2=double(tmax),kic1=double(tmax),kic2=double(tmax),
 					gval=double(tmax),kval=double(tmax),lval=double(tmax),nval=double(tmax),
-					PACKAGE="ads")		
+					PACKAGE="ads")
+			print("R_intertype_tr_disq_ic")		
 		}
 	}	
 	# formatting results

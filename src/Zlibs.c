@@ -7,7 +7,7 @@
 double un_point( double ax, double ay, double bx, double by, double cx, double cy, double x, double y, double d)
 {	double alpha, beta, gamma, delta, ttt, ang;
 	double ex,ey,fx,fy;
-	
+
 	/*premier point d'intersection*/
 	alpha=(bx-ax)*(bx-ax)+(by-ay)*(by-ay);
 	beta=(2*(ax-x)*(bx-ax)+2*(ay-y)*(by-ay));
@@ -564,11 +564,11 @@ double perim_in_rect(double xxx, double yyy, double ddd, double xmi, double xma,
 			}
             else
             {	if (d4>=1)				/* bord seul en d3 */
-				{  
+				{
 					return (2*(Pi()-acos(d3)));
 				}
 				else    					/* 2 bords d3 et d4 */
-					{	
+					{
 						if (d3*d3+d4*d4<1)
 						{
 							return (1.5*Pi()-acos(d3)-acos(d4));
@@ -609,7 +609,7 @@ double perim_in_rect(double xxx, double yyy, double ddd, double xmi, double xma,
 								return((Pi()-acos(d2)-acos(d4)));
 							}
 							else
-							{                  
+							{
 								return((1.5*Pi()-acos(d2)-acos(d3)-2*acos(d4)));
 							}
 						}
@@ -619,7 +619,7 @@ double perim_in_rect(double xxx, double yyy, double ddd, double xmi, double xma,
 								return((1.5*Pi()-2*acos(d2)-acos(d3)-acos(d4)));
 							}
 							else
-							{	
+							{
 								return(2*(Pi()-acos(d2)-acos(d3)-acos(d4)));
 							}
 						}
@@ -632,13 +632,13 @@ double perim_in_rect(double xxx, double yyy, double ddd, double xmi, double xma,
 			if (d2>=1)
 			{
 				if (d3>=1)
-				{	
+				{
 					if (d4>=1)					/* bord seul en d1 */
-					{	
+					{
 						return (2*(Pi()-acos(d1)));
 					}
 					else							/* 2 bords d1 et d4 */
-					{ 
+					{
 						if (d1*d1+d4*d4<1)
 						{
 							return ((1.5*Pi()-acos(d1)-acos(d4)));
@@ -667,7 +667,7 @@ double perim_in_rect(double xxx, double yyy, double ddd, double xmi, double xma,
 						}
 					}
 					else
-					{ 
+					{
 						if (d4*d4+d1*d1<1)
 						{
 							return ((1.5*Pi()-2*acos(d3)-acos(d4)-acos(d1)));
@@ -709,7 +709,7 @@ double perim_in_rect(double xxx, double yyy, double ddd, double xmi, double xma,
 						}
             		}
 					else
-					{	
+					{
 						if (d1*d1+d2*d2<1)
 						{
 							return ((1.5*Pi()-2*acos(d4)-acos(d1)-acos(d2)));
@@ -766,10 +766,12 @@ double perim_in_disq(double xxx, double yyy, double ddd,
 double perim_triangle(double x,double y, double d, int triangle_nb, double *ax,double *ay, double *bx, double *by, double *cx, double *cy)
 {	double angle, epsilon;
 	double doa,dob,doc;
-	int h,i;
+	int h;
+	//int i;
 
 	epsilon=0.0001;
 	angle=0;
+
 
 	for(h=0;h<triangle_nb;h++)
 	{	doa=sqrt((x-ax[h])*(x-ax[h])+(y-ay[h])*(y-ay[h]));
@@ -779,11 +781,13 @@ double perim_triangle(double x,double y, double d, int triangle_nb, double *ax,d
 		if (doa-d<-epsilon)
 		{	if (dob-d<-epsilon)
 			{	if (doc-d<-epsilon)
-					i=1;	/* le triangle est dans le cercle, TVB*/
+					//i=1
+					;	/* le triangle est dans le cercle, TVB*/
 				else if (doc-d>epsilon)
 					angle+=un_point(cx[h],cy[h],ax[h],ay[h],bx[h],by[h],x,y,d);
 				else
-					i=1;	/* le triangle est dans le cercle, TVB*/
+					//i=1
+					;	/* le triangle est dans le cercle, TVB*/
 			}
 			else if (dob-d>epsilon)
 			{	if (doc-d<-epsilon)
@@ -795,11 +799,13 @@ double perim_triangle(double x,double y, double d, int triangle_nb, double *ax,d
 			}
 			else /* b sur le bord*/
 			{	if (doc-d<-epsilon)
-					i=1;	/* le triangle est dans le cercle, TVB*/
+					//i=1
+					;	/* le triangle est dans le cercle, TVB*/
 				else if (doc-d>epsilon)
 					angle+=ununun_point(cx[h],cy[h],ax[h],ay[h],bx[h],by[h],x,y,d);
 				else
-					i=1; 	/* le triangle est dans le cercle, TVB*/
+					//i=1
+					; 	/* le triangle est dans le cercle, TVB*/
 			}
 		}
 		else if (doa-d>epsilon)
@@ -831,11 +837,13 @@ double perim_triangle(double x,double y, double d, int triangle_nb, double *ax,d
 		else	/* a sur le bord*/
 		{	if (dob-d<-epsilon)
 			{	if (doc-d<-epsilon)
-					i=1;	/* le triangle est dans le cercle, TVB*/
+					//i=1
+					;	/* le triangle est dans le cercle, TVB*/
 				else if (doc-d>epsilon)
 					angle+=ununun_point(cx[h],cy[h],bx[h],by[h],ax[h],ay[h],x,y,d);
 				else
-					i=1;	/* le triangle est	dans le cercle, TVB*/
+					//i=1
+					;	/* le triangle est	dans le cercle, TVB*/
 			}
 			else if (dob-d>epsilon)
 			{	if (doc-d<-epsilon)
@@ -847,11 +855,13 @@ double perim_triangle(double x,double y, double d, int triangle_nb, double *ax,d
 			}
 			else	/* b sur le bord*/
 			{	if (doc-d<-epsilon)
-					i=1;	/* le triangle est dans le cercle, TVB*/
+					//i=1
+					;	/* le triangle est dans le cercle, TVB*/
 				else if (doc-d>epsilon)
 					angle+=deuxbord_point(cx[h],cy[h],ax[h],ay[h],bx[h],by[h],x,y,d);
 				else
-					i=1;	/* le triangle est dans le cercle, TVB*/
+					//i=1
+					;	/* le triangle est dans le cercle, TVB*/
 			}
 		}
 	}
@@ -1141,7 +1151,7 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 		nval[i]=1;
 		lval[i]=1;
 	}
-	
+
 	int lp=0;
 
 	/*boucle principale de MC*/
@@ -1247,7 +1257,7 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 		{	i--;
 			Rprintf("ERREUR Ripley\n");
 		}
-		else 
+		else
 		{	/*comptage du nombre de |¶obs|<=|¶simu| pour test local*/
 			double gictmp,kictmp,lictmp,nictmp;
 			for(j=0;j<*t2;j++)
@@ -1341,7 +1351,7 @@ double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval
 		{	i=i-1;
 			Rprintf("ERREUR Ripley\n");
 		}
-		else 
+		else
 		{	/*comptage du nombre de |¶obs|<=|¶simu| pour test local*/
 			double gictmp,kictmp,lictmp,nictmp;
 			for(j=0;j<*t2;j++)
@@ -3276,22 +3286,22 @@ int *t2,double *dt,double *gm,double *km)
 
 	/*Decalage pour n'avoir que des valeurs positives*/
 	decalRect(*point_nb,x,y,xmi,xma,ymi,yma);
-	
+
 	/*On calcule la moyenne des marques*/
 	cmoy=0;
 	for(i=0;i<*point_nb;i++)
 		cmoy+=c[i];
 	cmoy=cmoy/(*point_nb);
-	
+
 	/*On calcule la variance des marques*/
 	cvar=0;
 	for(i=0;i<*point_nb;i++)
 		cvar+=(c[i]-cmoy)*(c[i]-cmoy);
 	cvar=cvar/(*point_nb);
-	
+
 	vecalloc(&g,*t2);
 	vecalloc(&k,*t2);
-	
+
 	/* On rangera dans g le nombre de couples de points par distance tt
 	 et dans gm la somme des covariances des marques */
 	for(tt=0;tt<*t2;tt++) {
@@ -3341,7 +3351,7 @@ int *t2,double *dt,double *gm,double *km)
 		gm[tt]=gm[tt]/(g[tt]*cvar);
 		km[tt]=km[tt]/(k[tt]*cvar);
 	}
-	
+
 	freevec(g);
 	freevec(k);
    return 0;
@@ -3356,22 +3366,22 @@ int *t2,double *dt,double *gm,double *km)
 
 	/*Decalage pour n'avoir que des valeurs positives*/
 	decalCirc(*point_nb,x,y,x0,y0,*r0);
-	
+
 	/*On calcule la moyenne des marques*/
 	cmoy=0;
 	for(i=0;i<*point_nb;i++)
 		cmoy+=c[i];
 	cmoy=cmoy/(*point_nb);
-	
+
 	/*On calcule la variance des marques*/
 	cvar=0;
 	for(i=0;i<*point_nb;i++)
 		cvar+=(c[i]-cmoy)*(c[i]-cmoy);
 	cvar=cvar/(*point_nb);
-	
+
 	vecalloc(&g,*t2);
 	vecalloc(&k,*t2);
-	
+
 	/*On rangera dans g le nombre de couples de points par distance tt
 	 et dans gm la somme des covariances des marques */
 	for(tt=0;tt<*t2;tt++) {
@@ -3421,7 +3431,7 @@ int *t2,double *dt,double *gm,double *km)
 		gm[tt]=gm[tt]/(g[tt]*cvar);
 		km[tt]=km[tt]/(k[tt]*cvar);
 	}
-	
+
 	freevec(g);
 	freevec(k);
    return 0;
@@ -3437,22 +3447,22 @@ int *t2,double *dt,double *gm,double *km)
 
 	/*Decalage pour n'avoir que des valeurs positives*/
 	decalRectTri(*point_nb,x,y,xmi,xma,ymi,yma,*triangle_nb,ax,ay,bx,by,cx,cy);
-	
+
 	/*On calcule la moyenne des marques*/
 	cmoy=0;
 	for(i=0;i<*point_nb;i++)
 		cmoy+=c[i];
 	cmoy=cmoy/(*point_nb);
-	
+
 	/*On calcule la variance des marques*/
 	cvar=0;
 	for(i=0;i<*point_nb;i++)
 		cvar+=(c[i]-cmoy)*(c[i]-cmoy);
 	cvar=cvar/(*point_nb);
-	
+
 	vecalloc(&g,*t2);
 	vecalloc(&k,*t2);
-	
+
 	/*On rangera dans g le nombre de couples de points par distance tt
 	 et dans gm la somme des covariances des marques */
 	for(tt=0;tt<*t2;tt++) {
@@ -3513,7 +3523,7 @@ int *t2,double *dt,double *gm,double *km)
 		gm[tt]=gm[tt]/(g[tt]*cvar);
 		km[tt]=km[tt]/(k[tt]*cvar);
 	}
-	
+
 	freevec(g);
 	freevec(k);
    return 0;
@@ -3529,22 +3539,22 @@ int *t2,double *dt,double *gm,double *km)
 
 	/*Decalage pour n'avoir que des valeurs positives*/
 	decalCircTri(*point_nb,x,y,x0,y0,*r0,*triangle_nb,ax,ay,bx,by,cx,cy);
-	
+
 	/*On calcule la moyenne des marques*/
 	cmoy=0;
 	for(i=0;i<*point_nb;i++)
 		cmoy+=c[i];
 	cmoy=cmoy/(*point_nb);
-	
+
 	/*On calcule la variance des marques*/
 	cvar=0;
 	for(i=0;i<*point_nb;i++)
 		cvar+=(c[i]-cmoy)*(c[i]-cmoy);
 	cvar=cvar/(*point_nb);
-	
+
 	vecalloc(&g,*t2);
 	vecalloc(&k,*t2);
-	
+
 	/* On rangera dans g le nombre de couples de points par distance tt
 	 et dans gm la somme des covariances des marques */
 	for(tt=0;tt<*t2;tt++) {
@@ -3604,7 +3614,7 @@ int *t2,double *dt,double *gm,double *km)
 		gm[tt]=gm[tt]/(g[tt]*cvar);
 		km[tt]=km[tt]/(k[tt]*cvar);
 	}
-	
+
 	freevec(g);
 	freevec(k);
    return 0;
@@ -3616,9 +3626,9 @@ int *t2,double *dt,int *nbSimu, double *lev,double *gm,double *km,
 double *gmic1,double *gmic2, double *kmic1,double *kmic2, double *gmval, double *kmval) {
 	int i,j,i0,i1,i2;
 	double *c2;
-	double **gmic,**kmic;	
+	double **gmic,**kmic;
 	double *ggm,*kkm;
-	
+
 	int erreur=0;
 
 	erreur=corr_rect(point_nb,x,y,c,xmi,xma,ymi,yma,t2,dt,gm,km);
@@ -3700,11 +3710,11 @@ int *t2,double *dt,int *nbSimu, double *lev,double *gm,double *km,
 double *gmic1,double *gmic2, double *kmic1,double *kmic2, double *gmval, double *kmval) {
 	int i,j,i0,i1,i2;
 	double *c2;
-	double **gmic,**kmic;	
+	double **gmic,**kmic;
 	double *ggm,*kkm;
-	
+
 	int erreur=0;
-	
+
 	erreur=corr_disq(point_nb,x,y,c,x0,y0,r0,t2,dt,gm,km);
 	if (erreur!=0) {
 		return -1;
@@ -3786,9 +3796,9 @@ int *t2,double *dt,int *nbSimu, double *lev,double *gm,double *km,
 double *gmic1,double *gmic2, double *kmic1,double *kmic2, double *gmval, double *kmval) {
 	int i,j,i0,i1,i2;
 	double *c2;
-	double **gmic,**kmic;	
+	double **gmic,**kmic;
 	double *ggm,*kkm;
-	
+
 	int erreur=0;
 
 	erreur=corr_tr_rect(point_nb,x,y,c,xmi,xma,ymi,yma,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,gm,km);
@@ -3871,9 +3881,9 @@ int *t2,double *dt,int *nbSimu, double *lev,double *gm,double *km,
 double *gmic1,double *gmic2, double *kmic1,double *kmic2, double *gmval, double *kmval) {
 	int i,j,i0,i1,i2;
 	double *c2;
-	double **gmic,**kmic;	
+	double **gmic,**kmic;
 	double *ggm,*kkm;
-	
+
 	int erreur=0;
 
 	erreur=corr_tr_disq(point_nb,x,y,c,x0,y0,r0,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,gm,km);
@@ -3959,7 +3969,7 @@ void randmark(int point_nb,double *c,double *c2)
 	GetRNGstate();
 	while (j<point_nb) {
 		jj=unif_rand()*(point_nb);
-		while (c2[jj]>-1) {	
+		while (c2[jj]>-1) {
 			jj=unif_rand()*(point_nb);
 		}
 		c2[jj]=c[j];

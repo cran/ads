@@ -13,14 +13,9 @@
   observed. The \code{ads} library supports simple (rectangular or circular) and complex
   sampling windows.   
 }
-\synopsis{
- swin(window, triangles)
-}
 \usage{
- swin(window=c(xmin,ymin,xmax,ymax))
- swin(window=c(x0,y0,r0))
  swin(window, triangles)
-}
+ }
 \arguments{
   \item{window}{a vector defining the limits of a simple sampling window: \code{c(xmin,ymin,xmax,ymax)}
    for a rectangle ; \code{c(x0,y0,r0)} for a circle.}

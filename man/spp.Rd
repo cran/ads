@@ -12,13 +12,7 @@
   The \code{ads} library supports univariate, multivariate and marked point patterns
   observed in simple (rectangular or circular) or complex sampling windows. 
 }
-\synopsis{
-spp(x, y=NULL, window, triangles, marks, int2fac = TRUE)
-}
 \usage{
-spp(x, y=NULL, window)
-spp(x, y=NULL, window, triangles)
-spp(x, y=NULL, window, marks, int2fac = TRUE)
 spp(x, y=NULL, window, triangles, marks, int2fac = TRUE)
 }
 \arguments{

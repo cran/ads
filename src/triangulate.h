@@ -87,7 +87,7 @@ typedef struct {
 #define FIRSTPT 1		/* checking whether pt. is inserted */
 #define LASTPT  2
 
-
+#undef INFINITY
 #define INFINITY 1<<30
 #define C_EPS 1.0e-7		/* tolerance value: Used for making */
 				/* all decisions about collinearity or */
