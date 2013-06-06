@@ -155,7 +155,8 @@ kfun<-function(p,upto,by,nsim=0,prec=0.01,alpha=0.01) {
 
 k12fun<-function(p,upto,by,nsim=0,H0=c("pi","rl"),prec=0.01,alpha=0.01,marks) {
 	# checking for input parameters
-	options(CBoundsCheck = TRUE)
+	options( CBoundsCheck = TRUE )
+	# regle les problemes pour 32-bit
 	stopifnot(inherits(p,"spp"))
 	stopifnot(p$type=="multivariate")
 	stopifnot(is.numeric(upto))
@@ -234,8 +235,7 @@ k12fun<-function(p,upto,by,nsim=0,H0=c("pi","rl"),prec=0.01,alpha=0.01,marks) {
 					as.double(xmin),as.double(xmax),as.double(ymin),as.double(ymax),					
 					as.integer(tmax),as.double(by),
 					g=double(tmax),k=double(tmax),
-					PACKAGE="ads")
-			print("R_intertype_rect")				
+					PACKAGE="ads")					
 		}
 		else { #with CI
 			res<-.C("intertype_rect_ic",
@@ -248,7 +248,6 @@ k12fun<-function(p,upto,by,nsim=0,H0=c("pi","rl"),prec=0.01,alpha=0.01,marks) {
 					gic1=double(tmax),gic2=double(tmax),kic1=double(tmax),kic2=double(tmax),
 					gval=double(tmax),kval=double(tmax),lval=double(tmax),nval=double(tmax),
 					PACKAGE="ads")
-			print("R_intertype_rect_ic")
 		}
 	}
 	else if(cas==2) { #circle
@@ -259,8 +258,7 @@ k12fun<-function(p,upto,by,nsim=0,H0=c("pi","rl"),prec=0.01,alpha=0.01,marks) {
 					as.double(x0),as.double(y0),as.double(r0),					
 					as.integer(tmax),as.double(by),
 					g=double(tmax),k=double(tmax),
-					PACKAGE="ads")
-			print("R_intertype_disq")					
+					PACKAGE="ads")					
 		}
 		else { #with CI
 			res<-.C("intertype_disq_ic",
@@ -272,8 +270,7 @@ k12fun<-function(p,upto,by,nsim=0,H0=c("pi","rl"),prec=0.01,alpha=0.01,marks) {
 					g=double(tmax),k=double(tmax),
 					gic1=double(tmax),gic2=double(tmax),kic1=double(tmax),kic2=double(tmax),
 					gval=double(tmax),kval=double(tmax),lval=double(tmax),nval=double(tmax),
-					PACKAGE="ads")
-			print("R_intertype_disq_ic")		
+					PACKAGE="ads")		
 		}
 	}
 	else if(cas==3) { #complex within rectangle
@@ -285,8 +282,7 @@ k12fun<-function(p,upto,by,nsim=0,H0=c("pi","rl"),prec=0.01,alpha=0.01,marks) {
 					as.integer(nbTri),as.double(tri$ax),as.double(tri$ay),as.double(tri$bx),as.double(tri$by),as.double(tri$cx),as.double(tri$cy),
 					as.integer(tmax),as.double(by),
 					g=double(tmax),k=double(tmax),
-					PACKAGE="ads")
-			print("R_intertype_tr_rect")					
+					PACKAGE="ads")					
 		}
 		else { #with CI
 			res<-.C("intertype_tr_rect_ic",
@@ -299,8 +295,7 @@ k12fun<-function(p,upto,by,nsim=0,H0=c("pi","rl"),prec=0.01,alpha=0.01,marks) {
 					g=double(tmax),k=double(tmax),
 					gic1=double(tmax),gic2=double(tmax),kic1=double(tmax),kic2=double(tmax),
 					gval=double(tmax),kval=double(tmax),lval=double(tmax),nval=double(tmax),
-					PACKAGE="ads")
-			print("R_intertype_tr_rect_ic")		
+					PACKAGE="ads")		
 		}
 	}
 	else if(cas==4) { #complex within circle
@@ -312,8 +307,7 @@ k12fun<-function(p,upto,by,nsim=0,H0=c("pi","rl"),prec=0.01,alpha=0.01,marks) {
 					as.integer(nbTri),as.double(tri$ax),as.double(tri$ay),as.double(tri$bx),as.double(tri$by),as.double(tri$cx),as.double(tri$cy),
 					as.integer(tmax),as.double(by),
 					g=double(tmax),k=double(tmax),
-					PACKAGE="ads")
-			print("R_intertype_tr_disq_ic")					
+					PACKAGE="ads")					
 		}
 		else { #with CI
 			res<-.C("intertype_tr_disq_ic",
@@ -326,8 +320,7 @@ k12fun<-function(p,upto,by,nsim=0,H0=c("pi","rl"),prec=0.01,alpha=0.01,marks) {
 					g=double(tmax),k=double(tmax),
 					gic1=double(tmax),gic2=double(tmax),kic1=double(tmax),kic2=double(tmax),
 					gval=double(tmax),kval=double(tmax),lval=double(tmax),nval=double(tmax),
-					PACKAGE="ads")
-			print("R_intertype_tr_disq_ic")		
+					PACKAGE="ads")		
 		}
 	}	
 	# formatting results
@@ -817,5 +810,158 @@ kmfun<-function(p,upto,by,nsim=0,alpha=0.01) {
 	call<-match.call()
 	res<-list(call=call,r=r,gm=gm,km=km)
 	class(res)<-c("fads","kmfun")
+	return(res)
+}
+
+ksfun<-function(p,upto,by,nsim=0,alpha=0.01) {
+# checking for input parameters
+	#options( CBoundsCheck = TRUE )
+	stopifnot(inherits(p,"spp"))
+	stopifnot(p$type=="multivariate")
+	stopifnot(is.numeric(upto))
+	stopifnot(upto>=1)
+	stopifnot(is.numeric(by))
+	stopifnot(by>0)
+	r<-seq(by,upto,by)
+	tmax<-length(r)
+	stopifnot(is.numeric(nsim))
+	stopifnot(nsim>=0)
+	nsim<-testInteger(nsim)
+	stopifnot(is.numeric(alpha))
+	stopifnot(alpha>=0)
+	if(nsim>0) testIC(nsim,alpha)
+	
+###faire test sur les marks
+	
+	if("rectangle"%in%p$window$type) {
+		cas<-1
+		xmin<-p$window$xmin
+		xmax<-p$window$xmax
+		ymin<-p$window$ymin
+		ymax<-p$window$ymax
+		stopifnot(upto<=(0.5*max((xmax-xmin),(ymax-ymin))))
+		if ("complex"%in%p$window$type) {
+			cas<-3
+			tri<-p$window$triangles
+			nbTri<-nrow(tri)
+		}
+	}
+	else if("circle"%in%p$window$type) {
+		cas<-2
+		x0<-p$window$x0
+		y0<-p$window$y0
+		r0<-p$window$r0
+		stopifnot(upto<=r0)
+		if ("complex"%in%p$window$type) {
+			cas<-4
+			tri<-p$window$triangles
+			nbTri<-nrow(tri)
+		}
+	}
+	else
+	stop("invalid window type")
+	surface<-area.swin(p$window)
+	intensity<-p$n/surface
+	tabMarks<-levels(p$marks)
+	nbMarks<-length(tabMarks)
+	marks<-as.numeric(p$marks)	
+	D<-1-sum(as.vector(table(p$marks))^2/p$n^2) 
+# computing Shimatani	
+	if(cas==1) { #rectangle
+		if(nsim==0) { #without CI
+			res<-.C("shimatani_rect",
+					as.integer(p$n),as.double(p$x),as.double(p$y),
+					as.double(xmin),as.double(xmax),as.double(ymin),as.double(ymax),
+					as.integer(tmax),as.double(by),
+					as.integer(nbMarks),as.integer(marks),as.double(surface),gg=double(tmax),kk=double(tmax),erreur=integer(tmax),
+					PACKAGE="ads")
+		}
+		else { #with CI
+			res<-.C("shimatani_rect_ic",
+					as.integer(p$n),as.double(p$x),as.double(p$y),as.double(xmin),as.double(xmax),as.double(ymin),as.double(ymax),
+					as.integer(tmax),as.double(by), as.integer(nsim), as.double(alpha),
+					as.integer(nbMarks),as.integer(marks),as.double(surface),as.double(D),
+					gg=double(tmax),kk=double(tmax),gic1=double(tmax),gic2=double(tmax),kic1=double(tmax),kic2=double(tmax),
+					gval=double(tmax),kval=double(tmax),erreur=integer(tmax),
+					PACKAGE="ads")
+		}
+	}
+	else if(cas==2) { #circle
+		if(nsim==0) { #without CI
+			res<-.C("shimatani_disq",
+					as.integer(p$n),as.double(p$x),as.double(p$y),
+					as.double(x0),as.double(y0),as.double(r0),
+					as.integer(tmax),as.double(by),
+					as.integer(nbMarks),as.integer(marks),as.double(surface),gg=double(tmax),kk=double(tmax),erreur=integer(tmax),
+					PACKAGE="ads")
+		}
+		else { #with CI
+			res<-.C("shimatani_disq_ic",
+					as.integer(p$n),as.double(p$x),as.double(p$y),as.double(x0),as.double(y0),as.double(r0),
+					as.integer(tmax),as.double(by), as.integer(nsim), as.double(alpha),
+					as.integer(nbMarks),as.integer(marks),as.double(surface),as.double(D),
+					gg=double(tmax),kk=double(tmax),gic1=double(tmax),gic2=double(tmax),kic1=double(tmax),kic2=double(tmax),
+					gval=double(tmax),kval=double(tmax),erreur=integer(tmax),
+					PACKAGE="ads")
+		}
+	}
+	else if(cas==3) { #complex within rectangle
+		if(nsim==0) { #without CI
+			res<-.C("shimatani_tr_rect",
+					as.integer(p$n),as.double(p$x),as.double(p$y),
+					as.double(xmin),as.double(xmax),as.double(ymin),as.double(ymax),
+					as.integer(nbTri),as.double(tri$ax),as.double(tri$ay),as.double(tri$bx),as.double(tri$by),as.double(tri$cx),as.double(tri$cy),
+					as.integer(tmax),as.double(by),
+					as.integer(nbMarks),as.integer(marks),as.double(surface),gg=double(tmax),kk=double(tmax),erreur=integer(tmax),
+					PACKAGE="ads")
+		}
+		else { #with CI
+			res<-.C("shimatani_tr_rect_ic",
+					as.integer(p$n),as.double(p$x),as.double(p$y),as.double(xmin),as.double(xmax),as.double(ymin),as.double(ymax),
+					as.integer(nbTri),as.double(tri$ax),as.double(tri$ay),as.double(tri$bx),as.double(tri$by),as.double(tri$cx),as.double(tri$cy),
+					as.integer(tmax),as.double(by), as.integer(nsim), as.double(alpha),
+					as.integer(nbMarks),as.integer(marks),as.double(surface),as.double(D),
+					gg=double(tmax),kk=double(tmax),gic1=double(tmax),gic2=double(tmax),kic1=double(tmax),kic2=double(tmax),
+					gval=double(tmax),kval=double(tmax),erreur=integer(tmax),
+					PACKAGE="ads")
+		}
+	}
+	else if(cas==4) { #complex within circle
+		if(nsim==0) { #without CI		
+			res<-.C("shimatani_tr_disq",
+					as.integer(p$n),as.double(p$x),as.double(p$y),
+					as.double(x0),as.double(y0),as.double(r0),
+					as.integer(nbTri),as.double(tri$ax),as.double(tri$ay),as.double(tri$bx),as.double(tri$by),as.double(tri$cx),as.double(tri$cy),
+					as.integer(tmax),as.double(by), as.integer(nsim), as.double(alpha),
+					as.integer(nbMarks),as.integer(marks),as.double(surface),gg=double(tmax),kk=double(tmax),erreur=integer(tmax),
+					PACKAGE="ads")
+		}
+		else { #with CI
+			res<-.C("shimatani_tr_disq_ic",
+				   as.integer(p$n),as.double(p$x),as.double(p$y),as.double(x0),as.double(y0),as.double(r0),
+				   as.integer(nbTri),as.double(tri$ax),as.double(tri$ay),as.double(tri$bx),as.double(tri$by),as.double(tri$cx),as.double(tri$cy),
+				   as.integer(tmax),as.double(by),as.integer(nbMarks),as.integer(marks),as.double(surface),as.double(D),
+				   gg=double(tmax),kk=double(tmax),gic1=double(tmax),gic2=double(tmax),kic1=double(tmax),kic2=double(tmax),
+				   gval=double(tmax),kval=double(tmax),erreur=integer(tmax),
+				   PACKAGE="ads")
+		}
+	}		
+	if(sum(res$erreur>0)){
+		message("Error in ", appendLF=F)
+		print(match.call())
+		message("No neigbors within distance intervals:")
+		print(paste(by*(res$erreur[res$erreur>0]-1),"-",by*res$erreur[res$erreur>0]))
+		message("Increase argument 'by'")
+		return(res=NULL)
+	}
+	gs<-data.frame(obs=res$gg,theo=rep(D,tmax))
+	ks<-data.frame(obs=res$kk,theo=rep(D,tmax))
+	if(nsim>0) {
+		gs<-cbind(gs,sup=res$gic1,inf=res$gic2,pval=res$gval/(nsim+1))
+		ks<-cbind(ks,sup=res$kic1,inf=res$kic2,pval=res$kval/(nsim+1))
+	}
+	call<-match.call()
+	res<-list(call=call,r=r,gs=gs,ks=ks)
+	class(res)<-c("fads","ksfun")
 	return(res)
 }

@@ -44,20 +44,20 @@ ki.fun(p, upto, by)
 }
 \examples{
   data(BPoirier)
-  BP<-BPoirier
+  BP <- BPoirier
   # multivariate spatial point pattern in a rectangle sampling window 
-  swrm<-spp(BP$trees,win=BP$rect,marks=BP$species)
-  ki.swrm<-ki.fun(swrm,25,1)
+  swrm <- spp(BP$trees, win=BP$rect, marks=BP$species)
+  ki.swrm <- ki.fun(swrm, 25, 1)
   plot(ki.swrm)
   
  # multivariate spatial point pattern in a circle with radius 50 centred on (55,45)
- swcm<-spp(BP$trees,win=c(55,45,45),marks=BP$species)
-  ki.swcm<-ki.fun(swcm,25,1)
+  swcm <- spp(BP$trees, win=c(55,45,45), marks=BP$species)
+  ki.swcm <- ki.fun(swcm, 25, 1)
   plot(ki.swcm)
   
   # multivariate spatial point pattern in a complex sampling window
-  swrtm<-spp(BP$trees,win=BP$rect,tri=BP$tri2,marks=BP$species)
-  ki.swrtm<-ki.fun(swrtm,25,1)
+  swrtm <- spp(BP$trees, win=BP$rect, tri=BP$tri2, marks=BP$species)
+  ki.swrtm <- ki.fun(swrtm, 25, 1)
   plot(ki.swrtm)
 }
 \keyword{spatial}

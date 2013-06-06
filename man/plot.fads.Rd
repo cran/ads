@@ -6,13 +6,14 @@
 \alias{plot.fads.kijfun}
 \alias{plot.fads.ki.fun}
 \alias{plot.fads.kmfun}
+\alias{plot.fads.ksfun}
 \title{Plot second-order neigbourhood functions}
 \description{
- Plot second-order neigbourhood function estimates returned by functions \code{\link{kfun},
-  \link{k12fun}, \link{kmfun}, \link{kijfun} or \link{ki.fun}}.
+ Plot second-order neigbourhood function estimates returned by functions \code{\link{kfun}, \link{k12fun}, \link{kmfun}}, \cr
+ 	\code{ \link{kijfun} or \link{ki.fun}}.
 }
 \usage{
-\method{plot}{fads}(x,opt,cols,lty,main,sub,legend,csize,\dots)
+\method{plot}{fads}(x, opt, cols, lty, main, sub, legend, csize, \dots)
 }
 \arguments{
   \item{x}{an object of class \code{"fads"} (see Details).}
@@ -24,7 +25,8 @@
   \item{sub}{by default, the name of the function displayed, otherwise a text to be displayed as function subtitle. \code{sub=NULL} displays no subtitle.}
   \item{legend}{If \code{legend = TRUE} (the default) a legend for the plotting functions is displayed.}
   \item{csize}{scaling factor for font size so that actual font size is \code{par("cex")*csize}. By default \code{csize = 1}.}
-  \item{\dots}{extra arguments that will be passed to the plotting functions \code{\link{plot.swin}}, \code{\link{plot.default}}, \code{\link{symbols}} and/or \code{\link{points}}.}
+  \item{\dots}{extra arguments that will be passed to the plotting functions \code{\link{plot.swin}}, \cr
+  \code{\link{plot.default}}, \code{\link{symbols}} and/or \code{\link{points}}.}
 }
 \details{
  Function \code{plot.fads} displays second-order neighbourhood function estimates as a function of interpoint distance, with expected values 
@@ -41,21 +43,21 @@
   \code{\link{ki.fun}}.}
 \examples{
   data(BPoirier)
-  BP<-BPoirier
+  BP <- BPoirier
   # Ripley's function 
-  swr<-spp(BP$trees,win=BP$rect)
-  k.swr<-kfun(swr,25,1,500)
+  swr <- spp(BP$trees, win=BP$rect)
+  k.swr <- kfun(swr, 25, 1, 500)
   plot(k.swr)
   
   # Intertype function
-  swrm<-spp(BP$trees,win=BP$rect,marks=BP$species)
-  k12.swrm<-k12fun(swrm,25,1,500,marks=c("beech","oak"))
-  plot(k12.swrm,opt="L",cols=1)
+  swrm <- spp(BP$trees, win=BP$rect, marks=BP$species)
+  k12.swrm <- k12fun(swrm, 25, 1, 500, marks=c("beech","oak"))
+  plot(k12.swrm, opt="L", cols=1)
   
   # Mark correlation function
-  swrm<-spp(BP$trees,win=BP$rect,marks=BP$dbh)
-  km.swrm<-kmfun(swrm,25,1,500)
-  plot(km.swrm,main="Example 1",sub=NULL,legend=FALSE)
+  swrm <- spp(BP$trees, win=BP$rect, marks=BP$dbh)
+  km.swrm <- kmfun(swrm, 25, 1, 500)
+  plot(km.swrm, main="Example 1", sub=NULL, legend=FALSE)
 
 }
 \keyword{spatial}

@@ -8,7 +8,7 @@
   under the null hypothesis of no correlation between marks (see Details).
 }
 \usage{
-kmfun(p, upto, by, nsim = 0, alpha = 0.01)
+kmfun(p, upto, by, nsim=0, alpha=0.01)
 }
 \arguments{
   \item{p}{a \code{"spp"} object defining a marked spatial point pattern in a given sampling window (see \code{\link{spp}}).}
@@ -52,8 +52,10 @@ Applications of this function can be found in Oddou-Muratorio \emph{et al.} (200
 
   \references{Goreaud, F. 2000. \emph{Apports de l'analyse de la structure spatiale en foret tempérée à l'étude et la modélisation des peuplements complexes}. Thèse de doctorat, ENGREF, Nancy, France.\cr\cr
 Goreaud F. & Pélissier R. 1999. On explicit formulas of edge effect correction for Ripley's K-function. \emph{Journal of Vegetation Science}, 10:433-438.\cr\cr
-Madelaine, C., Pélissier, R., Vincent, G., Molino, J.-F., Sabatier, D., Prévost, M.-F. & de Namur, C. 2006. Mortality and recruitment in a lowland tropical rainforest of French Guiana: effects of soil types and species guilds. \emph{Journal of Tropical Ecology}, submitted.
-Oddou-Muratorio, S., Demesure-Musch, B., Pélissier, R. & Gouyon, P.-H. 2004. Impacts of gene flow and logging history on the local genetic structure of a scattered tree species, Sorbus torminalis L. \emph{Molecular Ecology}, 13:3689-3702.\cr\cr
+Madelaine, C., Pélissier, R., Vincent, G., Molino, J.-F., Sabatier, D., Prévost, M.-F. & de Namur, C. 2007. Mortality and recruitment in a lowland tropical rainforest of French Guiana: effects of soil type and species guild. \emph{Journal of Tropical Ecology}, 23:277-287.
+
+Oddou-Muratorio, S., Demesure-Musch, B., Pélissier, R. & Gouyon, P.-H. 2004. Impacts of gene flow and logging history on the local genetic structure of a scattered tree species, Sorbus torminalis L. \emph{Molecular Ecology}, 13:3689-3702.
+
 Ripley B.D. 1977. Modelling spatial patterns. \emph{Journal of the Royal Statistical Society B}, 39:172-192.
 }
 \author{\email{Raphael.Pelissier@ird.fr}}
@@ -67,20 +69,20 @@ Ripley B.D. 1977. Modelling spatial patterns. \emph{Journal of the Royal Statist
  }
 \examples{
   data(BPoirier)
-  BP<-BPoirier
+  BP <- BPoirier
   # spatial point pattern in a rectangle sampling window of size [0,110] x [0,90]
-  swrm<-spp(BP$trees,win=BP$rect,marks=BP$dbh)
-  kmswrm<-kmfun(swrm,25,1,500)
+  swrm <- spp(BP$trees, win=BP$rect, marks=BP$dbh)
+  kmswrm <- kmfun(swrm, 25, 1, 500)
   plot(kmswrm)
   
   # spatial point pattern in a circle with radius 50 centred on (55,45)
-  swc<-spp(BP$trees,win=c(55,45,45),marks=BP$dbh)
-  kmswc<-kmfun(swc,25,1,500)
+  swc <- spp(BP$trees, win=c(55,45,45), marks=BP$dbh)
+  kmswc <- kmfun(swc, 25, 1, 500)
   plot(kmswc)
 
   # spatial point pattern in a complex sampling window
-  swrt<-spp(BP$trees,win=BP$rect,tri=BP$tri2,marks=BP$dbh)
-  kmswrt<-kmfun(swrt,25,1,500)
+  swrt <- spp(BP$trees, win=BP$rect, tri=BP$tri2, marks=BP$dbh)
+  kmswrt <- kmfun(swrt, 25, 1, 500)
   plot(kmswrt)
 
 }

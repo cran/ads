@@ -29,3 +29,5 @@ void decalRectTri2(int,double *,double *,int,double *,double *,double *,double *
 void decalCircTri2(int,double *,double *,int,double *,double *,double *,double *,double,int,
 	double *,double *,double *,double *,double *,double *);
 void decalSample(int,double *,double *,double,double);
+double** taballoca(int,int *);
+void complete_tab(int,double **,double **,int *,int *,int *,double *,double *);

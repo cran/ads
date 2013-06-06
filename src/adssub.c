@@ -320,3 +320,30 @@ void decalSample(int sample_nb,double *x, double *y, double xmin, double ymin) {
 		decalVal(y,sample_nb,-ymin);
 	}
 }
+
+/*memory allocation for a table with variable row length*/
+double** taballoca(int a,int *b)
+{
+    double **t;
+    int i;
+    t = (double ** ) malloc (a * sizeof (double*));
+    for (i=0;i<a;i++)
+    {
+		t[i]=(double *)malloc(b[i+1] * a * sizeof(double));
+    }
+    return t;
+}
+
+/*create a table with variable row length*/
+void complete_tab(int point_nb,double **xx,double **yy,int *type,int *compt,int *l, double *x,double *y){
+    int i;
+    for(i=0;i<point_nb;i++)
+   	{
+   	    xx[type[i]-1][compt[type[i]]]=x[i];
+   	    yy[type[i]-1][compt[type[i]]]=y[i];
+   	    //Rprintf("%d,%d ::: %f, %f\n",type[i]-1,compt[type[i]],x[i],y[i]);
+   	    compt[type[i]]++;
+   	}
+	return ;
+}
+

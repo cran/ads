@@ -8,7 +8,7 @@
   under the null hypotheses of population independence or random labelling (see Details).
 }
 \usage{
-k12fun(p, upto, by, nsim = 0, H0=c("pi","rl"), prec = 0.01, alpha = 0.01,  marks)
+k12fun(p, upto, by, nsim=0, H0=c("pi","rl"), prec=0.01, alpha=0.01,  marks)
 }
 \arguments{
   \item{p}{a \code{"spp"} object defining a multivariate spatial point pattern in a given sampling window (see \code{\link{spp}}).}
@@ -88,24 +88,24 @@ k12fun(p, upto, by, nsim = 0, H0=c("pi","rl"), prec = 0.01, alpha = 0.01,  marks
 }
 \examples{
   data(BPoirier)
-  BP<-BPoirier
+  BP <- BPoirier
   # spatial point pattern in a rectangle sampling window of size [0,110] x [0,90]
-  swrm<-spp(BP$trees,win=BP$rect,marks=BP$species)
+  swrm <- spp(BP$trees, win=BP$rect, marks=BP$species)
   #testing population independence hypothesis
-  k12swrm.pi<-k12fun(swrm,25,1,500,marks=c("beech","oak"))
+  k12swrm.pi <- k12fun(swrm, 25, 1, 500, marks=c("beech","oak"))
   plot(k12swrm.pi)
   #testing random labelling hypothesis
-  k12swrm.rl<-k12fun(swrm,25,1,500,H0="rl",marks=c("beech","oak"))
+  k12swrm.rl <- k12fun(swrm, 25, 1, 500, H0="rl", marks=c("beech","oak"))
   plot(k12swrm.rl)
 
   # spatial point pattern in a circle with radius 50 centred on (55,45)
-  swc<-spp(BP$trees,win=c(55,45,45),marks=BP$species)
-  k12swc.pi<-k12fun(swc,25,1,500,marks=c("beech","oak"))
+  swc <- spp(BP$trees, win=c(55,45,45), marks=BP$species)
+  k12swc.pi <- k12fun(swc, 25, 1, 500, marks=c("beech","oak"))
   plot(k12swc.pi)
   
   # spatial point pattern in a complex sampling window
-  swrt<-spp(BP$trees,win=BP$rect,tri=BP$tri2,marks=BP$species)
-  k12swrt.pi<-k12fun(swrt,25,1,500,marks=c("beech","oak"))
+  swrt <- spp(BP$trees, win=BP$rect, tri=BP$tri2, marks=BP$species)
+  k12swrt.pi <- k12fun(swrt, 25, 1, 500, marks=c("beech","oak"))
   plot(k12swrt.pi)
 }
 \keyword{spatial}

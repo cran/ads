@@ -28,7 +28,7 @@ Pélissier, R. & Goreaud, F. 2001. A practical approach to the study of spatial s
 }
 \examples{
 data(BPoirier)
-BP.spp<-spp(BPoirier$trees,mark=BPoirier$species,window=BPoirier$rect)
+BP.spp <- spp(BPoirier$trees, mark=BPoirier$species, window=BPoirier$rect)
 plot(BP.spp)
 }
 \keyword{datasets}

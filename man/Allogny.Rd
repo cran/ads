@@ -1,5 +1,5 @@
-\encoding{latin1}
 \name{Allogny}
+\encoding{latin1}
 \alias{Allogny}
 \docType{data}
 \title{Spatial pattern of oaks suffering from frost shake in Allogny, France.}
@@ -14,14 +14,14 @@ A list with 4 components:\cr
 \code{$status } is a factor with 2 levels \eqn{("splited","sound")}.\cr
 }
 \source{
-  Grandjean, G., Jabiol, B., Bruchiamacchie, M. & Roustan, F. 1990. \emph{Recherche de corrélations entre les paramètres édaphiques, et plus spécialement texture, hydromorphie et drainage interne, et la réponse individuelle des chenes sessiles et pédonculés à la gélivure.} Rapport de recherche ENITEF, Nogent sur Vernisson, France.
+  Grandjean, G., Jabiol, B., Bruchiamacchie, M. and Roustan, F. 1990. \emph{Recherche de corrélations entre les paramètres édaphiques, et plus spécialement texture, hydromorphie et drainage interne, et la réponse individuelle des chenes sessiles et pédonculés à la gélivure.} Rapport de recherche ENITEF, Nogent sur Vernisson, France.
 }
 \references{
 Goreaud, F. & Pélissier, R. 2003. Avoiding misinterpretation of biotic interactions with the intertype \emph{K12}-function: population independence vs. random labelling hypotheses. \emph{Journal of Vegetation Science}, 14: 681-692.
 }
 \examples{
 data(Allogny)
-allo.spp<-spp(Allogny$trees,mark=Allogny$status,window=Allogny$rect)
+allo.spp <- spp(Allogny$trees, mark=Allogny$status, window=Allogny$rect)
 plot(allo.spp)
 }
 \keyword{datasets}

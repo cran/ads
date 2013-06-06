@@ -24,7 +24,8 @@
   \item{col0}{(optional) the coulour used for the null values plotting symbol. By default, the same as argument \code{cols}.}
   \item{legend}{If \code{legend = TRUE} (the default) a legend for the plotting values is displayed.}
   \item{csize}{scaling factor for font size so that actual font size is \code{par("cex")*csize}. By default \code{csize = 1}.}
-  \item{\dots}{extra arguments that will be passed to the plotting functions \code{\link{plot.swin}}, \code{\link{plot.default}}, \code{\link{symbols}} and/or \code{\link{points}}.}
+  \item{\dots}{extra arguments that will be passed to the plotting functions \code{\link{plot.swin}}, \cr
+  	\code{\link{plot.default}}, \code{\link{symbols}} and/or \code{\link{points}}.}
 }
 \details{
 Function \code{plot.vads} displays a map of first-order local density or second-order local neighbour density values as symbols with areas proportional 
@@ -52,21 +53,21 @@ type of \code{'vads'} object:
 }
 \examples{
   data(BPoirier)
-  BP<-BPoirier
+  BP <- BPoirier
   # local density in a rectangle sampling window
-  dswr<-dval(spp(BP$trees,win=BP$rect),25,1,11,9)
+  dswr <- dval(spp(BP$trees, win=BP$rect), 25, 1, 11, 9)
   plot(dswr)
   # display only distance r from 5 to 10 with null symbols as red crosses
-  plot(dswr,select=c(5:10),char0=3,col0="red")
+  plot(dswr, select=c(5:10), char0=3, col0="red")
   
   # local L(r) values in a circular sampling window
-  lvswc<-kval(spp(BP$trees,win=c(55,45,45)),25,0.5)
+  lvswc <- kval(spp(BP$trees, win=c(55,45,45)), 25, 0.5)
   plot(lvswc)
   # display square symbols in blue for selected values of r and remove title
-  plot(lvswc,chars="squares",cols="blue",select=c(5,7.5,10,12.5,15),main=NULL)
+  plot(lvswc, chars="squares", cols="blue", select=c(5,7.5,10,12.5,15), main=NULL)
   
    # local K12(r) values (1="beech", 2="oak") in a complex sampling window
-  k12swrt<-k12val(spp(BP$trees,win=BP$rect,tri=BP$tri1,marks=BP$species),25,1)
-  plot(k12swrt,opt="kval")
+  k12swrt <- k12val(spp(BP$trees, win=BP$rect, tri=BP$tri1, marks=BP$species), 25, 1)
+  plot(k12swrt, opt="kval")
 }
 \keyword{spatial}

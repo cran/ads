@@ -22,7 +22,7 @@ Goreaud, F. & Pélissier, R. 2003. Avoiding misinterpretation of biotic interacti
 }
 \examples{
 data(Couepia)
-coca.spp<-spp(Couepia$trees,mark=Couepia$stage,window=Couepia$rect,triangles=Couepia$tri)
+coca.spp <- spp(Couepia$trees, mark=Couepia$stage, window=Couepia$rect, triangles=Couepia$tri)
 plot(coca.spp)
 }
 \keyword{datasets}

@@ -27,7 +27,7 @@ A list of class \code{"fads"} with essentially the following components:
   \item{nij }{a data frame containing values of the local neighbour density functions \eqn{n(r)} and \eqn{n12(r)}.}
   \item{kij }{a data frame containing values of the \eqn{K(r)} and \eqn{K12(r)} functions.}
 \item{lij }{a data frame containing values of the modified \eqn{L(r)} and \eqn{L12(r)} functions.\cr\cr}
- \item{ }{Each component except \code{r} is a data frame with the following variables:\cr\cr}
+ \item{ }{Each component except \code{r} is a data frame with the following variables:\cr}
  \item{obs }{a vector of estimated values for the observed point pattern.}
  \item{theo }{a vector of theoretical values expected under the null hypotheses of spatial randomness (see \code{\link{kfun}}) and
   population independence (see \code{\link{kijfun}}).}
@@ -45,20 +45,20 @@ A list of class \code{"fads"} with essentially the following components:
 }
 \examples{
   data(BPoirier)
-  BP<-BPoirier
+  BP <- BPoirier
   # multivariate spatial point pattern in a rectangle sampling window 
-  swrm<-spp(BP$trees,win=BP$rect,marks=BP$species)
-  kijswrm<-kijfun(swrm,25,1)
+  swrm <- spp(BP$trees, win=BP$rect, marks=BP$species)
+  kijswrm <- kijfun(swrm, 25, 1)
   plot(kijswrm)
   
  # multivariate spatial point pattern in a circle with radius 50 centred on (55,45)
- swcm<-spp(BP$trees,win=c(55,45,45),marks=BP$species)
-  kijswcm<-kijfun(swcm,25,1)
+  swcm <- spp(BP$trees, win=c(55,45,45), marks=BP$species)
+  kijswcm <- kijfun(swcm, 25, 1)
   plot(kijswcm)
   
   # multivariate spatial point pattern in a complex sampling window
-  swrtm<-spp(BP$trees,win=BP$rect,tri=BP$tri2,marks=BP$species)
-  kijswrtm<-kijfun(swrtm,25,1)
+  swrtm <- spp(BP$trees, win=BP$rect, tri=BP$tri2, marks=BP$species)
+  kijswrtm <- kijfun(swrtm, 25, 1)
   plot(kijswrtm)
 
 }

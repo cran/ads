@@ -29,14 +29,14 @@ inside.swin(x, y, w, bdry=TRUE)
 }
 \examples{
   data(BPoirier)
-  BP<-BPoirier
-  wr<-swin(BP$rect)
-  sum(inside.swin(BP$trees$x,BP$trees$y,wr))
+  BP <- BPoirier
+  wr <- swin(BP$rect)
+  sum(inside.swin(BP$trees$x, BP$trees$y, wr))
   
-  wc<-swin(c(55,45,45))
-  sum(inside.swin(BP$trees$x,BP$trees$y,wc))
+  wc <- swin(c(55,45,45))
+  sum(inside.swin(BP$trees$x, BP$trees$y, wc))
   
-  wrt<-swin(BP$rect,triangles=BP$tri1)
-  sum(inside.swin(BP$trees$x,BP$trees$y,wrt))
+  wrt <- swin(BP$rect, triangles=BP$tri1)
+  sum(inside.swin(BP$trees$x, BP$trees$y,wrt))
 }
 \keyword{spatial}

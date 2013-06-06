@@ -6,8 +6,8 @@
  Plot a Spatial Point Pattern object returned by function \code{\link{spp}}.
 }
 \usage{
-\method{plot}{spp}(x, main, out = FALSE, use.marks = TRUE, cols, chars, cols.out, chars.out,
- 	maxsize, scale = TRUE, add = FALSE, legend= TRUE, csize = 1, ...)
+\method{plot}{spp}(x, main, out=FALSE, use.marks=TRUE, cols, chars, cols.out, chars.out,
+maxsize, scale=TRUE, add=FALSE, legend=TRUE, csize=1, ...)
 }
 \arguments{
   \item{x}{an object of class \code{"spp"} (see \code{\link{spp}}).}
@@ -56,7 +56,7 @@ Then the points themselves are plotted, in a fashion that depends on the type of
   none.
 }
 \author{
- \email{Raphael.Pelissier@mpl.fr}
+ \email{Raphael.Pelissier@ird.fr}
 }
 \seealso{
   \code{\link{spp}},
@@ -68,32 +68,32 @@ Then the points themselves are plotted, in a fashion that depends on the type of
   BP<-BPoirier
   
   # a univariate point pattern in a rectangle sampling window
-  plot(spp(BP$trees,win=BP$rect))
+  plot(spp(BP$trees, win=BP$rect))
   
  # a univariate point pattern in a circular sampling window
  #with all points and graduations displayed
- plot(spp(BP$trees,win=c(55,45,45)),out=TRUE,scale=TRUE)
+ plot(spp(BP$trees, win=c(55,45,45)), out=TRUE, scale=TRUE)
  
  # a univariate point pattern in a complex sampling window
  #with points outside the sampling window displayed (in red colour)
- plot(spp(BP$trees,win=BP$rect,tri=BP$tri1),out=TRUE)
+ plot(spp(BP$trees, win=BP$rect, tri=BP$tri1), out=TRUE)
   
  # a multivariate point pattern in a rectangle sampling window
- plot(spp(BP$trees,win=BP$rect,marks=BP$species))
+ plot(spp(BP$trees, win=BP$rect, marks=BP$species))
  
  # a multivariate point pattern in a circular sampling window
  #with all points inside the sampling window displayed in blue colour
  #and all points outside displayed with the symbol "+" in red colour
- plot(spp(BP$trees,win=c(55,45,45),marks=BP$species),out=TRUE,cols=c("blue","blue","blue"),
- 	chars.out=c("+","+","+"), cols.out=c("red","red","red"))
+ plot(spp(BP$trees, win=c(55,45,45), marks=BP$species), out=TRUE, cols=c("blue","blue","blue"), 
+ chars.out=c("+","+","+"), cols.out=c("red","red","red"))
  
  # a marked point pattern in a rectangle sampling window
  #with circles in green colour
-  plot(spp(BP$trees,win=BP$rect,marks=BP$dbh),cols="green")
+  plot(spp(BP$trees, win=BP$rect, marks=BP$dbh), cols="green")
 
  # a marked point pattern in a circular sampling window
  #with squares in red colour inside and circles in blue colour outside
-  plot(spp(BP$trees,win=c(55,45,45),marks=BP$dbh),out=TRUE,chars="squares",cols="red",
-  	cols.out="blue")
+  plot(spp(BP$trees, win=c(55,45,45), marks=BP$dbh), out=TRUE, chars="squares", 
+  cols="red", cols.out="blue")
 }
 \keyword{spatial}

@@ -13,7 +13,7 @@
   observed in simple (rectangular or circular) or complex sampling windows. 
 }
 \usage{
-spp(x, y=NULL, window, triangles, marks, int2fac = TRUE)
+spp(x, y=NULL, window, triangles, marks, int2fac=TRUE)
 }
 \arguments{
   \item{x,y}{if \code{y=NULL}, \eqn{x} is a list of two vectors of point coordinates, else both \eqn{x} and \eqn{y} are atomic vectors of point coordinates.}
@@ -71,33 +71,33 @@ Function \code{spp2ppp(spp.object)} coerces an object of class \code{"spp"} into
 }
 \examples{
 	data(BPoirier)
-	BP<-BPoirier
+	BP <- BPoirier
 	# univariate pattern in a rectangle of size [0,110] x [0,90]
-	swr<-spp(BP$trees,win=BP$rect)
+	swr <- spp(BP$trees, win=BP$rect)
 	# an alternative using atomic vectors of point coordinates
-	#swr<-spp(BP$trees,win=BP$rect) 
+	#swr <- spp(BP$trees, win=BP$rect) 
 	summary(swr)
 	plot(swr)
 	
 	# univariate pattern in a circle with radius 50 centred on (55,45)
-	swc<-spp(BP$trees,win=c(55,45,50))
+	swc <- spp(BP$trees, win=c(55,45,50))
 	summary(swc)
 	plot(swc)
 	plot(swc, out=TRUE) # plot points outside the circle
 
 	# multivariate pattern in a rectangle of size [0,110] x [0,90]
-	swrm<-spp(BP$trees,win=BP$rect,marks=BP$species)
+	swrm <- spp(BP$trees, win=BP$rect, marks=BP$species)
 	summary(swrm)
 	plot(swrm)
 	plot(swrm, chars=c("b","h","o")) # replace symbols by letters
 	
 	# marked pattern in a rectangle of size [0,110] x [0,90]
-	swrn<-spp(BP$trees,win=BP$rect,marks=BP$dbh)
+	swrn <- spp(BP$trees, win=BP$rect, marks=BP$dbh)
 	summary(swrn)
 	plot(swrn)
 	
 	# multivariate pattern in a complex sampling window
-	swrt<-spp(BP$trees,win=BP$rect,tri=BP$tri1,marks=BP$species)
+	swrt <- spp(BP$trees, win=BP$rect, tri=BP$tri1, marks=BP$species)
 	summary(swrt)
 	plot(swrt)
 	plot(swrt, out=TRUE) # plot points outside the sampling window

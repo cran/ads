@@ -18,6 +18,7 @@
 \alias{print.fads.ki.fun}
 \alias{print.fads.kijfun}
 \alias{print.fads.kmfun}
+\alias{print.fads.ksfun}
 \alias{print.vads}
 \alias{print.vads.dval}
 \alias{print.vads.k12val}
@@ -32,17 +33,17 @@
 \alias{transpose}        
 \title{Internal ads functions}
 \description{
-  Internal ads functions.
+  Internal \code{ads} functions.
 }
 \usage{
 adjust.marks.size(marks,window,maxsize=NULL)
-area.poly(xp,yp)
+area.poly(xp, yp)
 convert(x)
 convert2(x)
-inside.circle(x,y,x0,y0,r0,bdry=TRUE)
-inside.poly(x,y,poly,bdry=TRUE)
-inside.rectangle(x,y,xmin,ymin,xmax,ymax,bdry=TRUE)
-inside.triangle(x,y,ax,ay,bx,by,cx,cy,bdry=TRUE)
+inside.circle(x, y, x0, y0, r0, bdry=TRUE)
+inside.poly(x, y, poly, bdry=TRUE)
+inside.rectangle(x, y, xmin, ymin, xmax, ymax, bdry=TRUE)
+inside.triangle(x, y, ax, ay, bx, by, cx, cy, bdry=TRUE)
 is.poly(p)
 overlap.poly(P, Q)
 overlap.trapez(xa, ya, xb, yb, verb=FALSE)
@@ -51,9 +52,9 @@ overlapping.polygons(listpoly)
 \method{print}{vads}(x,\dots)
 read.tri(X)
 \method{summary}{vads}(object,\dots)
-testIC(nbSimu,lev)
+testIC(nbSimu, lev)
 testInteger(i)
-transpose(x,y)
+transpose(x, y)
 }
 \details{
   These are usually not to be called by the user.

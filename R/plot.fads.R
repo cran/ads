@@ -393,3 +393,77 @@ plot.fads.kmfun<-function (x,opt=c("all","K","g"),cols,lty,main,sub,legend=TRUE,
 	}	
 }
 
+plot.fads.ksfun<-function (x,opt=c("all","K","g"),cols,lty,main,sub,legend=TRUE,csize=1,...) {
+	ifelse(!is.null(x$call$nsim)&&(x$call$nsim>0),ci<-TRUE,ci<-FALSE)
+	def.par <- par(no.readonly = TRUE)
+	on.exit(par(def.par))
+#if(options()$device=="windows")
+#	csize<-0.75*csize
+	opt<-opt[1]
+	if(opt=="all")
+	mylayout<-layout(matrix(c(1,1,1,1,rep(2,8),rep(3,8)),ncol=4,byrow=TRUE))
+	else if(opt%in%c("K","g"))
+	mylayout<-layout(matrix(c(1,1,1,1,rep(2,16)),ncol=4,byrow=TRUE))
+	else
+	stopifnot(opt%in%c("all","K","g"))
+	if(missing(cols))
+	cols=c(1,2,3)
+	else if(length(cols)!=3)
+	cols=c(cols,cols,cols)
+	if(missing(lty))
+	lty=c(1,3,2)
+	else if(length(lty)!=3)
+	lty=c(lty,lty,lty)
+	if(missing(main))
+	main<-deparse(x$call,width.cutoff=100)
+	if(missing(sub))
+	sub<-c("Shimatani beta function","Shimatani alpha function")
+	if(ci) {
+		alpha<-x$call[["alpha"]]
+		p<-ifelse(!is.null(alpha),signif(100*(1-alpha),digits=6),99)
+		par(mar=c(0.1,0.1,0.1,0.1),cex=csize)
+		plot(x$r,x$gs$obs/2,type="n",axes=FALSE,xlab="",ylab="")
+		if(legend)
+		legend("center",c("obs","theo (Simpson Diversity)",paste(p,"% CI of SD")),cex=1.5,lty=lty[1:3],bty="n",horiz=TRUE,title=main,col=cols[1:3],...)
+		else
+		legend("center","",cex=1.5,bty="n",horiz=TRUE,title=main,...)
+		par(mar=c(5,5,0.1,2),cex=ifelse(opt%in%c("all"),0.85*csize,csize))
+		if(opt%in%c("all","g")) { # gs-function
+			lim<-range(x$gs[,1:4])
+			plot(x$r,x$gs$obs,ylim=c(lim[1],lim[2]+0.1*diff(lim)),main=paste("\n\n",sub[1]),type="n",xlab="distance (r)",ylab="gs(r)",cex.lab=1.25,...)
+			lines(x$r,x$gs$obs,lty=lty[1],col=cols[1],...)
+			lines(x$r,x$gs$theo,lty=lty[2],col=cols[2],...)
+			lines(x$r,x$gs$sup,lty=lty[3],col=cols[3],...)
+			lines(x$r,x$gs$inf,lty=lty[3],col=cols[3],...)	
+		}
+		if(opt%in%c("all","K")) { # Ks-function
+			plot(x$r,x$ks$obs,ylim=range(x$ks[,1:4]),main=paste("\n\n",sub[2]),type="n",xlab="distance (r)",ylab="Ks(r)",cex.lab=1.25,...)
+			lines(x$r,x$ks$obs,lty=lty[1],col=cols[1],...)
+			lines(x$r,x$ks$theo,lty=lty[2],col=cols[2],...)
+			lines(x$r,x$ks$sup,lty=lty[3],col=cols[3],...)
+			lines(x$r,x$ks$inf,lty=lty[3],col=cols[3],...)
+		}
+	}
+	else {
+		par(mar=c(0.1,0.1,0.1,0.1),cex=csize)
+		plot(x$r,x$gs$obs/2,type="n",axes=FALSE,xlab="",ylab="")
+		if(legend)
+		legend("center",c("obs","theo (Simpson Diversity)"),cex=1.5,lty=lty[1:2],bty="n",horiz=TRUE,title=main,col=cols[1:2],...)
+		else
+		legend("center","",cex=1.5,bty="n",horiz=TRUE,title=main,...)
+		par(mar=c(5,5,0.1,2),cex=ifelse(opt%in%c("all"),0.85*csize,csize))
+		if(opt%in%c("all","g")) { # gs-function
+			lim<-range(x$gs)
+			plot(x$r,x$gs$obs,ylim=c(lim[1],lim[2]+0.1*diff(lim)),main=paste("\n\n",sub[1]),type="n",xlab="distance (r)",ylab="gs(r)",cex.lab=1.25,...)
+			lines(x$r,x$gs$obs,lty=lty[1],col=cols[1],...)
+			lines(x$r,x$gs$theo,lty=lty[2],col=cols[2],...)
+		}
+		if(opt%in%c("all","K")) { # ks-function
+			plot(x$r,x$ks$obs,ylim=range(x$ks),main=paste("\n\n",sub[2]),type="n",xlab="distance (r)",ylab="Ks(r)",cex.lab=1.25,...)
+			lines(x$r,x$ks$obs,lty=lty[1],col=cols[1],...)
+			lines(x$r,x$ks$theo,lty=lty[2],col=cols[2],...)
+		}
+	}	
+}
+
+

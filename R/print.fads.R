@@ -143,3 +143,8 @@ print.fads.kmfun<-function(x,...) {
 	#class(sumry) <- "table"
     #print(sumry)
 }
+
+print.fads.ksfun<-function(x,...) {
+	cat("Shimatani multivariate functions:\n")
+	str(x)
+}

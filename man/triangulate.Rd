@@ -40,15 +40,15 @@ is \eqn{(n-2)+2t}, with \eqn{n<200} in this version of the program.
 }
 \examples{
   data(BPoirier)
-  BP<-BPoirier
-  plot(BP$poly1$x,BP$poly1$y)
+  BP <- BPoirier
+  plot(BP$poly1$x, BP$poly1$y)
   
   # a single polygon triangulation
-  tri1<-triangulate(BP$poly1)
-  plot(swin(BP$rect,tri1))
+  tri1 <- triangulate(BP$poly1)
+  plot(swin(BP$rect, tri1))
   
   # a single polygon with a hole
-  tri2<-triangulate(c(-10,-10,120,100),BP$poly1)
-  plot(swin(c(-10,-10,120,100),tri2))
+  tri2 <- triangulate(c(-10,-10,120,100), BP$poly1)
+  plot(swin(c(-10,-10,120,100), tri2))
 }
 \keyword{spatial}

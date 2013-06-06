@@ -15,7 +15,7 @@
 }
 \usage{
  swin(window, triangles)
- }
+}
 \arguments{
   \item{window}{a vector defining the limits of a simple sampling window: \code{c(xmin,ymin,xmax,ymax)}
    for a rectangle ; \code{c(x0,y0,r0)} for a circle.}
@@ -37,8 +37,8 @@ A sampling window may be of simple or complex type. A simple sampling window may
 	of the centre and the radius \eqn{r0} of a circle.
 	\item
 	\bold{complex window:}
-    \code{triangles} is a list of 6 variables giving the vertices coordinates \eqn{(ax,ay,bx,by,cx,cy)}
-	of the triangles to remove from a simple (rectangular or circular) initial window. The triangles may be removed 
+    \code{triangles} is a list of 6 variables giving the vertices coordinates \cr
+    \eqn{(ax,ay,bx,by,cx,cy)} of the triangles to remove from a simple (rectangular or circular) initial window. The triangles may be removed 
 	near the boundary of a rectangular window in order to design a polygonal sampling window, or within a rectangle
 	or a circle, to delineating holes in the initial sampling window (see Examples). The triangles do not overlap each other, nor overlap boundary
 	of the initial sampling window. Any polygon (possibly with holes) can be decomposed into contiguous triangles using \code{\link{triangulate}}.
@@ -70,33 +70,33 @@ Function \code{swin2owin(swin.object)} coerces an object of class \code{"swin"} 
 }
 \examples{
   #rectangle of size [0,110] x [0,90]
-  wr<-swin(c(0,0,110,90))
+  wr <- swin(c(0,0,110,90))
   summary(wr)
   plot(wr)
   
   #circle with radius 50 centred on (55,45)
-  wc<-swin(c(55,45,50))
+  wc <- swin(c(55,45,50))
   summary(wc)
   plot(wc)
   
  # polygon (diamond shape)
- t1<-c(0,0,55,0,0,45)
- t2<-c(55,0,110,0,110,45)
- t3<-c(0,45,0,90,55,90)
- t4<-c(55,90,110,90,110,45)
- wp<-swin(wr,rbind(t1,t2,t3,t4))
+ t1 <- c(0,0,55,0,0,45)
+ t2 <- c(55,0,110,0,110,45)
+ t3 <- c(0,45,0,90,55,90)
+ t4 <- c(55,90,110,90,110,45)
+ wp <- swin(wr, rbind(t1,t2,t3,t4))
  summary(wp)
  plot(wp)
  
  #rectangle with a hole
- h1<-c(25,45,55,75,85,45)
- h2<-c(25,45,55,15,85,45)
- wrh<-swin(wr,rbind(h1,h2))
+ h1 <- c(25,45,55,75,85,45)
+ h2 <- c(25,45,55,15,85,45)
+ wrh <- swin(wr, rbind(h1,h2))
  summary(wrh)
  plot(wrh)
 
  #circle with a hole
- wch<-swin(wc,rbind(h1,h2))
+ wch <- swin(wc, rbind(h1,h2))
  summary(wch)
  plot(wch)
 }
