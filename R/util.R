@@ -318,3 +318,12 @@ transpose<-function(x,y) {
 	list(x1=res$x1,y1=res$y1,x2=res$x2,y2=res$y2,x3=res$x3,y3=res$y3)
 }
 ##############
+#subsetting dist objects
+#sub is a logical vector of True/False
+subsetdist<-function(dis,sub) {
+	mat<-as.matrix(dis)
+	k<-dimnames(mat)[[1]]%in%sub
+	submat<-mat[k,k]
+	return(as.dist(submat))
+}
+	

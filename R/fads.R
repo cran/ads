@@ -351,10 +351,10 @@ k12fun<-function(p,upto,by,nsim=0,H0=c("pi","rl"),prec=0.01,alpha=0.01,marks) {
 	return(res)
 }
 
-kijfun<-function(p,upto,by) {
-	# checking for input parameters
+kijfun<-kpqfun<-function(p,upto,by) {
+# checking for input parameters
 	stopifnot(inherits(p,"spp"))
-		stopifnot(p$type=="multivariate")
+	stopifnot(p$type=="multivariate")
 	stopifnot(is.numeric(upto))
 	stopifnot(upto>=1)
 	stopifnot(is.numeric(by))
@@ -388,13 +388,13 @@ kijfun<-function(p,upto,by) {
 		}
 	}
 	else
-		stop("invalid window type")
+	stop("invalid window type")
 	surface<-area.swin(p$window)
-		
+	
 	tabMarks<-levels(p$marks)
 	nbMarks<-length(tabMarks)
 	mpt_nb<-summary(p$marks)	
-	# computing RipleyClass
+# computing RipleyClass
 	gij<-double(tmax*nbMarks^2)
 	kij<-double(tmax*nbMarks^2)
 	lij<-double(tmax*nbMarks^2)
@@ -412,11 +412,11 @@ kijfun<-function(p,upto,by) {
 		}
 		else if(cas==2) { #circle
 			res<-.C("ripley_disq",
-				as.integer(mpt_nb[i]),as.double(x1),as.double(y1),
-				as.double(x0),as.double(y0),as.double(r0),
-				as.integer(tmax),as.double(by),
-				g=double(tmax),k=double(tmax),
-				PACKAGE="ads")
+					as.integer(mpt_nb[i]),as.double(x1),as.double(y1),
+					as.double(x0),as.double(y0),as.double(r0),
+					as.integer(tmax),as.double(by),
+					g=double(tmax),k=double(tmax),
+					PACKAGE="ads")
 		}
 		else if(cas==3) { #complex within rectangle
 			res<-.C("ripley_tr_rect",
@@ -546,12 +546,12 @@ kijfun<-function(p,upto,by) {
 	nij<-matrix(nij,nrow=tmax,ncol=nbMarks^2)
 	lij<-matrix(lij,nrow=tmax,ncol=nbMarks^2)
 	call<-match.call()
-	res<-list(call=call,r=r,labij=labij,gij=gij,kij=kij,lij=lij,nij=nij,intensity=summary(p)$intensity)
-	class(res)<-c("fads","kijfun")
+	res<-list(call=call,r=r,labpq=labij,gij=gij,kpq=kij,lpq=lij,npq=nij,intensity=summary(p)$intensity)
+	class(res)<-c("fads","kpqfun")
 	return(res)
 }
 
-ki.fun<-function(p,upto,by) {
+ki.fun<-kp.fun<-function(p,upto,by) {
 	# checking for input parameters
 	stopifnot(inherits(p,"spp"))
 		stopifnot(p$type=="multivariate")
@@ -659,8 +659,8 @@ ki.fun<-function(p,upto,by) {
 	nis<-matrix(nis,nrow=tmax,ncol=nbMarks)
 	lis<-matrix(lis,nrow=tmax,ncol=nbMarks)
 	call<-match.call()
-	res<-list(call=call,r=r,labi=labi,gi.=gis,ki.=kis,li.=lis,ni.=nis,intensity=summary(p)$intensity)
-	class(res)<-c("fads","ki.fun")
+	res<-list(call=call,r=r,labp=labi,gp.=gis,kp.=kis,lp.=lis,np.=nis,intensity=summary(p)$intensity)
+	class(res)<-c("fads","kp.fun")
 	return(res)
 }
 
@@ -932,7 +932,7 @@ ksfun<-function(p,upto,by,nsim=0,alpha=0.01) {
 					as.integer(p$n),as.double(p$x),as.double(p$y),
 					as.double(x0),as.double(y0),as.double(r0),
 					as.integer(nbTri),as.double(tri$ax),as.double(tri$ay),as.double(tri$bx),as.double(tri$by),as.double(tri$cx),as.double(tri$cy),
-					as.integer(tmax),as.double(by), as.integer(nsim), as.double(alpha),
+					as.integer(tmax),as.double(by),
 					as.integer(nbMarks),as.integer(marks),as.double(surface),gg=double(tmax),kk=double(tmax),erreur=integer(tmax),
 					PACKAGE="ads")
 		}
@@ -940,7 +940,8 @@ ksfun<-function(p,upto,by,nsim=0,alpha=0.01) {
 			res<-.C("shimatani_tr_disq_ic",
 				   as.integer(p$n),as.double(p$x),as.double(p$y),as.double(x0),as.double(y0),as.double(r0),
 				   as.integer(nbTri),as.double(tri$ax),as.double(tri$ay),as.double(tri$bx),as.double(tri$by),as.double(tri$cx),as.double(tri$cy),
-				   as.integer(tmax),as.double(by),as.integer(nbMarks),as.integer(marks),as.double(surface),as.double(D),
+				   as.integer(tmax),as.double(by), as.integer(nsim), as.double(alpha),
+				   as.integer(nbMarks),as.integer(marks),as.double(surface),as.double(D),
 				   gg=double(tmax),kk=double(tmax),gic1=double(tmax),gic2=double(tmax),kic1=double(tmax),kic2=double(tmax),
 				   gval=double(tmax),kval=double(tmax),erreur=integer(tmax),
 				   PACKAGE="ads")
@@ -965,3 +966,176 @@ ksfun<-function(p,upto,by,nsim=0,alpha=0.01) {
 	class(res)<-c("fads","ksfun")
 	return(res)
 }
+
+krfun<-function(p,upto,by,nsim=0,dis=NULL,alpha=0.01) {
+# checking for input parameters
+#options( CBoundsCheck = TRUE )
+	stopifnot(inherits(p,"spp"))
+	stopifnot(p$type=="multivariate")
+	stopifnot(is.numeric(upto))
+	stopifnot(upto>=1)
+	stopifnot(is.numeric(by))
+	stopifnot(by>0)
+	r<-seq(by,upto,by)
+	tmax<-length(r)
+	if(is.null(dis)) {
+		dis<-as.dist(matrix(1,nlevels(p$marks),nlevels(p$marks)))
+		attr(dis,"Labels")<-levels(p$marks)
+	}
+	stopifnot(inherits(dis,"dist"))
+	stopifnot(attr(dis,"Diag")==FALSE)
+	stopifnot(attr(dis,"Upper")==FALSE)
+	stopifnot(suppressWarnings(is.euclid(dis)))
+	
+	if(length(levels(p$marks))!=length(labels(dis))) {
+		stopifnot(all(levels(p$marks)%in%labels(dis)))
+#dis<-subsetdist(dis,which(labels(dis)%in%levels(p$marks)))
+		dis<-subsetdist(dis,levels(p$marks))
+		warning("matrix 'dis' have been subsetted to match with levels(p$marks)")
+	}
+	else if(all(!labels(dis)==levels(p$marks))) {
+		attr(dis,"Labels")<-levels(p$marks)
+		warning("levels(p$marks) have been assigned to attr(dis, ''Labels'')")
+	}
+	stopifnot(is.numeric(nsim))
+	stopifnot(nsim>=0)
+	nsim<-testInteger(nsim)
+	stopifnot(is.numeric(alpha))
+	stopifnot(alpha>=0)
+	if(nsim>0) testIC(nsim,alpha)
+	
+###faire test sur les marks
+	
+	if("rectangle"%in%p$window$type) {
+		cas<-1
+		xmin<-p$window$xmin
+		xmax<-p$window$xmax
+		ymin<-p$window$ymin
+		ymax<-p$window$ymax
+		stopifnot(upto<=(0.5*max((xmax-xmin),(ymax-ymin))))
+		if ("complex"%in%p$window$type) {
+			cas<-3
+			tri<-p$window$triangles
+			nbTri<-nrow(tri)
+		}
+	}
+	else if("circle"%in%p$window$type) {
+		cas<-2
+		x0<-p$window$x0
+		y0<-p$window$y0
+		r0<-p$window$r0
+		stopifnot(upto<=r0)
+		if ("complex"%in%p$window$type) {
+			cas<-4
+			tri<-p$window$triangles
+			nbTri<-nrow(tri)
+		}
+	}
+	else
+		stop("invalid window type")
+	surface<-area.swin(p$window)
+	intensity<-p$n/surface
+	tabMarks<-levels(p$marks)
+	nbMarks<-length(tabMarks)
+	mpt_nb<-summary(p$marks)
+	marks<-as.numeric(p$marks)
+
+HD<-suppressWarnings(divc(as.data.frame(unclass(table(p$marks))),sqrt(2*dis),scale=F)[1,1])
+
+dis<-as.vector(dis)
+
+# computing Rao
+	if(cas==1) { #rectangle
+		if(nsim==0) { #without CI
+			res<-.C("rao_rect",
+					as.integer(p$n),as.double(p$x),as.double(p$y),
+					as.double(xmin),as.double(xmax),as.double(ymin),as.double(ymax),
+					as.integer(tmax),as.double(by),gg=double(tmax),kk=double(tmax),as.integer(marks),as.double(dis),as.integer(nbMarks),
+					PACKAGE="ads")
+		}
+		else { #with CI
+			res<-.C("rao_rect_ic",
+					as.integer(p$n),as.double(p$x),as.double(p$y),
+					as.double(xmin),as.double(xmax),as.double(ymin),as.double(ymax),as.double(intensity),
+					as.integer(tmax),as.double(by), as.integer(nsim),as.double(alpha),as.double(HD),
+					gg=double(tmax),kk=double(tmax),
+					gic1=double(tmax),gic2=double(tmax),kic1=double(tmax),kic2=double(tmax),
+					gval=double(tmax),kval=double(tmax),as.integer(marks),as.integer(nbMarks),as.double(dis),
+					PACKAGE="ads")
+		}
+	}
+	else if(cas==2) { #circle
+		if(nsim==0) { #without CI
+			res<-.C("rao_disq",
+					as.integer(p$n),as.double(p$x),as.double(p$y),
+					as.double(x0),as.double	(y0),as.double(r0),
+					as.integer(tmax),as.double(by),gg=double(tmax),kk=double(tmax),as.integer(marks),as.double(dis),as.integer(nbMarks),
+					PACKAGE="ads")
+		}
+		else { #with CI
+			res<-.C("rao_disq_ic",
+					as.integer(p$n),as.double(p$x),as.double(p$y),
+					as.double(x0),as.double(y0),as.double(r0),as.double(intensity),
+					as.integer(tmax),as.double(by), as.integer(nsim), as.double(alpha),as.double(HD),
+					gg=double(tmax),kk=double(tmax),
+					gic1=double(tmax),gic2=double(tmax),kic1=double(tmax),kic2=double(tmax),
+					gval=double(tmax),kval=double(tmax),as.integer(marks),as.integer(nbMarks),as.double(dis),
+					PACKAGE="ads")
+		}
+	}
+	else if(cas==3) { #complex within rectangle
+		if(nsim==0) { #without CI
+			res<-.C("rao_tr_rect",
+					as.integer(p$n),as.double(p$x),as.double(p$y),
+					as.double(xmin),as.double(xmax),as.double(ymin),as.double(ymax),
+					as.integer(nbTri),as.double(tri$ax),as.double(tri$ay),as.double(tri$bx),as.double(tri$by),as.double(tri$cx),as.double(tri$cy),
+					as.integer(tmax),as.double(by),
+					gg=double(tmax),kk=double(tmax),as.integer(marks),as.double(dis),as.integer(nbMarks),
+					PACKAGE="ads")
+		}
+		else { #with CI
+			res<-.C("rao_tr_rect_ic",
+					as.integer(p$n),as.double(p$x),as.double(p$y),
+					as.double(xmin),as.double(xmax),as.double(ymin),as.double(ymax),as.double(intensity),
+					as.integer(nbTri),as.double(tri$ax),as.double(tri$ay),as.double(tri$bx),as.double(tri$by),as.double(tri$cx),as.double(tri$cy),
+					as.integer(tmax),as.double(by), as.integer(nsim),as.double(alpha),as.double(HD),
+					gg=double(tmax),kk=double(tmax),
+					gic1=double(tmax),gic2=double(tmax),kic1=double(tmax),kic2=double(tmax),
+					gval=double(tmax),kval=double(tmax),as.integer(marks),as.integer(nbMarks),as.double(dis),
+					PACKAGE="ads")
+		}
+	}
+	else if(cas==4) { #complex within circle
+		if(nsim==0) { #without CI		
+			res<-.C("rao_tr_disq",
+					as.integer(p$n),as.double(p$x),as.double(p$y),
+					as.double(x0),as.double(y0),as.double(r0),
+					as.integer(nbTri),as.double(tri$ax),as.double(tri$ay),as.double(tri$bx),as.double(tri$by),as.double(tri$cx),as.double(tri$cy),
+					as.integer(tmax),as.double(by), gg=double(tmax),kk=double(tmax),as.integer(p$marks),as.double(dis),as.integer(nbMarks),
+					PACKAGE="ads")
+		}
+		else { #with CI
+			res<-.C("rao_tr_disq_ic",
+					as.integer(p$n),as.double(p$x),as.double(p$y),
+					as.double(x0),as.double(y0),as.double(r0),as.double(intensity),
+					as.integer(nbTri),as.double(tri$ax),as.double(tri$ay),as.double(tri$bx),as.double(tri$by),as.double(tri$cx),as.double(tri$cy),
+					as.integer(tmax),as.double(by), as.integer(nsim),as.double(alpha),as.double(HD),
+					gg=double(tmax),kk=double(tmax),
+					gic1=double(tmax),gic2=double(tmax),kic1=double(tmax),kic2=double(tmax),
+					gval=double(tmax),kval=double(tmax),as.integer(marks),as.integer(nbMarks),as.double(dis),
+					PACKAGE="ads")
+			
+		}
+	}		
+	gr<-data.frame(obs=res$gg,theo=rep(HD,tmax))
+	kr<-data.frame(obs=res$kk,theo=rep(HD,tmax))
+	if(nsim>0) {
+		gr<-cbind(gr,sup=res$gic1,inf=res$gic2,pval=res$gval/(nsim+1))
+		kr<-cbind(kr,sup=res$kic1,inf=res$kic2,pval=res$kval/(nsim+1))
+	}
+	call<-match.call()
+	res<-list(call=call,r=r,gr=gr,kr=kr)
+	class(res)<-c("fads","krfun")
+	return(res)
+}
+

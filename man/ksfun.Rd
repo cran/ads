@@ -1,9 +1,9 @@
 \encoding{latin1}
 \name{ksfun}
 \alias{ksfun}
-\title{Multiscale second-order neigbourhood analysis of a multivariate spatial point pattern}
+\title{Multiscale second-order neigbourhood analysis of a multivariate spatial point pattern using Simpson diversity}
 \description{
-  Computes estimates of Shimatani's \emph{alpha} and \emph{beta} functions of Simpson diversity from a multivariate spatial point pattern 
+  Computes estimates of Shimatani \emph{alpha} and \emph{beta} functions of Simpson diversity from a multivariate spatial point pattern 
   in a simple (rectangular or circular) or complex sampling window. Computes optionally local confidence limits of the functions
   under the null hypothesis of a random allocation of species labels (see Details).
 }
@@ -19,7 +19,7 @@ ksfun(p, upto, by, nsim=0, alpha=0.01)
   \item{alpha }{if \code{nsim>0}, significant level of the confidence limits. By default \eqn{\alpha=0.01}.}
 }
 \details{
- Function \code{ksfun} computes Shimatani's \eqn{\alpha(r)} and \eqn{\beta(r)} functions of Simpson diversity, called here \eqn{Ks(r)} and \eqn{gs(r)}, respectively.\cr\cr
+ Function \code{ksfun} computes Shimatani \eqn{\alpha(r)} and \eqn{\beta(r)} functions of Simpson diversity, called here \eqn{Ks(r)} and \eqn{gs(r)}, respectively.\cr\cr
  For a multivariate point pattern consisting of \eqn{i} species with intensity \eqn{\lambda}i, Shimatani (2001) showed that
   a distance-dependent measure of Simpson (1949) diversity can be estimated from Ripley (1977) \eqn{K}-function computed for each species separately and for all the points grouped toghether (see also Eckel et al. 2008). Function \code{ksfun} is thus a simple wrapper function of \code{\link{kfun}}.
   
@@ -31,7 +31,7 @@ ksfun(p, upto, by, nsim=0, alpha=0.01)
   and extended to circular and complex sampling windows by Goreaud & Pélissier (1999).\cr\cr
  
   Theoretical values under the null hypothesis of random allocation of species labels is Simpson diversity index \eqn{D = 1 - sum(\lambda i * \lambda i) / (\lambda * \lambda)}.
-  Local Monte Carlo confidence limits and p-values of departure from this hypothesis are estimated at each distance by reallocating at random the species labels among points of the pattern, keeping the point locations unchanged\eqn{r}.
+  Local Monte Carlo confidence limits and p-values of departure from this hypothesis are estimated at each distance \eqn{r} by reallocating at random the species labels among points of the pattern, keeping the point locations unchanged.
 }
 \value{
  A list of class \code{"fads"} with essentially the following components:
@@ -51,6 +51,10 @@ ksfun(p, upto, by, nsim=0, alpha=0.01)
  Eckel, S., Fleisher, F., Grabarnik, P. and Schmidt V. 2008. An investigation of the spatial correlations for relative purchasing power in Baden-Württemberg. \emph{AstA - Advances in Statistical Analysis}, 92:135-152.
  
  Simpson, E.H. 1949. Measurement of diversity. \emph{Nature}, 688:163.
+ 
+ Goreaud F. & Pélissier R. 1999. On explicit formulas of edge effect correction for Ripley's K-function. \emph{Journal of Vegetation Science}, 10:433-438.
+
+ Ripley B.D. 1977. Modelling spatial patterns. \emph{Journal of the Royal Statistical Society B}, 39:172-192.
 }
 \author{\email{Raphael.Pelissier@ird.fr}}
 \note{
@@ -60,26 +64,26 @@ ksfun(p, upto, by, nsim=0, alpha=0.01)
 \code{\link{plot.fads}},
  \code{\link{spp}},
  \code{\link{kfun}},
- \code{\link{k12fun}},
- \code{\link{kijfun}},
- \code{\link{ki.fun}}.
+  \code{\link{kpqfun}},
+ \code{\link{kp.fun}},
+ \code{\link{krfun}}.
 }
 \examples{
-  data(BPoirier)
-  BP<-BPoirier
-  # spatial point pattern in a rectangle sampling window of size [0,110] x [0,90]
-  swmr <- spp(BP$trees, win=BP$rect, marks=BP$species)
-  kswmr <- ksfun(swmr, 25, 1, 500)
+  data(Paracou15)
+  P15<-Paracou15
+  # spatial point pattern in a rectangle sampling window of size 125 x 125
+  swmr <- spp(P15$trees, win = c(125, 125, 250, 250), marks = P15$species)
+  kswmr <- ksfun(swmr, 50, 5, 500)
   plot(kswmr)
 
-  # spatial point pattern in a circle with radius 50 centred on (55,45)
-  swmc <- spp(BP$trees, win=c(55,45,45), marks=BP$species)
-  kswmc <- kfun(swmc, 25, 1, 500)
+  # spatial point pattern in a circle with radius 50 centred on (125,125)
+  swmc <- spp(P15$trees, win = c(125, 125, 50), marks = P15$species)
+  kswmc <- ksfun(swmc, 50, 5, 500)
   plot(kswmc)
   
   # spatial point pattern in a complex sampling window
-  swrt <- spp(BP$trees, win=BP$rect, tri=BP$tri2, marks=BP$species)
-  kswrt <- kfun(swrt, 25, 1, 500)
+  swrt <- spp(P15$trees, win = c(125, 125, 250, 250), tri=P15$tri, marks=P15$species)
+  kswrt <- ksfun(swrt, 50, 5, 500)
   plot(kswrt)
 }
 \keyword{spatial}

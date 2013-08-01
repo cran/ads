@@ -207,8 +207,8 @@ plot.fads.k12fun<-function(x,opt=c("all","L","K","n","g"),cols,lty,main,sub,lege
 	}	
 }
 
-plot.fads.kijfun<-function (x,opt=c("L","K","n","g"),cols,lty,main,sub,legend=TRUE,csize=1,...) {
-	na<-length(x$labij)
+plot.fads.kpqfun<-function (x,opt=c("L","K","n","g"),cols,lty,main,sub,legend=TRUE,csize=1,...) {
+	na<-length(x$labpq)
 	nf<-ceiling(sqrt(na))
 	def.par <- par(no.readonly = TRUE)
 	on.exit(par(def.par))
@@ -217,24 +217,24 @@ plot.fads.kijfun<-function (x,opt=c("L","K","n","g"),cols,lty,main,sub,legend=TR
 	mylayout<-layout(matrix(c(rep(1,nf),seq(2,((nf*nf)+1),1)),(nf+1),nf,byrow=TRUE))
 	opt<-opt[1]
 	if(opt=="g") {
-		val<-x$gij
+		val<-x$gpq
 		theo<-matrix(rep(rep(1,na),each=length(x$r)),ncol=na)
-		ylab=paste("gij(r)",sep="")
+		ylab=paste("gpq(r)",sep="")
 	}
 	if(opt=="n") {
-		val<-x$nij
+		val<-x$npq
 		theo<-matrix(rep(rep(x$intensity,nf),each=length(x$r)),ncol=na)
-		ylab=paste("nij(r)",sep="")
+		ylab=paste("npq(r)",sep="")
 	}
 	if(opt=="K") {
-		val<-x$kij
+		val<-x$kpq
 		theo<-matrix(rep(pi*x$r^2,na),ncol=na)
-		ylab=paste("Kij(r)",sep="")
+		ylab=paste("Kpq(r)",sep="")
 	}
 	if(opt=="L") {
-		val<-x$lij
+		val<-x$lpq
 		theo<-matrix(rep(rep(0,na),each=length(x$r)),ncol=na)
-		ylab=paste("Lij(r)",sep="")
+		ylab=paste("Lpq(r)",sep="")
 	}
 	if(missing(cols))
 		cols=c(1,2)
@@ -247,7 +247,7 @@ plot.fads.kijfun<-function (x,opt=c("L","K","n","g"),cols,lty,main,sub,legend=TR
 	if(missing(main))
 		main<-deparse(x$call,width.cutoff=100)
 	if(missing(sub))
-		sub<-x$labij
+		sub<-x$labpq
 	lim<-range(val)
 	par(mar=c(0.1,0.1,0.1,0.1),cex=csize)
 	plot.default(val[,1],val[,2]/2,type="n",axes=FALSE,xlab="",ylab="")
@@ -263,8 +263,8 @@ plot.fads.kijfun<-function (x,opt=c("L","K","n","g"),cols,lty,main,sub,legend=TR
 	}	
 }
 
-plot.fads.ki.fun<-function (x,opt=c("L","K","n","g"),cols,lty,main,sub,legend=TRUE,csize=1,...) {
-	na<-length(x$labi)
+plot.fads.kp.fun<-function (x,opt=c("L","K","n","g"),cols,lty,main,sub,legend=TRUE,csize=1,...) {
+	na<-length(x$labp)
 	nf<-ceiling(sqrt(na))
 	def.par <- par(no.readonly = TRUE)
 	on.exit(par(def.par))
@@ -273,25 +273,25 @@ plot.fads.ki.fun<-function (x,opt=c("L","K","n","g"),cols,lty,main,sub,legend=TR
 	mylayout<-layout(matrix(c(rep(1,nf),seq(2,((nf*nf)+1),1)),(nf+1),nf,byrow=TRUE))
 	opt<-opt[1]
 	if(opt=="g") {
-		val<-x$gi.
+		val<-x$gp.
 		theo<-matrix(rep(rep(1,na),each=length(x$r)),ncol=na)
-		ylab=paste("gi.(r)",sep="")
+		ylab=paste("gp.(r)",sep="")
 	}
 	if(opt=="n") {
-		val<-x$ni.
+		val<-x$np.
 		intensity<-sum(x$intensity)-x$intensity
 		theo<-matrix(rep(intensity,each=length(x$r)),ncol=na)
-		ylab=paste("ni.(r)",sep="")
+		ylab=paste("np.(r)",sep="")
 	}
 	if(opt=="K") {
-		val<-x$ki.
+		val<-x$kp.
 		theo<-matrix(rep(pi*x$r^2,na),ncol=na)
-		ylab=paste("Ki.(r)",sep="")
+		ylab=paste("Kp.(r)",sep="")
 	}
 	if(opt=="L") {
-		val<-x$li.
+		val<-x$lp.
 		theo<-matrix(rep(rep(0,na),each=length(x$r)),ncol=na)
-		ylab=paste("Li.(r)",sep="")
+		ylab=paste("Lp.(r)",sep="")
 	}
 	if(missing(cols))
 		cols=c(1,2)
@@ -304,7 +304,7 @@ plot.fads.ki.fun<-function (x,opt=c("L","K","n","g"),cols,lty,main,sub,legend=TR
 	if(missing(main))
 		main<-deparse(x$call,width.cutoff=100)
 	if(missing(sub))
-		sub<-paste(x$labi,"-all others",sep="")
+		sub<-paste(x$labp,"-all others",sep="")
 	lim<-range(val)
 	par(mar=c(0.1,0.1,0.1,0.1),cex=csize)
 	plot.default(val[,1],val[,2]/2,type="n",axes=FALSE,xlab="",ylab="")
@@ -415,18 +415,18 @@ plot.fads.ksfun<-function (x,opt=c("all","K","g"),cols,lty,main,sub,legend=TRUE,
 	else if(length(lty)!=3)
 	lty=c(lty,lty,lty)
 	if(missing(main))
-	main<-deparse(x$call,width.cutoff=100)
+		main<-deparse(x$call,width.cutoff=100)
 	if(missing(sub))
-	sub<-c("Shimatani beta function","Shimatani alpha function")
+		sub<-c("Shimatani beta function","Shimatani alpha function")
 	if(ci) {
 		alpha<-x$call[["alpha"]]
 		p<-ifelse(!is.null(alpha),signif(100*(1-alpha),digits=6),99)
 		par(mar=c(0.1,0.1,0.1,0.1),cex=csize)
 		plot(x$r,x$gs$obs/2,type="n",axes=FALSE,xlab="",ylab="")
 		if(legend)
-		legend("center",c("obs","theo (Simpson Diversity)",paste(p,"% CI of SD")),cex=1.5,lty=lty[1:3],bty="n",horiz=TRUE,title=main,col=cols[1:3],...)
+			legend("center",c("obs","theo (Simpson D)",paste(p,"% CI of RL",sep="")),cex=1.3,lty=lty[1:3],bty="n",horiz=TRUE,title=main,col=cols[1:3],...)
 		else
-		legend("center","",cex=1.5,bty="n",horiz=TRUE,title=main,...)
+			legend("center","",cex=1.5,bty="n",horiz=TRUE,title=main,...)
 		par(mar=c(5,5,0.1,2),cex=ifelse(opt%in%c("all"),0.85*csize,csize))
 		if(opt%in%c("all","g")) { # gs-function
 			lim<-range(x$gs[,1:4])
@@ -448,7 +448,7 @@ plot.fads.ksfun<-function (x,opt=c("all","K","g"),cols,lty,main,sub,legend=TRUE,
 		par(mar=c(0.1,0.1,0.1,0.1),cex=csize)
 		plot(x$r,x$gs$obs/2,type="n",axes=FALSE,xlab="",ylab="")
 		if(legend)
-		legend("center",c("obs","theo (Simpson Diversity)"),cex=1.5,lty=lty[1:2],bty="n",horiz=TRUE,title=main,col=cols[1:2],...)
+		legend("center",c("obs","theo (Simpson D)"),cex=1.3,lty=lty[1:2],bty="n",horiz=TRUE,title=main,col=cols[1:2],...)
 		else
 		legend("center","",cex=1.5,bty="n",horiz=TRUE,title=main,...)
 		par(mar=c(5,5,0.1,2),cex=ifelse(opt%in%c("all"),0.85*csize,csize))
@@ -464,6 +464,99 @@ plot.fads.ksfun<-function (x,opt=c("all","K","g"),cols,lty,main,sub,legend=TRUE,
 			lines(x$r,x$ks$theo,lty=lty[2],col=cols[2],...)
 		}
 	}	
+}
+
+plot.fads.krfun<-function (x,opt=c("all","K","g"),cols,lty,main,sub,legend=TRUE,csize=1,...) {
+	ifelse(!is.null(x$call$nsim)&&(x$call$nsim>0),ci<-TRUE,ci<-FALSE)
+	def.par <- par(no.readonly = TRUE)
+	on.exit(par(def.par))
+#if(options()$device=="windows")
+#	csize<-0.75*csize
+	opt<-opt[1]
+	if(opt=="all")
+		mylayout<-layout(matrix(c(1,1,1,1,rep(2,8),rep(3,8)),ncol=4,byrow=TRUE))
+	else if(opt%in%c("K","g"))
+		mylayout<-layout(matrix(c(1,1,1,1,rep(2,16)),ncol=4,byrow=TRUE))
+	else
+		stopifnot(opt%in%c("all","K","g"))
+	if(missing(cols))
+		cols=c(1,2,3)
+	else if(length(cols)!=3)
+		cols=c(cols,cols,cols)
+	if(missing(lty))
+		lty=c(1,3,2)
+	else if(length(lty)!=3)
+		lty=c(lty,lty,lty)
+	if(missing(main))
+		main<-deparse(x$call,width.cutoff=100)
+	if(missing(sub))
+		sub<-c("Rao beta function","Rao alpha function")
+	if(ci) {
+		alpha<-x$call[["alpha"]]
+		p<-ifelse(!is.null(alpha),signif(100*(1-alpha),digits=6),99)
+		par(mar=c(0.1,0.1,0.1,0.1),cex=csize)
+		plot(x$r,x$gr$obs/2,type="n",axes=FALSE,xlab="",ylab="")
+		if(legend)
+			legend("center",c("obs","theo (Rao HD)",paste(p,"% CI of RL",sep="")),cex=1.3,lty=lty[1:3],bty="n",horiz=TRUE,title=main,col=cols[1:3],...)
+		else
+			legend("center","",cex=1.5,bty="n",horiz=TRUE,title=main,...)
+		par(mar=c(5,5,0.1,2),cex=ifelse(opt%in%c("all"),0.85*csize,csize))
+		if(opt%in%c("all","g")) { # gr-function
+			lim<-range(x$gr[,1:4])
+			plot(x$r,x$gr$obs,ylim=c(lim[1],lim[2]+0.1*diff(lim)),main=paste("\n\n",sub[1]),type="n",xlab="distance (r)",ylab="gr(r)",cex.lab=1.25,...)
+			lines(x$r,x$gr$obs,lty=lty[1],col=cols[1],...)
+			lines(x$r,x$gr$theo,lty=lty[2],col=cols[2],...)
+			lines(x$r,x$gr$sup,lty=lty[3],col=cols[3],...)
+			lines(x$r,x$gr$inf,lty=lty[3],col=cols[3],...)	
+		}
+		if(opt%in%c("all","K")) { # Kr-function
+			plot(x$r,x$kr$obs,ylim=range(x$kr[,1:4]),main=paste("\n\n",sub[2]),type="n",xlab="distance (r)",ylab="Kr(r)",cex.lab=1.25,...)
+			lines(x$r,x$kr$obs,lty=lty[1],col=cols[1],...)
+			lines(x$r,x$kr$theo,lty=lty[2],col=cols[2],...)
+			lines(x$r,x$kr$sup,lty=lty[3],col=cols[3],...)
+			lines(x$r,x$kr$inf,lty=lty[3],col=cols[3],...)
+		}
+	}
+	else {
+		par(mar=c(0.1,0.1,0.1,0.1),cex=csize)
+		plot(x$r,x$gr$obs/2,type="n",axes=FALSE,xlab="",ylab="")
+		if(legend)
+			legend("center",c("obs","theo (Rao HD)"),cex=1.3,lty=lty[1:2],bty="n",horiz=TRUE,title=main,col=cols[1:2],...)
+		else
+			legend("center","",cex=1.5,bty="n",horiz=TRUE,title=main,...)
+		par(mar=c(5,5,0.1,2),cex=ifelse(opt%in%c("all"),0.85*csize,csize))
+		if(opt%in%c("all","g")) { # gr-function
+			lim<-range(x$gr)
+			plot(x$r,x$gr$obs,ylim=c(lim[1],lim[2]+0.1*diff(lim)),main=paste("\n\n",sub[1]),type="n",xlab="distance (r)",ylab="gr(r)",cex.lab=1.25,...)
+			lines(x$r,x$gr$obs,lty=lty[1],col=cols[1],...)
+			lines(x$r,x$gr$theo,lty=lty[2],col=cols[2],...)
+		}
+		if(opt%in%c("all","K")) { # kr-function
+			plot(x$r,x$kr$obs,ylim=range(x$kr),main=paste("\n\n",sub[2]),type="n",xlab="distance (r)",ylab="Kr(r)",cex.lab=1.25,...)
+			lines(x$r,x$kr$obs,lty=lty[1],col=cols[1],...)
+			lines(x$r,x$kr$theo,lty=lty[2],col=cols[2],...)
+		}
+	}	
+}
+
+plot.fads.mimetic<-function (x,opt=NULL,cols,lty,main,sub,legend=TRUE,csize=1,cex.main=1.5,...) {
+	if(missing(cols))
+		cols=c(1,2)
+	else if(length(cols)!=2)
+		cols=c(cols,cols)
+	if(missing(lty))
+		lty=c(1,1)
+	else if(length(lty)!=2)
+		lty=c(lty,lty)
+	if(missing(main)) {
+		call<-match.call()
+		main<-deparse(eval(eval(expression(call))[[2]][[2]])$call,width.cutoff=100)
+	}
+	plot(x$r,x$l$obs,ylim=range(rbind(x$l$obs,x$l$sim)),main=main,type="n",xlab="distance (r)",ylab="L(r)",cex.lab=1.25,cex.main=cex.main,...)
+	lines(x$r,x$l$obs,lty=lty[1],col=cols[1],...)
+	lines(x$r,x$l$sim,lty=lty[2],col=cols[2],...)
+	if(legend)
+		legend("top",c("obs","sim"),cex=1.5,lty=lty[1:2],bty="n",horiz=TRUE,col=cols[1:2],...)
 }
 
 

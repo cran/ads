@@ -3,10 +3,12 @@
 \alias{plot.fads}
 \alias{plot.fads.kfun}
 \alias{plot.fads.k12fun}
-\alias{plot.fads.kijfun}
-\alias{plot.fads.ki.fun}
+\alias{plot.fads.kpqfun}
+\alias{plot.fads.kp.fun}
 \alias{plot.fads.kmfun}
 \alias{plot.fads.ksfun}
+\alias{plot.fads.krfun}
+\alias{plot.fads.mimetic}
 \title{Plot second-order neigbourhood functions}
 \description{
  Plot second-order neigbourhood function estimates returned by functions \code{\link{kfun}, \link{k12fun}, \link{kmfun}}, \cr

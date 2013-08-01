@@ -4062,7 +4062,7 @@ double *yma,int *t2,double *dt,int *nbtype,int *type,double *surface,double *gs,
     for(j=0;j<*t2;j++)
     {	gii[j]=0;
         kii[j]=0;
-        ds[j]=(M_PI*(j+1)*(*dt)*(j+1)*(*dt))-(M_PI*j*j*(*dt)*(*dt));
+        ds[j]=(Pi()*(j+1)*(*dt)*(j+1)*(*dt))-(Pi()*j*j*(*dt)*(*dt));
     }
 
     erreur =ripley_rect(point_nb,x,y,xmi,xma,ymi,yma,t2,dt,g,k);
@@ -4151,10 +4151,8 @@ int *t2,double *dt,int *nbtype,int *type,double *surface,double *gs, double *ks,
    	vecalloc(&ds,*t2);
 
    	complete_tab(*point_nb,xx,yy,type,compt,l,x,y);
-
-		
 	
-    int erreur;
+	int erreur;
     double intensity1;
     double intensity=*point_nb/(*surface);
     double *gii;
@@ -4169,7 +4167,7 @@ int *t2,double *dt,int *nbtype,int *type,double *surface,double *gs, double *ks,
     for(j=0;j<*t2;j++)
     {	gii[j]=0;
         kii[j]=0;
-        ds[j]=(M_PI*(j+1)*(*dt)*(j+1)*(*dt))-(M_PI*j*j*(*dt)*(*dt));
+        ds[j]=(Pi()*(j+1)*(*dt)*(j+1)*(*dt))-(Pi()*j*j*(*dt)*(*dt));
     }
 
     erreur =ripley_disq(point_nb,x,y,x0,y0,r0,t2,dt,g,k);
@@ -4276,7 +4274,7 @@ int *t2,double *dt,int *nbtype,int *type,double *surface,double *gs, double *ks,
     for(j=0;j<*t2;j++)
     {	gii[j]=0;
         kii[j]=0;
-        ds[j]=(M_PI*(j+1)*(*dt)*(j+1)*(*dt))-(M_PI*j*j*(*dt)*(*dt));
+        ds[j]=(Pi()*(j+1)*(*dt)*(j+1)*(*dt))-(Pi()*j*j*(*dt)*(*dt));
     }
 
     erreur =ripley_tr_rect(point_nb,x,y,xmi,xma,ymi,yma,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,g,k);
@@ -4380,7 +4378,7 @@ int *t2,double *dt,int *nbtype,int *type,double *surface,double *gs, double *ks,
     for(j=0;j<*t2;j++)
     {	gii[j]=0;
         kii[j]=0;
-        ds[j]=(M_PI*(j+1)*(*dt)*(j+1)*(*dt))-(M_PI*j*j*(*dt)*(*dt));
+        ds[j]=(Pi()*(j+1)*(*dt)*(j+1)*(*dt))-(Pi()*j*j*(*dt)*(*dt));
     }
 
     erreur =ripley_tr_disq(point_nb,x,y,x0,y0,r0,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,g,k);
@@ -4488,7 +4486,7 @@ int shimatani_rect_ic(int *point_nb,double *x,double *y, double *xmi,double *xma
     {
         gii[j]=0;
         kii[j]=0;
-        ds[j]=(M_PI*(j+1)*(*dt)*(j+1)*(*dt))-(M_PI*j*j*(*dt)*(*dt));
+        ds[j]=(Pi()*(j+1)*(*dt)*(j+1)*(*dt))-(Pi()*j*j*(*dt)*(*dt));
     }
 	
 	//pour tous les points
@@ -4560,8 +4558,7 @@ int shimatani_rect_ic(int *point_nb,double *x,double *y, double *xmi,double *xma
 			for(i=0;i<*nbtype;i++)
 			{	erreur=ripley_rect(&l[i+1],xx[i],yy[i],xmi,xma,ymi,yma,t2,dt,gic1,kic1);
 				if (erreur!=0)
-				{	Rprintf("ERREUR 2 Ripley\n");
-				}
+					Rprintf("ERREUR 2 Ripley\n");
 				intensity1=l[i+1]/(*surface);
 				for(j=0;j<*t2;j++)
 				{	gii[j]=gii[j]+((intensity1*intensity1)*(gic1[j])/intensity1*ds[j]);
@@ -4577,23 +4574,6 @@ int shimatani_rect_ic(int *point_nb,double *x,double *y, double *xmi,double *xma
 				if ((float)fabs(ks[j]-*D)<=(float)fabs(kii[j]-*D)) {kval[j]+=1;}
 			}
 			
-			// si il y a une erreur on recommence une simulation
-			/*if (erreur!=0)
-			 {	b=b-1;
-			 Rprintf("ERREUR Ripley\n");
-			 }
-			 else {
-			 //comptage du nombre de |¶obs|<=|¶simu| pour test local
-			 //double gictmp,kictmp;
-			 for(j=0;j<*t2;j++)
-			 {	//gictmp=gic1[j]/(intensity1*(Pi()*(j+1)*(j+1)*(*dt)*(*dt)-Pi()*j*j*(*dt)*(*dt)));
-			 //kictmp=kic1[j]/(intensity1);
-			 if ((float)fabs(gs[j]-*D)<=(float)fabs(gii[j]-*D)) {gval[j]+=1;}
-			 if ((float)fabs(ks[j]-*D)<=(float)fabs(kii[j]-*D)) {kval[j]+=1;}
-			 }
-			 //Traitement des resultats
-			 ic(b,i0,gic,kic,gii,kii,*t2);
-			 }*/
 			//Traitement des resultats
 			ic(b,i0,gic,kic,gii,kii,*t2);
 			R_FlushConsole();
@@ -4616,11 +4596,17 @@ int shimatani_rect_ic(int *point_nb,double *x,double *y, double *xmi,double *xma
 		free(kic);
 	}
 	
-   	for( i = 0; i < *nbtype; i++)
+   /*	for( i = 0; i < *nbtype; i++)
 		free(xx[i]);
     free(xx);
     for( i = 0; i < *nbtype; i++)
 		free(yy[i]);
+    free(yy);*/
+	for( i = 0; i < *nbtype; i++) {
+		free(xx[i]);
+		free(yy[i]);
+	}
+    free(xx);
     free(yy);
     free(g);
     free(k);
@@ -4688,7 +4674,7 @@ int shimatani_disq_ic(int *point_nb,double *x,double *y, double *x0,double *y0,d
     {
         gii[j]=0;
         kii[j]=0;
-        ds[j]=(M_PI*(j+1)*(*dt)*(j+1)*(*dt))-(M_PI*j*j*(*dt)*(*dt));
+        ds[j]=(Pi()*(j+1)*(*dt)*(j+1)*(*dt))-(Pi()*j*j*(*dt)*(*dt));
     }
 	
 	//pour tous les points
@@ -4715,7 +4701,8 @@ int shimatani_disq_ic(int *point_nb,double *x,double *y, double *x0,double *y0,d
 		for(i=0;i<*nbtype;i++)
 		{	erreur=ripley_disq(&l[i+1],xx[i],yy[i],x0,y0,r0,t2,dt,g,k);
 			if (erreur!=0)
-			{	Rprintf("ERREUR 1 Ripley\n");
+			{	i=i-1;
+				Rprintf("ERREUR 1 Ripley\n");
 			}
 			intensity1=l[i+1]/ *(surface);
 			for(j=0;j<*t2;j++)
@@ -4779,25 +4766,6 @@ int shimatani_disq_ic(int *point_nb,double *x,double *y, double *x0,double *y0,d
 				if ((float)fabs(ks[j]-*D)<=(float)fabs(kii[j]-*D)) {kval[j]+=1;}
 			}
 			
-			//erreur=ripley_rect(point_nb,x,y,xmi,xma,ymi,yma,t2,dt,gic1,kic1);
-			// si il y a une erreur on recommence une simulation
-			/*if (erreur!=0)
-			 {	b=b-1;
-			 Rprintf("ERREUR Ripley\n");
-			 }
-			 else {
-			 //comptage du nombre de |¶obs|<=|¶simu| pour test local
-			 double gictmp,kictmp;
-			 for(j=0;j<*t2;j++)
-			 {	gictmp=gic1[j]/(*densite*(Pi()*(j+1)*(j+1)*(*dt)*(*dt)-Pi()*j*j*(*dt)*(*dt)));
-			 kictmp=kic1[j]/(*densite);
-			 if ((float)fabs(gg[j]-*D)<=(float)fabs(gictmp-*D)) {gval[j]+=1;}
-			 if ((float)fabs(kk[j]-*D))<=(float)fabs(kictmp-*D) {kval[j]+=1;}
-			 }
-			 
-			 //Traitement des resultats
-			 ic(b,i0,gic,kic,gii,kii,*t2);
-			 }*/
 			//Traitement des resultats
 			ic(b,i0,gic,kic,gii,kii,*t2);
 			R_FlushConsole();
@@ -4820,19 +4788,17 @@ int shimatani_disq_ic(int *point_nb,double *x,double *y, double *x0,double *y0,d
 		free(kic);
 	}
 	
-   	for( i = 0; i < *nbtype; i++)
+   	for( i = 0; i < *nbtype; i++) {
 		free(xx[i]);
-    free(xx);
-    for( i = 0; i < *nbtype; i++)
 		free(yy[i]);
+	}
+	free(xx);
     free(yy);
     free(g);
     free(k);
     free(l);
-	
     free(tabg);
     free(tabk);
-	
     free(gii);
     free(kii);
     free(ds);
@@ -4891,7 +4857,7 @@ int shimatani_tr_rect_ic(int *point_nb,double *x,double *y, double *xmi,double *
     for(j=0;j<*t2;j++)
     {	gii[j]=0;
         kii[j]=0;
-        ds[j]=(M_PI*(j+1)*(*dt)*(j+1)*(*dt))-(M_PI*j*j*(*dt)*(*dt));
+        ds[j]=(Pi()*(j+1)*(*dt)*(j+1)*(*dt))-(Pi()*j*j*(*dt)*(*dt));
     }
 	
 	//pour tous les points
@@ -4980,23 +4946,6 @@ int shimatani_tr_rect_ic(int *point_nb,double *x,double *y, double *xmi,double *
 				if ((float)fabs(ks[j]-*D)<=(float)fabs(kii[j]-*D)) {kval[j]+=1;}
 			}
 			
-			// si il y a une erreur on recommence une simulation
-			/*if (erreur!=0)
-			 {	b=b-1;
-			 Rprintf("ERREUR Ripley\n");
-			 }
-			 else {
-			 //comptage du nombre de |¶obs|<=|¶simu| pour test local
-			 double gictmp,kictmp;
-			 for(j=0;j<*t2;j++)
-			 {	gictmp=gic1[j]/(*densite*(Pi()*(j+1)*(j+1)*(*dt)*(*dt)-Pi()*j*j*(*dt)*(*dt)));
-			 kictmp=kic1[j]/(*densite);
-			 if ((float)fabs(gg[j]-*D)<=(float)fabs(gictmp-*D)) {gval[j]+=1;}
-			 if ((float)fabs(kk[j]-*D)<=(float)fabs(kictmp-*D)) {kval[j]+=1;}
-			 }
-			 //Traitement des resultats
-			 ic(b,i0,gic,kic,gii,kii,*t2);
-			 }*/
 			//Traitement des resultats
 			ic(b,i0,gic,kic,gii,kii,*t2);
 			R_FlushConsole();
@@ -5020,19 +4969,17 @@ int shimatani_tr_rect_ic(int *point_nb,double *x,double *y, double *xmi,double *
 		free(kic);
 	}
 	
-   	for( i = 0; i < *nbtype; i++)
+   	for( i = 0; i < *nbtype; i++) {
 		free(xx[i]);
-    free(xx);
-    for( i = 0; i < *nbtype; i++)
 		free(yy[i]);
-    free(yy);
+	}
+    free(xx);
+	free(yy);
     free(g);
     free(k);
     free(l);
-	
     free(tabg);
     free(tabk);
-	
     free(gii);
     free(kii);
     free(ds);
@@ -5092,7 +5039,7 @@ int shimatani_tr_disq_ic(int *point_nb,double *x,double *y, double *x0,double *y
     for(j=0;j<*t2;j++)
     {	gii[j]=0;
         kii[j]=0;
-        ds[j]=(M_PI*(j+1)*(*dt)*(j+1)*(*dt))-(M_PI*j*j*(*dt)*(*dt));
+        ds[j]=(Pi()*(j+1)*(*dt)*(j+1)*(*dt))-(Pi()*j*j*(*dt)*(*dt));
     }
 
 	//pour tous les points
@@ -5181,23 +5128,6 @@ int shimatani_tr_disq_ic(int *point_nb,double *x,double *y, double *x0,double *y
 				if ((float)fabs(ks[j]-*D)<=(float)fabs(kii[j]-*D)) {kval[j]+=1;}
 			}
 
-			// si il y a une erreur on recommence une simulation
-			/*if (erreur!=0)
-			{	b=b-1;
-				Rprintf("ERREUR Ripley\n");
-			}
-			else {
-				//comptage du nombre de |¶obs|<=|¶simu| pour test local
-				double gictmp,kictmp;
-				for(j=0;j<*t2;j++)
-				{	gictmp=gic1[j]/(*densite*(Pi()*(j+1)*(j+1)*(*dt)*(*dt)-Pi()*j*j*(*dt)*(*dt)));
-					kictmp=kic1[j]/(*densite);
-					if ((float)fabs(gg[j]-*D)<=(float)fabs(gictmp-*d)) {gval[j]+=1;}
-					if ((float)fabs(kk[j]-*D)<=(float)fabs(kictmp-*D)) {kval[j]+=1;}
-				}
-				//Traitement des resultats
-				ic(b,i0,gic,kic,gii,kii,*t2);
-			}*/
 			//Traitement des resultats
 			ic(b,i0,gic,kic,gii,kii,*t2);
 			R_FlushConsole();
@@ -5221,19 +5151,17 @@ int shimatani_tr_disq_ic(int *point_nb,double *x,double *y, double *x0,double *y
 		free(kic);
 	}
 	
-   	for( i = 0; i < *nbtype; i++)
+   	for( i = 0; i < *nbtype; i++) {
 		free(xx[i]);
-    free(xx);
-    for( i = 0; i < *nbtype; i++)
 		free(yy[i]);
+	}
+    free(xx);
     free(yy);
     free(g);
     free(k);
     free(l);
-
     free(tabg);
     free(tabk);
-
     free(gii);
     free(kii);
     free(ds);
@@ -5288,5 +5216,1284 @@ int randomlab(double *x,double *y,int total_nb,int *type,int nb_type, double **x
 		erreur=0;
 	}
 	return erreur;
+}
+		
+/**********************************************************/
+/* Fonctions de Rao pour les semis de points multivariŽs  */
+/**********************************************************/
+int rao_rect(int *point_nb,double *x,double *y, double *xmi,double *xma,double *ymi,double *yma,
+					 int *t2,double *dt,double *g,double *k, int* type, double *mat,int *nbtype)
+{	int i,j,tt,ind;
+    double d,cin=1;
+    double *gint, *kint;
+    vecalloc(&gint,*t2);
+    vecalloc(&kint,*t2);
+	
+    /*Decalage pour n'avoir que des valeurs positives*/
+    decalRect(*point_nb,x,y,xmi,xma,ymi,yma);
+	
+    /* On rangera dans g le nombre de couples de points par distance tt*/
+    for(tt=0; tt<*t2; tt++)
+    {	g[tt]=0;
+        k[tt]=0;
+    }
+    /*On regarde les couples (i,j) et (j,i) : donc pour i>j seulement*/
+    for(i=1; i<*point_nb; i++)
+    {	for(j=0; j<i; j++)
+        {	d=sqrt((x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]));
+            if (d<*t2*(*dt))
+            {	/* dans quelle classe de distance est ce couple ?*/
+                tt=d/(*dt);
+                /*pour [i,j] : correction des effets de bord*/
+                cin=perim_in_rect(x[i],y[i],d,*xmi,*xma,*ymi,*yma);
+                if (cin<0)
+                {	Rprintf("cin<0 sur i AVANT\n");
+                    return -1;
+                }
+				//indice du vecteur pour la demi-matrice triangle inferieure  
+				if(type[i]>type[j])
+					ind=(type[j]-1)*(*nbtype-2)-(type[j]-2)*(type[j]-1)/2+type[i]-2;
+				else if(type[i]<type[j])
+					ind=(type[i]-1)*(*nbtype-2)-(type[i]-2)*(type[i]-1)/2+type[j]-2;
+				if(type[i]!=type[j])
+					g[tt]+=2*Pi()*mat[ind]/cin;
+                k[tt]+=2*Pi()/cin;
+				//pour [j,i] : correction des effets de bord
+                cin=perim_in_rect(x[j],y[j],d,*xmi,*xma,*ymi,*yma);
+                if (cin<0)
+                {	Rprintf("cin<0 sur j AVANT\n");
+                    return -1;
+                }
+				if(type[i]!=type[j])
+					g[tt]+=2*Pi()*mat[ind]/cin;
+				k[tt]+=2*Pi()/cin;
+			}
+        }
+    }
+	
+    gint[0]=g[0];
+    kint[0]=k[0];
+    g[0]=g[0]/k[0];
+    k[0]=gint[0]/kint[0];
+   
+	for(tt=1;tt<*t2; tt++)
+    {	gint[tt]=g[tt]+gint[tt-1];
+        kint[tt]=k[tt]+kint[tt-1];
+        g[tt]=g[tt]/k[tt];
+        k[tt]=gint[tt]/kint[tt];
+    }
+    free(gint);
+    free(kint);
+    return 0;
+}
+
+int rao_disq(int *point_nb, double *x, double *y, double *x0, double *y0, double *r0,
+					 int *t2, double *dt, double *g, double *k, int *type,double *mat,int *nbtype)
+{
+    int tt,i,j,ind;
+    double d,cin;
+	
+    double *gint, *kint;
+    vecalloc(&gint,*t2);
+    vecalloc(&kint,*t2);
+	
+    /*Decalage pour n'avoir que des valeurs positives*/
+    decalCirc(*point_nb,x,y,x0,y0,*r0);
+	
+    for(tt=0; tt<*t2; tt++)
+    {
+        g[tt]=0;
+        k[tt]=0;
+    }
+    for(i=1; i<*point_nb; i++) /*On calcule le nombre de couples de points par distance g*/
+    {
+        for(j=0; j<i; j++)
+        {
+            d=sqrt((x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]));
+            if (d<*t2*(*dt))
+            {
+                tt=d/(*dt);
+				
+                /*pour [i,j] : correction des effets de bord*/
+                cin=perim_in_disq(x[i],y[i],d,*x0,*y0,*r0);
+                if (cin<0)
+                {
+                    Rprintf("cin<0 sur i AVANT\n");
+                    return -1;
+                }
+				//indice du vecteur pour la demi-matrice triangle inferieure  
+				if(type[i]>type[j])
+					ind=(type[j]-1)*(*nbtype-2)-(type[j]-2)*(type[j]-1)/2+type[i]-2;
+				else if(type[i]<type[j])
+					ind=(type[i]-1)*(*nbtype-2)-(type[i]-2)*(type[i]-1)/2+type[j]-2;
+				//Rprintf("i:%d,j:%d;ind:%d\n",type[i],type[j],ind);
+				if(type[i]!=type[j])
+					g[tt]+=2*Pi()*mat[ind]/cin;
+                k[tt]+=2*Pi()/cin;
+                /*pour [j,i] : correction des effets de bord*/
+                cin=perim_in_disq(x[j],y[j],d,*x0,*y0,*r0);
+                if (cin<0)
+                {
+                    Rprintf("cin<0 sur j AVANT\n");
+                    return -1;
+                }
+                if(type[i]!=type[j])
+					g[tt]+=2*Pi()*mat[ind]/cin;
+				k[tt]+=2*Pi()/cin;
+            }
+        }
+    }
+	
+    gint[0]=g[0];
+    kint[0]=k[0];
+    g[0]=g[0]/k[0];
+    k[0]=gint[0]/kint[0];
+	
+    for(tt=1;tt<*t2; tt++)
+    {
+        gint[tt]=g[tt]+gint[tt-1];
+        kint[tt]=k[tt]+kint[tt-1];
+        g[tt]=g[tt]/k[tt];
+        k[tt]=gint[tt]/kint[tt];
+    }
+	
+    free(gint);
+    free(kint);
+    return 0;
+}
+
+int rao_tr_rect(int *point_nb, double *x, double *y, double *xmi, double *xma, double *ymi, double *yma,
+						int *triangle_nb, double *ax, double *ay, double *bx, double *by, double *cx, double *cy,
+						int *t2, double *dt, double *g, double *k, int *type,double *mat,int *nbtype)
+{
+    int i,j,tt,ind;
+    double d,cin;
+	
+    double *gint, *kint;
+    vecalloc(&gint,*t2);
+    vecalloc(&kint,*t2);
+	
+    /*Decalage pour n'avoir que des valeurs positives*/
+    decalRectTri(*point_nb,x,y,xmi,xma,ymi,yma,*triangle_nb,ax,ay,bx,by,cx,cy);
+	
+    /* On calcule le nombre de couples de points par distance g*/
+    for(tt=0; tt<*t2; tt++)
+    {
+        g[tt]=0;
+        k[tt]=0;
+    }
+    for(i=1; i<*point_nb; i++)
+        for(j=0; j<i; j++)
+        {
+            d=sqrt((x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]));
+            if (d<*t2*(*dt))
+            {
+                tt=d/(*dt);
+				
+                /*pour [i,j] : correction des effets de bord*/
+                cin=perim_in_rect(x[i],y[i],d,*xmi,*xma,*ymi,*yma);
+                if (cin<0)
+                {
+                    Rprintf("cin<0 sur i AVANT\n");
+                    return -1;
+                }
+                cin=cin-perim_triangle(x[i],y[i],d,*triangle_nb,ax,ay,bx,by,cx,cy);
+                if (cin<0)
+                {
+                    Rprintf("Overlapping triangles\n");
+                    return -1;
+                }
+                //indice du vecteur pour la demi-matrice triangle inferieure  
+				if(type[i]>type[j])
+					ind=(type[j]-1)*(*nbtype-2)-(type[j]-2)*(type[j]-1)/2+type[i]-2;
+				else if(type[i]<type[j])
+					ind=(type[i]-1)*(*nbtype-2)-(type[i]-2)*(type[i]-1)/2+type[j]-2;
+				if(type[i]!=type[j])
+					g[tt]+=2*Pi()*mat[ind]/cin;
+                k[tt]+=2*Pi()/cin;
+				
+                /*pour [j,i] : correction des effets de bord*/
+                cin=perim_in_rect(x[j],y[j],d,*xmi,*xma,*ymi,*yma);
+                if (cin<0)
+                {
+                    Rprintf("cin<0 sur j AVANT\n");
+                    return -1;
+                }
+                cin=cin-perim_triangle(x[j],y[j],d,*triangle_nb,ax,ay,bx,by,cx,cy);
+                if (cin<0)
+                {
+                    Rprintf("Overlapping triangles\n");
+                    return -1;
+                }
+                if(type[i]!=type[j])
+					g[tt]+=2*Pi()*mat[ind]/cin;
+				k[tt]+=2*Pi()/cin;
+            }
+        }
+	
+    gint[0]=g[0];
+    kint[0]=k[0];
+    g[0]=g[0]/k[0];
+    k[0]=gint[0]/kint[0];
+	
+    for(tt=1;tt<*t2; tt++)
+    {
+        gint[tt]=g[tt]+gint[tt-1];
+        kint[tt]=k[tt]+kint[tt-1];
+        g[tt]=g[tt]/k[tt];
+        k[tt]=gint[tt]/kint[tt];
+    }
+	
+    free(gint);
+    free(kint);
+    return 0;
+}
+
+int rao_tr_disq(int *point_nb,double *x,double *y,double *x0,double *y0,double *r0,int *triangle_nb,
+						double *ax,double *ay,double *bx,double *by,double *cx,double *cy,
+						int *t2,double *dt,double *g,double *k, int *type,double *mat,int *nbtype)
+{
+    int i,j,tt,ind;
+    double d,cin;
+	
+    double *gint, *kint;
+    vecalloc(&gint,*t2);
+    vecalloc(&kint,*t2);
+	
+    /*Decalage pour n'avoir que des valeurs positives*/
+    decalCircTri(*point_nb,x,y,x0,y0,*r0,*triangle_nb,ax,ay,bx,by,cx,cy);
+	
+    /* On calcule le nombre de couples de points par distance g*/
+    for(tt=0; tt<*t2; tt++)
+    {
+        g[tt]=0;
+        k[tt]=0;
+    }
+    for(i=1; i<*point_nb; i++)
+        for(j=0; j<i; j++)
+        {
+            d=sqrt((x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]));
+            if (d<*t2*(*dt))
+            {
+                tt=d/(*dt);
+				
+                /* pour [i,j] : correction des effets de bord*/
+                cin=perim_in_disq(x[i],y[i],d,*x0,*y0,*r0);
+                if (cin<0)
+                {
+                    Rprintf("cin<0 sur i AVANT\n");
+                    return -1;
+                }
+                cin=cin-perim_triangle(x[i],y[i],d,*triangle_nb,ax,ay,bx,by,cx,cy);
+                if (cin<0)
+                {
+                    Rprintf("Overlapping triangles\n");
+                    return -1;
+                }
+                //indice du vecteur pour la demi-matrice triangle inferieure  
+				if(type[i]>type[j])
+					ind=(type[j]-1)*(*nbtype-2)-(type[j]-2)*(type[j]-1)/2+type[i]-2;
+				else if(type[i]<type[j])
+					ind=(type[i]-1)*(*nbtype-2)-(type[i]-2)*(type[i]-1)/2+type[j]-2;
+				if(type[i]!=type[j])
+					g[tt]+=2*Pi()*mat[ind]/cin;
+                k[tt]+=2*Pi()/cin;
+				
+                // pour [j,i] : correction des effets de bord
+                cin=perim_in_disq(x[j],y[j],d,*x0,*y0,*r0);
+                if (cin<0)
+                {
+                    Rprintf("cin<0 sur j AVANT\n");
+                    return -1;
+                }
+                cin=cin-perim_triangle(x[j],y[j],d,*triangle_nb,ax,ay,bx,by,cx,cy);
+                if (cin<0)
+                {
+                    Rprintf("Overlapping triangles\n");
+                    return -1;
+                }
+                if(type[i]!=type[j])
+					g[tt]+=2*Pi()*mat[ind]/cin;
+				k[tt]+=2*Pi()/cin;
+            }
+        }
+	
+    gint[0]=g[0];
+    kint[0]=k[0];
+    g[0]=g[0]/k[0];
+    k[0]=gint[0]/kint[0];
+	
+    for(tt=1;tt<*t2; tt++)
+    {
+        gint[tt]=g[tt]+gint[tt-1];
+        kint[tt]=k[tt]+kint[tt-1];
+        g[tt]=g[tt]/k[tt];
+        k[tt]=gint[tt]/kint[tt];
+    }
+	
+    free(gint);
+    free(kint);
+	
+    return 0;
+}
+
+int rao_rect_ic(int *point_nb,double *x,double *y, double *xmi,double *xma,double *ymi,double *yma,double *densite,
+						int *t2,double *dt,int *nbSimu,double *lev,double *HD,double *g,double *k,
+						double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval,int *type,int *nbtype,double *mat)
+{
+    int i,j,i0,i1,i2;
+    double **gic,**kic;
+    double *gg,*kk;
+    int erreur=0;
+	
+    erreur=rao_rect(point_nb,x,y,xmi,xma,ymi,yma,t2,dt,g,k,type,mat,nbtype);
+    if (erreur!=0)
+    {
+        return -1;
+    }
+		
+    /*Definition de i0 : indice ou sera stocke l'estimation des bornes de l'IC*/
+    i0=*lev/2*(*nbSimu+1);
+    if (i0<1) i0=1;
+	
+    /*Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC*/
+    taballoc(&gic,*t2+1,2*i0+10+1);
+    taballoc(&kic,*t2+1,2*i0+10+1);
+	
+    /*Normalisation de g et k et calcul de l et n pour le calcul des p-values*/
+    vecalloc(&gg,*t2);
+    vecalloc(&kk,*t2);
+    for(i=0; i<*t2; i++)
+    {	gg[i]=g[i];
+        kk[i]=k[i];
+        gval[i]=1;
+        kval[i]=1;
+    }
+	
+    int lp=0;
+	
+    int *l;// contient le nombre d'arbres par espèce
+    int compt[*nbtype+1];// tableau de compteurs pour xx et yy
+    vecintalloc(&l,*nbtype+1);
+	
+	for(i=1; i<*nbtype+1; i++)
+    {	l[i]=0;
+        compt[i]=0;
+        for(j=0; j<*point_nb; j++)
+        {	if(type[j]==i)
+            {	l[i]++;
+            }
+        }
+    }
+    double **xx;
+    double **yy;
+    xx=taballoca(*nbtype,l);
+    yy=taballoca(*nbtype,l);
+	
+    complete_tab(*point_nb,xx,yy,type,compt,l,x,y);
+	
+    /*boucle principale de MC*/
+    Rprintf("Monte Carlo simulation\n");
+    for(i=1; i<=*nbSimu; i++)
+    {	randomlab(x,y,*point_nb,type,*nbtype,xx,l,yy);
+		erreur=rao_rect(point_nb,x,y,xmi,xma,ymi,yma,t2,dt,gic1,kic1,type,mat,nbtype);
+        if (erreur!=0)
+			Rprintf("ERREUR Ripley\n");
+        /*comptage du nombre de |¶obs|<=|¶simu| pour test local*/
+		for(j=0; j<*t2; j++)
+		{	if ((float)fabs(gg[j]-*HD)<=(float)fabs(gic1[j]-*HD))
+			{	gval[j]+=1;
+			}
+			if ((float)fabs(kk[j]-*HD)<=(float)fabs(kic1[j]-*HD))
+			{	kval[j]+=1;
+			}
+		}
+            /*Traitement des resultats*/
+		ic(i,i0,gic,kic,gic1,kic1,*t2);
+        R_FlushConsole();
+        progress(i,&lp,*nbSimu);
+    }
+	
+    i1=i0+2;
+    i2=i0;
+	
+    /*Copies des valeurs dans les tableaux resultats*/
+    for(i=0; i<*t2; i++)
+    {	gic1[i]=gic[i+1][i1];
+        gic2[i]=gic[i+1][i2];
+        kic1[i]=kic[i+1][i1];
+        kic2[i]=kic[i+1][i2];
+    }
+	
+    for(i=0; i<*t2; i++)
+    {	free(gic[i]);
+        free(kic[i]);
+    }
+	
+    for(i=0;i<*nbtype;i++)
+    {	free(xx[i]);
+        free(yy[i]);
+    }
+	
+    free(gic);
+    free(kic);
+    freevec(gg);
+    freevec(kk);
+    free(xx);
+    free(yy);
+    free(l);
+	return 0;
+}
+
+int rao_disq_ic(int *point_nb,double *x,double *y, double *x0,double *y0,double *r0,double *densite,
+						int *t2,double *dt,int *nbSimu, double *lev,double *HD,double *g,double *k,
+						double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval,int *type,int *nbtype, double *mat)
+{
+    int i,j,i0,i1,i2;
+    double **gic,**kic;
+    double *gg,*kk;
+    int erreur=0;
+	
+    erreur=rao_disq(point_nb,x,y,x0,y0,r0,t2,dt,g,k,type,mat,nbtype);
+    if (erreur!=0)
+    {
+        return -1;
+    }
+	
+    /*Definition de i0 : indice ou sera stocke l'estimation des bornes de l'IC*/
+    i0=*lev/2*(*nbSimu+1);
+    if (i0<1) i0=1;
+	
+    /*Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC*/
+    taballoc(&gic,*t2+1,2*i0+10+1);
+    taballoc(&kic,*t2+1,2*i0+10+1);
+	
+    /*Normalisation de g et k et calcul de l et n pour le calcul des p-values*/
+    vecalloc(&gg,*t2);
+    vecalloc(&kk,*t2);
+    for(i=0; i<*t2; i++)
+    {	gg[i]=g[i];
+        kk[i]=k[i];
+        gval[i]=1;
+        kval[i]=1;
+    }
+	
+    int lp=0;
+	
+    int *l;// contient le nombre d'arbres par espèce
+    int compt[*nbtype+1];// tableau de compteurs pour xx et yy
+    vecintalloc(&l,*nbtype+1);
+	
+	for(i=1; i<*nbtype+1; i++)
+    {	l[i]=0;
+        compt[i]=0;
+        for(j=0; j<*point_nb; j++)
+        {	if(type[j]==i)
+            {	l[i]++;
+            }
+        }
+    }
+    double **xx;
+    double **yy;
+    xx=taballoca(*nbtype,l);
+    yy=taballoca(*nbtype,l);
+	
+    complete_tab(*point_nb,xx,yy,type,compt,l,x,y);
+	
+    /*boucle principale de MC*/
+    Rprintf("Monte Carlo simulation\n");
+    for(i=1; i<=*nbSimu; i++)
+    {	randomlab(x,y,*point_nb,type,*nbtype,xx,l,yy);
+        erreur=rao_disq(point_nb,x,y,x0,y0,r0,t2,dt,gic1,kic1,type,mat,nbtype);
+        /* si il y a une erreur on recommence une simulation*/
+        if (erreur!=0)
+        {	i=i-1;
+			Rprintf("ERREUR Ripley\n");
+        }
+        else
+        {	/*comptage du nombre de |¶obs|<=|¶simu| pour test local*/
+            for(j=0; j<*t2; j++)
+            {	if ((float)fabs(gg[j]-*HD)<=(float)fabs(gic1[j]-*HD))
+                {	gval[j]+=1;
+                }
+                if ((float)fabs(kk[j]-*HD)<=(float)fabs(kic1[j]-*HD))
+                {	kval[j]+=1;
+                }
+            }
+			
+            /*Traitement des resultats*/
+            ic(i,i0,gic,kic,gic1,kic1,*t2);
+        }
+        R_FlushConsole();
+        progress(i,&lp,*nbSimu);
+    }
+	
+    i1=i0+2;
+    i2=i0;
+	
+    /*Copies des valeurs dans les tableaux resultats*/
+    for(i=0; i<*t2; i++)
+    {	gic1[i]=gic[i+1][i1];
+        gic2[i]=gic[i+1][i2];
+        kic1[i]=kic[i+1][i1];
+        kic2[i]=kic[i+1][i2];
+    }
+	
+    for(i=0; i<*t2; i++)
+    {	free(gic[i]);
+        free(kic[i]);
+    }
+	
+	for(i=0;i<*nbtype;i++)
+    {	free(xx[i]);
+        free(yy[i]);
+    }
+    free(xx);
+    free(yy);
+    free(l);
+	
+    free(gic);
+    free(kic);
+    freevec(gg);
+    freevec(kk);
+	return 0;
+}
+
+int rao_tr_rect_ic(int *point_nb,double *x,double *y, double *xmi,double *xma,double *ymi,double *yma,double *densite,
+						   int *triangle_nb, double *ax, double *ay, double *bx, double *by, double *cx, double *cy,
+						   int *t2,double *dt,int *nbSimu, double *lev,double *HD,double *g,double *k,
+						   double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval,int *type, int * nbtype,double *mat)
+{	int i,j,i0,i1,i2;
+    double **gic,**kic;
+    double *gg,*kk;
+    int erreur=0;
+	
+    erreur=rao_tr_rect(point_nb,x,y,xmi,xma,ymi,yma,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,g,k,type,mat,nbtype);
+    if (erreur!=0)
+    {	return -1;
+    }
+	
+    /*Definition de i0 : indice ou sera stocke l'estimation des bornes de l'IC*/
+    i0=*lev/2*(*nbSimu+1);
+    if (i0<1) i0=1;
+	
+    /*Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC*/
+    taballoc(&gic,*t2+1,2*i0+10+1);
+    taballoc(&kic,*t2+1,2*i0+10+1);
+	
+    /*Normalisation de g et k et calcul de l et n pour le calcul des p-values*/
+    vecalloc(&gg,*t2);
+    vecalloc(&kk,*t2);
+    for(i=0; i<*t2; i++)
+    {	gg[i]=g[i];
+        kk[i]=k[i];
+        gval[i]=1;
+        kval[i]=1;
+    }
+	
+    int lp=0;
+	
+    int *l;// contient le nombre d'arbres par espèce
+    int compt[*nbtype+1];// tableau de compteurs pour xx et yy
+    vecintalloc(&l,*nbtype+1);
+	
+	for(i=1; i<*nbtype+1; i++)
+    {	l[i]=0;
+        compt[i]=0;
+        for(j=0; j<*point_nb; j++)
+        {	if(type[j]==i)
+            {	l[i]++;
+            }
+        }
+    }
+    double **xx;
+    double **yy;
+    xx=taballoca(*nbtype,l);
+    yy=taballoca(*nbtype,l);
+	
+    complete_tab(*point_nb,xx,yy,type,compt,l,x,y);
+	
+    /*boucle principale de MC*/
+    Rprintf("Monte Carlo simulation\n");
+    for(i=1; i<=*nbSimu; i++)
+    {	randomlab(x,y,*point_nb,type,*nbtype,xx,l,yy);
+		erreur=rao_tr_rect(point_nb,x,y,xmi,xma,ymi,yma,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,gic1,kic1,type,mat,nbtype);
+        /* si il y a une erreur on recommence une simulation*/
+        if (erreur!=0)
+        {	i=i-1;
+            Rprintf("ERREUR Ripley\n");
+        }
+        else
+        {
+            /*comptage du nombre de |¶obs|<=|¶simu| pour test local*/
+            for(j=0; j<*t2; j++)
+            {	if ((float)fabs(gg[j]-*HD)<=(float)fabs(gic1[j]-*HD))
+                {	gval[j]+=1;
+                }
+                if ((float)fabs(kk[j]-*HD)<=(float)fabs(kic1[j]-*HD))
+                {	kval[j]+=1;
+                }
+            }
+            /*Traitement des resultats*/
+            ic(i,i0,gic,kic,gic1,kic1,*t2);
+        }
+        R_FlushConsole();
+        progress(i,&lp,*nbSimu);
+    }
+	
+    i1=i0+2;
+    i2=i0;
+	
+    /*Copies des valeurs dans les tableaux resultats*/
+    for(i=0; i<*t2; i++)
+    {	gic1[i]=gic[i+1][i1];
+        gic2[i]=gic[i+1][i2];
+        kic1[i]=kic[i+1][i1];
+        kic2[i]=kic[i+1][i2];
+    }
+	
+    for(i=0; i<*t2; i++)
+    {	free(gic[i]);
+        free(kic[i]);
+    }
+	
+    for(i=0;i<*nbtype;i++)
+    {	free(xx[i]);
+        free(yy[i]);
+    }
+	
+    free(gic);
+    free(kic);
+    freevec(gg);
+    freevec(kk);
+    free(xx);
+    free(yy);
+    free(l);
+    return 0;
+}
+
+int rao_tr_disq_ic(int *point_nb,double *x,double *y, double *x0,double *y0,double *r0,double *densite,
+						   int *triangle_nb, double *ax, double *ay, double *bx, double *by, double *cx, double *cy,
+						   int *t2,double *dt,int *nbSimu, double *lev,double *HD,double *g,double *k,
+						   double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval,int *type, int *nbtype,double *mat)
+{	int i,j,i0,i1,i2;
+    double **gic,**kic;
+    double *gg,*kk;
+    int erreur=0;
+	
+    erreur=rao_tr_disq(point_nb,x,y,x0,y0,r0,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,g,k,type,mat,nbtype);
+    if (erreur!=0)
+    {	return -1;
+    }
+	
+    /*Definition de i0 : indice ou sera stocke l'estimation des bornes de l'IC*/
+    i0=*lev/2*(*nbSimu+1);
+    if (i0<1) i0=1;
+	
+    /*Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC*/
+    taballoc(&gic,*t2+1,2*i0+10+1);
+    taballoc(&kic,*t2+1,2*i0+10+1);
+	
+    /*Normalisation de g et k et calcul de l et n pour le calcul des p-values*/
+    vecalloc(&gg,*t2);
+    vecalloc(&kk,*t2);
+    for(i=0; i<*t2; i++)
+    {	gg[i]=g[i];
+        kk[i]=k[i];
+        gval[i]=1;
+        kval[i]=1;
+    }
+	
+    int lp=0;
+	
+    int *l;// contient le nombre d'arbres par espèce
+    int compt[*nbtype+1];// tableau de compteurs pour xx et yy
+    vecintalloc(&l,*nbtype+1);
+	
+	for(i=1; i<*nbtype+1; i++)
+    {	l[i]=0;
+        compt[i]=0;
+        for(j=0; j<*point_nb; j++)
+        {	if(type[j]==i)
+            {	l[i]++;
+            }
+        }
+    }
+    double **xx;
+    double **yy;
+    xx=taballoca(*nbtype,l);
+    yy=taballoca(*nbtype,l);
+	
+    complete_tab(*point_nb,xx,yy,type,compt,l,x,y);
+	
+    /*boucle principale de MC*/
+    Rprintf("Monte Carlo simulation\n");
+    for(i=1; i<=*nbSimu; i++)
+    {	randomlab(x,y,*point_nb,type,*nbtype,xx,l,yy);
+		erreur=rao_tr_disq(point_nb,x,y,x0,y0,r0,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,gic1,kic1,type,mat,nbtype);
+        /* si il y a une erreur on recommence une simulation*/
+        if (erreur!=0)
+        {	i=i-1;
+            Rprintf("ERREUR Ripley\n");
+        }
+        else
+        {
+            /*comptage du nombre de |¶obs|<=|¶simu| pour test local*/
+            for(j=0; j<*t2; j++)
+            {	if ((float)fabs(gg[j]-*HD)<=(float)fabs(gic1[j]-*HD))
+                {	gval[j]+=1;
+                }
+                if ((float)fabs(kk[j]-*HD)<=(float)fabs(kic1[j]-*HD))
+                {	kval[j]+=1;
+                }
+            }
+            /*Traitement des resultats*/
+            ic(i,i0,gic,kic,gic1,kic1,*t2);
+        }
+        R_FlushConsole();
+        progress(i,&lp,*nbSimu);
+    }
+	
+    i1=i0+2;
+    i2=i0;
+	
+    /*Copies des valeurs dans les tableaux resultats*/
+    for(i=0; i<*t2; i++)
+    {	gic1[i]=gic[i+1][i1];
+        gic2[i]=gic[i+1][i2];
+        kic1[i]=kic[i+1][i1];
+        kic2[i]=kic[i+1][i2];
+    }
+	
+    for(i=0; i<*t2; i++)
+    {	free(gic[i]);
+        free(kic[i]);
+    }
+	
+    for(i=0;i<*nbtype;i++)
+    {	free(xx[i]);
+        free(yy[i]);
+    }
+	
+    free(gic);
+    free(kic);
+    freevec(gg);
+    freevec(kk);
+    free(xx);
+    free(yy);
+    free(l);
+    return 0;
+}
+
+/******************************************************/
+/*Mimetic point process as in Goreaud et al. 2004     */
+/******************************************************/
+int mimetic_rect(int *point_nb,double *x,double *y, double *surface,double *xmi,double *xma,double *ymi,double *yma,
+				 double *prec, int *t2, double *dt, double *lobs, int *nsimax, int *conv, double *cost,
+				 double *g, double *k,double *xx,double *yy)
+{
+    int i,compteur_c=0,r=0,erreur=0;
+    int compteur=0;
+    double *l;
+    double cout,cout_c;
+	double intensity=(*point_nb)/(*surface);
+    vecalloc(&l,*t2);
+	
+    //creation of a initial point pattern and cost
+    //r=s_RegularProcess_rect(*point_nb,3,x,y,*xmi,*xma,*ymi,*yma,*prec);
+    //r=s_NeymanScott_rect(5,*point_nb,3,x,y,*xmi,*xma,*ymi,*yma,*prec);
+    s_alea_rect(*point_nb,x,y,*xmi,*xma,*ymi,*yma,*prec);
+    erreur=ripley_rect(point_nb,x,y,xmi,xma,ymi,yma,t2,dt,g,k);
+	if (erreur!=0)
+	{
+	    return -1;
+	}
+	cout=0;
+	for(i=0;i<*t2;i++)
+	{	l[i]=sqrt(k[i]/(intensity*Pi()));
+	    cout+=(lobs[i]-l[i])*(lobs[i]-l[i]);
+	}
+	cost[0]=cout;
+	
+	int lp=0;
+	Rprintf("Simulated annealing\n");
+	while(compteur<*nsimax)
+	{	cout_c=echange_point_rect(*point_nb,x,y,*xmi,*xma,*ymi,*yma,intensity,*prec,cout,lobs,t2,dt,g,k);
+	    if(cout==cout_c)
+	    {
+	        compteur_c++;
+	    }
+	    else compteur_c=0;
+	    cout=cout_c;
+	    //Rprintf(" coût calculé : %f\n", cout);
+	    compteur++;
+		cost[compteur]=cout;
+	    if(compteur_c==*conv)
+			break;
+		R_FlushConsole();
+		progress(compteur,&lp,*nsimax);
+	}
+	if(compteur==(*nsimax))
+		Rprintf("Warning: failed to converge after nsimax=%d simulations",*nsimax);
+	for(i=0;i<(*point_nb);i++)
+	{	xx[i]=x[i];
+		yy[i]=y[i];
+	}
+	free(l);
+    return r;
+}
+
+double echange_point_rect(int point_nb,double *x,double *y,double xmi,double xma,double ymi,double yma,double intensity,double p,double cout,double * lobs,int *t2,double *dt,double *g,double *k)
+{
+    double xr, yr, xcent[4], ycent[4], n_cout[4],*l,xprec,yprec;
+    int erreur,max,i,j,num;
+    vecalloc(&l,*t2);
+    GetRNGstate();
+    num=unif_rand()* (point_nb);// numero de l'arbre que l'on retire
+    xprec=x[num];
+    yprec=y[num];
+    xr=xma-xmi;
+	yr=yma-ymi;
+	for(j=0;j<4;j++)
+	{
+        xcent[j]=xmi+(unif_rand()*(xr/p))*p;// coordonnées (x,y) du point tiré
+		ycent[j]=ymi+(unif_rand()*(yr/p))*p;
+        x[num]=xcent[j];
+        y[num]=ycent[j];
+        erreur=ripley_rect(&point_nb,x,y,&xmi,&xma,&ymi,&yma,t2,dt,g,k);
+        if (erreur!=0)
+        {
+            return -1;
+        }
+        for(i=0;i<*t2;i++)
+        {
+            l[i]=sqrt(k[i]/(intensity*Pi()));
+        }
+		
+        n_cout[j]=0;
+        for(i=0;i<*t2;i++)
+        {
+            n_cout[j]+=(lobs[i]-l[i])*(lobs[i]-l[i]);
+        }
+		
+		
+	}
+	PutRNGstate();
+	max=0;
+	for(i=1;i<4;i++)
+	{
+	    if(n_cout[i]<n_cout[max])
+			max=i;
+	}
+	if(n_cout[max]<cout) // on prend le nouveau point qui minimise le coût
+	{
+        x[num]=xcent[max];
+        y[num]=ycent[max];
+        cout=n_cout[max];
+	}
+	else // on reprend l'ancien point
+	{
+	    x[num]=xprec;
+	    y[num]=yprec;
+	}
+	
+	free(l);
+	
+	return cout;
+	
+	
+}
+
+int mimetic_disq(int *point_nb,double *x,double *y, double *surface,double *x0,double *y0,double *r0,
+				 double *prec, int *t2, double *dt, double *lobs, int *nsimax, int *conv, double *cost,
+				 double *g, double *k,double *xx,double *yy)
+{
+    int i,compteur_c=0,r=0,erreur=0;
+    int compteur=0;
+    double *l;
+    double cout,cout_c;
+	double intensity=(*point_nb)/(*surface);
+    vecalloc(&l,*t2);
+	
+    //creation of a initial point pattern and cost
+    //r=s_RegularProcess_disq(*point_nb,3,x,y,*x0,*y0,*r0,*prec);
+    //r=s_NeymanScott_disq(5,*point_nb,3,x,y,*x0,*y0,*r0,*prec);
+    s_alea_disq(*point_nb,x,y,*x0,*y0,*r0,*prec);
+    erreur=ripley_disq(point_nb,x,y,x0,y0,r0,t2,dt,g,k);
+	if (erreur!=0)
+	{
+	    return -1;
+	}
+	cout=0;
+	for(i=0;i<*t2;i++)
+	{	l[i]=sqrt(k[i]/(intensity*Pi()));
+	    cout+=(lobs[i]-l[i])*(lobs[i]-l[i]);
+	}
+	cost[0]=cout;
+	
+	int lp=0;
+	Rprintf("Simulated annealing\n");
+	while(compteur<*nsimax)
+	{	cout_c=echange_point_disq(*point_nb,x,y,*x0,*y0,*r0,intensity,*prec,cout,lobs,t2,dt,g,k);
+	    if(cout==cout_c)
+	    {
+	        compteur_c++;
+	    }
+	    else compteur_c=0;
+	    cout=cout_c;
+	    //Rprintf(" coût calculé : %f\n", cout);
+	    compteur++;
+		cost[compteur]=cout;
+	    if(compteur_c==*conv)
+			break;
+		R_FlushConsole();
+		progress(compteur,&lp,*nsimax);
+	}
+	if(compteur==(*nsimax))
+		Rprintf("Warning: failed to converge after nsimax=%d simulations",*nsimax);
+	for(i=0;i<(*point_nb);i++)
+	{	xx[i]=x[i];
+		yy[i]=y[i];
+	}
+	free(l);
+    return r;
+}
+
+double echange_point_disq(int point_nb,double *x,double *y,double x0,double y0,double r0,double intensity,double p,double cout,double * lobs,int *t2,double *dt,double *g,double *k)
+{
+    double rr, xcent[4], ycent[4], n_cout[4],*l,xprec,yprec;
+    int erreur,max,i,j,num;
+    vecalloc(&l,*t2);
+    GetRNGstate();
+    num=unif_rand()* (point_nb);// numero de l'arbre que l'on retire
+    xprec=x[num];
+    yprec=y[num];
+    rr=2*r0;
+	for(j=0;j<4;j++)
+	{
+        xcent[j]=x0-r0+(unif_rand()*(rr/p))*p;// coordonnées (x,y) du point tiré
+		ycent[j]=y0-r0+(unif_rand()*(rr/p))*p;
+		while ((xcent[j]-x0)*(xcent[j]-x0)+(ycent[j]-y0)*(ycent[j]-y0)>=r0*r0)
+		{
+		    xcent[j]=x0-r0+(unif_rand()*(rr/p))*p;// coordonnées (x,y) du point tiré
+            ycent[j]=y0-r0+(unif_rand()*(rr/p))*p;
+		}
+        x[num]=xcent[j];
+        y[num]=ycent[j];
+        erreur=ripley_disq(&point_nb,x,y,&x0,&y0,&r0,t2,dt,g,k);
+        if (erreur!=0)
+        {
+            return -1;
+        }
+        for(i=0;i<*t2;i++)
+        {
+            l[i]=sqrt(k[i]/(intensity*Pi()));
+        }
+		
+        n_cout[j]=0;
+        for(i=0;i<*t2;i++)
+        {
+            n_cout[j]+=(lobs[i]-l[i])*(lobs[i]-l[i]);
+        }
+		
+		
+	}
+	PutRNGstate();
+	max=0;
+	for(i=1;i<4;i++)
+	{
+	    if(n_cout[i]<n_cout[max])
+			max=i;
+	}
+	if(n_cout[max]<cout) // on prend le nouveau point qui minimise le coût
+	{
+        x[num]=xcent[max];
+        y[num]=ycent[max];
+        cout=n_cout[max];
+	}
+	else // on reprend l'ancien point
+	{
+	    x[num]=xprec;
+	    y[num]=yprec;
+	}
+	
+	free(l);
+	
+	return cout;
+	
+	
+}
+
+int mimetic_tr_rect(int *point_nb,double *x,double *y, double *surface,double *xmi,double *xma,double *ymi,double *yma,
+					int *triangle_nb, double *ax, double *ay, double *bx, double *by, double *cx, double *cy,
+					double *prec, int *t2, double *dt, double *lobs, int *nsimax, int *conv, double *cost,
+					double *g, double *k,double *xx,double *yy)
+{
+    int i,compteur_c=0,r=0,erreur=0;
+    int compteur=0;
+    double *l;
+    double cout,cout_c;
+	double intensity=(*point_nb)/(*surface);
+    vecalloc(&l,*t2);
+	
+    //creation of a initial point pattern and cost
+    //r=s_RegularProcess_tr_rect(*point_nb,3,x,y,*xmi,*xma,*ymi,*yma,triangle_nb,ax,ay,bx,by,cx,cy,*prec);
+    //r=s_NeymanScott_tr_rect(5,*point_nb,3,x,y,*xmi,*xma,*ymi,*yma,triangle_nb,ax,ay,bx,by,cx,cy,*prec);
+    s_alea_tr_rect(*point_nb,x,y,*xmi,*xma,*ymi,*yma,*triangle_nb,ax,ay,bx,by,cx,cy,*prec);
+    erreur=ripley_tr_rect(point_nb,x,y,xmi,xma,ymi,yma,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,g,k);
+	if (erreur!=0)
+	{
+	    return -1;
+	}
+	cout=0;
+	for(i=0;i<*t2;i++)
+	{	l[i]=sqrt(k[i]/(intensity*Pi()));
+	    cout+=(lobs[i]-l[i])*(lobs[i]-l[i]);
+	}
+	cost[0]=cout;
+	
+	int lp=0;
+	Rprintf("Simulated annealing\n");
+	while(compteur<*nsimax)
+	{	cout_c=echange_point_tr_rect(*point_nb,x,y,*xmi,*xma,*ymi,*yma,triangle_nb,ax,ay,bx,by,cx,cy,intensity,*prec,cout,lobs,t2,dt,g,k);
+	    if(cout==cout_c)
+	    {
+	        compteur_c++;
+	    }
+	    else compteur_c=0;
+	    cout=cout_c;
+	    //Rprintf(" coût calculé : %f\n", cout);
+	    compteur++;
+		cost[compteur]=cout;
+	    if(compteur_c==*conv)
+			break;
+		R_FlushConsole();
+		progress(compteur,&lp,*nsimax);
+	}
+	if(compteur==(*nsimax))
+		Rprintf("Warning: failed to converge after nsimax=%d simulations",*nsimax);
+	for(i=0;i<(*point_nb);i++)
+	{	xx[i]=x[i];
+		yy[i]=y[i];
+	}
+	free(l);
+    return r;
+}
+
+double echange_point_tr_rect(int point_nb,double *x,double *y,double xmi,double xma,double ymi,double yma,
+                             int *triangle_nb, double *ax, double *ay, double *bx, double *by, double *cx, double *cy,
+                             double intensity,double p,double cout,double * lobs,int *t2,double *dt,double *g,double *k)
+{
+    double xr, yr, xcent[4], ycent[4], n_cout[4],*l,xprec,yprec;
+    int erreur,max,i,j,num,erreur_tr,s;
+    vecalloc(&l,*t2);
+    GetRNGstate();
+    num=unif_rand()* (point_nb);// numero de l'arbre que l'on retire
+    xprec=x[num];
+    yprec=y[num];
+    xr=xma-xmi;
+	yr=yma-ymi;
+	for(j=0;j<4;j++)
+	{
+	    do
+	    {
+	        erreur_tr=0;
+	        xcent[j]=xmi+(unif_rand()*(xr/p))*p;// coordonnées (x,y) du point tiré
+            ycent[j]=ymi+(unif_rand()*(yr/p))*p;
+            x[num]=xcent[j];
+            y[num]=ycent[j];
+            for(s=0;s<*triangle_nb;s++)
+            {
+                if (in_triangle(x[num],y[num],ax[s],ay[s],bx[s],by[s],cx[s],cy[s],1))
+                {
+                    erreur_tr=1;
+                    //Rprintf("erreur_tr\n");
+                }
+            }
+			
+	    }
+	    while(erreur_tr==1);
+	    //Rprintf("point pris\n");
+		
+        erreur=ripley_tr_rect(&point_nb,x,y,&xmi,&xma,&ymi,&yma,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,g,k);
+        if (erreur!=0)
+        {
+            return -1;
+        }
+        for(i=0;i<*t2;i++)
+        {
+            l[i]=sqrt(k[i]/(intensity*Pi()));
+        }
+		
+        n_cout[j]=0;
+        for(i=0;i<*t2;i++)
+        {
+            n_cout[j]+=(lobs[i]-l[i])*(lobs[i]-l[i]);
+        }
+		
+		
+	}
+	PutRNGstate();
+	max=0;
+	for(i=1;i<4;i++)
+	{
+	    if(n_cout[i]<n_cout[max])
+			max=i;
+	}
+	if(n_cout[max]<cout) // on prend le nouveau point qui minimise le coût
+	{
+        x[num]=xcent[max];
+        y[num]=ycent[max];
+        cout=n_cout[max];
+	}
+	else // on reprend l'ancien point
+	{
+	    x[num]=xprec;
+	    y[num]=yprec;
+	}
+	
+	free(l);
+	
+	return cout;
+	
+	
+}
+
+int mimetic_tr_disq(int *point_nb,double *x,double *y, double *surface,double *x0,double *y0,double *r0,
+					int *triangle_nb, double *ax, double *ay, double *bx, double *by, double *cx, double *cy,
+					double *prec, int *t2, double *dt, double *lobs, int *nsimax, int *conv, double *cost,
+					double *g, double *k,double *xx,double *yy)
+{
+    int i,compteur_c=0,r=0,erreur=0;
+    int compteur=0;
+    double *l;
+    double cout,cout_c;
+	double intensity=(*point_nb)/(*surface);
+    vecalloc(&l,*t2);
+	
+    //creation of a initial point pattern and cost
+    //r=s_RegularProcess_tr_disq(*point_nb,3,x,y,*x0,*y0,*r0,triangle_nb,ax,ay,bx,by,cx,cy,*prec);
+    //r=s_NeymanScott_tr_disq(4,*point_nb,2,x,y,*x0,*y0,*r0,triangle_nb,ax,ay,bx,by,cx,cy,*prec);
+    s_alea_tr_disq(*point_nb,x,y,*x0,*y0,*r0,*triangle_nb,ax,ay,bx,by,cx,cy,*prec);
+    erreur=ripley_tr_disq(point_nb,x,y,x0,y0,r0,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,g,k);
+	if (erreur!=0)
+	{
+	    return -1;
+	}
+	cout=0;
+	for(i=0;i<*t2;i++)
+	{	l[i]=sqrt(k[i]/(intensity*Pi()));
+	    cout+=(lobs[i]-l[i])*(lobs[i]-l[i]);
+	}
+	cost[0]=cout;
+	
+	int lp=0;
+	Rprintf("Simulated annealing\n");
+	while(compteur<*nsimax)
+	{	cout_c=echange_point_tr_disq(*point_nb,x,y,*x0,*y0,*r0,triangle_nb,ax,ay,bx,by,cx,cy,intensity,*prec,cout,lobs,t2,dt,g,k);
+	    if(cout==cout_c)
+	    {
+	        compteur_c++;
+	    }
+	    else compteur_c=0;
+	    cout=cout_c;
+	    //Rprintf(" coût calculé : %f\n", cout);
+	    compteur++;
+		cost[compteur]=cout;
+	    if(compteur_c==*conv)
+			break;
+		R_FlushConsole();
+		progress(compteur,&lp,*nsimax);
+	}
+	if(compteur==(*nsimax))
+		Rprintf("Warning: failed to converge after nsimax=%d simulations",*nsimax);
+	for(i=0;i<(*point_nb);i++)
+	{	xx[i]=x[i];
+		yy[i]=y[i];
+	}
+	free(l);
+    return r;
+}
+
+double echange_point_tr_disq(int point_nb,double *x,double *y,double x0,double y0,double r0,
+                             int *triangle_nb, double *ax, double *ay, double *bx, double *by, double *cx, double *cy,
+                             double intensity,double p,double cout,double * lobs,int *t2,double *dt,double *g,double *k)
+{
+    double rr, xcent[4], ycent[4], n_cout[4],*l,xprec,yprec;
+    int erreur,max,i,j,num,erreur_tr,s;
+    vecalloc(&l,*t2);
+    GetRNGstate();
+    num=unif_rand()* (point_nb);// numero de l'arbre que l'on retire
+    xprec=x[num];
+    yprec=y[num];
+    rr=2*r0;
+	for(j=0;j<4;j++)
+	{
+	    do
+	    {
+	        erreur_tr=0;
+	        xcent[j]=x0-r0+(unif_rand()*(rr/p))*p;// coordonnées (x,y) du point tiré
+            ycent[j]=y0-r0+(unif_rand()*(rr/p))*p;
+            while ((xcent[j]-x0)*(xcent[j]-x0)+(ycent[j]-y0)*(ycent[j]-y0)>=r0*r0)
+            {
+                xcent[j]=x0-r0+(unif_rand()*(rr/p))*p;// coordonnées (x,y) du point tiré
+                ycent[j]=y0-r0+(unif_rand()*(rr/p))*p;
+            }
+            x[num]=xcent[j];
+            y[num]=ycent[j];
+            for(s=0;s<*triangle_nb;s++)
+            {
+                if (in_triangle(x[num],y[num],ax[s],ay[s],bx[s],by[s],cx[s],cy[s],1))
+                {
+                    erreur_tr=1;
+                    //Rprintf("erreur_tr\n");
+                }
+            }
+			
+	    }
+	    while(erreur_tr==1);
+	    //Rprintf("point pris\n");
+		
+        erreur=ripley_tr_disq(&point_nb,x,y,&x0,&y0,&r0,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,g,k);
+        if (erreur!=0)
+        {
+            return -1;
+        }
+        for(i=0;i<*t2;i++)
+        {
+            l[i]=sqrt(k[i]/(intensity*Pi()));
+        }
+		
+        n_cout[j]=0;
+        for(i=0;i<*t2;i++)
+        {
+            n_cout[j]+=(lobs[i]-l[i])*(lobs[i]-l[i]);
+        }
+		
+		
+	}
+	PutRNGstate();
+	max=0;
+	for(i=1;i<4;i++)
+	{
+	    if(n_cout[i]<n_cout[max])
+			max=i;
+	}
+	if(n_cout[max]<cout) // on prend le nouveau point qui minimise le coût
+	{
+        x[num]=xcent[max];
+        y[num]=ycent[max];
+        cout=n_cout[max];
+	}
+	else // on reprend l'ancien point
+	{
+	    x[num]=xprec;
+	    y[num]=yprec;
+	}
+	
+	free(l);
+	
+	return cout;
+	
 }
 

@@ -15,10 +15,11 @@
 \alias{print.fads}
 \alias{print.fads.k12fun}          
 \alias{print.fads.kfun}
-\alias{print.fads.ki.fun}
-\alias{print.fads.kijfun}
+\alias{print.fads.kp.fun}
+\alias{print.fads.kpqfun}
 \alias{print.fads.kmfun}
 \alias{print.fads.ksfun}
+\alias{print.fads.krfun}
 \alias{print.vads}
 \alias{print.vads.dval}
 \alias{print.vads.k12val}
@@ -30,7 +31,8 @@
 \alias{summary.vads.kval}
 \alias{testIC}
 \alias{testInteger}
-\alias{transpose}        
+\alias{transpose}
+\alias{subsetdist}       
 \title{Internal ads functions}
 \description{
   Internal \code{ads} functions.
@@ -55,6 +57,7 @@ read.tri(X)
 testIC(nbSimu, lev)
 testInteger(i)
 transpose(x, y)
+subsetdist(dis,sub)
 }
 \details{
   These are usually not to be called by the user.
