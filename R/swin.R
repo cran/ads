@@ -168,28 +168,6 @@ plot.swin<-function (x,main,edge,scale=TRUE,add=FALSE,csize=1,...) {
 	}
 }
 
-swin2owin<-function(w) {
-	stopifnot(inherits(w,"swin"))
-	if(identical(w$type,c("simple","rectangle")))
-		ow<-list(type="rectangle",xrange=c(w$xmin,w$xmax),yrange=c(w$ymin,w$ymax))
-	else if(identical(w$type,c("complex","rectangle"))) {
-		outer.poly<-list(x=c(w$xmin,w$xmax,w$xmax,w$xmin),y=c(w$ymin,w$ymin,w$ymax,w$ymax))
-		inner.poly<-alist()
-		tri<-w$triangles
-		for(i in 1:nrow(tri)) {
-			if(area.poly(c(tri$ax[i],tri$bx[i],tri$cx[i]),c(tri$ay[i],tri$by[i],tri$cy[i]))<0)
-				inner.poly[[i]]<-data.frame(x=c(tri$ax[i],tri$bx[i],tri$cx[i]),y=c(tri$ay[i],tri$by[i],tri$cy[i]))
-			else
-				inner.poly[[i]]<-data.frame(x=c(tri$bx[i],tri$ax[i],tri$cx[i]),y=c(tri$by[i],tri$ay[i],tri$cy[i]))
-		}
-		ow<-list(type="polygonal",xrange=c(w$xmin,w$xmax),yrange=c(w$ymin,w$ymax),bdry=c(list(outer.poly),inner.poly))
-	}
-	else
-		stop("non convertible 'swin' object")
-	class(ow) <-"owin"
-	return(ow)
-}
-
 inside.swin<-function(x,y,w,bdry=TRUE) {
 	stopifnot(inherits(w,"swin"))
 	stopifnot(length(x)==length(y))
@@ -207,6 +185,45 @@ inside.swin<-function(x,y,w,bdry=TRUE) {
 	return(inside)
 }
 
-##on peut songer a un complement.swin o les poly internes deviennent des trous et vice versa
-##mais problme dans triangulate lorsque le poly interne touche les bords 
+owin2swin<-function(w) {
+	stopifnot(inherits(w,"owin"))
+	if(identical(w$type,c("rectangle")))
+		sw<-swin(c(w$xrange[1],w$yrange[1],w$xrange[2],w$yrange[2]))
+	else if(identical(w$type,c("polygonal"))) {
+		tri<-alist()
+		if(length(w$bdry)==1) { #single polygon
+			stopifnot(w$bdry[[1]]$hole==FALSE)
+			wx<-border(w,0.1,outside=TRUE)
+			outer.poly<-data.frame(x=c(rep(wx$xrange[1],2),rep(wx$xrange[2],2)),y=c(wx$yrange,wx$yrange[2:1]))
+			tri<-rbind(tri,ads::triangulate(outer.poly,w$bdry[[1]][1:2]))
+			sw<-swin(c(wx$xrange[1],wx$yrange[1],wx$xrange[2],wx$yrange[2]),triangles=tri)
+		}
+		else { #polygon with holes
+			stopifnot(w$bdry[[1]]$hole==FALSE)
+			bb<-bounding.box.xy(w$bdry[[1]][1:2])
+			if((bb$xrange==w$xrange)&&(bb$yrange==w$yrange)&&(area.owin(bb)==w$bdry[[1]]$area)) {	#first poly is rectangular window frame
+				outer.poly<-data.frame(x=c(rep(w$xrange[1],2),rep(w$xrange[2],2)),y=c(w$yrange,w$yrange[2:1]))
+				for(i in 2:length(w$bdry)) {
+					stopifnot(w$bdry[[i]]$hole==TRUE)
+					tri<-rbind(tri,ads::triangulate(w$bdry[[i]][1:2]))
+				}
+				sw<-swin(c(w$xrange[1],w$yrange[1],w$xrange[2],w$yrange[2]),triangles=tri)
+			}
+			else { #first poly is a polygonal frame
+				wx<-border(w,0.1,outside=TRUE)
+				outer.poly<-data.frame(x=c(rep(wx$xrange[1],2),rep(wx$xrange[2],2)),y=c(wx$yrange,wx$yrange[2:1]))
+				tri<-rbind(tri,ads::triangulate(outer.poly,w$bdry[[1]][1:2]))
+				for(i in 2:length(w$bdry)) {
+					stopifnot(w$bdry[[i]]$hole==TRUE)
+					tri<-rbind(tri,ads::triangulate(w$bdry[[i]][1:2]))
+				}
+				sw<-swin(c(wx$xrange[1],wx$yrange[1],wx$xrange[2],wx$yrange[2]),triangles=tri)
+			}
+		}
+	}
+	else
+	stop("non convertible 'owin' object")
+	return(sw)
+}
+
 

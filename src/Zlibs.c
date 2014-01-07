@@ -4072,6 +4072,7 @@ double *yma,int *t2,double *dt,int *nbtype,int *type,double *surface,double *gs,
 
     for(j=0;j<*t2;j++)
     {		g[j]=((intensity*intensity)*(g[j])/intensity*ds[j]);
+		//	g[j]=intensity*g[j]/ds[j];
             k[j]=(intensity*(k[j]));
             tabg[j]=g[j];
             tabk[j]=k[j];
@@ -4089,6 +4090,8 @@ double *yma,int *t2,double *dt,int *nbtype,int *type,double *surface,double *gs,
 			intensity1=l[i+1]/(*surface);
 			for(j=0;j<*t2;j++)
 			{	gii[j]=gii[j]+((intensity1*intensity1)*(g[j])/intensity1*ds[j]);
+			//	gii[j]+=intensity1*g[j]/ds[j];
+
 				kii[j]=kii[j]+(intensity1*(k[j]));
 			}
 
@@ -4128,9 +4131,7 @@ int *t2,double *dt,int *nbtype,int *type,double *surface,double *gs, double *ks,
     int compt[*nbtype+1];// tableau de compteurs pour xx et yy
     vecintalloc(&l,*nbtype+1);
     double *ds;
-
-    double *g;
-    double *k;
+    double *g,*k;
     vecalloc(&g,*t2);
     vecalloc(&k,*t2);
 
@@ -4139,8 +4140,7 @@ int *t2,double *dt,int *nbtype,int *type,double *surface,double *gs, double *ks,
    	    compt[i]=0;
         for(j=0;j<*point_nb;j++){
             if(type[j]==i)
-            {	l[i]++;
-            }
+            	l[i]++;
         }
    	}
 
@@ -4149,18 +4149,15 @@ int *t2,double *dt,int *nbtype,int *type,double *surface,double *gs, double *ks,
    	xx=taballoca(*nbtype,l);
    	yy=taballoca(*nbtype,l);
    	vecalloc(&ds,*t2);
-
    	complete_tab(*point_nb,xx,yy,type,compt,l,x,y);
 	
 	int erreur;
     double intensity1;
     double intensity=*point_nb/(*surface);
-    double *gii;
-    double *kii;
+    double *gii,*kii;
     vecalloc(&gii,*t2);
     vecalloc(&kii,*t2);
-    double *tabg;
-    double *tabk;
+    double *tabg,*tabk;
     vecalloc(&tabg,*t2);
     vecalloc(&tabk,*t2);
 
@@ -4172,31 +4169,27 @@ int *t2,double *dt,int *nbtype,int *type,double *surface,double *gs, double *ks,
 
     erreur =ripley_disq(point_nb,x,y,x0,y0,r0,t2,dt,g,k);
 	if (erreur!=0)
-	{	Rprintf("ERREUR 0 Ripley\n");
-	}
+		Rprintf("ERREUR 0 Ripley\n");
 
     for(j=0;j<*t2;j++)
-    {	g[j]=((intensity*intensity)*(g[j])/intensity*ds[j]);
-        k[j]=(intensity*(k[j]));
+    {	g[j]=intensity*intensity*g[j]/intensity*ds[j];
+        k[j]=intensity*k[j];
         tabg[j]=g[j];
         tabk[j]=k[j];
         if(g[j]==0)
-            {	error[j]=j;
-				z+=1;
-            }
+		{	error[j]=j;
+			z+=1;
+		}
     }
 	if(z==0)
 	{	for(i=0;i<*nbtype;i++)
 		{	erreur=ripley_disq(&l[i+1],xx[i],yy[i],x0,y0,r0,t2,dt,g,k);
 			if (erreur!=0)
-			{	Rprintf("ERREUR 1 Ripley\n");
-			}
+				Rprintf("ERREUR 1 Ripley\n");
 			intensity1=l[i+1]/(*surface);
 			for(j=0;j<*t2;j++)
-			{	//Rprintf("%d,%d :: gs %f\n",i,j,g[j]);
-				gii[j]=gii[j]+(intensity1*intensity1*g[j])/(intensity1*ds[j]);
-				kii[j]=kii[j]+(intensity1*(k[j]));
-				
+			{	gii[j]=gii[j]+intensity1*intensity1*g[j]/intensity1*ds[j];
+				kii[j]=kii[j]+intensity1*k[j];
 			}
 		}
 
@@ -4283,8 +4276,8 @@ int *t2,double *dt,int *nbtype,int *type,double *surface,double *gs, double *ks,
 	}
 
     for(j=0;j<*t2;j++)
-    {	g[j]=((intensity*intensity)*(g[j])/intensity*ds[j]);
-        k[j]=(intensity*(k[j]));
+    {	g[j]=intensity*intensity*g[j]/intensity*ds[j];
+        k[j]=intensity*k[j];
         tabg[j]=g[j];
         tabk[j]=k[j];
         if(g[j]==0)
@@ -4300,8 +4293,8 @@ int *t2,double *dt,int *nbtype,int *type,double *surface,double *gs, double *ks,
 			}
 			intensity1=l[i+1]/(*surface);
 			for(j=0;j<*t2;j++)
-			{	gii[j]=gii[j]+((intensity1*intensity1)*(g[j])/intensity1*ds[j]);
-				kii[j]=kii[j]+(intensity1*(k[j]));
+			{	gii[j]=gii[j]+intensity1*intensity1*g[j]/intensity1*ds[j];
+				kii[j]=kii[j]+intensity1*k[j];
 			}
 		}
 
@@ -4340,8 +4333,7 @@ int *t2,double *dt,int *nbtype,int *type,double *surface,double *gs, double *ks,
     vecintalloc(&l,*nbtype+1);
     double *ds;
 
-    double *g;
-    double *k;
+    double *g,*k;
     vecalloc(&g,*t2);
     vecalloc(&k,*t2);
 
@@ -4350,28 +4342,23 @@ int *t2,double *dt,int *nbtype,int *type,double *surface,double *gs, double *ks,
    	    compt[i]=0;
         for(j=0;j<*point_nb;j++){
             if(type[j]==i)
-            {	l[i]++;
-            }
+            	l[i]++;
         }
    	}
 
-    double **xx;
-    double **yy;
+    double **xx,**yy;
    	xx=taballoca(*nbtype,l);
    	yy=taballoca(*nbtype,l);
    	vecalloc(&ds,*t2);
-
    	complete_tab(*point_nb,xx,yy,type,compt,l,x,y);
 
     int erreur;
     double intensity1;
     double intensity=*point_nb/(*surface);
-    double *gii;
-    double *kii;
+    double *gii,*kii;
     vecalloc(&gii,*t2);
     vecalloc(&kii,*t2);
-    double *tabg;
-    double *tabk;
+    double *tabg,*tabk;
     vecalloc(&tabg,*t2);
     vecalloc(&tabk,*t2);
 
@@ -4383,12 +4370,11 @@ int *t2,double *dt,int *nbtype,int *type,double *surface,double *gs, double *ks,
 
     erreur =ripley_tr_disq(point_nb,x,y,x0,y0,r0,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,g,k);
 	if (erreur!=0)
-	{	Rprintf("ERREUR 0 Ripley\n");
-	}
+		Rprintf("ERREUR 0 Ripley\n");
 
     for(j=0;j<*t2;j++)
-    {	g[j]=((intensity*intensity)*(g[j])/intensity*ds[j]);
-        k[j]=(intensity*(k[j]));
+    {	g[j]=intensity*intensity*g[j]/intensity*ds[j];
+        k[j]=intensity*k[j];
         tabg[j]=g[j];
         tabk[j]=k[j];
         if(g[j]==0)
@@ -4404,8 +4390,8 @@ int *t2,double *dt,int *nbtype,int *type,double *surface,double *gs, double *ks,
 			}
 			intensity1=l[i+1]/(*surface);
 			for(j=0;j<*t2;j++)
-			{	gii[j]=gii[j]+((intensity1*intensity1)*(g[j])/intensity1*ds[j]);
-				kii[j]=kii[j]+(intensity1*(k[j]));
+			{	gii[j]=gii[j]+intensity1*intensity1*g[j]/intensity1*ds[j];
+				kii[j]=kii[j]+intensity1*k[j];
 			}
 		}
 
@@ -4435,19 +4421,17 @@ int *t2,double *dt,int *nbtype,int *type,double *surface,double *gs, double *ks,
 }
 
 int shimatani_rect_ic(int *point_nb,double *x,double *y, double *xmi,double *xma,double *ymi,double *yma,
-					   int *t2,double *dt,int *nbSimu,double *lev,
-					   int *nbtype,int *type,double *surface,double *D,
-					   double *gs, double *ks,double *gic1,double *gic2,double *kic1,double *kic2,
-					   double *gval,double *kval,int *error)
+					  int *t2,double *dt,int *nbSimu,double *lev,
+					  int *nbtype,int *type,double *surface,double *D,
+					  double *gs, double *ks,double *gic1,double *gic2,double *kic1,double *kic2,
+					  double *gval,double *kval,int *error)
 {
     int i,j,b,z=0;
     int *l;// contient le nombre d'arbres par espèce
     int compt[*nbtype+1];// tableau de compteurs pour xx et yy
     vecintalloc(&l,*nbtype+1);
-    double *ds;
-	
-    double *g;
-    double *k;
+    double *ds;	
+    double *g,*k;
     vecalloc(&g,*t2);
     vecalloc(&k,*t2);
 	
@@ -4456,9 +4440,7 @@ int shimatani_rect_ic(int *point_nb,double *x,double *y, double *xmi,double *xma
    	    compt[i]=0;
         for(j=0;j<*point_nb;j++){
             if(type[j]==i)
-            {
                 l[i]++;
-            }
         }
    	}
 	
@@ -4473,18 +4455,15 @@ int shimatani_rect_ic(int *point_nb,double *x,double *y, double *xmi,double *xma
     int erreur;
     double intensity1;
     double intensity=*point_nb/(*surface);
-    double *gii;
-    double *kii;
+    double *gii,*kii;
     vecalloc(&gii,*t2);
     vecalloc(&kii,*t2);
-    double *tabg;
-    double *tabk;
+    double *tabg,*tabk;
     vecalloc(&tabg,*t2);
     vecalloc(&tabk,*t2);
 	
     for(j=0;j<*t2;j++)
-    {
-        gii[j]=0;
+    {	gii[j]=0;
         kii[j]=0;
         ds[j]=(Pi()*(j+1)*(*dt)*(j+1)*(*dt))-(Pi()*j*j*(*dt)*(*dt));
     }
@@ -4496,8 +4475,8 @@ int shimatani_rect_ic(int *point_nb,double *x,double *y, double *xmi,double *xma
 	}
 	
 	for(j=0;j<*t2;j++)
-    {	g[j]=((intensity*intensity)*(g[j])/intensity*ds[j]);
-        k[j]=(intensity*(k[j]));
+    {	g[j]=intensity*intensity*g[j]/intensity*ds[j];
+        k[j]=intensity*k[j];
         tabg[j]=g[j];
         tabk[j]=k[j];
         if(g[j]==0)
@@ -4525,15 +4504,15 @@ int shimatani_rect_ic(int *point_nb,double *x,double *y, double *xmi,double *xma
 			ks[j]=1-kii[j]/tabk[j];
 		}
 		
-		//simulaitons sur gii, kii
+		//simulations sur gii, kii
 		double **gic,**kic;
 		int i0,i1,i2;
 		
-		/*Definition de i0 : indice ou sera stocke l'estimation des bornes de l'IC*/
+		//Definition de i0 : indice ou sera stocke l'estimation des bornes de l'IC
 		i0=*lev/2*(*nbSimu+1);
 		if (i0<1) i0=1;
 		
-		/*Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC*/
+		//Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC
 		taballoc(&gic,*t2+1,2*i0+10+1);
 		taballoc(&kic,*t2+1,2*i0+10+1);
 		double *gsic,*ksic;
@@ -4547,7 +4526,7 @@ int shimatani_rect_ic(int *point_nb,double *x,double *y, double *xmi,double *xma
 		
 		int lp=0;
 		
-		/*boucle principale de MC*/
+		//boucle principale de MC
 		Rprintf("Monte Carlo simulation\n");
 		for(b=1;b<=*nbSimu;b++)
 		{	randomlab(x,y,*point_nb,type,*nbtype,xx,l,yy);
@@ -4596,12 +4575,6 @@ int shimatani_rect_ic(int *point_nb,double *x,double *y, double *xmi,double *xma
 		free(kic);
 	}
 	
-   /*	for( i = 0; i < *nbtype; i++)
-		free(xx[i]);
-    free(xx);
-    for( i = 0; i < *nbtype; i++)
-		free(yy[i]);
-    free(yy);*/
 	for( i = 0; i < *nbtype; i++) {
 		free(xx[i]);
 		free(yy[i]);
@@ -4634,9 +4607,7 @@ int shimatani_disq_ic(int *point_nb,double *x,double *y, double *x0,double *y0,d
     int compt[*nbtype+1];// tableau de compteurs pour xx et yy
     vecintalloc(&l,*nbtype+1);
     double *ds;
-	
-    double *g;
-    double *k;
+    double *g,*k;
     vecalloc(&g,*t2);
     vecalloc(&k,*t2);
 	
@@ -4645,34 +4616,28 @@ int shimatani_disq_ic(int *point_nb,double *x,double *y, double *x0,double *y0,d
    	    compt[i]=0;
         for(j=0;j<*point_nb;j++){
             if(type[j]==i)
-            {	l[i]++;
-            }
+            	l[i]++;
         }
    	}
 	
-    double **xx;
-    double **yy;
+    double **xx,**yy;
    	xx=taballoca(*nbtype,l);
    	yy=taballoca(*nbtype,l);
-   	vecalloc(&ds,*t2);
-	
+   	vecalloc(&ds,*t2);	
    	complete_tab(*point_nb,xx,yy,type,compt,l,x,y);
 	
     int erreur;
     double intensity1;
     double intensity=*point_nb/(*surface);
-    double *gii;
-    double *kii;
+    double *gii,*kii;
     vecalloc(&gii,*t2);
     vecalloc(&kii,*t2);
-    double *tabg;
-    double *tabk;
+    double *tabg,*tabk;
     vecalloc(&tabg,*t2);
     vecalloc(&tabk,*t2);
 	
     for(j=0;j<*t2;j++)
-    {
-        gii[j]=0;
+    {	gii[j]=0;
         kii[j]=0;
         ds[j]=(Pi()*(j+1)*(*dt)*(j+1)*(*dt))-(Pi()*j*j*(*dt)*(*dt));
     }
@@ -4680,12 +4645,11 @@ int shimatani_disq_ic(int *point_nb,double *x,double *y, double *x0,double *y0,d
 	//pour tous les points
 	erreur =ripley_disq(point_nb,x,y,x0,y0,r0,t2,dt,g,k);
 	if (erreur!=0)
-	{	Rprintf("ERREUR 0 Ripley\n");
-	}
+		Rprintf("ERREUR 0 Ripley\n");
 	
 	for(j=0;j<*t2;j++)
-    {	g[j]=((intensity*intensity)*(g[j])/intensity*ds[j]);
-        k[j]=(intensity*(k[j]));
+    {	g[j]=intensity*intensity*g[j]/intensity*ds[j];
+        k[j]=intensity*k[j];
         tabg[j]=g[j];
         tabk[j]=k[j];
         if(g[j]==0)
@@ -4695,8 +4659,7 @@ int shimatani_disq_ic(int *point_nb,double *x,double *y, double *x0,double *y0,d
     }
 	
 	if(z==0)
-	{
-		//boucle initiale
+	{	//boucle initiale
 		//pour chaque espce
 		for(i=0;i<*nbtype;i++)
 		{	erreur=ripley_disq(&l[i+1],xx[i],yy[i],x0,y0,r0,t2,dt,g,k);
@@ -4706,8 +4669,8 @@ int shimatani_disq_ic(int *point_nb,double *x,double *y, double *x0,double *y0,d
 			}
 			intensity1=l[i+1]/ *(surface);
 			for(j=0;j<*t2;j++)
-			{	gii[j]=gii[j]+((intensity1*intensity1)*(g[j])/intensity1*ds[j]);
-				kii[j]=kii[j]+(intensity1*(k[j]));
+			{	gii[j]=gii[j]+intensity1*intensity1*g[j]/intensity1*ds[j];
+				kii[j]=kii[j]+intensity1*k[j];
 			}
 			
 		}
@@ -4728,9 +4691,6 @@ int shimatani_disq_ic(int *point_nb,double *x,double *y, double *x0,double *y0,d
 		/*Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC*/
 		taballoc(&gic,*t2+1,2*i0+10+1);
 		taballoc(&kic,*t2+1,2*i0+10+1);
-		double *gsic,*ksic;
-		vecalloc(&gsic,*t2);
-		vecalloc(&ksic,*t2);
 		
 		for(i=0;i<*t2;i++)
 		{	gval[i]=1;
@@ -4762,8 +4722,8 @@ int shimatani_disq_ic(int *point_nb,double *x,double *y, double *x0,double *y0,d
 			for(j=0;j<*t2;j++)
 			{	gii[j]=1-gii[j]/tabg[j];
 				kii[j]=1-kii[j]/tabk[j];
-				if ((float)fabs(gs[j]-*D)<=(float)fabs(gii[j]-*D)) {gval[j]+=1;}
-				if ((float)fabs(ks[j]-*D)<=(float)fabs(kii[j]-*D)) {kval[j]+=1;}
+				if ((float)fabs(gs[j]-*D)<=(float)fabs(gii[j]-*D)) gval[j]+=1;
+				if ((float)fabs(ks[j]-*D)<=(float)fabs(kii[j]-*D)) kval[j]+=1;
 			}
 			
 			//Traitement des resultats
@@ -4782,8 +4742,6 @@ int shimatani_disq_ic(int *point_nb,double *x,double *y, double *x0,double *y0,d
 			kic1[i]=kic[i+1][i1];
 			kic2[i]=kic[i+1][i2];
 		}
-		free(gsic);
-		free(ksic);
 		free(gic);
 		free(kic);
 	}
@@ -5221,768 +5179,1462 @@ int randomlab(double *x,double *y,int total_nb,int *type,int nb_type, double **x
 /**********************************************************/
 /* Fonctions de Rao pour les semis de points multivariŽs  */
 /**********************************************************/
+//V2 as wrapper of K12fun - 08/2013
 int rao_rect(int *point_nb,double *x,double *y, double *xmi,double *xma,double *ymi,double *yma,
-					 int *t2,double *dt,double *g,double *k, int* type, double *mat,int *nbtype)
-{	int i,j,tt,ind;
-    double d,cin=1;
-    double *gint, *kint;
-    vecalloc(&gint,*t2);
-    vecalloc(&kint,*t2);
-	
-    /*Decalage pour n'avoir que des valeurs positives*/
-    decalRect(*point_nb,x,y,xmi,xma,ymi,yma);
-	
-    /* On rangera dans g le nombre de couples de points par distance tt*/
-    for(tt=0; tt<*t2; tt++)
-    {	g[tt]=0;
-        k[tt]=0;
-    }
-    /*On regarde les couples (i,j) et (j,i) : donc pour i>j seulement*/
-    for(i=1; i<*point_nb; i++)
-    {	for(j=0; j<i; j++)
-        {	d=sqrt((x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]));
-            if (d<*t2*(*dt))
-            {	/* dans quelle classe de distance est ce couple ?*/
-                tt=d/(*dt);
-                /*pour [i,j] : correction des effets de bord*/
-                cin=perim_in_rect(x[i],y[i],d,*xmi,*xma,*ymi,*yma);
-                if (cin<0)
-                {	Rprintf("cin<0 sur i AVANT\n");
-                    return -1;
-                }
-				//indice du vecteur pour la demi-matrice triangle inferieure  
-				if(type[i]>type[j])
-					ind=(type[j]-1)*(*nbtype-2)-(type[j]-2)*(type[j]-1)/2+type[i]-2;
-				else if(type[i]<type[j])
-					ind=(type[i]-1)*(*nbtype-2)-(type[i]-2)*(type[i]-1)/2+type[j]-2;
-				if(type[i]!=type[j])
-					g[tt]+=2*Pi()*mat[ind]/cin;
-                k[tt]+=2*Pi()/cin;
-				//pour [j,i] : correction des effets de bord
-                cin=perim_in_rect(x[j],y[j],d,*xmi,*xma,*ymi,*yma);
-                if (cin<0)
-                {	Rprintf("cin<0 sur j AVANT\n");
-                    return -1;
-                }
-				if(type[i]!=type[j])
-					g[tt]+=2*Pi()*mat[ind]/cin;
-				k[tt]+=2*Pi()/cin;
-			}
-        }
-    }
-	
-    gint[0]=g[0];
-    kint[0]=k[0];
-    g[0]=g[0]/k[0];
-    k[0]=gint[0]/kint[0];
-   
-	for(tt=1;tt<*t2; tt++)
-    {	gint[tt]=g[tt]+gint[tt-1];
-        kint[tt]=k[tt]+kint[tt-1];
-        g[tt]=g[tt]/k[tt];
-        k[tt]=gint[tt]/kint[tt];
-    }
-    free(gint);
-    free(kint);
-    return 0;
-}
-
-int rao_disq(int *point_nb, double *x, double *y, double *x0, double *y0, double *r0,
-					 int *t2, double *dt, double *g, double *k, int *type,double *mat,int *nbtype)
+			 int *t2,double *dt,int *h0,int *nbtype,int *type,double *mat,double *surface,double *HD,double *gr, double *kr,double *gs,double *ks,int *error)
 {
-    int tt,i,j,ind;
-    double d,cin;
-	
-    double *gint, *kint;
-    vecalloc(&gint,*t2);
-    vecalloc(&kint,*t2);
-	
-    /*Decalage pour n'avoir que des valeurs positives*/
-    decalCirc(*point_nb,x,y,x0,y0,*r0);
-	
-    for(tt=0; tt<*t2; tt++)
-    {
-        g[tt]=0;
-        k[tt]=0;
-    }
-    for(i=1; i<*point_nb; i++) /*On calcule le nombre de couples de points par distance g*/
-    {
-        for(j=0; j<i; j++)
-        {
-            d=sqrt((x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]));
-            if (d<*t2*(*dt))
-            {
-                tt=d/(*dt);
-				
-                /*pour [i,j] : correction des effets de bord*/
-                cin=perim_in_disq(x[i],y[i],d,*x0,*y0,*r0);
-                if (cin<0)
-                {
-                    Rprintf("cin<0 sur i AVANT\n");
-                    return -1;
-                }
-				//indice du vecteur pour la demi-matrice triangle inferieure  
-				if(type[i]>type[j])
-					ind=(type[j]-1)*(*nbtype-2)-(type[j]-2)*(type[j]-1)/2+type[i]-2;
-				else if(type[i]<type[j])
-					ind=(type[i]-1)*(*nbtype-2)-(type[i]-2)*(type[i]-1)/2+type[j]-2;
-				//Rprintf("i:%d,j:%d;ind:%d\n",type[i],type[j],ind);
-				if(type[i]!=type[j])
-					g[tt]+=2*Pi()*mat[ind]/cin;
-                k[tt]+=2*Pi()/cin;
-                /*pour [j,i] : correction des effets de bord*/
-                cin=perim_in_disq(x[j],y[j],d,*x0,*y0,*r0);
-                if (cin<0)
-                {
-                    Rprintf("cin<0 sur j AVANT\n");
-                    return -1;
-                }
-                if(type[i]!=type[j])
-					g[tt]+=2*Pi()*mat[ind]/cin;
-				k[tt]+=2*Pi()/cin;
-            }
-        }
-    }
-	
-    gint[0]=g[0];
-    kint[0]=k[0];
-    g[0]=g[0]/k[0];
-    k[0]=gint[0]/kint[0];
-	
-    for(tt=1;tt<*t2; tt++)
-    {
-        gint[tt]=g[tt]+gint[tt-1];
-        kint[tt]=k[tt]+kint[tt-1];
-        g[tt]=g[tt]/k[tt];
-        k[tt]=gint[tt]/kint[tt];
-    }
-	
-    free(gint);
-    free(kint);
-    return 0;
-}
-
-int rao_tr_rect(int *point_nb, double *x, double *y, double *xmi, double *xma, double *ymi, double *yma,
-						int *triangle_nb, double *ax, double *ay, double *bx, double *by, double *cx, double *cy,
-						int *t2, double *dt, double *g, double *k, int *type,double *mat,int *nbtype)
-{
-    int i,j,tt,ind;
-    double d,cin;
-	
-    double *gint, *kint;
-    vecalloc(&gint,*t2);
-    vecalloc(&kint,*t2);
-	
-    /*Decalage pour n'avoir que des valeurs positives*/
-    decalRectTri(*point_nb,x,y,xmi,xma,ymi,yma,*triangle_nb,ax,ay,bx,by,cx,cy);
-	
-    /* On calcule le nombre de couples de points par distance g*/
-    for(tt=0; tt<*t2; tt++)
-    {
-        g[tt]=0;
-        k[tt]=0;
-    }
-    for(i=1; i<*point_nb; i++)
-        for(j=0; j<i; j++)
-        {
-            d=sqrt((x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]));
-            if (d<*t2*(*dt))
-            {
-                tt=d/(*dt);
-				
-                /*pour [i,j] : correction des effets de bord*/
-                cin=perim_in_rect(x[i],y[i],d,*xmi,*xma,*ymi,*yma);
-                if (cin<0)
-                {
-                    Rprintf("cin<0 sur i AVANT\n");
-                    return -1;
-                }
-                cin=cin-perim_triangle(x[i],y[i],d,*triangle_nb,ax,ay,bx,by,cx,cy);
-                if (cin<0)
-                {
-                    Rprintf("Overlapping triangles\n");
-                    return -1;
-                }
-                //indice du vecteur pour la demi-matrice triangle inferieure  
-				if(type[i]>type[j])
-					ind=(type[j]-1)*(*nbtype-2)-(type[j]-2)*(type[j]-1)/2+type[i]-2;
-				else if(type[i]<type[j])
-					ind=(type[i]-1)*(*nbtype-2)-(type[i]-2)*(type[i]-1)/2+type[j]-2;
-				if(type[i]!=type[j])
-					g[tt]+=2*Pi()*mat[ind]/cin;
-                k[tt]+=2*Pi()/cin;
-				
-                /*pour [j,i] : correction des effets de bord*/
-                cin=perim_in_rect(x[j],y[j],d,*xmi,*xma,*ymi,*yma);
-                if (cin<0)
-                {
-                    Rprintf("cin<0 sur j AVANT\n");
-                    return -1;
-                }
-                cin=cin-perim_triangle(x[j],y[j],d,*triangle_nb,ax,ay,bx,by,cx,cy);
-                if (cin<0)
-                {
-                    Rprintf("Overlapping triangles\n");
-                    return -1;
-                }
-                if(type[i]!=type[j])
-					g[tt]+=2*Pi()*mat[ind]/cin;
-				k[tt]+=2*Pi()/cin;
-            }
-        }
-	
-    gint[0]=g[0];
-    kint[0]=k[0];
-    g[0]=g[0]/k[0];
-    k[0]=gint[0]/kint[0];
-	
-    for(tt=1;tt<*t2; tt++)
-    {
-        gint[tt]=g[tt]+gint[tt-1];
-        kint[tt]=k[tt]+kint[tt-1];
-        g[tt]=g[tt]/k[tt];
-        k[tt]=gint[tt]/kint[tt];
-    }
-	
-    free(gint);
-    free(kint);
-    return 0;
-}
-
-int rao_tr_disq(int *point_nb,double *x,double *y,double *x0,double *y0,double *r0,int *triangle_nb,
-						double *ax,double *ay,double *bx,double *by,double *cx,double *cy,
-						int *t2,double *dt,double *g,double *k, int *type,double *mat,int *nbtype)
-{
-    int i,j,tt,ind;
-    double d,cin;
-	
-    double *gint, *kint;
-    vecalloc(&gint,*t2);
-    vecalloc(&kint,*t2);
-	
-    /*Decalage pour n'avoir que des valeurs positives*/
-    decalCircTri(*point_nb,x,y,x0,y0,*r0,*triangle_nb,ax,ay,bx,by,cx,cy);
-	
-    /* On calcule le nombre de couples de points par distance g*/
-    for(tt=0; tt<*t2; tt++)
-    {
-        g[tt]=0;
-        k[tt]=0;
-    }
-    for(i=1; i<*point_nb; i++)
-        for(j=0; j<i; j++)
-        {
-            d=sqrt((x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]));
-            if (d<*t2*(*dt))
-            {
-                tt=d/(*dt);
-				
-                /* pour [i,j] : correction des effets de bord*/
-                cin=perim_in_disq(x[i],y[i],d,*x0,*y0,*r0);
-                if (cin<0)
-                {
-                    Rprintf("cin<0 sur i AVANT\n");
-                    return -1;
-                }
-                cin=cin-perim_triangle(x[i],y[i],d,*triangle_nb,ax,ay,bx,by,cx,cy);
-                if (cin<0)
-                {
-                    Rprintf("Overlapping triangles\n");
-                    return -1;
-                }
-                //indice du vecteur pour la demi-matrice triangle inferieure  
-				if(type[i]>type[j])
-					ind=(type[j]-1)*(*nbtype-2)-(type[j]-2)*(type[j]-1)/2+type[i]-2;
-				else if(type[i]<type[j])
-					ind=(type[i]-1)*(*nbtype-2)-(type[i]-2)*(type[i]-1)/2+type[j]-2;
-				if(type[i]!=type[j])
-					g[tt]+=2*Pi()*mat[ind]/cin;
-                k[tt]+=2*Pi()/cin;
-				
-                // pour [j,i] : correction des effets de bord
-                cin=perim_in_disq(x[j],y[j],d,*x0,*y0,*r0);
-                if (cin<0)
-                {
-                    Rprintf("cin<0 sur j AVANT\n");
-                    return -1;
-                }
-                cin=cin-perim_triangle(x[j],y[j],d,*triangle_nb,ax,ay,bx,by,cx,cy);
-                if (cin<0)
-                {
-                    Rprintf("Overlapping triangles\n");
-                    return -1;
-                }
-                if(type[i]!=type[j])
-					g[tt]+=2*Pi()*mat[ind]/cin;
-				k[tt]+=2*Pi()/cin;
-            }
-        }
-	
-    gint[0]=g[0];
-    kint[0]=k[0];
-    g[0]=g[0]/k[0];
-    k[0]=gint[0]/kint[0];
-	
-    for(tt=1;tt<*t2; tt++)
-    {
-        gint[tt]=g[tt]+gint[tt-1];
-        kint[tt]=k[tt]+kint[tt-1];
-        g[tt]=g[tt]/k[tt];
-        k[tt]=gint[tt]/kint[tt];
-    }
-	
-    free(gint);
-    free(kint);
-	
-    return 0;
-}
-
-int rao_rect_ic(int *point_nb,double *x,double *y, double *xmi,double *xma,double *ymi,double *yma,double *densite,
-						int *t2,double *dt,int *nbSimu,double *lev,double *HD,double *g,double *k,
-						double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval,int *type,int *nbtype,double *mat)
-{
-    int i,j,i0,i1,i2;
-    double **gic,**kic;
-    double *gg,*kk;
-    int erreur=0;
-	
-    erreur=rao_rect(point_nb,x,y,xmi,xma,ymi,yma,t2,dt,g,k,type,mat,nbtype);
-    if (erreur!=0)
-    {
-        return -1;
-    }
-		
-    /*Definition de i0 : indice ou sera stocke l'estimation des bornes de l'IC*/
-    i0=*lev/2*(*nbSimu+1);
-    if (i0<1) i0=1;
-	
-    /*Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC*/
-    taballoc(&gic,*t2+1,2*i0+10+1);
-    taballoc(&kic,*t2+1,2*i0+10+1);
-	
-    /*Normalisation de g et k et calcul de l et n pour le calcul des p-values*/
-    vecalloc(&gg,*t2);
-    vecalloc(&kk,*t2);
-    for(i=0; i<*t2; i++)
-    {	gg[i]=g[i];
-        kk[i]=k[i];
-        gval[i]=1;
-        kval[i]=1;
-    }
-	
-    int lp=0;
-	
+    int i,j,p,z=0;
     int *l;// contient le nombre d'arbres par espèce
     int compt[*nbtype+1];// tableau de compteurs pour xx et yy
     vecintalloc(&l,*nbtype+1);
+    double *ds,dis;
 	
-	for(i=1; i<*nbtype+1; i++)
-    {	l[i]=0;
-        compt[i]=0;
-        for(j=0; j<*point_nb; j++)
-        {	if(type[j]==i)
-            {	l[i]++;
-            }
+    double *g,*k;
+    vecalloc(&g,*t2);
+    vecalloc(&k,*t2);
+	
+   	for(i=1;i<*nbtype+1;i++){
+   	    l[i]=0;
+   	    compt[i]=0;
+        for(j=0;j<*point_nb;j++){
+            if(type[j]==i)
+            	l[i]++;
         }
+   	}
+	
+    double **xx,**yy;
+   	xx=taballoca(*nbtype,l);
+   	yy=taballoca(*nbtype,l);
+   	vecalloc(&ds,*t2);
+	
+   	complete_tab(*point_nb,xx,yy,type,compt,l,x,y);
+	
+    int erreur;
+    double intensity1,point_nb2,point_nb1,intensity2;
+    double intensity=*point_nb/(*surface);
+    double *gii,*kii;
+    vecalloc(&gii,*t2);
+    vecalloc(&kii,*t2);
+    double *tabg,*tabk;
+    vecalloc(&tabg,*t2);
+    vecalloc(&tabk,*t2);
+	
+    for(j=0;j<*t2;j++)
+    {	gii[j]=0;
+        kii[j]=0;
+        ds[j]=(Pi()*(j+1)*(*dt)*(j+1)*(*dt))-(Pi()*j*j*(*dt)*(*dt));
     }
-    double **xx;
-    double **yy;
-    xx=taballoca(*nbtype,l);
-    yy=taballoca(*nbtype,l);
+	//Ripley all points	
+    erreur =ripley_rect(point_nb,x,y,xmi,xma,ymi,yma,t2,dt,g,k);
+	if (erreur!=0)
+		Rprintf("ERREUR 0 Ripley\n");
 	
-    complete_tab(*point_nb,xx,yy,type,compt,l,x,y);
+	// Shimatani function for normalisation under H0=2
+	double D=0;
+	if(*h0==2)
+	{	erreur=shimatani_rect(point_nb,x,y,xmi,xma,ymi,yma,t2,dt,nbtype,type,surface,gs,ks,error);
+		for(i=1;i<(*nbtype+1);i++)
+			D+=(float)l[i]*((float)l[i]-1);
+		D=1-D/((float)(*point_nb)*((float)(*point_nb)-1));
+	}
 	
-    /*boucle principale de MC*/
-    Rprintf("Monte Carlo simulation\n");
-    for(i=1; i<=*nbSimu; i++)
-    {	randomlab(x,y,*point_nb,type,*nbtype,xx,l,yy);
-		erreur=rao_rect(point_nb,x,y,xmi,xma,ymi,yma,t2,dt,gic1,kic1,type,mat,nbtype);
-        if (erreur!=0)
-			Rprintf("ERREUR Ripley\n");
-        /*comptage du nombre de |¶obs|<=|¶simu| pour test local*/
-		for(j=0; j<*t2; j++)
-		{	if ((float)fabs(gg[j]-*HD)<=(float)fabs(gic1[j]-*HD))
-			{	gval[j]+=1;
-			}
-			if ((float)fabs(kk[j]-*HD)<=(float)fabs(kic1[j]-*HD))
-			{	kval[j]+=1;
+    for(j=0;j<*t2;j++)
+    {	g[j]=intensity*g[j]/ds[j];
+		k[j]=intensity*k[j];
+		tabg[j]=g[j];
+		tabk[j]=k[j];
+		if(g[j]==0)
+		{	error[j]=j;
+			z+=1;
+		}
+		if(*h0==2) {
+			gs[j]=gs[j]/D;
+			ks[j]=ks[j]/D;
+		}
+    }
+	//Intertype for each pair of types
+	if(z==0)
+	{	for(i=1;i<*nbtype;i++)
+		{	for(p=0;p<i;p++)
+			{	dis=mat[p*(*nbtype-2)-(p-1)*p/2+i-1];
+				erreur=intertype_rect(&l[i+1],xx[i],yy[i],&l[p+1],xx[p],yy[p],xmi,xma,ymi,yma,t2,dt,g,k);
+				if (erreur!=0)
+					Rprintf("ERREUR 1 Intertype\n");
+				intensity1=l[i+1]/(*surface);
+				for(j=0;j<*t2;j++)
+				{	gii[j]=gii[j]+dis*intensity1*g[j]/ds[j];
+					kii[j]=kii[j]+dis*intensity1*k[j];
+				}
+				erreur=intertype_rect(&l[p+1],xx[p],yy[p],&l[i+1],xx[i],yy[i],xmi,xma,ymi,yma,t2,dt,g,k);
+				if (erreur!=0)
+					Rprintf("ERREUR 2 Intertype\n");
+				intensity2=l[p+1]/(*surface);
+				for(j=0;j<*t2;j++)
+				{	gii[j]=gii[j]+dis*intensity2*g[j]/ds[j];
+					kii[j]=kii[j]+dis*intensity2*k[j];
+				}
 			}
 		}
-            /*Traitement des resultats*/
-		ic(i,i0,gic,kic,gic1,kic1,*t2);
-        R_FlushConsole();
-        progress(i,&lp,*nbSimu);
-    }
-	
-    i1=i0+2;
-    i2=i0;
-	
-    /*Copies des valeurs dans les tableaux resultats*/
-    for(i=0; i<*t2; i++)
-    {	gic1[i]=gic[i+1][i1];
-        gic2[i]=gic[i+1][i2];
-        kic1[i]=kic[i+1][i1];
-        kic2[i]=kic[i+1][i2];
-    }
-	
-    for(i=0; i<*t2; i++)
-    {	free(gic[i]);
-        free(kic[i]);
-    }
-	
-    for(i=0;i<*nbtype;i++)
-    {	free(xx[i]);
-        free(yy[i]);
-    }
-	
-    free(gic);
-    free(kic);
-    freevec(gg);
-    freevec(kk);
-    free(xx);
-    free(yy);
-    free(l);
-	return 0;
-}
-
-int rao_disq_ic(int *point_nb,double *x,double *y, double *x0,double *y0,double *r0,double *densite,
-						int *t2,double *dt,int *nbSimu, double *lev,double *HD,double *g,double *k,
-						double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval,int *type,int *nbtype, double *mat)
-{
-    int i,j,i0,i1,i2;
-    double **gic,**kic;
-    double *gg,*kk;
-    int erreur=0;
-	
-    erreur=rao_disq(point_nb,x,y,x0,y0,r0,t2,dt,g,k,type,mat,nbtype);
-    if (erreur!=0)
-    {
-        return -1;
-    }
-	
-    /*Definition de i0 : indice ou sera stocke l'estimation des bornes de l'IC*/
-    i0=*lev/2*(*nbSimu+1);
-    if (i0<1) i0=1;
-	
-    /*Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC*/
-    taballoc(&gic,*t2+1,2*i0+10+1);
-    taballoc(&kic,*t2+1,2*i0+10+1);
-	
-    /*Normalisation de g et k et calcul de l et n pour le calcul des p-values*/
-    vecalloc(&gg,*t2);
-    vecalloc(&kk,*t2);
-    for(i=0; i<*t2; i++)
-    {	gg[i]=g[i];
-        kk[i]=k[i];
-        gval[i]=1;
-        kval[i]=1;
-    }
-	
-    int lp=0;
-	
-    int *l;// contient le nombre d'arbres par espèce
-    int compt[*nbtype+1];// tableau de compteurs pour xx et yy
-    vecintalloc(&l,*nbtype+1);
-	
-	for(i=1; i<*nbtype+1; i++)
-    {	l[i]=0;
-        compt[i]=0;
-        for(j=0; j<*point_nb; j++)
-        {	if(type[j]==i)
-            {	l[i]++;
-            }
-        }
-    }
-    double **xx;
-    double **yy;
-    xx=taballoca(*nbtype,l);
-    yy=taballoca(*nbtype,l);
-	
-    complete_tab(*point_nb,xx,yy,type,compt,l,x,y);
-	
-    /*boucle principale de MC*/
-    Rprintf("Monte Carlo simulation\n");
-    for(i=1; i<=*nbSimu; i++)
-    {	randomlab(x,y,*point_nb,type,*nbtype,xx,l,yy);
-        erreur=rao_disq(point_nb,x,y,x0,y0,r0,t2,dt,gic1,kic1,type,mat,nbtype);
-        /* si il y a une erreur on recommence une simulation*/
-        if (erreur!=0)
-        {	i=i-1;
-			Rprintf("ERREUR Ripley\n");
-        }
-        else
-        {	/*comptage du nombre de |¶obs|<=|¶simu| pour test local*/
-            for(j=0; j<*t2; j++)
-            {	if ((float)fabs(gg[j]-*HD)<=(float)fabs(gic1[j]-*HD))
-                {	gval[j]+=1;
-                }
-                if ((float)fabs(kk[j]-*HD)<=(float)fabs(kic1[j]-*HD))
-                {	kval[j]+=1;
-                }
-            }
-			
-            /*Traitement des resultats*/
-            ic(i,i0,gic,kic,gic1,kic1,*t2);
-        }
-        R_FlushConsole();
-        progress(i,&lp,*nbSimu);
-    }
-	
-    i1=i0+2;
-    i2=i0;
-	
-    /*Copies des valeurs dans les tableaux resultats*/
-    for(i=0; i<*t2; i++)
-    {	gic1[i]=gic[i+1][i1];
-        gic2[i]=gic[i+1][i2];
-        kic1[i]=kic[i+1][i1];
-        kic2[i]=kic[i+1][i2];
-    }
-	
-    for(i=0; i<*t2; i++)
-    {	free(gic[i]);
-        free(kic[i]);
-    }
+		
+		for(j=0;j<*t2;j++)
+		{	gr[j]=gii[j]/(tabg[j]*(*HD));
+			kr[j]=kii[j]/(tabk[j]*(*HD));
+		}
+	}
 	
 	for(i=0;i<*nbtype;i++)
-    {	free(xx[i]);
-        free(yy[i]);
-    }
+	{	free(xx[i]);
+		free(yy[i]);
+	}
     free(xx);
     free(yy);
-    free(l);
+    free(g);
+    free(k);
+	free(l);
 	
-    free(gic);
-    free(kic);
-    freevec(gg);
-    freevec(kk);
-	return 0;
-}
-
-int rao_tr_rect_ic(int *point_nb,double *x,double *y, double *xmi,double *xma,double *ymi,double *yma,double *densite,
-						   int *triangle_nb, double *ax, double *ay, double *bx, double *by, double *cx, double *cy,
-						   int *t2,double *dt,int *nbSimu, double *lev,double *HD,double *g,double *k,
-						   double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval,int *type, int * nbtype,double *mat)
-{	int i,j,i0,i1,i2;
-    double **gic,**kic;
-    double *gg,*kk;
-    int erreur=0;
+    free(tabg);
+    free(tabk);
 	
-    erreur=rao_tr_rect(point_nb,x,y,xmi,xma,ymi,yma,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,g,k,type,mat,nbtype);
-    if (erreur!=0)
-    {	return -1;
-    }
+    freevec(gii);
+    freevec(kii);
+    freevec(ds);
 	
-    /*Definition de i0 : indice ou sera stocke l'estimation des bornes de l'IC*/
-    i0=*lev/2*(*nbSimu+1);
-    if (i0<1) i0=1;
-	
-    /*Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC*/
-    taballoc(&gic,*t2+1,2*i0+10+1);
-    taballoc(&kic,*t2+1,2*i0+10+1);
-	
-    /*Normalisation de g et k et calcul de l et n pour le calcul des p-values*/
-    vecalloc(&gg,*t2);
-    vecalloc(&kk,*t2);
-    for(i=0; i<*t2; i++)
-    {	gg[i]=g[i];
-        kk[i]=k[i];
-        gval[i]=1;
-        kval[i]=1;
-    }
-	
-    int lp=0;
-	
-    int *l;// contient le nombre d'arbres par espèce
-    int compt[*nbtype+1];// tableau de compteurs pour xx et yy
-    vecintalloc(&l,*nbtype+1);
-	
-	for(i=1; i<*nbtype+1; i++)
-    {	l[i]=0;
-        compt[i]=0;
-        for(j=0; j<*point_nb; j++)
-        {	if(type[j]==i)
-            {	l[i]++;
-            }
-        }
-    }
-    double **xx;
-    double **yy;
-    xx=taballoca(*nbtype,l);
-    yy=taballoca(*nbtype,l);
-	
-    complete_tab(*point_nb,xx,yy,type,compt,l,x,y);
-	
-    /*boucle principale de MC*/
-    Rprintf("Monte Carlo simulation\n");
-    for(i=1; i<=*nbSimu; i++)
-    {	randomlab(x,y,*point_nb,type,*nbtype,xx,l,yy);
-		erreur=rao_tr_rect(point_nb,x,y,xmi,xma,ymi,yma,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,gic1,kic1,type,mat,nbtype);
-        /* si il y a une erreur on recommence une simulation*/
-        if (erreur!=0)
-        {	i=i-1;
-            Rprintf("ERREUR Ripley\n");
-        }
-        else
-        {
-            /*comptage du nombre de |¶obs|<=|¶simu| pour test local*/
-            for(j=0; j<*t2; j++)
-            {	if ((float)fabs(gg[j]-*HD)<=(float)fabs(gic1[j]-*HD))
-                {	gval[j]+=1;
-                }
-                if ((float)fabs(kk[j]-*HD)<=(float)fabs(kic1[j]-*HD))
-                {	kval[j]+=1;
-                }
-            }
-            /*Traitement des resultats*/
-            ic(i,i0,gic,kic,gic1,kic1,*t2);
-        }
-        R_FlushConsole();
-        progress(i,&lp,*nbSimu);
-    }
-	
-    i1=i0+2;
-    i2=i0;
-	
-    /*Copies des valeurs dans les tableaux resultats*/
-    for(i=0; i<*t2; i++)
-    {	gic1[i]=gic[i+1][i1];
-        gic2[i]=gic[i+1][i2];
-        kic1[i]=kic[i+1][i1];
-        kic2[i]=kic[i+1][i2];
-    }
-	
-    for(i=0; i<*t2; i++)
-    {	free(gic[i]);
-        free(kic[i]);
-    }
-	
-    for(i=0;i<*nbtype;i++)
-    {	free(xx[i]);
-        free(yy[i]);
-    }
-	
-    free(gic);
-    free(kic);
-    freevec(gg);
-    freevec(kk);
-    free(xx);
-    free(yy);
-    free(l);
     return 0;
 }
 
-int rao_tr_disq_ic(int *point_nb,double *x,double *y, double *x0,double *y0,double *r0,double *densite,
-						   int *triangle_nb, double *ax, double *ay, double *bx, double *by, double *cx, double *cy,
-						   int *t2,double *dt,int *nbSimu, double *lev,double *HD,double *g,double *k,
-						   double *gic1,double *gic2, double *kic1,double *kic2, double *gval, double *kval,int *type, int *nbtype,double *mat)
-{	int i,j,i0,i1,i2;
-    double **gic,**kic;
-    double *gg,*kk;
-    int erreur=0;
+int rao_rect_ic(int *point_nb,double *x,double *y, double *xmi,double *xma,double *ymi,double *yma,
+					 int *t2,double *dt,int *nbSimu, int *h0, double *lev,
+					 int *nbtype,int *type,double *mat,double *surface,double *HD,
+					 double *gr, double *kr,double *gs,double *ks, double *gic1,double *gic2,double *kic1,double *kic2,
+					 double *gval,double *kval,int *error)
+{
+	int i,j,p,b,z=0;
+    int *l;
+    int compt[*nbtype+1];
+    vecintalloc(&l,*nbtype+1);
+    double *ds,dis;
+    double *g,*k;
+    vecalloc(&g,*t2);
+    vecalloc(&k,*t2);
 	
-    erreur=rao_tr_disq(point_nb,x,y,x0,y0,r0,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,g,k,type,mat,nbtype);
-    if (erreur!=0)
-    {	return -1;
+	// l contient le nombre d'arbres par espce
+   	for(i=1;i<*nbtype+1;i++){
+   	    l[i]=0;
+   	    compt[i]=0;
+        for(j=0;j<*point_nb;j++){
+            if(type[j]==i)
+            	l[i]++;
+        }
+   	}
+	
+	// crŽation des tableaux xx et yy par espce
+    double **xx,**yy;
+   	xx=taballoca(*nbtype,l);
+   	yy=taballoca(*nbtype,l);
+   	vecalloc(&ds,*t2);
+	complete_tab(*point_nb,xx,yy,type,compt,l,x,y);
+	
+	//Ripley for all points	
+    int erreur;
+    double intensity1,point_nb2,point_nb1,intensity2;
+    double intensity=*point_nb/(*surface);
+    double *gii,*kii;
+    vecalloc(&gii,*t2);
+    vecalloc(&kii,*t2);
+    double *tabg,*tabk;
+    vecalloc(&tabg,*t2);
+    vecalloc(&tabk,*t2);
+	
+    for(j=0;j<*t2;j++)
+    {	gii[j]=0;
+        kii[j]=0;
+        ds[j]=(Pi()*(j+1)*(*dt)*(j+1)*(*dt))-(Pi()*j*j*(*dt)*(*dt));
     }
 	
-    /*Definition de i0 : indice ou sera stocke l'estimation des bornes de l'IC*/
-    i0=*lev/2*(*nbSimu+1);
-    if (i0<1) i0=1;
+    erreur =ripley_rect(point_nb,x,y,xmi,xma,ymi,yma,t2,dt,g,k);
+	if (erreur!=0)
+		Rprintf("ERREUR 0 Ripley\n");
 	
-    /*Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC*/
-    taballoc(&gic,*t2+1,2*i0+10+1);
-    taballoc(&kic,*t2+1,2*i0+10+1);
-	
-    /*Normalisation de g et k et calcul de l et n pour le calcul des p-values*/
-    vecalloc(&gg,*t2);
-    vecalloc(&kk,*t2);
-    for(i=0; i<*t2; i++)
-    {	gg[i]=g[i];
-        kk[i]=k[i];
-        gval[i]=1;
-        kval[i]=1;
+	// Shimatani function for normalisation under H0=2
+	double D=0;
+	if(*h0==2)
+	{	erreur=shimatani_rect(point_nb,x,y,xmi,xma,ymi,yma,t2,dt,nbtype,type,surface,gs,ks,error);
+		for(i=1;i<(*nbtype+1);i++)
+			D+=(float)l[i]*((float)l[i]-1);
+		D=1-D/((float)(*point_nb)*((float)(*point_nb)-1));
+	}
+	//standardization de Ripley (et Shimatani si H0=2)
+	for(j=0;j<*t2;j++)
+    {	g[j]=intensity*g[j]/ds[j];
+		k[j]=intensity*k[j];
+		tabg[j]=g[j];
+		tabk[j]=k[j];
+		if(g[j]==0)
+		{	error[j]=j;
+			z+=1;
+		}
+		if(*h0==2) {
+			gs[j]=gs[j]/D;
+			ks[j]=ks[j]/D;
+		}
     }
 	
-    int lp=0;
+	//Intertype for each pairs of types
+	if(z==0)
+	{	for(i=1;i<*nbtype;i++)
+	{	for(p=0;p<i;p++)
+	{	dis=mat[p*(*nbtype-2)-(p-1)*p/2+i-1];
+		erreur=intertype_rect(&l[i+1],xx[i],yy[i],&l[p+1],xx[p],yy[p],xmi,xma,ymi,yma,t2,dt,g,k);
+		if (erreur!=0)
+			Rprintf("ERREUR 1 Intertype\n");
+		intensity1=l[i+1]/(*surface);
+		for(j=0;j<*t2;j++)
+		{	gii[j]=gii[j]+dis*intensity1*g[j]/ds[j];
+			kii[j]=kii[j]+dis*intensity1*k[j];
+		}
+		erreur=intertype_rect(&l[p+1],xx[p],yy[p],&l[i+1],xx[i],yy[i],xmi,xma,ymi,yma,t2,dt,g,k);
+		if (erreur!=0)
+			Rprintf("ERREUR 2 Intertype\n");
+		intensity2=l[p+1]/(*surface);
+		for(j=0;j<*t2;j++)
+		{	gii[j]=gii[j]+dis*intensity2*g[j]/ds[j];
+			kii[j]=kii[j]+dis*intensity2*k[j];
+		}
+	}
+	}
+		
+		for(j=0;j<*t2;j++)
+		{	gr[j]=gii[j]/(tabg[j]*(*HD));
+			kr[j]=kii[j]/(tabk[j]*(*HD));
+		}
+		
+		//simulations sur gii, kii
+		double **gic,**kic;
+		int i0,i1,i2;
+		
+		//Definition de i0 : indice ou sera stocke l'estimation des bornes de l'IC
+		i0=*lev/2*(*nbSimu+1);
+		if (i0<1) i0=1;
+		
+		//Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC
+		taballoc(&gic,*t2+1,2*i0+10+1);
+		taballoc(&kic,*t2+1,2*i0+10+1);
+		
+		for(i=0;i<*t2;i++)
+		{	gval[i]=1;
+			kval[i]=1;
+		}
+		//prŽparation des tableaux pour randomisation de dis (H0=2)
+		int lp=0;
+		double HDsim;
+		int *vec, mat_size;
+		vecintalloc(&vec,*nbtype);
+		double *matp;
+		mat_size=*nbtype*(*nbtype-1)/2;
+		vecalloc(&matp,mat_size);
+		if(*h0==2) {
+			for(i=0;i<*nbtype;i++)
+				vec[i]=i;
+			for(i=0;i<mat_size;i++)
+				matp[i]=0;
+		}
+		
+		//boucle principale de MC
+		Rprintf("Monte Carlo simulation\n");
+		for(b=1;b<=*nbSimu;b++)
+		{	if(*h0==1) //random labelling
+			randomlab(x,y,*point_nb,type,*nbtype,xx,l,yy); 
+			if(*h0==2) //distance randomisation
+				randomdist(vec,*nbtype,mat,matp);
+			HDsim=0;
+			for(i=0;i<*t2;i++)
+			{	gii[i]=0;
+				kii[i]=0;
+			}
+			for(i=1;i<*nbtype;i++)
+			{	for(p=0;p<i;p++)
+			{	if(*h0==1)
+				dis=mat[p*(*nbtype-2)-(p-1)*p/2+i-1];
+				if(*h0==2) {
+					dis=matp[p*(*nbtype-2)-(p-1)*p/2+i-1];
+					HDsim+=(float)l[i+1]/(float)(*point_nb)*(float)l[p+1]/(float)(*point_nb)*dis;
+				}
+				erreur=intertype_rect(&l[i+1],xx[i],yy[i],&l[p+1],xx[p],yy[p],xmi,xma,ymi,yma,t2,dt,gic1,kic1);
+				if (erreur!=0)
+					Rprintf("ERREUR 1 Intertype\n");
+				intensity1=l[i+1]/(*surface);
+				for(j=0;j<*t2;j++)
+				{	gii[j]=gii[j]+dis*intensity1*gic1[j]/ds[j];
+					kii[j]=kii[j]+dis*intensity1*kic1[j];
+				}
+				erreur=intertype_rect(&l[p+1],xx[p],yy[p],&l[i+1],xx[i],yy[i],xmi,xma,ymi,yma,t2,dt,gic1,kic1);
+				if (erreur!=0)
+					Rprintf("ERREUR 2 Intertype\n");
+				intensity2=l[p+1]/(*surface);
+				for(j=0;j<*t2;j++)
+				{	gii[j]=gii[j]+dis*intensity2*gic1[j]/ds[j];
+					kii[j]=kii[j]+dis*intensity2*kic1[j];
+				}
+			}
+			}
+			
+			for(j=0;j<*t2;j++)
+			{	if(*h0==1) {// standardisation by HD when species labels are randomized
+				gii[j]=gii[j]/(tabg[j]*(*HD));
+				kii[j]=kii[j]/(tabk[j]*(*HD));
+				//deviation from theo=1
+				if ((float)fabs(gr[j]-1)<=(float)fabs(gii[j]-1)) gval[j]+=1;
+				if ((float)fabs(kr[j]-1)<=(float)fabs(kii[j]-1)) kval[j]+=1;				
+			}
+				if(*h0==2) {// standardisation by Hsim when distance matrix is randomized
+					gii[j]=gii[j]/(tabg[j]*2*HDsim);
+					kii[j]=kii[j]/(tabk[j]*2*HDsim);
+					//deviation from theo=shimatani
+					if ((float)fabs(gr[j]-gs[j])<=(float)fabs(gii[j]-gs[j])) gval[j]+=1;
+					if ((float)fabs(kr[j]-ks[j])<=(float)fabs(kii[j]-ks[j])) kval[j]+=1;
+				}
+			}
+			
+			//Traitement des resultats
+			ic(b,i0,gic,kic,gii,kii,*t2);
+			R_FlushConsole();
+			progress(b,&lp,*nbSimu);
+		}
+		
+		i1=i0+2;
+		i2=i0;
+		
+		//Copies des valeurs dans les tableaux resultats
+		for(i=0;i<*t2;i++)
+		{	gic1[i]=gic[i+1][i1];
+			gic2[i]=gic[i+1][i2];
+			kic1[i]=kic[i+1][i1];
+			kic2[i]=kic[i+1][i2];
+		}
+		free(gic);
+		free(kic);
+		freeintvec(vec);
+		freevec(matp);
+	}
 	
+	
+	for( i = 0; i < *nbtype; i++)
+	{	free(xx[i]);
+		free(yy[i]);
+	}
+    free(xx);
+    free(yy);
+    free(g);
+    free(k);
+	free(l);
+	
+	
+    free(tabg);
+    free(tabk);
+	
+    freevec(gii);
+    freevec(kii);
+	freevec(ds);
+    return 0;
+}
+
+int rao_disq(int *point_nb,double *x,double *y, double *x0,double *y0,double *r0,
+			 int *t2,double *dt,int *h0,int *nbtype,int *type,double *mat,double *surface,double *HD,double *gr, double *kr,double *gs,double *ks,int *error)
+{
+    int i,j,p,z=0;
     int *l;// contient le nombre d'arbres par espèce
     int compt[*nbtype+1];// tableau de compteurs pour xx et yy
     vecintalloc(&l,*nbtype+1);
+    double *ds,dis;
 	
-	for(i=1; i<*nbtype+1; i++)
-    {	l[i]=0;
-        compt[i]=0;
-        for(j=0; j<*point_nb; j++)
-        {	if(type[j]==i)
-            {	l[i]++;
-            }
+    double *g;
+    double *k;
+    vecalloc(&g,*t2);
+    vecalloc(&k,*t2);
+	
+   	for(i=1;i<*nbtype+1;i++){
+   	    l[i]=0;
+   	    compt[i]=0;
+        for(j=0;j<*point_nb;j++){
+            if(type[j]==i)
+            	l[i]++;
         }
-    }
+   	}
+	
     double **xx;
     double **yy;
-    xx=taballoca(*nbtype,l);
-    yy=taballoca(*nbtype,l);
+   	xx=taballoca(*nbtype,l);
+   	yy=taballoca(*nbtype,l);
+   	vecalloc(&ds,*t2);
 	
-    complete_tab(*point_nb,xx,yy,type,compt,l,x,y);
+   	complete_tab(*point_nb,xx,yy,type,compt,l,x,y);
 	
-    /*boucle principale de MC*/
-    Rprintf("Monte Carlo simulation\n");
-    for(i=1; i<=*nbSimu; i++)
-    {	randomlab(x,y,*point_nb,type,*nbtype,xx,l,yy);
-		erreur=rao_tr_disq(point_nb,x,y,x0,y0,r0,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,gic1,kic1,type,mat,nbtype);
-        /* si il y a une erreur on recommence une simulation*/
-        if (erreur!=0)
-        {	i=i-1;
-            Rprintf("ERREUR Ripley\n");
-        }
-        else
-        {
-            /*comptage du nombre de |¶obs|<=|¶simu| pour test local*/
-            for(j=0; j<*t2; j++)
-            {	if ((float)fabs(gg[j]-*HD)<=(float)fabs(gic1[j]-*HD))
-                {	gval[j]+=1;
-                }
-                if ((float)fabs(kk[j]-*HD)<=(float)fabs(kic1[j]-*HD))
-                {	kval[j]+=1;
-                }
-            }
-            /*Traitement des resultats*/
-            ic(i,i0,gic,kic,gic1,kic1,*t2);
-        }
-        R_FlushConsole();
-        progress(i,&lp,*nbSimu);
+	int erreur;
+    double intensity1,point_nb1,point_nb2,intensity2;
+    double intensity=*point_nb/(*surface);
+    double *gii,*kii;
+    vecalloc(&gii,*t2);
+    vecalloc(&kii,*t2);
+    double *tabg,*tabk;
+    vecalloc(&tabg,*t2);
+    vecalloc(&tabk,*t2);
+	
+    for(j=0;j<*t2;j++)
+    {	gii[j]=0;
+        kii[j]=0;
+        ds[j]=(Pi()*(j+1)*(*dt)*(j+1)*(*dt))-(Pi()*j*j*(*dt)*(*dt));
     }
+	//Ripley all points	
+    erreur =ripley_disq(point_nb,x,y,x0,y0,r0,t2,dt,g,k);
+	if (erreur!=0)
+		Rprintf("ERREUR 0 Ripley\n");
 	
-    i1=i0+2;
-    i2=i0;
+	// Shimatani function for normalisation under H0=2
+	double D=0;
+	if(*h0==2)
+	{	erreur=shimatani_disq(point_nb,x,y,x0,y0,r0,t2,dt,nbtype,type,surface,gs,ks,error);
+		for(i=1;i<(*nbtype+1);i++)
+			D+=(float)l[i]*((float)l[i]-1);
+		D=1-D/((float)(*point_nb)*((float)(*point_nb)-1));
+	}	
 	
-    /*Copies des valeurs dans les tableaux resultats*/
-    for(i=0; i<*t2; i++)
-    {	gic1[i]=gic[i+1][i1];
-        gic2[i]=gic[i+1][i2];
-        kic1[i]=kic[i+1][i1];
-        kic2[i]=kic[i+1][i2];
+    for(j=0;j<*t2;j++)
+    {	g[j]=intensity*g[j]/ds[j];
+        k[j]=intensity*k[j];
+        tabg[j]=g[j];
+        tabk[j]=k[j];
+        if(g[j]==0)
+		{	error[j]=j;
+			z+=1;
+		}
+		if(*h0==2) {
+			gs[j]=gs[j]/D;
+			ks[j]=ks[j]/D;
+		}
     }
+	//Intertype for each pair of types
+	if(z==0)
+	{	for(i=0;i<*nbtype;i++)
+		{	for(p=0;p<i;p++)
+			{	dis=mat[p*(*nbtype-2)-(p-1)*p/2+i-1];
+				erreur=intertype_disq(&l[i+1],xx[i],yy[i],&l[p+1],xx[p],yy[p],x0,y0,r0,t2,dt,g,k);
+				if (erreur!=0)
+					Rprintf("ERREUR 1 Intertype\n");
+				intensity1=l[i+1]/(*surface);
+				for(j=0;j<*t2;j++)
+				{	gii[j]=gii[j]+dis*intensity1*g[j]/ds[j];
+					kii[j]=kii[j]+dis*intensity1*k[j];
+				}
+				erreur=intertype_disq(&l[p+1],xx[p],yy[p],&l[i+1],xx[i],yy[i],x0,y0,r0,t2,dt,g,k);
+				if (erreur!=0)
+					Rprintf("ERREUR 2 Intertype\n");
+				intensity2=l[p+1]/(*surface);
+				for(j=0;j<*t2;j++)
+				{	gii[j]=gii[j]+dis*intensity2*g[j]/ds[j];
+					kii[j]=kii[j]+dis*intensity2*k[j];
+				}
+			}
+		}
+		for(j=0;j<*t2;j++)
+		{	gr[j]=gii[j]/(tabg[j]*(*HD));
+			kr[j]=kii[j]/(tabk[j]*(*HD));
+		}
+	}
 	
-    for(i=0; i<*t2; i++)
-    {	free(gic[i]);
-        free(kic[i]);
-    }
-	
-    for(i=0;i<*nbtype;i++)
-    {	free(xx[i]);
-        free(yy[i]);
-    }
-	
-    free(gic);
-    free(kic);
-    freevec(gg);
-    freevec(kk);
+   	for(i=0;i<*nbtype;i++)
+	{	free(xx[i]);
+		free(yy[i]);
+	}
     free(xx);
     free(yy);
-    free(l);
+    free(g);
+    free(k);
+	free(l);
+	
+    free(tabg);
+    free(tabk);
+	
+    freevec(gii);
+    freevec(kii);
+    freevec(ds);
+	
     return 0;
+}
+
+int rao_disq_ic(int *point_nb,double *x,double *y, double *x0,double *y0,double *r0,
+				int *t2,double *dt,int *nbSimu,int *h0,double *lev,
+				int *nbtype,int *type,double *mat,double *surface,double *HD,
+				double *gr, double *kr,double *gs,double *ks,double *gic1,double *gic2,double *kic1,double *kic2,
+				double *gval,double *kval,int *error)
+{
+    int i,j,p,b,z=0;
+    int *l;// contient le nombre d'arbres par espèce
+    int compt[*nbtype+1];// tableau de compteurs pour xx et yy
+    vecintalloc(&l,*nbtype+1);
+    double *ds,dis;
+    double *g,*k;
+    vecalloc(&g,*t2);
+    vecalloc(&k,*t2);
+	
+   	for(i=1;i<*nbtype+1;i++){
+   	    l[i]=0;
+   	    compt[i]=0;
+        for(j=0;j<*point_nb;j++){
+            if(type[j]==i)
+            	l[i]++;
+        }
+   	}
+	
+    double **xx;
+    double **yy;
+   	xx=taballoca(*nbtype,l);
+   	yy=taballoca(*nbtype,l);
+   	vecalloc(&ds,*t2);
+   	complete_tab(*point_nb,xx,yy,type,compt,l,x,y);
+	
+	//Ripley for all points	
+	int erreur,ind;
+    double intensity1,point_nb1,point_nb2,intensity2;
+    double intensity=*point_nb/(*surface);
+    double *gii,*kii;
+    vecalloc(&gii,*t2);
+    vecalloc(&kii,*t2);
+    double *tabg,*tabk;
+    vecalloc(&tabg,*t2);
+    vecalloc(&tabk,*t2);
+	
+    for(j=0;j<*t2;j++)
+    {	gii[j]=0;
+        kii[j]=0;
+        ds[j]=(Pi()*(j+1)*(*dt)*(j+1)*(*dt))-(Pi()*j*j*(*dt)*(*dt));
+    }
+	
+    erreur =ripley_disq(point_nb,x,y,x0,y0,r0,t2,dt,g,k);
+	if (erreur!=0)
+		Rprintf("ERREUR 0 Ripley\n");
+	
+	// Shimatani function for normalisation under H0=2
+	double D=0;
+	if(*h0==2)
+	{	erreur=shimatani_disq(point_nb,x,y,x0,y0,r0,t2,dt,nbtype,type,surface,gs,ks,error);
+		for(i=1;i<(*nbtype+1);i++)
+			D+=(float)l[i]*((float)l[i]-1);
+		D=1-D/((float)(*point_nb)*((float)(*point_nb)-1));
+	}
+	//standardization de Ripley (et Shimatani si H0=2)
+    for(j=0;j<*t2;j++)
+    {	g[j]=intensity*g[j]/ds[j];
+        k[j]=intensity*k[j];
+        tabg[j]=g[j];
+        tabk[j]=k[j];
+        if(g[j]==0)
+		{	error[j]=j;
+			z+=1;
+		}
+		if(*h0==2) {
+			gs[j]=gs[j]/D;
+			ks[j]=ks[j]/D;
+		}
+    }
+	//Intertype for each pair of types
+	if(z==0)
+	{	for(i=0;i<*nbtype;i++)
+		{	for(p=0;p<i;p++)
+			{	dis=mat[p*(*nbtype-2)-(p-1)*p/2+i-1];
+				erreur=intertype_disq(&l[i+1],xx[i],yy[i],&l[p+1],xx[p],yy[p],x0,y0,r0,t2,dt,g,k);
+				if (erreur!=0)
+					Rprintf("ERREUR 1 Intertype\n");
+				intensity1=l[i+1]/(*surface);
+				for(j=0;j<*t2;j++)
+				{	gii[j]=gii[j]+dis*intensity1*g[j]/ds[j];
+					kii[j]=kii[j]+dis*intensity1*k[j];
+				}
+				erreur=intertype_disq(&l[p+1],xx[p],yy[p],&l[i+1],xx[i],yy[i],x0,y0,r0,t2,dt,g,k);
+				if (erreur!=0)
+					Rprintf("ERREUR 2 Intertype\n");
+				intensity2=l[p+1]/(*surface);
+				for(j=0;j<*t2;j++)
+				{	gii[j]=gii[j]+dis*intensity2*g[j]/ds[j];
+					kii[j]=kii[j]+dis*intensity2*k[j];
+				}
+			}
+		}
+		for(j=0;j<*t2;j++)
+		{	gr[j]=gii[j]/(tabg[j]*(*HD));
+			kr[j]=kii[j]/(tabk[j]*(*HD));
+		}
+	
+		//simulaitons sur gii, kii
+		double **gic,**kic;
+		int i0,i1,i2;
+	
+		/*Definition de i0 : indice ou sera stocke l'estimation des bornes de l'IC*/
+		i0=*lev/2*(*nbSimu+1);
+		if (i0<1) i0=1;
+	
+		/*Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC*/
+		taballoc(&gic,*t2+1,2*i0+10+1);
+		taballoc(&kic,*t2+1,2*i0+10+1);
+	
+		for(i=0;i<*t2;i++)
+		{	gval[i]=1;
+			kval[i]=1;
+		}
+	
+		int lp=0;
+		double HDsim;
+		int *vec, mat_size;
+		vecintalloc(&vec,*nbtype);
+		double *matp;
+		mat_size=*nbtype*(*nbtype-1)/2;
+		vecalloc(&matp,mat_size);
+		if(*h0==2) {
+			for(i=0;i<*nbtype;i++)
+				vec[i]=i;
+			for(i=0;i<mat_size;i++)
+				matp[i]=0;
+		}
+	
+		/*boucle principale de MC*/
+		Rprintf("Monte Carlo simulation\n");
+		for(b=1;b<=*nbSimu;b++)
+		{	if(*h0==1) //random labelling
+				randomlab(x,y,*point_nb,type,*nbtype,xx,l,yy); 
+			if(*h0==2) //distance randomisation
+				randomdist(vec,*nbtype,mat,matp);
+			HDsim=0;			
+			for(i=0;i<*t2;i++)
+			{	gii[i]=0;
+				kii[i]=0;
+			}
+			for(i=0;i<*nbtype;i++)
+			{	for(p=0;p<i;p++)
+				{	if(*h0==1)
+						dis=mat[p*(*nbtype-2)-(p-1)*p/2+i-1];
+					if(*h0==2) {
+						dis=matp[p*(*nbtype-2)-(p-1)*p/2+i-1];
+						HDsim+=(float)l[i+1]/(float)(*point_nb)*(float)l[p+1]/(float)(*point_nb)*dis;
+					}
+					erreur=intertype_disq(&l[i+1],xx[i],yy[i],&l[p+1],xx[p],yy[p],x0,y0,r0,t2,dt,g,k);
+					if (erreur!=0)
+						Rprintf("ERREUR 1 Intertype\n");
+					intensity1=l[i+1]/(*surface);
+					for(j=0;j<*t2;j++)
+					{	gii[j]=gii[j]+dis*intensity1*g[j]/ds[j];
+						kii[j]=kii[j]+dis*intensity1*k[j];
+					}
+					erreur=intertype_disq(&l[p+1],xx[p],yy[p],&l[i+1],xx[i],yy[i],x0,y0,r0,t2,dt,g,k);
+					if (erreur!=0)
+						Rprintf("ERREUR 2 Intertype\n");
+					intensity2=l[p+1]/(*surface);
+					for(j=0;j<*t2;j++)
+					{	gii[j]=gii[j]+dis*intensity2*g[j]/ds[j];
+						kii[j]=kii[j]+dis*intensity2*k[j];
+					}
+				}
+			}
+			for(j=0;j<*t2;j++)
+			{	if(*h0==1) {// standardisation by HD when species labels are randomized
+					gii[j]=gii[j]/(tabg[j]*(*HD));
+					kii[j]=kii[j]/(tabk[j]*(*HD));
+					//deviation from theo=1
+					if ((float)fabs(gr[j]-1)<=(float)fabs(gii[j]-1)) gval[j]+=1;
+					if ((float)fabs(kr[j]-1)<=(float)fabs(kii[j]-1)) kval[j]+=1;				
+				}
+				if(*h0==2) {// standardisation by Hsim when distance matrix is randomized
+					gii[j]=gii[j]/(tabg[j]*2*HDsim);
+					kii[j]=kii[j]/(tabk[j]*2*HDsim);
+					//deviation from theo=shimatani
+					if ((float)fabs(gr[j]-gs[j])<=(float)fabs(gii[j]-gs[j])) gval[j]+=1;
+					if ((float)fabs(kr[j]-ks[j])<=(float)fabs(kii[j]-ks[j])) kval[j]+=1;
+				}
+				
+			}
+		
+			//Traitement des resultats
+			ic(b,i0,gic,kic,gii,kii,*t2);
+			R_FlushConsole();
+			progress(b,&lp,*nbSimu);
+		}
+	
+		i1=i0+2;
+		i2=i0;
+	
+		//Copies des valeurs dans les tableaux resultats
+		for(i=0;i<*t2;i++)
+		{	gic1[i]=gic[i+1][i1];
+			gic2[i]=gic[i+1][i2];
+			kic1[i]=kic[i+1][i1];
+			kic2[i]=kic[i+1][i2];
+		}
+		free(gic);
+		free(kic);
+		freeintvec(vec);
+		freevec(matp);
+	}
+
+   	for( i = 0; i < *nbtype; i++)
+	{	free(xx[i]);
+		free(yy[i]);
+	}
+    free(xx);
+    free(yy);
+    free(g);
+    free(k);
+	free(l);
+	
+    free(tabg);
+    free(tabk);
+	
+    freevec(gii);
+    freevec(kii);
+    freevec(ds);
+	
+    return 0;
+}
+
+int rao_tr_rect(int *point_nb,double *x,double *y, double *xmi,double *xma,double *ymi,
+				double *yma,int *triangle_nb, double *ax, double *ay, double *bx, double *by, double *cx, double *cy,
+				int *t2,double *dt,int *h0,int *nbtype,int *type,double *mat,double *surface,double *HD,double *gr, double *kr,double *gs,double *ks,int *error)
+{
+    int i,j,p,z=0;
+    int *l;// contient le nombre d'arbres par espèce
+    int compt[*nbtype+1];// tableau de compteurs pour xx et yy
+    vecintalloc(&l,*nbtype+1);
+    double *ds,dis;
+	
+    double *g,*k;
+    vecalloc(&g,*t2);
+    vecalloc(&k,*t2);
+	
+   	for(i=1;i<*nbtype+1;i++){
+   	    l[i]=0;
+   	    compt[i]=0;
+        for(j=0;j<*point_nb;j++){
+            if(type[j]==i)
+            	l[i]++;
+        }
+   	}
+	
+    double **xx,**yy;
+   	xx=taballoca(*nbtype,l);
+   	yy=taballoca(*nbtype,l);
+   	vecalloc(&ds,*t2);
+   	complete_tab(*point_nb,xx,yy,type,compt,l,x,y);
+	
+    int erreur;
+    double intensity1,point_nb2,point_nb1,intensity2;
+    double intensity=*point_nb/(*surface);
+    double *gii,*kii;
+    vecalloc(&gii,*t2);
+    vecalloc(&kii,*t2);
+    double *tabg,*tabk;
+    vecalloc(&tabg,*t2);
+    vecalloc(&tabk,*t2);
+	
+    for(j=0;j<*t2;j++)
+    {	gii[j]=0;
+        kii[j]=0;
+        ds[j]=(Pi()*(j+1)*(*dt)*(j+1)*(*dt))-(Pi()*j*j*(*dt)*(*dt));
+    }
+	//Ripley all points	
+    erreur =ripley_tr_rect(point_nb,x,y,xmi,xma,ymi,yma,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,g,k);
+	if (erreur!=0)
+		Rprintf("ERREUR 0 Ripley\n");
+	
+	// Shimatani function for normalisation under H0=2
+	double D=0;
+	if(*h0==2)
+	{	erreur=shimatani_tr_rect(point_nb,x,y,xmi,xma,ymi,yma,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,nbtype,type,surface,gs,ks,error);
+		for(i=1;i<(*nbtype+1);i++)
+			D+=(float)l[i]*((float)l[i]-1);
+		D=1-D/((float)(*point_nb)*((float)(*point_nb)-1));
+	}
+	
+    for(j=0;j<*t2;j++)
+    {	g[j]=intensity*g[j]/ds[j];
+		k[j]=intensity*k[j];
+		tabg[j]=g[j];
+		tabk[j]=k[j];
+		if(g[j]==0)
+		{	error[j]=j;
+			z+=1;
+		}
+		if(*h0==2) {
+			gs[j]=gs[j]/D;
+			ks[j]=ks[j]/D;
+		}
+    }
+	//Intertype for each pair of types
+	if(z==0)
+	{	for(i=1;i<*nbtype;i++)
+		{	for(p=0;p<i;p++)
+			{	dis=mat[p*(*nbtype-2)-(p-1)*p/2+i-1];
+				erreur=intertype_tr_rect(&l[i+1],xx[i],yy[i],&l[p+1],xx[p],yy[p],xmi,xma,ymi,yma,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,g,k);
+				if (erreur!=0)
+					Rprintf("ERREUR 1 Intertype\n");
+				intensity1=l[i+1]/(*surface);
+				for(j=0;j<*t2;j++)
+				{	gii[j]=gii[j]+dis*intensity1*g[j]/ds[j];
+					kii[j]=kii[j]+dis*intensity1*k[j];
+				}
+				erreur=intertype_tr_rect(&l[p+1],xx[p],yy[p],&l[i+1],xx[i],yy[i],xmi,xma,ymi,yma,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,g,k);
+				if (erreur!=0)
+					Rprintf("ERREUR 2 Intertype\n");
+				intensity2=l[p+1]/(*surface);
+				for(j=0;j<*t2;j++)
+				{	gii[j]=gii[j]+dis*intensity2*g[j]/ds[j];
+					kii[j]=kii[j]+dis*intensity2*k[j];
+				}
+			}
+		}
+		
+		for(j=0;j<*t2;j++)
+		{	gr[j]=gii[j]/(tabg[j]*(*HD));
+			kr[j]=kii[j]/(tabk[j]*(*HD));
+		}
+	}
+	
+	for( i = 0; i < *nbtype; i++)
+	{	free(xx[i]);
+		free(yy[i]);
+	}
+    free(xx);
+    free(yy);
+    free(g);
+    free(k);
+	free(l);
+	
+    free(tabg);
+    free(tabk);
+	
+    freevec(gii);
+    freevec(kii);
+    freevec(ds);
+	
+    return 0;
+}
+
+
+
+/***************/
+int rao_tr_disq(int *point_nb,double *x,double *y, double *x0,double *y0,
+				double *r0,int *triangle_nb, double *ax, double *ay, double *bx, double *by, double *cx, double *cy,
+				int *t2,double *dt,int *h0,int *nbtype,int *type,double *mat,double *surface,double *HD,double *gr, double *kr,double *gs,double *ks,int *error)
+{
+    int i,j,p,z=0;
+    int *l;// contient le nombre d'arbres par espèce
+    int compt[*nbtype+1];// tableau de compteurs pour xx et yy
+    vecintalloc(&l,*nbtype+1);
+    double *ds,dis;
+	double *g,*k;
+    vecalloc(&g,*t2);
+    vecalloc(&k,*t2);
+	
+   	for(i=1;i<*nbtype+1;i++){
+   	    l[i]=0;
+   	    compt[i]=0;
+        for(j=0;j<*point_nb;j++){
+            if(type[j]==i)
+            	l[i]++;
+        }
+   	}
+	
+    double **xx,**yy;
+   	xx=taballoca(*nbtype,l);
+   	yy=taballoca(*nbtype,l);
+   	vecalloc(&ds,*t2);
+   	complete_tab(*point_nb,xx,yy,type,compt,l,x,y);
+	
+    int erreur;
+    double intensity1,point_nb2,point_nb1,intensity2;
+    double intensity=*point_nb/(*surface);
+    double *gii,*kii;
+    vecalloc(&gii,*t2);
+    vecalloc(&kii,*t2);
+    double *tabg,*tabk;
+    vecalloc(&tabg,*t2);
+    vecalloc(&tabk,*t2);
+	
+    for(j=0;j<*t2;j++)
+    {	gii[j]=0;
+        kii[j]=0;
+        ds[j]=(Pi()*(j+1)*(*dt)*(j+1)*(*dt))-(Pi()*j*j*(*dt)*(*dt));
+    }
+	//Ripley all points	
+    erreur =ripley_tr_disq(point_nb,x,y,x0,y0,r0,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,g,k);
+	if (erreur!=0)
+		Rprintf("ERREUR 0 Ripley\n");
+	
+	// Shimatani function for normalisation under H0=2
+	double D=0;
+	if(*h0==2)
+	{	erreur=shimatani_tr_disq(point_nb,x,y,x0,y0,r0,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,nbtype,type,surface,gs,ks,error);
+		for(i=1;i<(*nbtype+1);i++)
+			D+=(float)l[i]*((float)l[i]-1);
+		D=1-D/((float)(*point_nb)*((float)(*point_nb)-1));
+	}
+	
+    for(j=0;j<*t2;j++)
+    {	g[j]=intensity*g[j]/ds[j];
+		k[j]=intensity*k[j];
+		tabg[j]=g[j];
+		tabk[j]=k[j];
+		if(g[j]==0)
+		{	error[j]=j;
+			z+=1;
+		}
+		if(*h0==2) {
+			gs[j]=gs[j]/D;
+			ks[j]=ks[j]/D;
+		}
+    }
+	//Intertype for each pair of types
+	if(z==0)
+	{	for(i=1;i<*nbtype;i++)
+		{	for(p=0;p<i;p++)
+			{	dis=mat[p*(*nbtype-2)-(p-1)*p/2+i-1];
+				erreur=intertype_tr_disq(&l[i+1],xx[i],yy[i],&l[p+1],xx[p],yy[p],x0,y0,r0,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,g,k);
+				if (erreur!=0)
+					Rprintf("ERREUR 1 Intertype\n");
+				intensity1=l[i+1]/(*surface);
+				for(j=0;j<*t2;j++)
+				{	gii[j]=gii[j]+dis*intensity1*g[j]/ds[j];
+					kii[j]=kii[j]+dis*intensity1*k[j];
+				}
+				erreur=intertype_tr_disq(&l[p+1],xx[p],yy[p],&l[i+1],xx[i],yy[i],x0,y0,r0,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,g,k);
+				if (erreur!=0)
+					Rprintf("ERREUR 2 Intertype\n");
+				intensity2=l[p+1]/(*surface);
+				for(j=0;j<*t2;j++)
+				{	gii[j]=gii[j]+dis*intensity2*g[j]/ds[j];
+					kii[j]=kii[j]+dis*intensity2*k[j];
+				}
+			}
+		}
+		for(j=0;j<*t2;j++)
+		{	gr[j]=gii[j]/(tabg[j]*(*HD));
+			kr[j]=kii[j]/(tabk[j]*(*HD));
+		}
+	}
+	
+	for( i = 0; i < *nbtype; i++)
+	{	free(xx[i]);
+		free(yy[i]);
+	}
+    free(xx);
+    free(yy);
+    free(g);
+    free(k);
+	free(l);
+	
+    free(tabg);
+    free(tabk);
+	
+    freevec(gii);
+    freevec(kii);
+    freevec(ds);
+	
+    return 0;
+}
+
+int rao_tr_rect_ic(int *point_nb,double *x,double *y, double *xmi,double *xma,double *ymi,double *yma,
+				   int *triangle_nb, double *ax, double *ay, double *bx, double *by, double *cx, double *cy,
+				   int *t2,double *dt,int *nbSimu,int *h0, double *lev,int *nbtype,int *type,double *mat,double *surface,double *HD,
+				double *gr, double *kr,double *gs,double *ks,double *gic1,double *gic2,double *kic1,double *kic2,
+				double *gval,double *kval,int *error)
+{
+    int i,j,p,b,z=0;
+    int *l;// contient le nombre d'arbres par espèce
+    int compt[*nbtype+1];// tableau de compteurs pour xx et yy
+    vecintalloc(&l,*nbtype+1);
+    double *ds,dis;
+	double *g,*k;
+    vecalloc(&g,*t2);
+    vecalloc(&k,*t2);
+	
+   	for(i=1;i<*nbtype+1;i++){
+   	    l[i]=0;
+   	    compt[i]=0;
+        for(j=0;j<*point_nb;j++){
+            if(type[j]==i)
+            	l[i]++;
+        }
+   	}
+	
+    double **xx,**yy;
+   	xx=taballoca(*nbtype,l);
+   	yy=taballoca(*nbtype,l);
+   	vecalloc(&ds,*t2);
+   	complete_tab(*point_nb,xx,yy,type,compt,l,x,y);
+	
+	//Ripley for all points	
+    int erreur;
+    double intensity1,point_nb2,point_nb1,intensity2;
+    double intensity=*point_nb/(*surface);
+    double *gii,*kii;
+    vecalloc(&gii,*t2);
+    vecalloc(&kii,*t2);
+    double *tabg,*tabk;
+    vecalloc(&tabg,*t2);
+    vecalloc(&tabk,*t2);
+	
+    for(j=0;j<*t2;j++)
+    {	gii[j]=0;
+        kii[j]=0;
+        ds[j]=(Pi()*(j+1)*(*dt)*(j+1)*(*dt))-(Pi()*j*j*(*dt)*(*dt));
+    }
+	//Ripley all points	
+	erreur =ripley_tr_rect(point_nb,x,y,xmi,xma,ymi,yma,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,g,k);
+	if (erreur!=0)
+		Rprintf("ERREUR 0 Ripley\n");
+	
+	// Shimatani function for normalisation under H0=2
+	double D=0;
+	if(*h0==2)
+	{	erreur=shimatani_tr_rect(point_nb,x,y,xmi,xma,ymi,yma,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,nbtype,type,surface,gs,ks,error);
+		for(i=1;i<(*nbtype+1);i++)
+			D+=(float)l[i]*((float)l[i]-1);
+		D=1-D/((float)(*point_nb)*((float)(*point_nb)-1));
+	}
+	
+    for(j=0;j<*t2;j++)
+    {	g[j]=intensity*g[j]/ds[j];
+		k[j]=intensity*k[j];
+		tabg[j]=g[j];
+		tabk[j]=k[j];
+		if(g[j]==0)
+		{	error[j]=j;
+			z+=1;
+		}
+		if(*h0==2) {
+			gs[j]=gs[j]/D;
+			ks[j]=ks[j]/D;
+		}
+    }
+	//Intertype for each pairs of types
+	if(z==0)
+	{	for(i=1;i<*nbtype;i++)
+		{	for(p=0;p<i;p++)
+			{	dis=mat[p*(*nbtype-2)-(p-1)*p/2+i-1];
+				erreur=intertype_tr_rect(&l[i+1],xx[i],yy[i],&l[p+1],xx[p],yy[p],xmi,xma,ymi,yma,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,g,k);
+				if (erreur!=0)
+					Rprintf("ERREUR 1 Intertype\n");
+				intensity1=l[i+1]/(*surface);
+				for(j=0;j<*t2;j++)
+				{	gii[j]=gii[j]+dis*intensity1*g[j]/ds[j];
+					kii[j]=kii[j]+dis*intensity1*k[j];
+				}
+				erreur=intertype_tr_rect(&l[p+1],xx[p],yy[p],&l[i+1],xx[i],yy[i],xmi,xma,ymi,yma,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,g,k);
+				if (erreur!=0)
+					Rprintf("ERREUR 2 Intertype\n");
+				intensity2=l[p+1]/(*surface);
+				for(j=0;j<*t2;j++)
+				{	gii[j]=gii[j]+dis*intensity2*g[j]/ds[j];
+					kii[j]=kii[j]+dis*intensity2*k[j];
+				}
+			}
+		}
+		
+		for(j=0;j<*t2;j++)
+		{	gr[j]=gii[j]/(tabg[j]*(*HD));
+			kr[j]=kii[j]/(tabk[j]*(*HD));
+		}
+		
+		//simulaitons sur gii, kii
+		double **gic,**kic;
+		int i0,i1,i2;
+		
+		/*Definition de i0 : indice ou sera stocke l'estimation des bornes de l'IC*/
+		i0=*lev/2*(*nbSimu+1);
+		if (i0<1) i0=1;
+		
+		/*Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC*/
+		taballoc(&gic,*t2+1,2*i0+10+1);
+		taballoc(&kic,*t2+1,2*i0+10+1);
+		
+		for(i=0;i<*t2;i++)
+		{	gval[i]=1;
+			kval[i]=1;
+		}
+		
+		int lp=0;
+		double HDsim;
+		int *vec, mat_size;
+		vecintalloc(&vec,*nbtype);
+		double *matp;
+		mat_size=*nbtype*(*nbtype-1)/2;
+		vecalloc(&matp,mat_size);
+		if(*h0==2) {
+			for(i=0;i<*nbtype;i++)
+				vec[i]=i;
+			for(i=0;i<mat_size;i++)
+				matp[i]=0;
+		}
+		
+		/*boucle principale de MC*/
+		Rprintf("Monte Carlo simulation\n");
+		for(b=1;b<=*nbSimu;b++)
+		{	if(*h0==1) //random labelling
+				randomlab(x,y,*point_nb,type,*nbtype,xx,l,yy); 
+			if(*h0==2) //distance randomisation
+				randomdist(vec,*nbtype,mat,matp);
+			HDsim=0;
+			
+			for(i=0;i<*t2;i++)
+			{	gii[i]=0;
+				kii[i]=0;
+			}
+			for(i=1;i<*nbtype;i++)
+			{	for(p=0;p<i;p++)
+			{	if(*h0==1)
+					dis=mat[p*(*nbtype-2)-(p-1)*p/2+i-1];
+				if(*h0==2) {
+					dis=matp[p*(*nbtype-2)-(p-1)*p/2+i-1];
+					HDsim+=(float)l[i+1]/(float)(*point_nb)*(float)l[p+1]/(float)(*point_nb)*dis;
+				}
+					erreur=intertype_tr_rect(&l[i+1],xx[i],yy[i],&l[p+1],xx[p],yy[p],xmi,xma,ymi,yma,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,gic1,kic1);
+					if (erreur!=0)
+						Rprintf("ERREUR 1 Intertype\n");
+					intensity1=l[i+1]/(*surface);
+					for(j=0;j<*t2;j++)
+					{	gii[j]=gii[j]+dis*intensity1*gic1[j]/ds[j];
+						kii[j]=kii[j]+dis*intensity1*kic1[j];
+					}
+					erreur=intertype_tr_rect(&l[p+1],xx[p],yy[p],&l[i+1],xx[i],yy[i],xmi,xma,ymi,yma,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,gic1,kic1);
+					if (erreur!=0)
+						Rprintf("ERREUR 2 Intertype\n");
+					intensity2=l[p+1]/(*surface);
+					for(j=0;j<*t2;j++)
+					{	gii[j]=gii[j]+dis*intensity2*gic1[j]/ds[j];
+						kii[j]=kii[j]+dis*intensity2*kic1[j];
+					}
+				}
+			}
+			
+			for(j=0;j<*t2;j++)
+			{	if(*h0==1) {// standardisation by HD when species labels are randomized
+				gii[j]=gii[j]/(tabg[j]*(*HD));
+				kii[j]=kii[j]/(tabk[j]*(*HD));
+				//deviation from theo=1
+				if ((float)fabs(gr[j]-1)<=(float)fabs(gii[j]-1)) gval[j]+=1;
+				if ((float)fabs(kr[j]-1)<=(float)fabs(kii[j]-1)) kval[j]+=1;				
+			}
+				if(*h0==2) {// standardisation by Hsim when distance matrix is randomized
+					gii[j]=gii[j]/(tabg[j]*2*HDsim);
+					kii[j]=kii[j]/(tabk[j]*2*HDsim);
+					//deviation from theo=shimatani
+					if ((float)fabs(gr[j]-gs[j])<=(float)fabs(gii[j]-gs[j])) gval[j]+=1;
+					if ((float)fabs(kr[j]-ks[j])<=(float)fabs(kii[j]-ks[j])) kval[j]+=1;
+				}
+			}			
+			
+			//Traitement des resultats
+			ic(b,i0,gic,kic,gii,kii,*t2);
+			R_FlushConsole();
+			progress(b,&lp,*nbSimu);
+		}
+		
+		i1=i0+2;
+		i2=i0;
+		
+		//Copies des valeurs dans les tableaux resultats
+		for(i=0;i<*t2;i++)
+		{	gic1[i]=gic[i+1][i1];
+			gic2[i]=gic[i+1][i2];
+			kic1[i]=kic[i+1][i1];
+			kic2[i]=kic[i+1][i2];
+		}
+		free(gic);
+		free(kic);
+		freeintvec(vec);
+		freevec(matp);
+	}
+	
+	
+	for( i = 0; i < *nbtype; i++)
+	{	free(xx[i]);
+		free(yy[i]);
+	}
+    free(xx);
+    free(yy);
+    free(g);
+    free(k);
+	free(l);
+	
+    free(tabg);
+    free(tabk);
+	
+    freevec(gii);
+    freevec(kii);
+    freevec(ds);
+	
+    return 0;
+}
+
+int rao_tr_disq_ic(int *point_nb,double *x,double *y, double *x0,double *y0,double *r0,
+				   int *triangle_nb, double *ax, double *ay, double *bx, double *by, double *cx, double *cy,
+				   int *t2,double *dt,int *nbSimu,int *h0, double *lev,int *nbtype,int *type,double *mat,double *surface,double *HD,
+				   double *gr, double *kr,double *gs,double *ks,double *gic1,double *gic2,double *kic1,double *kic2,
+				   double *gval,double *kval,int *error)
+{
+    int i,j,p,b,z=0;
+    int *l;// contient le nombre d'arbres par espèce
+    int compt[*nbtype+1];// tableau de compteurs pour xx et yy
+    vecintalloc(&l,*nbtype+1);
+    double *ds,dis;
+	double *g,*k;
+    vecalloc(&g,*t2);
+    vecalloc(&k,*t2);
+	
+   	for(i=1;i<*nbtype+1;i++){
+   	    l[i]=0;
+   	    compt[i]=0;
+        for(j=0;j<*point_nb;j++){
+            if(type[j]==i)
+            	l[i]++;
+        }
+   	}
+	
+    double **xx,**yy;
+   	xx=taballoca(*nbtype,l);
+   	yy=taballoca(*nbtype,l);
+   	vecalloc(&ds,*t2);
+   	complete_tab(*point_nb,xx,yy,type,compt,l,x,y);
+	
+	//Ripley for all points	
+    int erreur;
+    double intensity1,point_nb2,point_nb1,intensity2;
+    double intensity=*point_nb/(*surface);
+    double *gii,*kii;
+    vecalloc(&gii,*t2);
+    vecalloc(&kii,*t2);
+    double *tabg,*tabk;
+    vecalloc(&tabg,*t2);
+    vecalloc(&tabk,*t2);
+	
+    for(j=0;j<*t2;j++)
+    {	gii[j]=0;
+        kii[j]=0;
+        ds[j]=(Pi()*(j+1)*(*dt)*(j+1)*(*dt))-(Pi()*j*j*(*dt)*(*dt));
+    }
+	//Ripley all points	
+	erreur =ripley_tr_disq(point_nb,x,y,x0,y0,r0,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,g,k);
+	if (erreur!=0)
+		Rprintf("ERREUR 0 Ripley\n");
+	
+	// Shimatani function for normalisation under H0=2
+	double D=0;
+	if(*h0==2)
+	{	erreur=shimatani_tr_disq(point_nb,x,y,x0,y0,r0,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,nbtype,type,surface,gs,ks,error);
+		for(i=1;i<(*nbtype+1);i++)
+			D+=(float)l[i]*((float)l[i]-1);
+		D=1-D/((float)(*point_nb)*((float)(*point_nb)-1));
+	}
+	
+    for(j=0;j<*t2;j++)
+    {	g[j]=intensity*g[j]/ds[j];
+		k[j]=intensity*k[j];
+		tabg[j]=g[j];
+		tabk[j]=k[j];
+		if(g[j]==0)
+		{	error[j]=j;
+			z+=1;
+		}
+		if(*h0==2) {
+			gs[j]=gs[j]/D;
+			ks[j]=ks[j]/D;
+		}
+    }
+	//Intertype for each pairs of types
+	if(z==0)
+	{	for(i=1;i<*nbtype;i++)
+	{	for(p=0;p<i;p++)
+	{	dis=mat[p*(*nbtype-2)-(p-1)*p/2+i-1];
+		erreur=intertype_tr_disq(&l[i+1],xx[i],yy[i],&l[p+1],xx[p],yy[p],x0,y0,r0,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,g,k);
+		if (erreur!=0)
+			Rprintf("ERREUR 1 Intertype\n");
+		intensity1=l[i+1]/(*surface);
+		for(j=0;j<*t2;j++)
+		{	gii[j]=gii[j]+dis*intensity1*g[j]/ds[j];
+			kii[j]=kii[j]+dis*intensity1*k[j];
+		}
+		erreur=intertype_tr_disq(&l[p+1],xx[p],yy[p],&l[i+1],xx[i],yy[i],x0,y0,r0,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,g,k);
+		if (erreur!=0)
+			Rprintf("ERREUR 2 Intertype\n");
+		intensity2=l[p+1]/(*surface);
+		for(j=0;j<*t2;j++)
+		{	gii[j]=gii[j]+dis*intensity2*g[j]/ds[j];
+			kii[j]=kii[j]+dis*intensity2*k[j];
+		}
+	}
+	}
+		
+		for(j=0;j<*t2;j++)
+		{	gr[j]=gii[j]/(tabg[j]*(*HD));
+			kr[j]=kii[j]/(tabk[j]*(*HD));
+		}		
+		
+		//simulaitons sur gii, kii
+		double **gic,**kic;
+		int i0,i1,i2;
+		
+		/*Definition de i0 : indice ou sera stocke l'estimation des bornes de l'IC*/
+		i0=*lev/2*(*nbSimu+1);
+		if (i0<1) i0=1;
+		
+		/*Initialisation des tableaux dans lesquels on va stocker les valeurs extremes lors de MC*/
+		taballoc(&gic,*t2+1,2*i0+10+1);
+		taballoc(&kic,*t2+1,2*i0+10+1);
+		
+		for(i=0;i<*t2;i++)
+		{	gval[i]=1;
+			kval[i]=1;
+		}
+		
+		int lp=0;
+		double HDsim;
+		int *vec, mat_size;
+		vecintalloc(&vec,*nbtype);
+		double *matp;
+		mat_size=*nbtype*(*nbtype-1)/2;
+		vecalloc(&matp,mat_size);
+		if(*h0==2) {
+			for(i=0;i<*nbtype;i++)
+				vec[i]=i;
+			for(i=0;i<mat_size;i++)
+				matp[i]=0;
+		}
+		
+		/*boucle principale de MC*/
+		Rprintf("Monte Carlo simulation\n");
+		for(b=1;b<=*nbSimu;b++)
+		{	if(*h0==1) //random labelling
+				randomlab(x,y,*point_nb,type,*nbtype,xx,l,yy); 
+			if(*h0==2) //distance randomisation
+				randomdist(vec,*nbtype,mat,matp);
+			HDsim=0;
+			for(i=0;i<*t2;i++)
+			{	gii[i]=0;
+				kii[i]=0;
+			}
+			for(i=1;i<*nbtype;i++)
+			{	for(p=0;p<i;p++)
+			{	if(*h0==1)
+					dis=mat[p*(*nbtype-2)-(p-1)*p/2+i-1];
+				if(*h0==2) {
+					dis=matp[p*(*nbtype-2)-(p-1)*p/2+i-1];
+					HDsim+=(float)l[i+1]/(float)(*point_nb)*(float)l[p+1]/(float)(*point_nb)*dis;
+				}				
+				erreur=intertype_tr_disq(&l[i+1],xx[i],yy[i],&l[p+1],xx[p],yy[p],x0,y0,r0,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,gic1,kic1);
+				if (erreur!=0)
+					Rprintf("ERREUR 1 Intertype\n");
+				intensity1=l[i+1]/(*surface);
+				for(j=0;j<*t2;j++)
+				{	gii[j]=gii[j]+dis*intensity1*gic1[j]/ds[j];
+					kii[j]=kii[j]+dis*intensity1*kic1[j];
+				}
+				erreur=intertype_tr_disq(&l[p+1],xx[p],yy[p],&l[i+1],xx[i],yy[i],x0,y0,r0,triangle_nb,ax,ay,bx,by,cx,cy,t2,dt,gic1,kic1);
+				if (erreur!=0)
+					Rprintf("ERREUR 2 Intertype\n");
+				intensity2=l[p+1]/(*surface);
+				for(j=0;j<*t2;j++)
+				{	gii[j]=gii[j]+dis*intensity2*gic1[j]/ds[j];
+					kii[j]=kii[j]+dis*intensity2*kic1[j];
+				}
+			}
+			}
+			for(j=0;j<*t2;j++)
+			{	if(*h0==1) {// standardisation by HD when species labels are randomized
+				gii[j]=gii[j]/(tabg[j]*(*HD));
+				kii[j]=kii[j]/(tabk[j]*(*HD));
+				//deviation from theo=1
+				if ((float)fabs(gr[j]-1)<=(float)fabs(gii[j]-1)) gval[j]+=1;
+				if ((float)fabs(kr[j]-1)<=(float)fabs(kii[j]-1)) kval[j]+=1;				
+				}
+				if(*h0==2) {// standardisation by Hsim when distance matrix is randomized
+					gii[j]=gii[j]/(tabg[j]*2*HDsim);
+					kii[j]=kii[j]/(tabk[j]*2*HDsim);
+					//deviation from theo=shimatani
+					if ((float)fabs(gr[j]-gs[j])<=(float)fabs(gii[j]-gs[j])) gval[j]+=1;
+					if ((float)fabs(kr[j]-ks[j])<=(float)fabs(kii[j]-ks[j])) kval[j]+=1;
+				}
+			}	
+			
+
+			//Traitement des resultats
+			ic(b,i0,gic,kic,gii,kii,*t2);
+			R_FlushConsole();
+			progress(b,&lp,*nbSimu);
+		}
+		
+		i1=i0+2;
+		i2=i0;
+		
+		//Copies des valeurs dans les tableaux resultats
+		for(i=0;i<*t2;i++)
+		{	gic1[i]=gic[i+1][i1];
+			gic2[i]=gic[i+1][i2];
+			kic1[i]=kic[i+1][i1];
+			kic2[i]=kic[i+1][i2];
+		}
+		free(gic);
+		free(kic);
+		freeintvec(vec);
+		freevec(matp);
+	}
+	
+	
+	for( i = 0; i < *nbtype; i++)
+	{	free(xx[i]);
+		free(yy[i]);
+	}
+    free(xx);
+    free(yy);
+    free(g);
+    free(k);
+	free(l);
+	
+    free(tabg);
+    free(tabk);
+	
+    freevec(gii);
+    freevec(kii);
+    freevec(ds);
+	
+    return 0;
+}
+
+//permutation of species distance matrix
+int randomdist(int *vec,int nb_type,double *mat,double *matp) {
+    int i,j,a,jj;
+	int mat_size,rowvec,colvec,ind;
+	int erreur=0;
+	
+	GetRNGstate();
+	i=nb_type-1;
+	while(i>0)
+	{	jj=unif_rand()*(i);
+		a=vec[i];
+		vec[i]=vec[jj];
+		vec[jj]=a;
+		i=i-1;
+	}
+	PutRNGstate();
+	a=0;
+	for(i=1;i<nb_type;i++)
+		for(j=0;j<(nb_type-i);j++)
+		{	rowvec=i+j;
+			colvec=i-1;
+			if(vec[rowvec]>vec[colvec])
+				ind=vec[colvec]*(nb_type-2)-(vec[colvec]-1)*vec[colvec]/2+vec[rowvec]-1;
+			else {
+				ind=vec[rowvec]*(nb_type-2)-(vec[rowvec]-1)*vec[rowvec]/2+vec[colvec]-1;
+			}
+			matp[a]=mat[ind];			
+			a++;
+		}
+	return erreur;
 }
 
 /******************************************************/
@@ -6073,7 +6725,8 @@ double echange_point_rect(int point_nb,double *x,double *y,double xmi,double xma
         n_cout[j]=0;
         for(i=0;i<*t2;i++)
         {
-            n_cout[j]+=(lobs[i]-l[i])*(lobs[i]-l[i]);
+			n_cout[j]+=(lobs[i]-l[i])*(lobs[i]-l[i]);
+			//n_cout[j]+=(lobs[i]-l[i])*(lobs[i]-l[i])/(lobs*lobs);
         }
 		
 		
@@ -6496,4 +7149,5 @@ double echange_point_tr_disq(int point_nb,double *x,double *y,double x0,double y
 	return cout;
 	
 }
+
 

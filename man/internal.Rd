@@ -25,6 +25,7 @@
 \alias{print.vads.k12val}
 \alias{print.vads.kval}
 \alias{read.tri}
+\alias{sortmat}
 \alias{summary.vads}
 \alias{summary.vads.dval}
 \alias{summary.vads.k12val}
@@ -54,10 +55,11 @@ overlapping.polygons(listpoly)
 \method{print}{vads}(x,\dots)
 read.tri(X)
 \method{summary}{vads}(object,\dots)
+sortmat(dis,ind)
+subsetdist(dis,sub)
 testIC(nbSimu, lev)
 testInteger(i)
 transpose(x, y)
-subsetdist(dis,sub)
 }
 \details{
   These are usually not to be called by the user.

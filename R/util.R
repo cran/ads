@@ -327,3 +327,11 @@ subsetdist<-function(dis,sub) {
 	return(as.dist(submat))
 }
 	
+#ordering dist objetcs on ind
+sortmat<-function(dis,ind) {
+	mat<-as.matrix(dis)[,ind]
+	mat<-mat[ind,]
+	return(as.dist(mat))
+}
+
+

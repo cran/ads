@@ -863,9 +863,12 @@ ksfun<-function(p,upto,by,nsim=0,alpha=0.01) {
 	surface<-area.swin(p$window)
 	intensity<-p$n/surface
 	tabMarks<-levels(p$marks)
-	nbMarks<-length(tabMarks)
+	nbMarks<-nlevels(p$marks)
+#nbMarks<-length(tabMarks)
 	marks<-as.numeric(p$marks)	
-	D<-1-sum(as.vector(table(p$marks))^2/p$n^2) 
+	freq<-as.vector(table(p$marks))
+	D<-1-sum(freq*(freq-1))/(p$n*(p$n-1))
+
 # computing Shimatani	
 	if(cas==1) { #rectangle
 		if(nsim==0) { #without CI
@@ -955,11 +958,11 @@ ksfun<-function(p,upto,by,nsim=0,alpha=0.01) {
 		message("Increase argument 'by'")
 		return(res=NULL)
 	}
-	gs<-data.frame(obs=res$gg,theo=rep(D,tmax))
-	ks<-data.frame(obs=res$kk,theo=rep(D,tmax))
+	gs<-data.frame(obs=res$gg/D,theo=rep(1,tmax))
+	ks<-data.frame(obs=res$kk/D,theo=rep(1,tmax))
 	if(nsim>0) {
-		gs<-cbind(gs,sup=res$gic1,inf=res$gic2,pval=res$gval/(nsim+1))
-		ks<-cbind(ks,sup=res$kic1,inf=res$kic2,pval=res$kval/(nsim+1))
+		gs<-cbind(gs,sup=res$gic1/D,inf=res$gic2/D,pval=res$gval/(nsim+1))
+		ks<-cbind(ks,sup=res$kic1/D,inf=res$kic2/D,pval=res$kval/(nsim+1))
 	}
 	call<-match.call()
 	res<-list(call=call,r=r,gs=gs,ks=ks)
@@ -967,9 +970,12 @@ ksfun<-function(p,upto,by,nsim=0,alpha=0.01) {
 	return(res)
 }
 
-krfun<-function(p,upto,by,nsim=0,dis=NULL,alpha=0.01) {
+
+#################
+#V2 that calls K12fun
+##############
+krfun<-function(p,upto,by,nsim=0,dis=NULL,H0=c("rl","se"),alpha=0.01) {
 # checking for input parameters
-#options( CBoundsCheck = TRUE )
 	stopifnot(inherits(p,"spp"))
 	stopifnot(p$type=="multivariate")
 	stopifnot(is.numeric(upto))
@@ -978,7 +984,11 @@ krfun<-function(p,upto,by,nsim=0,dis=NULL,alpha=0.01) {
 	stopifnot(by>0)
 	r<-seq(by,upto,by)
 	tmax<-length(r)
+	H0<-H0[1]
+	stopifnot(H0=="se" || H0=="rl")
+	ifelse(H0=="se",H0<-2,H0<-1)
 	if(is.null(dis)) {
+		stopifnot(H0==1)
 		dis<-as.dist(matrix(1,nlevels(p$marks),nlevels(p$marks)))
 		attr(dis,"Labels")<-levels(p$marks)
 	}
@@ -986,17 +996,17 @@ krfun<-function(p,upto,by,nsim=0,dis=NULL,alpha=0.01) {
 	stopifnot(attr(dis,"Diag")==FALSE)
 	stopifnot(attr(dis,"Upper")==FALSE)
 	stopifnot(suppressWarnings(is.euclid(dis)))
-	
+###revoir tests sur dis	
 	if(length(levels(p$marks))!=length(labels(dis))) {
 		stopifnot(all(levels(p$marks)%in%labels(dis)))
 #dis<-subsetdist(dis,which(labels(dis)%in%levels(p$marks)))
 		dis<-subsetdist(dis,levels(p$marks))
 		warning("matrix 'dis' have been subsetted to match with levels(p$marks)")
 	}
-	else if(all(!labels(dis)==levels(p$marks))) {
-		attr(dis,"Labels")<-levels(p$marks)
-		warning("levels(p$marks) have been assigned to attr(dis, ''Labels'')")
-	}
+#else if(any(labels(dis)!=levels(p$marks))) {
+#		attr(dis,"Labels")<-levels(p$marks)
+#		warning("levels(p$marks) have been assigned to attr(dis, ''Labels'')")
+#	}
 	stopifnot(is.numeric(nsim))
 	stopifnot(nsim>=0)
 	nsim<-testInteger(nsim)
@@ -1032,35 +1042,34 @@ krfun<-function(p,upto,by,nsim=0,dis=NULL,alpha=0.01) {
 		}
 	}
 	else
-		stop("invalid window type")
+	stop("invalid window type")
 	surface<-area.swin(p$window)
 	intensity<-p$n/surface
-	tabMarks<-levels(p$marks)
-	nbMarks<-length(tabMarks)
-	mpt_nb<-summary(p$marks)
-	marks<-as.numeric(p$marks)
-
-HD<-suppressWarnings(divc(as.data.frame(unclass(table(p$marks))),sqrt(2*dis),scale=F)[1,1])
-
-dis<-as.vector(dis)
-
-# computing Rao
+	nbMarks<-nlevels(p$marks)
+	marks<-as.numeric(p$marks) # => position du label dans levels(p$marks)
+	dis<-as.dist(sortmat(dis,levels(p$marks)))
+	HD<-suppressWarnings(divc(as.data.frame(unclass(table(p$marks))),sqrt(2*dis),scale=F)[1,1])
+	HD<-HD*p$n/(p$n-1)
+	dis<-as.vector(dis)
+		
+# computing Rao	
 	if(cas==1) { #rectangle
 		if(nsim==0) { #without CI
 			res<-.C("rao_rect",
 					as.integer(p$n),as.double(p$x),as.double(p$y),
 					as.double(xmin),as.double(xmax),as.double(ymin),as.double(ymax),
-					as.integer(tmax),as.double(by),gg=double(tmax),kk=double(tmax),as.integer(marks),as.double(dis),as.integer(nbMarks),
+					as.integer(tmax),as.double(by),as.integer(H0),
+					as.integer(nbMarks),as.integer(marks),as.double(dis),as.double(surface),as.double(HD),
+					gg=double(tmax),kk=double(tmax),gs=double(tmax),ks=double(tmax),erreur=integer(tmax),
 					PACKAGE="ads")
 		}
 		else { #with CI
 			res<-.C("rao_rect_ic",
-					as.integer(p$n),as.double(p$x),as.double(p$y),
-					as.double(xmin),as.double(xmax),as.double(ymin),as.double(ymax),as.double(intensity),
-					as.integer(tmax),as.double(by), as.integer(nsim),as.double(alpha),as.double(HD),
-					gg=double(tmax),kk=double(tmax),
-					gic1=double(tmax),gic2=double(tmax),kic1=double(tmax),kic2=double(tmax),
-					gval=double(tmax),kval=double(tmax),as.integer(marks),as.integer(nbMarks),as.double(dis),
+					as.integer(p$n),as.double(p$x),as.double(p$y),as.double(xmin),as.double(xmax),as.double(ymin),as.double(ymax),
+					as.integer(tmax),as.double(by), as.integer(nsim),as.integer(H0),as.double(alpha),
+					as.integer(nbMarks),as.integer(marks),as.double(dis),as.double(surface),as.double(HD),
+					gg=double(tmax),kk=double(tmax),gs=double(tmax),ks=double(tmax),gic1=double(tmax),gic2=double(tmax),kic1=double(tmax),kic2=double(tmax),
+					gval=double(tmax),kval=double(tmax),erreur=integer(tmax),
 					PACKAGE="ads")
 		}
 	}
@@ -1068,18 +1077,19 @@ dis<-as.vector(dis)
 		if(nsim==0) { #without CI
 			res<-.C("rao_disq",
 					as.integer(p$n),as.double(p$x),as.double(p$y),
-					as.double(x0),as.double	(y0),as.double(r0),
-					as.integer(tmax),as.double(by),gg=double(tmax),kk=double(tmax),as.integer(marks),as.double(dis),as.integer(nbMarks),
+					as.double(x0),as.double(y0),as.double(r0),
+					as.integer(tmax),as.double(by),as.integer(H0),
+					as.integer(nbMarks),as.integer(marks),as.double(dis),as.double(surface),as.double(HD),
+					gg=double(tmax),kk=double(tmax),gs=double(tmax),ks=double(tmax),erreur=integer(tmax),
 					PACKAGE="ads")
 		}
 		else { #with CI
 			res<-.C("rao_disq_ic",
-					as.integer(p$n),as.double(p$x),as.double(p$y),
-					as.double(x0),as.double(y0),as.double(r0),as.double(intensity),
-					as.integer(tmax),as.double(by), as.integer(nsim), as.double(alpha),as.double(HD),
-					gg=double(tmax),kk=double(tmax),
-					gic1=double(tmax),gic2=double(tmax),kic1=double(tmax),kic2=double(tmax),
-					gval=double(tmax),kval=double(tmax),as.integer(marks),as.integer(nbMarks),as.double(dis),
+					as.integer(p$n),as.double(p$x),as.double(p$y),as.double(x0),as.double(y0),as.double(r0),
+					as.integer(tmax),as.double(by), as.integer(nsim),as.integer(H0),as.double(alpha),
+					as.integer(nbMarks),as.integer(marks),as.double(dis),as.double(surface),as.double(HD),
+					gg=double(tmax),kk=double(tmax),gs=double(tmax),ks=double(tmax),gic1=double(tmax),gic2=double(tmax),kic1=double(tmax),kic2=double(tmax),
+					gval=double(tmax),kval=double(tmax),erreur=integer(tmax),
 					PACKAGE="ads")
 		}
 	}
@@ -1089,46 +1099,64 @@ dis<-as.vector(dis)
 					as.integer(p$n),as.double(p$x),as.double(p$y),
 					as.double(xmin),as.double(xmax),as.double(ymin),as.double(ymax),
 					as.integer(nbTri),as.double(tri$ax),as.double(tri$ay),as.double(tri$bx),as.double(tri$by),as.double(tri$cx),as.double(tri$cy),
-					as.integer(tmax),as.double(by),
-					gg=double(tmax),kk=double(tmax),as.integer(marks),as.double(dis),as.integer(nbMarks),
+					as.integer(tmax),as.double(by),as.integer(H0),
+					as.integer(nbMarks),as.integer(marks),as.double(dis),as.double(surface),as.double(HD),
+					gg=double(tmax),kk=double(tmax),gs=double(tmax),ks=double(tmax),erreur=integer(tmax),
 					PACKAGE="ads")
 		}
 		else { #with CI
 			res<-.C("rao_tr_rect_ic",
 					as.integer(p$n),as.double(p$x),as.double(p$y),
-					as.double(xmin),as.double(xmax),as.double(ymin),as.double(ymax),as.double(intensity),
+					as.double(xmin),as.double(xmax),as.double(ymin),as.double(ymax),
 					as.integer(nbTri),as.double(tri$ax),as.double(tri$ay),as.double(tri$bx),as.double(tri$by),as.double(tri$cx),as.double(tri$cy),
-					as.integer(tmax),as.double(by), as.integer(nsim),as.double(alpha),as.double(HD),
-					gg=double(tmax),kk=double(tmax),
-					gic1=double(tmax),gic2=double(tmax),kic1=double(tmax),kic2=double(tmax),
-					gval=double(tmax),kval=double(tmax),as.integer(marks),as.integer(nbMarks),as.double(dis),
+					as.integer(tmax),as.double(by),as.integer(nsim), as.integer(H0),as.double(alpha),
+					as.integer(nbMarks),as.integer(marks),as.double(dis),as.double(surface),as.double(HD),
+					gg=double(tmax),kk=double(tmax),gs=double(tmax),ks=double(tmax),gic1=double(tmax),gic2=double(tmax),kic1=double(tmax),kic2=double(tmax),
+					gval=double(tmax),kval=double(tmax),erreur=integer(tmax),
 					PACKAGE="ads")
 		}
 	}
 	else if(cas==4) { #complex within circle
-		if(nsim==0) { #without CI		
+		if(nsim==0) { #without CI	
 			res<-.C("rao_tr_disq",
+				   as.integer(p$n),as.double(p$x),as.double(p$y),
+				   as.double(x0),as.double(y0),as.double(r0),
+				   as.integer(nbTri),as.double(tri$ax),as.double(tri$ay),as.double(tri$bx),as.double(tri$by),as.double(tri$cx),as.double(tri$cy),
+				   as.integer(tmax),as.double(by),as.integer(H0),
+				   as.integer(nbMarks),as.integer(marks),as.double(dis),as.double(surface),as.double(HD),
+				   gg=double(tmax),kk=double(tmax),gs=double(tmax),ks=double(tmax),erreur=integer(tmax),
+				   PACKAGE="ads")
+		}
+		else { #with CI (not based on K12)
+			res<-.C("rao_tr_disq_ic",
 					as.integer(p$n),as.double(p$x),as.double(p$y),
 					as.double(x0),as.double(y0),as.double(r0),
 					as.integer(nbTri),as.double(tri$ax),as.double(tri$ay),as.double(tri$bx),as.double(tri$by),as.double(tri$cx),as.double(tri$cy),
-					as.integer(tmax),as.double(by), gg=double(tmax),kk=double(tmax),as.integer(p$marks),as.double(dis),as.integer(nbMarks),
+					as.integer(tmax),as.double(by),as.integer(nsim), as.integer(H0),as.double(alpha),
+					as.integer(nbMarks),as.integer(marks),as.double(dis),as.double(surface),as.double(HD),
+					gg=double(tmax),kk=double(tmax),gs=double(tmax),ks=double(tmax),gic1=double(tmax),gic2=double(tmax),kic1=double(tmax),kic2=double(tmax),
+					gval=double(tmax),kval=double(tmax),serreur=integer(tmax),
 					PACKAGE="ads")
-		}
-		else { #with CI
-			res<-.C("rao_tr_disq_ic",
-					as.integer(p$n),as.double(p$x),as.double(p$y),
-					as.double(x0),as.double(y0),as.double(r0),as.double(intensity),
-					as.integer(nbTri),as.double(tri$ax),as.double(tri$ay),as.double(tri$bx),as.double(tri$by),as.double(tri$cx),as.double(tri$cy),
-					as.integer(tmax),as.double(by), as.integer(nsim),as.double(alpha),as.double(HD),
-					gg=double(tmax),kk=double(tmax),
-					gic1=double(tmax),gic2=double(tmax),kic1=double(tmax),kic2=double(tmax),
-					gval=double(tmax),kval=double(tmax),as.integer(marks),as.integer(nbMarks),as.double(dis),
-					PACKAGE="ads")
-			
 		}
 	}		
-	gr<-data.frame(obs=res$gg,theo=rep(HD,tmax))
-	kr<-data.frame(obs=res$kk,theo=rep(HD,tmax))
+	if(sum(res$erreur>0)){
+		message("Error in ", appendLF=F)
+		print(match.call())
+		message("No neigbors within distance intervals:")
+		print(paste(by*(res$erreur[res$erreur>0]-1),"-",by*res$erreur[res$erreur>0]))
+		message("Increase argument 'by'")
+		return(res=NULL)
+	}
+	if(H0==1) {
+		theog<-rep(1,tmax)
+		theok<-rep(1,tmax)
+	}
+	if(H0==2) {
+		theog<-res$gs
+		theok<-res$ks
+	}
+	gr<-data.frame(obs=res$gg,theo=theog)
+	kr<-data.frame(obs=res$kk,theo=theok)
 	if(nsim>0) {
 		gr<-cbind(gr,sup=res$gic1,inf=res$gic2,pval=res$gval/(nsim+1))
 		kr<-cbind(kr,sup=res$kic1,inf=res$kic2,pval=res$kval/(nsim+1))
@@ -1138,4 +1166,3 @@ dis<-as.vector(dis)
 	class(res)<-c("fads","krfun")
 	return(res)
 }
-

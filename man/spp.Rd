@@ -4,7 +4,7 @@
 \alias{print.spp}
 \alias{summary.spp}
 \alias{print.summary.spp}
-\alias{spp2ppp}
+\alias{ppp2spp}
 \title{Creating a spatial point pattern}
 \description{
   Function \code{spp} creates an object of class \code{"spp"}, which represents a
@@ -60,7 +60,7 @@ A spatial point pattern is assumed to have been observed within a specific
 }
 \note{
 There are printing, summary and plotting methods for \code{"spp"} objects.\cr
-Function \code{spp2ppp(spp.object)} coerces an object of class \code{"spp"} into a \code{\link[spatstat]{ppp.object}} suitable for use with package \code{spatstat}.
+Function \code{ppp2spp} converts an \code{\link[spatstat]{ppp.object}} from package \code{spatstat} into an \code{"spp"} object.
 }
 \seealso{
   \code{\link{plot.spp}},
@@ -101,5 +101,11 @@ Function \code{spp2ppp(spp.object)} coerces an object of class \code{"spp"} into
 	summary(swrt)
 	plot(swrt)
 	plot(swrt, out=TRUE) # plot points outside the sampling window
+	
+	
+	#converting a ppp object from spatstat
+	data(demopat)
+	demo.spp<-ppp2spp(demopat)
+	plot(demo.spp)
 }
 \keyword{spatial}

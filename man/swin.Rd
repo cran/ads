@@ -5,7 +5,7 @@
 \alias{summary.swin}
 \alias{print.summary.swin}
 \alias{plot.swin}
-\alias{swin2owin}
+\alias{owin2swin}
 \title{Creating a sampling window}
 \description{
   Function \code{swin} creates an object of class \code{"swin"}, which represents 
@@ -57,13 +57,12 @@ A sampling window may be of simple or complex type. A simple sampling window may
 }
 \note{
 There are printing, summary and plotting methods for \code{"swin"} objects.\cr
-Function \code{swin2owin(swin.object)} coerces an object of class \code{"swin"} into an \code{\link[spatstat]{owin.object}} suitable for use with package \code{spatstat}.
+Function \code{owin2swin} converts an \code{\link[spatstat]{owin.object}} from package \code{spatstat} into an \code{"swin"} object.
 }
 \seealso{
   \code{\link{area.swin}},
   \code{\link{inside.swin}},
-  \code{\link{swin2owin}},
-  \code{\link{spp}}
+	\code{\link{spp}}
   }
 \author{
  \email{Raphael.Pelissier@ird.fr}
@@ -99,5 +98,10 @@ Function \code{swin2owin(swin.object)} coerces an object of class \code{"swin"} 
  wch <- swin(wc, rbind(h1,h2))
  summary(wch)
  plot(wch)
+ 
+ #converting an owin object from spatstat
+ data(demopat)
+ demo.swin<-owin2swin(demopat$window)
+ plot(demo.swin)
 }
 \keyword{spatial}

@@ -20,17 +20,21 @@ ksfun(p, upto, by, nsim=0, alpha=0.01)
 }
 \details{
  Function \code{ksfun} computes Shimatani \eqn{\alpha(r)} and \eqn{\beta(r)} functions of Simpson diversity, called here \eqn{Ks(r)} and \eqn{gs(r)}, respectively.\cr\cr
- For a multivariate point pattern consisting of \eqn{i} species with intensity \eqn{\lambda}i, Shimatani (2001) showed that
-  a distance-dependent measure of Simpson (1949) diversity can be estimated from Ripley (1977) \eqn{K}-function computed for each species separately and for all the points grouped toghether (see also Eckel et al. 2008). Function \code{ksfun} is thus a simple wrapper function of \code{\link{kfun}}.
+ For a multivariate point pattern consisting of \eqn{S} species with intensity \eqn{\lambda}p, Shimatani (2001) showed that
+  a distance-dependent measure of Simpson (1949) diversity can be estimated from Ripley (1977) \eqn{K}-function computed for each species separately and for all the points grouped toghether (see also Eckel et al. 2008).
+  Function \code{ksfun} is thus a simple wrapper function of \code{\link{kfun}}, standardized by Simpson diversity coefficient:
   
   
-  \eqn{Ks(r) = 1 - sum(\lambda i * \lambda i * Ki(r)) / (\lambda * \lambda * K(r))} which is an estimator of \eqn{\alpha(r)} in Shimatani (2001).\cr\cr
-  \eqn{gs(r) = 1 - sum(\lambda i * \lambda i * gi(r)) / (\lambda * \lambda * g(r))} is the derivative of \eqn{Ks(r)} corresponding to \eqn{\beta(r)} in Shimatani (2001).\cr\cr
+  \eqn{Ks(r) = 1 - sum(\lambda p * \lambda p * Kp(r)) / (\lambda * \lambda * K(r) * D)} which is a standardized estimator of \eqn{\alpha(r)} in Shimatani (2001).\cr\cr
+  \eqn{gs(r) = 1 - sum(\lambda p * \lambda p * gp(r)) / (\lambda * \lambda * g(r) * D)} is the derivative of \eqn{Ks(r)} corresponding to a standardized version of \eqn{\beta(r)} in Shimatani (2001).\cr\cr
   
+  \eqn{Kp(r)} and \eqn{K(r)} (resp. \eqn{gp(r)} and \eqn{g(r)}) are univariate K-functions computed for species \eqn{p} and for all species toghether; \eqn{D = 1 - sum(Np * (Np - 1) / (N*(N - 1)))} is the unbiased version of Simpson diversity,
+  with \eqn{Np} the number of individuals of species \eqn{p} in the sample and \eqn{N = sum(Np)}.
+
   The program introduces an edge effect correction term according to the method proposed by Ripley (1977)
   and extended to circular and complex sampling windows by Goreaud & Pélissier (1999).\cr\cr
  
-  Theoretical values under the null hypothesis of random allocation of species labels is Simpson diversity index \eqn{D = 1 - sum(\lambda i * \lambda i) / (\lambda * \lambda)}.
+  The theoretical values of \eqn{gr(r)} and \eqn{Kr(r)} under the null hypothesis of random labelling is 1 for all \eqn{r}.
   Local Monte Carlo confidence limits and p-values of departure from this hypothesis are estimated at each distance \eqn{r} by reallocating at random the species labels among points of the pattern, keeping the point locations unchanged.
 }
 \value{
@@ -40,7 +44,7 @@ ksfun(p, upto, by, nsim=0, alpha=0.01)
   \item{ks }{a data frame containing values of the function \eqn{Ks(r)}.\cr\cr}
     \item{}{Each component except \code{r} is a data frame with the following variables:\cr\cr}
 \item{obs }{a vector of estimated values for the observed point pattern.}
- \item{theo }{a vector of theoretical values, i.e. Simpson \eqn{D} for all the points.}
+ \item{theo }{a vector of theoretical values expected under the null hypothesis of random labelling, i.e. 1 for all \eqn{r}.}
  \item{sup }{(optional) if \code{nsim>0} a vector of the upper local confidence limits of a random distribution of species labels at a significant level \eqn{\alpha}.}
  \item{inf }{(optional) if \code{nsim>0} a vector of the lower local confidence limits of a Prandom distribution of species labels at a significant level \eqn{\alpha}.}
  \item{pval }{(optional) if \code{nsim>0} a vector of local p-values of departure from a random distribution of species labels.}

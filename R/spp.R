@@ -252,12 +252,12 @@ plot.spp<-function (x,main,out=FALSE,use.marks=TRUE,cols,chars,cols.out,chars.ou
 		stop("invalid point pattern type")
 }
 
-spp2ppp<-function(p) {
-	stopifnot(inherits(p,"spp"))
-	w<-swin2owin(p$window)
-	pp<-list(window=w,n=p$n,x=p$x,y=p$y)
-	if(p$type=="multivariate"||p$type=="marked")
-	pp$marks<-p$marks
-	class(pp) <-"ppp"
-	return(pp)
+ppp2spp<-function(p) {
+	stopifnot(inherits(p,"ppp"))
+	sw<-owin2swin(p$window)
+	if(is.null(p$marks))
+		sp<-spp(p$x,p$y,sw)
+	else
+		sp<-spp(p$x,p$y,window=sw,marks=p$marks)
+	return(sp)
 }

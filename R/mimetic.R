@@ -104,8 +104,8 @@ plot.mimetic<-function (x,cols,lty,main,sub,legend=TRUE,csize=1,cex.main=1.5,...
 	on.exit(par(def.par))
 	mylayout<-layout(matrix(c(1,1,2,3,2,3),ncol=2,byrow=TRUE))
 	main<-deparse(x$call,width.cutoff=100)
-	plot.fads.mimetic(x$fads,main=main,cex.main=2,...)
-	plot(x$spp,main="x$spp (simulated)",...)
-	barplot(x$cost,main=paste("x$cost (nsim=",length(x$cost),")",sep=""),...)
+	plot.fads.mimetic(x$fads,main=main,cex.main=1.5*csize,...)
+	plot(x$spp,main="x$spp (simulated)",cex.main=csize,...)
+	barplot(x$cost,main=paste("x$cost (nsim=",length(x$cost),")",sep=""),cex.main=csize,...)
 	
 }
