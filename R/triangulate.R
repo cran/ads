@@ -13,7 +13,7 @@ triangulate<-function(outer.poly,holes) {
 		else if(is.poly(holes))
 			holes<-list(holes)
 		for(i in 1:length(holes))
-			stopifnot(inside.poly(holes[[i]]$x,holes[[i]]$y,outer.poly))
+			stopifnot(in.poly(holes[[i]]$x,holes[[i]]$y,outer.poly))
 		nbpoly<-length(holes)+1
 		nbpts<-length(outer.poly$x)
 		vertX<-outer.poly$x

@@ -37,7 +37,7 @@ swin<-function(window,triangles) {
 		sw<-list(type=c("simple","rectangle"),xmin=xmin,ymin=ymin,xmax=xmax,ymax=ymax)  
 		if(!missing(triangles)) {
 			sw$type=c("complex","rectangle")
-			stopifnot(unlist(lapply(convert(triangles),function(x) inside.rectangle(x$x,x$y,xmin,ymin,xmax,ymax))))
+			stopifnot(unlist(lapply(convert(triangles),function(x) in.rectangle(x$x,x$y,xmin,ymin,xmax,ymax))))
 			sw$triangles<-triangles
 		}
 	}
@@ -48,7 +48,7 @@ swin<-function(window,triangles) {
 		sw<-list(type=c("simple","circle"),x0=x0,y0=y0,r0=r0)		
 		if(!missing(triangles)) {
 			sw$type=c("complex","circle")
-			stopifnot(unlist(lapply(convert(triangles),function(x) inside.circle(x$x,x$y,x0,y0,r0))))
+			stopifnot(unlist(lapply(convert(triangles),function(x) in.circle(x$x,x$y,x0,y0,r0))))
 			sw$triangles<-triangles
 		}
 	}
@@ -172,15 +172,15 @@ inside.swin<-function(x,y,w,bdry=TRUE) {
 	stopifnot(inherits(w,"swin"))
 	stopifnot(length(x)==length(y))
 	if("rectangle"%in%w$type)
-		inside<-inside.rectangle(x,y,w$xmin,w$ymin,w$xmax,w$ymax,bdry)
+		inside<-in.rectangle(x,y,w$xmin,w$ymin,w$xmax,w$ymax,bdry)
 	else if("circle"%in%w$type)
-		inside<-inside.circle(x,y,w$x0,w$y0,w$r0,bdry)
+		inside<-in.circle(x,y,w$x0,w$y0,w$r0,bdry)
 	else
 		stop("invalid window type")
 	if("complex"%in%w$type) {
 		tri<-w$triangles
 		for(i in 1:nrow(tri)) 
-			inside[inside.triangle(x,y,tri$ax[i],tri$ay[i],tri$bx[i],tri$by[i],tri$cx[i],tri$cy[i])]<-FALSE
+			inside[in.triangle(x,y,tri$ax[i],tri$ay[i],tri$bx[i],tri$by[i],tri$cx[i],tri$cy[i])]<-FALSE
 	}   
 	return(inside)
 }
@@ -190,12 +190,11 @@ owin2swin<-function(w) {
 	if(identical(w$type,c("rectangle")))
 		sw<-swin(c(w$xrange[1],w$yrange[1],w$xrange[2],w$yrange[2]))
 	else if(identical(w$type,c("polygonal"))) {
-		tri<-alist()
 		if(length(w$bdry)==1) { #single polygon
 			stopifnot(w$bdry[[1]]$hole==FALSE)
 			wx<-border(w,0.1,outside=TRUE)
 			outer.poly<-data.frame(x=c(rep(wx$xrange[1],2),rep(wx$xrange[2],2)),y=c(wx$yrange,wx$yrange[2:1]))
-			tri<-rbind(tri,ads::triangulate(outer.poly,w$bdry[[1]][1:2]))
+			tri<-triangulate(outer.poly,data.frame(w$bdry[[1]][1:2]))
 			sw<-swin(c(wx$xrange[1],wx$yrange[1],wx$xrange[2],wx$yrange[2]),triangles=tri)
 		}
 		else { #polygon with holes
@@ -205,17 +204,20 @@ owin2swin<-function(w) {
 				outer.poly<-data.frame(x=c(rep(w$xrange[1],2),rep(w$xrange[2],2)),y=c(w$yrange,w$yrange[2:1]))
 				for(i in 2:length(w$bdry)) {
 					stopifnot(w$bdry[[i]]$hole==TRUE)
-					tri<-rbind(tri,ads::triangulate(w$bdry[[i]][1:2]))
+					if(i==2)
+						tri<-triangulate(w$bdry[[i]][1:2])
+					else
+						tri<-rbind(tri,triangulate(w$bdry[[i]][1:2]))
 				}
 				sw<-swin(c(w$xrange[1],w$yrange[1],w$xrange[2],w$yrange[2]),triangles=tri)
 			}
 			else { #first poly is a polygonal frame
 				wx<-border(w,0.1,outside=TRUE)
 				outer.poly<-data.frame(x=c(rep(wx$xrange[1],2),rep(wx$xrange[2],2)),y=c(wx$yrange,wx$yrange[2:1]))
-				tri<-rbind(tri,ads::triangulate(outer.poly,w$bdry[[1]][1:2]))
+				tri<-triangulate(outer.poly,w$bdry[[1]][1:2])
 				for(i in 2:length(w$bdry)) {
 					stopifnot(w$bdry[[i]]$hole==TRUE)
-					tri<-rbind(tri,ads::triangulate(w$bdry[[i]][1:2]))
+					tri<-rbind(tri,triangulate(w$bdry[[i]][1:2]))
 				}
 				sw<-swin(c(wx$xrange[1],wx$yrange[1],wx$xrange[2],wx$yrange[2]),triangles=tri)
 			}

@@ -56,17 +56,17 @@ int intertype_tr_disq(int *,double *,double *,int *,double *,double *,double *,d
 	double *,double *,double *,double *,double *,double *,int *,double *,double *,double *);
 
 int intertype_rect_ic(int *,double *,double *,int *,double *,double *,double *,double *,double *,double *,
-	double *,int *,double *,int *,int *,double *,double *,double *,double *,double *,double *,double *,double *,
-	double *,double *,double *,double *,double *);
-int intertype_disq_ic(int *,double *,double *,int *,double *,double *,double *,double *,double *,double *,int *,
-	double *,int *,int *,double *,double *,double *,double *,double *,double *,double *,double *,double *,
+	double *,int *,double *,int *,int *,double *,int *, int *, int *, double *,double *,double *,double *,double *,double *,double *,
 	double *,double *,double *,double *);
+int intertype_disq_ic(int *,double *,double *,int *,double *,double *,double *,double *,double *,double *,int *,
+	double *,int *,int *,double *,int *,int *,int *,double *,double *,double *,double *,double *,double *,double *,double *,
+	double *,double *,double *);
 int intertype_tr_rect_ic(int *,double *,double *,int *,double *,double *,double *,double *,double *,double *,
-	double *,int *,double *,double *,double *,double *,double *,double *,int *,double *,int *,int *,double *,double *,
-	double *,double *,double *,double *,double *,double *,double *,double *,double *,double *,double *);
-int intertype_tr_disq_ic(int *,double *,double *,int *, double *, double *,double *,double *,double *,double *,
-	int *,double *,double *,double *,double *,double *,double *,int *,double *,int *,int *,double *,double *,double *,
+	double *,int *,double *,double *,double *,double *,double *,double *,int *,double *,int *,int *,double *,int *,int *,int *,double *,
 	double *,double *,double *,double *,double *,double *,double *,double *,double *,double *);
+int intertype_tr_disq_ic(int *,double *,double *,int *, double *, double *,double *,double *,double *,double *,
+	int *,double *,double *,double *,double *,double *,double *,int *,double *,int *,int *,double *,int *,int *,int*,double *,double *,
+	double *,double *,double *,double *,double *,double *,double *,double *,double *);
 
 int intertypelocal_rect(int*,double *,double *,int*,double *,double *,double*,double*,double*,double*,
 	int*,double*,double *,double *);
@@ -155,15 +155,21 @@ int rao_tr_disq(int *,double *,double *,double *,double *,double *,int *,double 
 int rao_tr_disq_ic(int *,double *,double *,double *,double *,double *,int *,double *,double *,double *,double *,double *,double *,int *,double *,int *,int *,double *,
 				   int *,int *,double *,double *,double *,double *,double *,double *,double *,double *,double *,double *,double *,double *,double *,int *);
 
-int mimetic_rect(int *,double *,double *, double *,double *,double *,double *,double *,double *, int *,double *,double *,int *,int *,double *,double *,double *,double *,double *);
-int mimetic_disq(int *,double *,double *,double *,double *,double *,double *,double *, int *, double *, double *, int *, int *, double *,double *,double *,double *,double *);
+int mimetic_rect(int *,double *,double *, double *,double *,double *,double *,double *,double *, int *,double *,double *,int *,int *,double *,double *,double *,double *,double *,int *);
+int mimetic_disq(int *,double *,double *,double *,double *,double *,double *,double *, int *, double *, double *, int *, int *, double *,double *,double *,double *,double *,int *);
 int mimetic_tr_rect(int *,double *,double *, double *,double *,double *,double *,double *,int *, double *, double *, double *, double *, double *, double *,
-					double *, int *, double *, double *, int *, int *, double *,double *, double *,double *,double *);
+					double *, int *, double *, double *, int *, int *, double *,double *, double *,double *,double *,int *);
 int mimetic_tr_disq(int *,double *,double *, double *,double *,double *,double *,int *, double *,double *,double *,double *,double *,double *cy,
-					double *, int *, double *, double *, int *, int *, double *,double *,double *,double *,double *);
+					double *, int *, double *, double *, int *, int *, double *,double *,double *,double *,double *,int *);
 double echange_point_rect(int,double *,double *,double,double,double,double,double,double,double,double *,int *,double *,double *,double *);
 double echange_point_disq(int,double *,double *,double,double,double,double,double,double,double *,int *,double *,double *,double *);
 double echange_point_tr_rect(int,double *,double *,double,double,double,double,int *,double *,double *,double *,double *,double *,double *,
                              double,double,double,double *,int *,double *,double *,double *);
 double echange_point_tr_disq(int,double *,double *,double,double,double,int *,double *,double *,double *,double *,double *,double *,
                              double,double,double,double *,int *,double *,double *,double *);
+
+int shen(int *,double *,double *,int *,double *,int *,int *,double *,double *,double *,double *, double *, int *);
+
+int shen_ic(int *,double *,double *,int *,double *,int *,double *,int *,int *,double *,double *,double *,
+			double *, double *, double *,double *,double *,double *,double *,double *,int *);
+int intertype(int *,double *,double *,int *, double *, double *,int *,double *,double *,double *);

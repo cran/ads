@@ -4,10 +4,10 @@
 \alias{area.poly}
 \alias{convert}       
 \alias{convert2}
-\alias{inside.circle}
-\alias{inside.poly}
-\alias{inside.rectangle}
-\alias{inside.triangle}
+\alias{in.circle}
+\alias{in.poly}
+\alias{in.rectangle}
+\alias{in.triangle}
 \alias{is.poly} 
 \alias{overlap.poly}
 \alias{overlap.trapez}
@@ -43,10 +43,10 @@ adjust.marks.size(marks,window,maxsize=NULL)
 area.poly(xp, yp)
 convert(x)
 convert2(x)
-inside.circle(x, y, x0, y0, r0, bdry=TRUE)
-inside.poly(x, y, poly, bdry=TRUE)
-inside.rectangle(x, y, xmin, ymin, xmax, ymax, bdry=TRUE)
-inside.triangle(x, y, ax, ay, bx, by, cx, cy, bdry=TRUE)
+in.circle(x, y, x0, y0, r0, bdry=TRUE)
+in.poly(x, y, poly, bdry=TRUE)
+in.rectangle(x, y, xmin, ymin, xmax, ymax, bdry=TRUE)
+in.triangle(x, y, ax, ay, bx, by, cx, cy, bdry=TRUE)
 is.poly(p)
 overlap.poly(P, Q)
 overlap.trapez(xa, ya, xb, yb, verb=FALSE)

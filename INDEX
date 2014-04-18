@@ -2,6 +2,7 @@ Allogny       Spatial pattern of oaks suffering from frost shake in Allogny, Fra
 BPoirier      Tree spatial pattern in Beau Poirier plot, Haye forest, France.
 Couepia       Spatial pattern of Couepia caryophylloides in Paracou, a canopy tree 
               species of French Guiana.
+demopat		  Artificial data point pattern from \code{spatstat} package.
 Paracou15     Spatial pattern of trees in plot 15 of Paracou experimental station,
               French Guiana.
 area.swin     Area of a sampling window.
@@ -11,6 +12,8 @@ k12fun        Multiscale second-order neigbourhood analysis of a bivariate spati
               point pattern.
 k12val        Multiscale local second-order neighbour density of a bivariate spatial 
               point pattern.
+kdfun		  Multiscale second-order neigbourhood analysis of phylogentic/functional
+			  spatial structure of a multivariate spatial point pattern. 
 kfun          Multiscale second-order neigbourhood analysis of an univariate spatial 
               point pattern.
 kmfun         Multiscale second-order neigbourhood analysis of a marked spatial point 

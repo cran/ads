@@ -9,6 +9,9 @@ spp<-function (x,y=NULL,window,triangles,marks,int2fac=TRUE) {
 	stopifnot(is.numeric(x))
     stopifnot(is.numeric(y))
 	stopifnot(length(x)==length(y))
+	if(any(duplicated(cbind(x,y))))
+		warning("duplicated (x,y) points")
+#stopifnot(!duplicated(cbind(x,y)))
 	if(!inherits(window,"swin")) {
 		if(missing(triangles))
 			w<-swin(window)

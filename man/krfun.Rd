@@ -23,15 +23,15 @@ krfun(p, upto, by, nsim=0, dis = NULL, H0 = c("rl", "se"), alpha = 0.01)
 \details{
  Function \code{krfun} computes distance-dependent functions of Rao (1982) quadratic entropy (see \code{\link{divc}} in package \code{ade4}).\cr\cr
  For a multivariate point pattern consisting of \eqn{S} species with intensity \eqn{\lambda}p, such functions can be estimated from the bivariate \eqn{Kpq}-functions between each pair of different species \eqn{p} and \eqn{q}.
- Function \code{krfun} is thus a simple wrapper function of \code{\link{k12fun}} and \code{\link{kfun}}, standardized by Rao diversity coefficient:
+ Function \code{krfun} is thus a simple wrapper function of \code{\link{k12fun}} and \code{\link{kfun}}, standardized by Rao diversity coefficient (Pélissier & Goreaud 2014):
 
   \eqn{Kr(r) = sum(\lambda p * \lambda q * Kpq(r)*dpq) / (\lambda * \lambda * K(r) * HD)}.\cr
-  \eqn{gr(r) = sum(\lambda p * \lambda q * gpq(r)*dpq) / (\lambda * \lambda * g(r) * HD)} is the derivative of \eqn{Kr(r)}.\cr\cr
+  \eqn{gr(r) = sum(\lambda p * \lambda q * gpq(r)*dpq) / (\lambda * \lambda * g(r) * HD)}.\cr\cr
 
   where \eqn{dpq} is the distance between species \eqn{p} and \eqn{q} defined by matrix \code{dis}, typically a taxonomic, phylogentic or functional distance, and \eqn{HD=sum(Np*Nq*dpq/(N(N - 1)))} is the unbiased version of Rao diversity coefficient (see Shimatani 2001). When \code{dis = NULL}, species are considered each other equidistant and \code{krfun} returns the same results than \code{\link{ksfun}}. 
 
 The program introduces an edge effect correction term according to the method proposed by Ripley (1977)
-  and extended to circular and complex sampling windows by Goreaud & PÃ©lissier (1999).\cr\cr
+  and extended to circular and complex sampling windows by Goreaud & Pélissier (1999).\cr\cr
  
 Theoretical values under the null hypothesis of either random labelling or species equivalence as well as local Monte Carlo confidence limits and p-values of departure from the null hypothesis (Besag & Diggle 1977) are estimated at each distance \eqn{r}.
 
@@ -56,9 +56,11 @@ The species equivalence hypothesis (H0 = "se") is tested by randomizing the betw
 
  Shimatani, K. 2001. On the measurement of species diversity incorporating species differences. \emph{OÃ¯kos}, 93, 135-147.
  
- Goreaud F. & PÃ©lissier R. 1999. On explicit formulas of edge effect correction for Ripley's K-function. \emph{Journal of Vegetation Science}, 10:433-438.
+ Goreaud F. & Pélissier R. 1999. On explicit formulas of edge effect correction for Ripley's K-function. \emph{Journal of Vegetation Science}, 10:433-438.
 
  Ripley B.D. 1977. Modelling spatial patterns. \emph{Journal of the Royal Statistical Society B}, 39:172-192.
+ 
+ Pélissier, R. & Goreaud, F. 2014. ads package for R: A fast unbiased implementation of the k-function family for studying spatial point patterns in irregular-shaped sampling windows. \emph{Journal of Statistical Software}, in press.
  
 }
 \author{\email{Raphael.Pelissier@ird.fr}}
@@ -69,35 +71,37 @@ The species equivalence hypothesis (H0 = "se") is tested by randomizing the betw
 \code{\link{plot.fads}},
  \code{\link{spp}},
  \code{\link{ksfun}},
+ \code{\link{kdfun}},
  \code{\link{divc}}.
 }
 \examples{
   data(Paracou15)
   P15<-Paracou15
   # spatial point pattern in a rectangle sampling window of size 125 x 125
-  swmr <- spp(P15$trees, win = c(125, 125, 250, 250), marks = P15$species)
+  swmr <- spp(P15$trees, win = c(175, 175, 250, 250), marks = P15$species)
   # testing the random labeling hypothesis
-  krwmr.rl <- krfun(swmr, dis = P15$spdist, H0 = "rl", 50, 5, 50)
+  krwmr.rl <- krfun(swmr, dis = P15$spdist, H0 = "rl", 25, 2, 50)
+  #running more simulations is slow
+  #krwmr.rl <- krfun(swmr, dis = P15$spdist, H0 = "rl", 25, 2, 500)
   plot(krwmr.rl)
   # testing the species equivalence hypothesis
-  krwmr.se <- krfun(swmr, dis = P15$spdist, H0 = "se", 50, 5, 50)
-  plot(krwmr.se)
+  krwmr.se <- krfun(swmr, dis = P15$spdist, H0 = "se", 25, 2, 50)
   #running more simulations is slow
-  #krwmr.rl <- krfun(swmr, dis = P15$spdist, H0 = "rl", 50, 5, 500)
-  #krwmr.se <- krfun(swmr, dis = P15$spdist, H0 = "se", 50, 5, 500)
+  #krwmr.se <- krfun(swmr, dis = P15$spdist, H0 = "se", 25, 2, 500)
+  plot(krwmr.se)
 
   # spatial point pattern in a circle with radius 50 centred on (125,125)
   swmc <- spp(P15$trees, win = c(125,125,50), marks = P15$species)
-  krwmc <- krfun(swmc, dis = P15$spdist, H0 = "rl", 50, 5, 100)
+  krwmc <- krfun(swmc, dis = P15$spdist, H0 = "rl", 25, 2, 100)
   #running more simulations is slow
-  #krwmc <- krfun(swmc, dis = P15$spdist, H0 = "rl, 50, 5, 500)
+  #krwmc <- krfun(swmc, dis = P15$spdist, H0 = "rl, 25, 2, 500)
   plot(krwmc)
   
   # spatial point pattern in a complex sampling window
   swrt <- spp(P15$trees, win = c(125,125,250,250), tri = P15$tri, marks = P15$species)
-  krwrt <- krfun(swrt, dis = P15$spdist, H0 = "rl", 50, 5)
+  krwrt <- krfun(swrt, dis = P15$spdist, H0 = "rl", 25, 2)
   #running simulations is slow
-  #krwrt <- krfun(swrt, dis = P15$spdist, H0 = "rl", 50, 5, 500)
+  #krwrt <- krfun(swrt, dis = P15$spdist, H0 = "rl", 25, 2, 500)
   plot(krwrt)
 }
 \keyword{spatial}

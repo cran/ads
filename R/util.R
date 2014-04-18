@@ -23,7 +23,7 @@ area.poly<-function(xp,yp) {
     -sum(dx * ym)
 }
 
-inside.circle<-function(x,y,x0,y0,r0,bdry=TRUE) {
+in.circle<-function(x,y,x0,y0,r0,bdry=TRUE) {
 	stopifnot(length(x)==length(y))
 	l<-length(x)
 	inside<-vector(mode="logical",length=l)
@@ -40,18 +40,18 @@ inside.circle<-function(x,y,x0,y0,r0,bdry=TRUE) {
 	return(inside)
 }
 
-inside.rectangle<-function(x,y,xmin,ymin,xmax,ymax,bdry=TRUE) {
+in.rectangle<-function(x,y,xmin,ymin,xmax,ymax,bdry=TRUE) {
 	stopifnot(length(x)==length(y))
 	stopifnot((xmax-xmin)>0)
 	stopifnot((ymax-ymin)>0)
 	rect<-list(x=c(xmin,xmax,xmax,xmin),y=c(ymin,ymin,ymax,ymax))
-	return(inside.poly(x,y,rect,bdry))
+	return(in.poly(x,y,rect,bdry))
 }
 
-inside.triangle<-function(x,y,ax,ay,bx,by,cx,cy,bdry=TRUE) {
+in.triangle<-function(x,y,ax,ay,bx,by,cx,cy,bdry=TRUE) {
 	stopifnot(length(x)==length(y))
 	tri<-list(x=c(ax,bx,cx),y=c(ay,by,cy))
-	return(inside.poly(x,y,tri,bdry))
+	return(in.poly(x,y,tri,bdry))
 }
 
 #modified from plot.ppp{spatstat}
@@ -234,7 +234,7 @@ overlap.trapez <- function(xa, ya, xb, yb, verb=FALSE) {
 }
 
 #TRUE: les points sur la bordure sont = inside
-inside.poly<-function(x,y,poly,bdry=TRUE) {
+in.poly<-function(x,y,poly,bdry=TRUE) {
 	stopifnot(is.poly(poly))
 	xp <- poly$x
 	yp <- poly$y

@@ -48,7 +48,14 @@ is \eqn{(n-2)+2t}, with \eqn{n<200} in this version of the program.
   plot(swin(BP$rect, tri1))
   
   # a single polygon with a hole
-  tri2 <- triangulate(c(-10,-10,120,100), BP$poly1)
-  plot(swin(c(-10,-10,120,100), tri2))
-}
+  #tri2 <- triangulate(c(-10,-10,120,100), BP$poly1)
+  #plot(swin(c(-10,-10,120,100), tri2))
+  
+  # the same with narrower outer polygon
+  #tri3 <- lapply(BP$poly2,triangulate)
+  #tri3<-do.call(rbind,tri3)
+  #xr<-range(tri3$ax,tri3$bx,tri3$cx)
+  #yr<-range(tri3$ay,tri3$by,tri3$cy)
+  #plot(swin(c(xr[1],yr[1],xr[2],yr[2]), tri3))
+  }
 \keyword{spatial}

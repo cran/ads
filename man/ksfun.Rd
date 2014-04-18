@@ -26,7 +26,7 @@ ksfun(p, upto, by, nsim=0, alpha=0.01)
   
   
   \eqn{Ks(r) = 1 - sum(\lambda p * \lambda p * Kp(r)) / (\lambda * \lambda * K(r) * D)} which is a standardized estimator of \eqn{\alpha(r)} in Shimatani (2001).\cr\cr
-  \eqn{gs(r) = 1 - sum(\lambda p * \lambda p * gp(r)) / (\lambda * \lambda * g(r) * D)} is the derivative of \eqn{Ks(r)} corresponding to a standardized version of \eqn{\beta(r)} in Shimatani (2001).\cr\cr
+  \eqn{gs(r) = 1 - sum(\lambda p * \lambda p * gp(r)) / (\lambda * \lambda * g(r) * D)} corresponding to a standardized version of \eqn{\beta(r)} in Shimatani (2001).\cr\cr
   
   \eqn{Kp(r)} and \eqn{K(r)} (resp. \eqn{gp(r)} and \eqn{g(r)}) are univariate K-functions computed for species \eqn{p} and for all species toghether; \eqn{D = 1 - sum(Np * (Np - 1) / (N*(N - 1)))} is the unbiased version of Simpson diversity,
   with \eqn{Np} the number of individuals of species \eqn{p} in the sample and \eqn{N = sum(Np)}.

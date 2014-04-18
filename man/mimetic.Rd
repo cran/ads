@@ -53,11 +53,11 @@ mimetic(x,upto=NULL,by=NULL,prec=NULL,nsimax=3000,conv=50)
   plot(swr)
   
   # performing the mimetic point process from "spp" object
-  mimswr <- mimetic(swr, 25, 1)
+  mimswr <- mimetic(swr, 20, 2)
   plot(mimswr)
 
    # performing the mimetic point process from "fads" object
-  mimkswr <- mimetic(kfun(swr, 25, 1))
+  mimkswr <- mimetic(kfun(swr, 20, 2))
   plot(mimkswr)
   
   }

@@ -299,14 +299,12 @@ static int traverse_polygon(mcur, trnum, from, dir)
      int from;
      int dir;
 {
+  if ((trnum <= 0) || visited[trnum]) return 0;
   trap_t *t = &tr[trnum];
   int mnew;
   int v0, v1;
   int retval=0;
   int do_switch = FALSE;
-
-  if ((trnum <= 0) || visited[trnum])
-    return 0;
 
   visited[trnum] = TRUE;
 

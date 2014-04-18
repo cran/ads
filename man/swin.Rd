@@ -15,12 +15,14 @@
 }
 \usage{
  swin(window, triangles)
+ owin2swin(w)
 }
 \arguments{
   \item{window}{a vector defining the limits of a simple sampling window: \code{c(xmin,ymin,xmax,ymax)}
    for a rectangle ; \code{c(x0,y0,r0)} for a circle.}
   \item{triangles}{(optional) a list of triangles removed from a simple initial window to define a complex 
-  sampling window (see Details).}
+  sampling window (see Details).}`
+  \item{w}{a \code{"owin"} object from package \code{spatstat}.}
 }
 \details{
 A sampling window may be of simple or complex type. A simple sampling window may be a rectangle or a circle.

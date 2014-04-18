@@ -8,6 +8,7 @@
 \alias{plot.fads.kmfun}
 \alias{plot.fads.ksfun}
 \alias{plot.fads.krfun}
+\alias{plot.fads.kdfun}
 \alias{plot.fads.mimetic}
 \title{Plot second-order neigbourhood functions}
 \description{

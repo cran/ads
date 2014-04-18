@@ -14,6 +14,7 @@
 }
 \usage{
 spp(x, y=NULL, window, triangles, marks, int2fac=TRUE)
+ppp2spp(p)
 }
 \arguments{
   \item{x,y}{if \code{y=NULL}, \eqn{x} is a list of two vectors of point coordinates, else both \eqn{x} and \eqn{y} are atomic vectors of point coordinates.}
@@ -23,6 +24,7 @@ spp(x, y=NULL, window, triangles, marks, int2fac=TRUE)
   complex sampling window (see \code{\link{swin}}).}
   \item{marks}{(optional) a vector of mark values, which may be factor levels or numerical values (see Details).}
   \item{int2fac}{if TRUE, integer marks are automatically coerced into factor levels.}
+  \item{p}{a \code{"ppp"} object from package \code{spatstat}.}
 }
 \details{
 A spatial point pattern is assumed to have been observed within a specific

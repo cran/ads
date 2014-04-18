@@ -8,7 +8,8 @@
   under the null hypotheses of population independence or random labelling (see Details).
 }
 \usage{
-k12fun(p, upto, by, nsim=0, H0=c("pi","rl"), prec=0.01, alpha=0.01,  marks)
+k12fun(p, upto, by, nsim=0, H0=c("pitor","pimim","rl"), prec=0.01, nsimax=3000, conv=50,
+ rep=10, alpha=0.01,  marks)
 }
 \arguments{
   \item{p}{a \code{"spp"} object defining a multivariate spatial point pattern in a given sampling window (see \code{\link{spp}}).}
@@ -16,9 +17,12 @@ k12fun(p, upto, by, nsim=0, H0=c("pi","rl"), prec=0.01, alpha=0.01,  marks)
   \item{by}{interval length between successive sample circles radii (see Details).}
   \item{nsim}{number of Monte Carlo simulations to estimate local confidence limits of the selected null hypothesis (see Details).
   By default \code{nsim=0}, so that no confidence limits are computed.}
-  \item{H0}{one of \code{c("pi","rl")} to select either the null hypothesis of population independence (\code{H0="pi"}) or random labelling (\code{H0="rl"}) (see Details).
-  By default, the null hypothesis is population independence.}
-  \item{prec}{if \code{nsim>0} and \code{H0="pi"}, precision of the random vector generated during simulations. By default \code{prec=0.01}.}
+  \item{H0}{one of \code{c("pitor","pimim","rl")} to select either the null hypothesis of population independence using toroidal shift (\code{H0="pitor"}) or mimetic point process (\code{H0="pimim"}), or of random labelling (\code{H0="rl"}) (see Details).
+  By default, the null hypothesis is population independence using toroidal shift.}
+  \item{prec}{if \code{nsim>0} and \code{H0="pitor"} or \code{H0="pimim"}, precision of the random vector or point coordinates generated during simulations. By default \code{prec=0.01}.}
+  \item{nsimax}{if \code{nsim>0} and \code{H0="pimim"}, maximum number of simulations allowed (see \code{\link{mimetic}}. By default \code{nsimax=3000}.}
+  \item{conv}{if \code{nsim>0} and \code{H0="pimim"}, convergence criterion (see \code{\link{mimetic}}. By default \code{conv=50}.}
+	\item{rep}{if \code{nsim>0} and \code{H0="pimim"}, controls for convergence failure of the mimetic point process (see details). By default \code{rep=10} so that the function aborts after 10 consecutive failures in mimetic point process convergence.}
   \item{alpha}{if \code{nsim>0}, significant level of the confidence limits. By default \eqn{\alpha=0.01}.}
   \item{marks}{by default c(1,2), otherwise a vector of two numbers or character strings identifying the types (the \code{p$marks} levels)
    of points of type 1 and 2, respectively.}
@@ -44,9 +48,10 @@ k12fun(p, upto, by, nsim=0, H0=c("pi","rl"), prec=0.01, alpha=0.01,  marks)
   Theoretical values under the null hypothesis of either population independence or random labelling as well as
   local Monte Carlo confidence limits and p-values of departure from the null hypothesis (Besag & Diggle 1977) are estimated at each distance \eqn{r}.\cr
   
-  The population independence hypothesis \code{"pi"} assumes that the location of points of a given population is independent from the location 
-  of points of the other. It is therefore tested conditionally to the intrinsic spatial pattern of each population, which are just shifted 
-  each other by a random vector.\cr
+  The population independence hypothesis assumes that the location of points of a given population is independent from the location 
+  of points of the other. It is therefore tested conditionally to the intrinsic spatial pattern of each population. Two different procedures are available:
+  \code{H0="pitor"} just shifts the pattern of type 1 points around a torus following Lotwick & Silverman (1982); \code{H0="pimim"} uses a mimetic point process (Goreaud et al. 2004)
+  to mimic the pattern of type 1 points (see \code{\link{mimetic}}.\cr
   The random labelling hypothesis \code{"rl"} assumes that the probability to bear a given mark is the same for all points of the pattern and
    doesn't depends on neighbours. It is therefore tested conditionally to the whole spatial pattern, by randomizing the marks over the points'
   locations kept unchanged (see Goreaud & Pélissier 2003 for further details). 
@@ -72,6 +77,7 @@ k12fun(p, upto, by, nsim=0, H0=c("pi","rl"), prec=0.01, alpha=0.01,  marks)
  Lotwick, H.W. & Silverman, B.W. 1982. Methods for analysing spatial processes of several types of points. \emph{Journal of the Royal Statistical Society B}, 44:403-413.\cr\cr
  Ripley B.D. 1977. Modelling spatial patterns. \emph{Journal of the Royal Statistical Society B}, 39:172-192.\cr\cr
  Wiegand, T. & Moloney, K.A. 2004. Rings, circles, and null-models for point pattern analysis in ecology. \emph{Oikos}, 104:209-229.
+ Goreaud F., Loussier, B., Ngo Bieng, M.-A. & Allain R. 2004. Simulating realistic spatial structure for forest stands: a mimetic point process. In \emph{Proceedings of Interdisciplinary Spatial Statistics Workshop}, 2-3 December, 2004. Paris, France.
 }
 \author{\email{Raphael.Pelissier@ird.fr}}
 \note{
@@ -84,6 +90,7 @@ k12fun(p, upto, by, nsim=0, H0=c("pi","rl"), prec=0.01, alpha=0.01,  marks)
  \code{\link{kfun}},
  \code{\link{kijfun}},
  \code{\link{ki.fun}},
+  \code{\link{mimetic}},
  \code{\link{kmfun}}.
 }
 \examples{
@@ -104,8 +111,16 @@ k12fun(p, upto, by, nsim=0, H0=c("pi","rl"), prec=0.01, alpha=0.01,  marks)
   plot(k12swc.pi)
   
   # spatial point pattern in a complex sampling window
-  swrt <- spp(BP$trees, win=BP$rect, tri=BP$tri2, marks=BP$species)
-  k12swrt.pi <- k12fun(swrt, 25, 1, 500, marks=c("beech","oak"))
+  swrt.rl <- spp(BP$trees, win=BP$rect, tri=BP$tri2, marks=BP$species)
+  k12swrt.rl <- k12fun(swrt.rl, 25, 1, 500, H0="rl",marks=c("beech","oak"))
+  plot(k12swrt.rl)
+  #testing population independence hypothesis
+  #requires minimizing the outer polygon
+  xr<-range(BP$tri3$ax,BP$tri3$bx,BP$tri3$cx)
+  yr<-range(BP$tri3$ay,BP$tri3$by,BP$tri3$cy)
+  rect.min<-swin(c(xr[1], yr[1], xr[2], yr[2]))
+  swrt.pi <- spp(BP$trees, window = rect.min, triangles = BP$tri3, marks=BP$species)
+  k12swrt.pi <- k12fun(swrt.pi, 25, 1, nsim = 500, marks = c("beech", "oak"))
   plot(k12swrt.pi)
 }
 \keyword{spatial}
