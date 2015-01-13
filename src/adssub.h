@@ -5,7 +5,7 @@
 
 double Pi();
 void progress(int,int*, int);
-double alea ();
+/*double alea ();*/
 void freeintvec (int *);
 void freetab (double **);
 void freevec (double *);

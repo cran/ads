@@ -3,6 +3,7 @@
 #include <sys/time.h>
 #include <string.h>
 #include <math.h>
+#include <R.h>
 #define CROSS_SINE(v0, v1) ((v0).x * (v1).y - (v1).x * (v0).y)
 #define LENGTH(v0) (sqrt((v0).x * (v0).x + (v0).y * (v0).y))
 #ifdef __STDC__
@@ -305,6 +306,8 @@ static int traverse_polygon(mcur, trnum, from, dir)
   int v0, v1;
   int retval=0;
   int do_switch = FALSE;
+
+  //if ((trnum <= 0) || visited[trnum]) return 0;
 
   visited[trnum] = TRUE;
 
@@ -793,7 +796,7 @@ int testclock(double *x,double *y,int last) {
 
 
 /* Generate a random permutation of the segments 1..n */
-int generate_random_ordering(int n) {	
+/*int generate_random_ordering(int n) {	
 	int lig, i,j, k;
 	double z;
 	choose_idx = 1;
@@ -808,6 +811,25 @@ int generate_random_ordering(int n) {
 		permute[j]=permute[k];
 		permute[k] = z;
 	}
+	return 0;
+}*/
+int generate_random_ordering(int n) {	
+	int lig, i,j, k;
+	double z;
+	GetRNGstate();
+	choose_idx = 1;
+	for (i = 1; i <= n; i++)
+		permute[i]=i;
+	lig = permute[0];
+	for (i=1; i<=lig-1; i++)
+	{	j=lig-i+1;
+		k = (int) (j*unif_rand()+1);
+		if (k>j) k=j;
+		z = permute[j];
+		permute[j]=permute[k];
+		permute[k] = z;
+	}
+	PutRNGstate();
 	return 0;
 }
 

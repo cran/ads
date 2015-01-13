@@ -23,11 +23,11 @@ void progress(int i,int *l, int max) {
 	}
 }
 
-double alea () {
+/*double alea () {
     double w;
     w = ((double) rand())/ (double)RAND_MAX;
     return (w);
-}
+}*/
 
 /***********************************************************************/
 /*--------------------------------------------------

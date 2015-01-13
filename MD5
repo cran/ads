@@ -1,4 +1,4 @@
-2aaffe6dd05adc494379839f9e1d5024 *DESCRIPTION
+2755553481e78a8f5b6ef00d43e983a5 *DESCRIPTION
 68a58538a504c7cfa73472d87053be45 *INDEX
 7478c6d745db573c9d03ebc59bdc969c *NAMESPACE
 f6aac0fb4ef187df6521cbb2d9ffc9cf *R/fads.R
@@ -18,6 +18,7 @@ f2c452832a53eb1ed6d168b59918d52a *R/vads.R
 24fea786746fc897f8918300f2f2c544 *data/Couepia.rda
 a014cac4bc9abd4f40123a762939c8ca *data/Paracou15.rda
 674867657e9a3df07b6eced02aa022a1 *data/demopat.rda
+c7cd00087730e79e06e8c0d937d0b1f7 *inst/CITATION
 94a8b147b3d2730b0c3869a7e1a2592f *man/Allogny.Rd
 1755cf31329228337e0b8039af2b6daf *man/BPoirier.Rd
 d912451f743e11a9fbe50c8a6ef13b15 *man/Couepia.Rd
@@ -46,9 +47,9 @@ cfe40689a11ec983e9b9bb4b759aaa26 *man/swin.Rd
 c04839dd6cd8eb396d512260a23dc7fd *man/triangulate.Rd
 22fae7567dd07dddf2ea00cb023c2be5 *src/Zlibs.c
 109615f7005a5a6e02b98bcf1a904551 *src/Zlibs.h
-ce4d10a71148459b88223f93bf082a1f *src/adssub.c
-5170b9a64b2000b36b98822628e5805f *src/adssub.h
+3d7a3f0a98ac75ad014cc91fbe2d0579 *src/adssub.c
+bd642dbad07c62b2f39fae4c5640f93a *src/adssub.h
 8a3dad68f1826270eef7ea08e098dfc5 *src/spatstatsub.f
-1b43d0d65849db7c19a855f0f176066b *src/triangulate.c
+5aa9f5862ef5b0e8bbcc327021e1489a *src/triangulate.c
 e482b9d18794f53adaed3f2c98edd19a *src/triangulate.h
 fb07aec2cf6396cab654966e2757ab5c *src/util.c
