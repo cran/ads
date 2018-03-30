@@ -307,16 +307,6 @@ read.tri<-function(X) {
 	return(res)
 }
 
-transpose<-function(x,y) {
-
-	nbTri<-length(x)/3
-	
-	res<-.C("transpose",x=as.double(x),y=as.double(y),nbTri=as.integer(nbTri),
-			x1=double(nbTri),y1=double(nbTri),x2=double(nbTri),y2=double(nbTri),
-			x3=double(nbTri),y3=double(nbTri),PACKAGE="ads")
-		
-	list(x1=res$x1,y1=res$y1,x2=res$x2,y2=res$y2,x3=res$x3,y3=res$y3)
-}
 ##############
 #subsetting dist objects
 #sub is a logical vector of True/False

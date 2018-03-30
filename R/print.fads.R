@@ -1,10 +1,15 @@
 print.fads<-function(x,...) {
-	UseMethod("print.fads")
+	NextMethod()
 }
 
 print.fads.kfun<-function(x,...) {
 	cat("Univariate second-order neighbourhood functions:\n")
 	str(x)	
+}
+
+print.fads.kdfun<-function(x,...) {
+  cat("Multiscale second-order neigbourhood analysis of a spatial phylogenetic or functional diversity pattern from fully mapped data:\n")
+  str(x)   
 }
 
 print.fads.k12fun<-function(x,...) {

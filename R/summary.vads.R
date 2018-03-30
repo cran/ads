@@ -1,5 +1,5 @@
 summary.vads<-function(object,...) {
-	UseMethod("summary.vads")
+  NextMethod()
 }
 
 summary.vads.dval<-function (object,...) {

@@ -1,5 +1,4 @@
 dval<-function(p,upto,by,nx,ny) {
-#si multivariŽ, choix du type de points ???
 	stopifnot(inherits(p,"spp"))
 	stopifnot(is.numeric(upto))
 	stopifnot(is.numeric(by))
@@ -88,7 +87,7 @@ dval<-function(p,upto,by,nx,ny) {
 				count=double(tmax*nbSample),
 				PACKAGE="ads")$count
 	}
-	## rajouter un indice lorsque les disques ne sont pas indŽpendants
+	## rajouter un indice lorsque les disques ne sont pas independants
 	# formatting results	
 	dens<-count/(pi*r^2)
 	#grid<-matrix(c(xsample,ysample),nrow=nbSample,ncol=2)
@@ -176,10 +175,6 @@ kval<-function(p,upto,by) {
 				PACKAGE="ads")
 	}	
 	# formatting results
-	#coord<-matrix(c(X$x,X$y),nrow=nbPts,ncol=2)
-	#coord<-data.frame(x=p$x,y=p$y)
-	#r<-seq(dr,dr*tmax,dr)
-	#ds<-pi*r^2-pi*seq(0,dr*tmax-dr,dr)^2
 	ds<-c(pi,diff(pi*r^2))
 	gi<-matrix(res$gi/(intensity*ds),nrow=p$n,ncol=tmax,byrow=TRUE)
 	ni<-matrix(res$ki/(pi*r^2),nrow=p$n,ncol=tmax,byrow=TRUE)
@@ -288,10 +283,6 @@ k12val<-function(p,upto,by,marks) {
 				PACKAGE="ads")
 	}
 	# formatting results
-	#coord<-matrix(c(x1,y1),nrow=nbPts1,ncol=2)
-	#coord<-data.frame(x1=x1,y1=y1)
-	#r<-seq(dr,dr*tmax,dr)
-	#ds<-pi*r^2-pi*seq(0,dr*tmax-dr,dr)^2
 	ds<-c(pi,diff(pi*r^2))
 	gi<-matrix(res$gi/(intensity2*ds),nrow=nbPts1,ncol=tmax,byrow=TRUE)
 	ni<-matrix(res$ki/(pi*r^2),nrow=nbPts1,ncol=tmax,byrow=TRUE)

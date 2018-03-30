@@ -27,13 +27,24 @@ triangulate<-function(outer.poly,holes) {
 		nbtri<-(nbptot-2)+2*(nbpoly-1)
 	}
 	else {
+		# phv 20160823 bug fix: triangulate C function crashes with 4 points polygons and no hole
+		# Bypass the C function and returns 2 triangles made respectively of vertices (1, 2, 3) and (1, 3, 4)
+		if(length(outer.poly$x)==4) {
+			return(data.frame(
+				ax=c(outer.poly$x[1], outer.poly$x[1]),
+				ay=c(outer.poly$y[1], outer.poly$y[1]),
+				bx=c(outer.poly$x[2], outer.poly$x[3]),
+				by=c(outer.poly$y[2], outer.poly$y[3]),
+				cx=c(outer.poly$x[3], outer.poly$x[4]),
+				cy=c(outer.poly$y[3], outer.poly$y[4])))
+		}  
 		nbpoly<-1
 		nbpts<-nbptot<-length(outer.poly$x)
 		vertX<-outer.poly$x
 		vertY<-outer.poly$y
 		nbtri<-(nbpts-2)
 	}
-	tri<-.C("triangulate",
+	tri<-.C("c_triangulate",
 		as.integer(nbpoly),as.integer(nbpts),as.integer(nbptot),as.double(vertX),as.double(vertY),as.integer(nbtri),
 		X1=double(nbtri),Y1=double(nbtri),X2=double(nbtri),Y2=double(nbtri),X3=double(nbtri),Y3=double(nbtri),
 		PACKAGE="ads")

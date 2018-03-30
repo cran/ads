@@ -1,5 +1,5 @@
 print.vads<-function(x,...) {
-	UseMethod("print.vads")
+  NextMethod()
 }
 
 print.vads.dval<-function(x,...) {

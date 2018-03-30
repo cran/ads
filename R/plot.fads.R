@@ -1,5 +1,5 @@
 plot.fads<-function (x,opt,cols,lty,main,sub,legend,csize,...) {
-	UseMethod("plot.fads")
+  NextMethod()
 }
 
 plot.fads.kfun<-function (x,opt=c("all","L","K","n","g"),cols,lty,main,sub,legend=TRUE,csize=1,...) {

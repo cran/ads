@@ -790,7 +790,7 @@ kmfun<-function(p,upto,by,nsim=0,alpha=0.01) {
 					PACKAGE="ads")	
 		}
 		else { #with CI
-			res<-.C("ripley_tr_disq_ic",
+			res<-.C("corr_tr_disq_ic",
 					as.integer(p$n),as.double(p$x),as.double(p$y),as.double(p$marks),
 					as.double(x0),as.double(y0),as.double(r0),
 					as.integer(nbTri),as.double(tri$ax),as.double(tri$ay),as.double(tri$bx),as.double(tri$by),as.double(tri$cx),as.double(tri$cy),
