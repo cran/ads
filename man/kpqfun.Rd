@@ -47,17 +47,17 @@ A list of class \code{"fads"} with essentially the following components:
 \examples{
   data(BPoirier)
   BP <- BPoirier
-  # multivariate spatial point pattern in a rectangle sampling window 
+ \dontrun{multivariate spatial point pattern in a rectangle sampling window}
   swrm <- spp(BP$trees, win=BP$rect, marks=BP$species)
   kpqswrm <- kpqfun(swrm, 25, 1)
   plot(kpqswrm)
   
- # multivariate spatial point pattern in a circle with radius 50 centred on (55,45)
+ \dontrun{multivariate spatial point pattern in a circle with radius 50 centred on (55,45)}
   swcm <- spp(BP$trees, win=c(55,45,45), marks=BP$species)
   kpqswcm <- kpqfun(swcm, 25, 1)
   plot(kpqswcm)
   
-  # multivariate spatial point pattern in a complex sampling window
+  \dontrun{multivariate spatial point pattern in a complex sampling window}
   swrtm <- spp(BP$trees, win=BP$rect, tri=BP$tri2, marks=BP$species)
   kpqswrtm <- kpqfun(swrtm, 25, 1)
   plot(kpqswrtm)

@@ -44,7 +44,7 @@ triangulate<-function(outer.poly,holes) {
 		vertY<-outer.poly$y
 		nbtri<-(nbpts-2)
 	}
-	tri<-.C("c_triangulate",
+	tri<-.C("triangulate",
 		as.integer(nbpoly),as.integer(nbpts),as.integer(nbptot),as.double(vertX),as.double(vertY),as.integer(nbtri),
 		X1=double(nbtri),Y1=double(nbtri),X2=double(nbtri),Y2=double(nbtri),X3=double(nbtri),Y3=double(nbtri),
 		PACKAGE="ads")

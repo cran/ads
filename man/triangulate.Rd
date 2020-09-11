@@ -27,7 +27,7 @@ triangulate(outer.poly, holes)
 is \eqn{(n-2)+2t}, with \eqn{n<200} in this version of the program.
 }
 \references{
- Goreaud, F. and Pélissier, R. 1999. On explicit formula of edge effect correction for Ripley's \emph{K}-function. \emph{Journal of Vegetation Science}, 10:433-438.\cr\cr
+ Goreaud, F. and PÃ©lissier, R. 1999. On explicit formula of edge effect correction for Ripley's \emph{K}-function. \emph{Journal of Vegetation Science}, 10:433-438.\cr\cr
  Narkhede, A. & Manocha, D. 1995. Fast polygon triangulation based on Seidel's algoritm. Pp 394-397 In A.W. Paeth (Ed.)
   \emph{Graphics Gems V}. Academic Press. \url{http://www.cs.unc.edu/~dm/CODE/GEM/chapter.html}.
 }
@@ -43,19 +43,19 @@ is \eqn{(n-2)+2t}, with \eqn{n<200} in this version of the program.
   BP <- BPoirier
   plot(BP$poly1$x, BP$poly1$y)
   
-  # a single polygon triangulation
+  \dontrun{a single polygon triangulation}
   tri1 <- triangulate(BP$poly1)
   plot(swin(BP$rect, tri1))
   
-  # a single polygon with a hole
-  #tri2 <- triangulate(c(-10,-10,120,100), BP$poly1)
-  #plot(swin(c(-10,-10,120,100), tri2))
+  \dontrun{a single polygon with a hole}
+  \donttest{tri2 <- triangulate(c(-10,-10,120,100), BP$poly1)
+  plot(swin(c(-10,-10,120,100), tri2))}
   
-  # the same with narrower outer polygon
-  #tri3 <- lapply(BP$poly2,triangulate)
-  #tri3<-do.call(rbind,tri3)
-  #xr<-range(tri3$ax,tri3$bx,tri3$cx)
-  #yr<-range(tri3$ay,tri3$by,tri3$cy)
-  #plot(swin(c(xr[1],yr[1],xr[2],yr[2]), tri3))
-  }
+  \dontrun{the same with narrower outer polygon}
+  \donttest{tri3 <- lapply(BP$poly2,triangulate)
+  tri3<-do.call(rbind,tri3)
+  xr<-range(tri3$ax,tri3$bx,tri3$cx)
+  yr<-range(tri3$ay,tri3$by,tri3$cy)
+  plot(swin(c(xr[1],yr[1],xr[2],yr[2]), tri3))}
+}
 \keyword{spatial}

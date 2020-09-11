@@ -44,15 +44,85 @@ in.rectangle<-function(x,y,xmin,ymin,xmax,ymax,bdry=TRUE) {
 	stopifnot(length(x)==length(y))
 	stopifnot((xmax-xmin)>0)
 	stopifnot((ymax-ymin)>0)
-	rect<-list(x=c(xmin,xmax,xmax,xmin),y=c(ymin,ymin,ymax,ymax))
-	return(in.poly(x,y,rect,bdry))
+	l<-length(x)
+	inside<-vector(mode="logical",length=l)
+	for(i in 1:l) {
+		if(bdry) {
+			if(x[i]>=xmin&&x[i]<=xmax&&y[i]>=ymin&&y[i]<=ymax)
+				inside[i]<-TRUE
+		}
+		else {
+			if(x[i]>xmin&&x[i]<xmax&&y[i]>ymin&&y[i]<ymax)
+				inside[i]<-TRUE
+		}
+	}
+	return(inside)
 }
 
+#modified from inside.triangle(spatstat.utils)
 in.triangle<-function(x,y,ax,ay,bx,by,cx,cy,bdry=TRUE) {
 	stopifnot(length(x)==length(y))
-	tri<-list(x=c(ax,bx,cx),y=c(ay,by,cy))
-	return(in.poly(x,y,tri,bdry))
+	p<-length(x)
+	inside<-vector(mode="logical",length=p)
+	t<-length(ax)
+	stopifnot(all(c(length(ay),length(bx),length(by),length(cx),length(cy))==t))
+	intri<-matrix(0,p,t)
+	for(j in 1:t) {
+		v0x <- cx[j] - ax[j]
+    	v0y <- cy[j] - ay[j]
+    	v1x <- bx[j] - ax[j]
+    	v1y <- by[j] - ay[j]
+		dot00 <- v0x^2 + v0y^2
+    	dot01 <- v0x * v1x + v0y * v1y
+		dot11 <- v1x^2 + v1y^2
+		for(i in 1:p) {
+			if(!inside[i]) {
+				v2x <- x[i] - ax[j]
+    			v2y <- y[i] - ay[j]
+				dot02 <- v0x * v2x + v0y * v2y
+    			dot12 <- v1x * v2x + v1y * v2y
+    			Denom <- dot00 * dot11 - dot01 * dot01
+    			u <- dot11 * dot02 - dot01 * dot12
+    			v <- dot00 * dot12 - dot01 * dot02
+				if(bdry) {
+          			if((u >= 0) & (v >= 0) & (u + v <= Denom))
+            			inside[i]<-TRUE
+        		}
+        		else {
+          			if((u > 0) & (v > 0) & (u + v < Denom))
+              			inside[i]<-TRUE
+        		}
+			}
+		}	
+	}
+	return(inside)			
 }
+
+#function (x, y, xx, yy) 
+#{
+#    v0x <- xx[3] - xx[1]
+#    v0y <- yy[3] - yy[1]
+#    v1x <- xx[2] - xx[1]
+#    v1y <- yy[2] - yy[1]
+#    v2x <- x - xx[1]
+#    v2y <- y - yy[1]
+#    dot00 <- v0x^2 + v0y^2
+#    dot01 <- v0x * v1x + v0y * v1y
+#    dot02 <- v0x * v2x + v0y * v2y
+#    dot11 <- v1x^2 + v1y^2
+#    dot12 <- v1x * v2x + v1y * v2y
+#    Denom <- dot00 * dot11 - dot01 * dot01
+#    u <- dot11 * dot02 - dot01 * dot12
+#    v <- dot00 * dot12 - dot01 * dot02
+#    return((u > 0) & (v > 0) & (u + v < Denom))
+#}
+
+
+
+
+
+
+
 
 #modified from plot.ppp{spatstat}
 adjust.marks.size<-function(marks,window,maxsize=NULL) {
@@ -233,36 +303,25 @@ overlap.trapez <- function(xa, ya, xb, yb, verb=FALSE) {
   return(signfactor * areaT)
 }
 
-#TRUE: les points sur la bordure sont = inside
+#Points on boundary are considered outside. No alternative option implemented yet.
 in.poly<-function(x,y,poly,bdry=TRUE) {
+	if(bdry) {
+		bdry<-FALSE
+		warning("argument 'bdry' automatically set to FALSE. No alternative implemented yet")
+	}
 	stopifnot(is.poly(poly))
-	xp <- poly$x
-	yp <- poly$y
 	npts <- length(x)
-	nedges <- length(xp)   # sic
-
-  score <- rep(0, npts)
-  on.boundary <- rep(FALSE, npts)
-	temp <- .Fortran(
-		"inpoly",
-		x=as.double(x),
-		y=as.double(y),
-		xp=as.double(xp),
-		yp=as.double(yp),
-		npts=as.integer(npts),
-		nedges=as.integer(nedges),
-		score=as.double(score),
-		onbndry=as.logical(on.boundary),
-		PACKAGE="ads"
-	)
-	score <- temp$score
-	on.boundary <- temp$onbndry
-	score[on.boundary] <- 1
-	res<-rep(FALSE,npts)
-	res[score==(-1)]<-TRUE
-	if(bdry)
-		res[score==1]<-TRUE
-	return(res)
+	nedg <- length(poly$x)   # sic
+	xmi<-ifelse(min(x)<=min(poly$x),min(x),min(poly$x))
+	ymi<-ifelse(max(x)>=max(poly$x),max(x),max(poly$x))
+	polxrange<-ifelse(min(y)<=min(poly$y),min(y),min(poly$y))
+	polyrange<-ifelse(max(y)>=max(poly$y),max(y),max(poly$y))
+	res <- .C("pnpoly",
+ 				as.double(x),as.double(y),as.double(poly$x),
+ 				as.double(poly$y),as.integer(npts),as.integer(nedg),as.double(xmi),
+		 		as.double(ymi),as.double(polxrange),as.double(polyrange),score=double(npts),
+				PACKAGE="ads")
+	return(as.logical(res$score))
 }
 
 ####################
@@ -307,6 +366,16 @@ read.tri<-function(X) {
 	return(res)
 }
 
+transpose<-function(x,y) {
+
+	nbTri<-length(x)/3
+	
+	res<-.C("transpose",x=as.double(x),y=as.double(y),nbTri=as.integer(nbTri),
+			x1=double(nbTri),y1=double(nbTri),x2=double(nbTri),y2=double(nbTri),
+			x3=double(nbTri),y3=double(nbTri),PACKAGE="ads")
+		
+	list(x1=res$x1,y1=res$y1,x2=res$x2,y2=res$y2,x3=res$x3,y3=res$y3)
+}
 ##############
 #subsetting dist objects
 #sub is a logical vector of True/False

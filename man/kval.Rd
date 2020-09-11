@@ -20,7 +20,7 @@
 \details{
  Function \code{kval} returns indivdiual values of \emph{K(r)} and associated functions (see \code{\link{kfun}})
  estimated for each point of the pattern. For a given distance \emph{r}, these values can be mapped within the sampling window 
- (Getis & Franklin 1987, Pélissier & Goreaud 2001).  
+ (Getis & Franklin 1987, Pï¿½lissier & Goreaud 2001).  
 }
 \value{
 A list of class \code{c("vads","kval")} with essentially the following components:
@@ -33,7 +33,7 @@ A list of class \code{c("vads","kval")} with essentially the following component
  }
 \references{ 
   Getis, A. and Franklin, J. 1987. Second-order neighborhood analysis of mapped point patterns. \emph{Ecology}, 68:473-477.\cr\cr
-  Pélissier, R. and Goreaud, F. 2001. A practical approach to the study of spatial structure in simple cases of heterogeneous vegetation. \emph{Journal of Vegetation Science}, 12:99-108.
+  PÃ©lissier, R. and Goreaud, F. 2001. A practical approach to the study of spatial structure in simple cases of heterogeneous vegetation. \emph{Journal of Vegetation Science}, 12:99-108.
 }
 \author{
 	\email{Raphael.Pelissier@ird.fr}
@@ -53,19 +53,19 @@ A list of class \code{c("vads","kval")} with essentially the following component
 \examples{
   data(BPoirier)
   BP <- BPoirier
-  # spatial point pattern in a rectangle sampling window of size [0,110] x [0,90]
+  \dontrun{spatial point pattern in a rectangle sampling window of size [0,110] x [0,90]}
   swr <- spp(BP$trees, win=BP$rect)
   kvswr <- kval(swr, 25, 1)
   summary(kvswr)
   plot(kvswr)
 
-  # spatial point pattern in a circle with radius 50 centred on (55,45)
+  \dontrun{spatial point pattern in a circle with radius 50 centred on (55,45)}
   swc <- spp(BP$trees, win=c(55,45,45))
   kvswc <- kval(swc, 25, 1)
   summary(kvswc)
   plot(kvswc)
   
-  # spatial point pattern in a complex sampling window
+  \dontrun{spatial point pattern in a complex sampling window}
   swrt <- spp(BP$trees, win=BP$rect, tri=BP$tri1)
   kvswrt <- kval(swrt, 25, 1)
   summary(kvswrt)

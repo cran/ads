@@ -88,7 +88,7 @@ typedef struct {
 #define LASTPT  2
 
 
-#define INFINITY 1<<30 
+#define INFINITY 1<<30
 #define C_EPS 1.0e-7		/* tolerance value: Used for making */
 				/* all decisions about collinearity or */
 				/* left/right of segment. Decrease */
@@ -140,20 +140,26 @@ extern node_t qs[QSIZE];		/* Query structure */
 extern trap_t tr[TRSIZE];		/* Trapezoid structure */
 extern segment_t seg[SEGSIZE];		/* Segment table */
 
+
 /* Functions */
-extern int c_triangulate(int*, int *, int *,double *, double *, int *, double *, double *,double *, double *,double *, double *);
+
 extern int triangulate_polygon(int, int *, double**,int**);
 extern int is_point_inside_polygon(double *);
+
 int triangulate_polygon(int, int [], double**, int**);
+
 int testclock(double *,double *,int);
+
 extern int monotonate_trapezoids(int);
 extern int triangulate_monotone_polygons(int, int, int**);
+
 extern int _greater_than(point_t *, point_t *);
 extern int _equal_to(point_t *, point_t *);
 extern int _greater_than_equal_to(point_t *, point_t *);
 extern int _less_than(point_t *, point_t *);
 extern int locate_endpoint(point_t *, point_t *, int);
 extern int construct_trapezoids(int);
+
 extern int generate_random_ordering(int);
 extern int choose_segment(void);
 extern int read_segments(char *, int *);

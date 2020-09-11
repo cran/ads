@@ -21,7 +21,7 @@ kdfun(p, upto, by, dis, nsim=0, alpha = 0.01)
 }
 \details{
  Function \code{kdfun} computes Shen et al. (2014) \eqn{Kd} and \emph{gd}-functions. For a multivariate point pattern consisting of \eqn{S} species with intensity \eqn{\lambda}p, such functions can be estimated from the bivariate \eqn{Kpq}-functions between each pair of different species \eqn{p} and \eqn{q}.
- Function \code{kdfun} is thus a simple wrapper of \code{\link{k12fun}} (Pélissier & Goreaud 2014):
+ Function \code{kdfun} is thus a simple wrapper of \code{\link{k12fun}} (Pï¿½lissier & Goreaud 2014):
 
   \eqn{Kd(r) = D * Kr(r) / HD * Ks(r) = D * sum(\lambda p * \lambda q * Kpq(r) * dpq) / HD * sum(\lambda p * \lambda q * Kpq(r))}.\cr
   \eqn{gd(r) = D * g(r) / HD * gs(r) = D * sum(\lambda p * \lambda q * gpq(r) * dpq) / HD * sum(\lambda p * \lambda q * gpq(r))}.\cr\cr
@@ -50,7 +50,7 @@ kdfun(p, upto, by, dis, nsim=0, alpha = 0.01)
 \references{
  Shen, G., Wiegand, T., Mi, X. & He, F. (2014). Quantifying spatial phylogenetic structures of fully stem-mapped plant communities. \emph{Methods in Ecology and Evolution}, 4, 1132-1141.
  
- Pélissier, R. & Goreaud, F. ads package for R: A fast unbiased implementation of the K-function family for studying spatial point patterns in irregular-shaped sampling windows. \emph{Journal of Statistical Software}, in press.
+ PÃ©lissier, R. & Goreaud, F. ads package for R: A fast unbiased implementation of the K-function family for studying spatial point patterns in irregular-shaped sampling windows. \emph{Journal of Statistical Software}, in press.
  
 }
 \author{\email{Raphael.Pelissier@ird.fr}}
@@ -67,26 +67,26 @@ kdfun(p, upto, by, dis, nsim=0, alpha = 0.01)
 \examples{
   data(Paracou15)
   P15<-Paracou15
-  # spatial point pattern in a rectangle sampling window of size 125 x 125
+  \dontrun{spatial point pattern in a rectangle sampling window of size 125 x 125}
   swmr <- spp(P15$trees, win = c(175, 175, 250, 250), marks = P15$species)
-  # testing the species equivalence hypothesis
+  \dontrun{testing the species equivalence hypothesis}
   kdswmr <- kdfun(swmr, dis = P15$spdist, 50, 2, 100)
-  #running more simulations is slow
-  #kdswmr <- drfun(swmr, dis = P15$spdist, 50, 2, 500)
+  \dontrun{running more simulations is slow}
+  \donttest{kdswmr <- kdfun(swmr, dis = P15$spdist, 50, 2, 500)}
   plot(kdswmr)
 
-  # spatial point pattern in a circle with radius 50 centred on (125,125)
+ \dontrun{spatial point pattern in a circle with radius 50 centred on (125,125)}
   swmc <- spp(P15$trees, win = c(125,125,50), marks = P15$species)
   kdswmc <- kdfun(swmc, dis = P15$spdist, 50, 2, 100)
-  #running more simulations is slow
-  #kdswmc <- kdfun(swmc, dis = P15$spdist, 50, 2, 500)
+  \dontrun{running more simulations is slow}
+  \donttest{kdswmc <- kdfun(swmc, dis = P15$spdist, 50, 2, 500)}
   plot(kdswmc)
   
-  # spatial point pattern in a complex sampling window
+ \dontrun{spatial point pattern in a complex sampling window}
   swrt <- spp(P15$trees, win = c(125,125,250,250), tri = P15$tri, marks = P15$species)
   kdswrt <- kdfun(swrt, dis = P15$spdist, 50, 2, 100)
-  #running simulations is slow
-  #kdswrt <- kdfun(swrt, dis = P15$spdist, 50, 2, 500)
+  \dontrun{running simulations is slow}
+  \donttest{kdswrt <- kdfun(swrt, dis = P15$spdist, 50, 2, 500)}
   plot(kdswrt)
 }
 \keyword{spatial}

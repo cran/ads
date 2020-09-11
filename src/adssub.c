@@ -347,3 +347,57 @@ void complete_tab(int point_nb,double **xx,double **yy,int *type,int *compt,int 
 	return ;
 }
 
+
+
+/*test wether points are inside a polygon (points on boundaries are considered outside)*/
+void pnpoly(double *testx, double *testy, double *vertx, double *verty, int *npts, int *nvert, double *xmi, double *ymi, double *pxr, double *pyr, double *score) {
+  
+	int i, j, k;
+	int nedg=*nvert;
+
+	/*so as to shift all coordinates to positive values only*/
+/*	if(*xmi<0) {
+		for(i=0;i<*npts;i++) {
+			testx[i]=testx[i]-*xmi;
+		}
+		for(i=0;i<*nvert;i++) {
+			vertx[i]=vertx[i]-*xmi;
+		}
+		for(i=0;i<2;i++) {
+			pxr[i]=pxr[i]-*xmi;
+		}
+		//decalVal(testx,*npts,-*xmi);
+		//decalVal(vertx,*nvert,-*xmi);
+		//decalVal(pxr,2,-*xmi);
+	}
+	if(*ymi<0) {
+		for(i=0;i<*npts;i++) {
+			testy[i]=testy[i]-*ymi;
+		}
+		for(i=0;i<*nvert;i++) {
+			verty[i]=verty[i]-*ymi;
+		}
+		for(i=0;i<2;i++) {
+			pyr[i]=pyr[i]-*ymi;
+		}
+		//decalVal(testy,*npts,-*ymi);
+		//decalVal(verty,*nvert,-*ymi);
+		//decalVal(pyr,2,-*ymi);
+	}*/
+
+  	for(k=0;k<*npts;k++) {
+		score[k]=0;
+		//for (i=0, j=(nedg-1); i <nedg; j = i++) {
+		j=(nedg-1);
+		for (i=0; i <nedg; i++) {
+				
+			if ((((verty[i] <= testy[k]) && (testy[k] < verty[j])) || ((verty[j] <= testy[k]) && (testy[k] < verty[i]))) && (testx[k] < (vertx[j] - vertx[i]) * (testy[k] - verty[i]) / (verty[j] - verty[i]) + vertx[i]))
+				{score[k] = 1;}	
+			j=i;
+			
+  		}
+		// We're outside the polygon!
+		/*if (testx[k] <= pxr[1] || testx[k] >= pxr[2] || testy[k] <= pyr[1] || testy[k] >= pyr[2]) 
+		{score[k]=0;}*/
+	}	
+}

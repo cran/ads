@@ -22,7 +22,7 @@ dval(p, upto, by, nx, ny)
 \details{
  The local density is estimated for a regular sequence of sample circles radii given by \code{seq(by,upto,by)} (see \code{\link{seq}}).
  The sample circles are centred at the nodes of a regular grid with size \eqn{nx} by \eqn{ny}. Ripley's edge effect correction is applied when 
- the sample circles overlap boundary of the sampling window (see Ripley (1977) or Goreaud & Pélissier (1999) for an extension to circular and complex 
+ the sample circles overlap boundary of the sampling window (see Ripley (1977) or Goreaud & Pï¿½lissier (1999) for an extension to circular and complex 
  sampling windows). Due to edge effect correction, \code{upto}, the maximum radius of the sample circles, is half the longer side for a rectangle sampling
  window (i.e. \eqn{0.5*max((xmax-xmin),(ymax-ymin))}) and the radius \eqn{r0} for a circular sampling window (see \code{\link{swin}}).
 }
@@ -34,8 +34,8 @@ dval(p, upto, by, nx, ny)
  \item{dval }{a matrix of size \eqn{(nx*ny,length(r))} giving the estimated number of points of the pattern per unit area per sample circle with radius \eqn{r}.}
  }
 \references{
-  Goreaud, F. and Pélissier, R. 1999. On explicit formula of edge effect correction for Ripley's \emph{K}-function. \emph{Journal of Vegetation Science}, 10:433-438.\cr\cr
-  Pélissier, R. and Goreaud, F. 2001. A practical approach to the study of spatial structure in simple cases of heterogeneous vegetation. \emph{Journal of Vegetation Science}, 12:99-108.\cr\cr
+  Goreaud, F. and Pï¿½lissier, R. 1999. On explicit formula of edge effect correction for Ripley's \emph{K}-function. \emph{Journal of Vegetation Science}, 10:433-438.\cr\cr
+  Pï¿½lissier, R. and Goreaud, F. 2001. A practical approach to the study of spatial structure in simple cases of heterogeneous vegetation. \emph{Journal of Vegetation Science}, 12:99-108.\cr\cr
   Ripley, B.D. 1977. Modelling spatial patterns. \emph{Journal of the Royal Statistical Society B}, 39:172-212.
 }
 \author{\email{Raphael.Pelissier@ird.fr}}
@@ -51,19 +51,19 @@ dval(p, upto, by, nx, ny)
 \examples{
   data(BPoirier)
   BP <- BPoirier
-  # spatial point pattern in a rectangle sampling window of size [0,110] x [0,90]
+  \dontrun{spatial point pattern in a rectangle sampling window of size [0,110] x [0,90]}
   swr <- spp(BP$trees, win=BP$rect)
   dswr <- dval(swr,25,1,11,9)
   summary(dswr)
   plot(dswr)
   
-  # spatial point pattern in a circle with radius 50 centred on (55,45)
+  \dontrun{spatial point pattern in a circle with radius 50 centred on (55,45)}
   swc <- spp(BP$trees, win=c(55,45,45))
   dswc <- dval(swc,25,1,9,9)
   summary(dswc)
   plot(dswc)
   
-  # spatial point pattern in a complex sampling window
+  \dontrun{spatial point pattern in a complex sampling window}
   swrt <- spp(BP$trees, win=BP$rect, tri=BP$tri1)
   dswrt <- dval(swrt,25,1,11,9)
   summary(dswrt)

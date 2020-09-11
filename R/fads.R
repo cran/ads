@@ -790,15 +790,15 @@ kmfun<-function(p,upto,by,nsim=0,alpha=0.01) {
 					PACKAGE="ads")	
 		}
 		else { #with CI
-			res<-.C("corr_tr_disq_ic",
+			res<-.C("ripley_tr_disq_ic",
 					as.integer(p$n),as.double(p$x),as.double(p$y),as.double(p$marks),
-					as.double(x0),as.double(y0),as.double(r0),
+					as.double(x0),as.double(y0),as.double(r0),as.double(intensity),
 					as.integer(nbTri),as.double(tri$ax),as.double(tri$ay),as.double(tri$bx),as.double(tri$by),as.double(tri$cx),as.double(tri$cy),
 					as.integer(tmax),as.double(by),
 					as.integer(nsim),as.double(alpha),
 					gm=double(tmax),km=double(tmax),
 					gmic1=double(tmax),gmic2=double(tmax),kmic1=double(tmax),kmic2=double(tmax),
-					gmval=double(tmax),kmval=double(tmax),
+					gmval=double(tmax),kmval=double(tmax),lmval=double(tmax),nmval=double(tmax),
 					PACKAGE="ads")	
 		}
 	}

@@ -30,7 +30,7 @@ kmfun(p, upto, by, nsim=0, alpha=0.01)
  
  \eqn{gm(r)} is the derivative of \eqn{Km(r)} or pair mark correlation function, which gives the correlation of marks within an annuli between two successive circles with radii \eqn{r} and \eqn{r-by}).\cr\cr
   
-  The program introduces an edge effect correction term according to the method proposed by Ripley (1977) and extended to circular and complex sampling windows by Goreaud & Pélissier (1999).
+  The program introduces an edge effect correction term according to the method proposed by Ripley (1977) and extended to circular and complex sampling windows by Goreaud & Pï¿½lissier (1999).
   
   Local Monte Carlo confidence limits and p-values of departure from the null hypothesis of no correlation are estimated at each distance \eqn{r}, after reallocating at random the values of \emph{X} over all points of the pattern, the location of trees being kept unchanged.
 }
@@ -50,11 +50,11 @@ kmfun(p, upto, by, nsim=0, alpha=0.01)
 Applications of this function can be found in Oddou-Muratorio \emph{et al.} (2004) and Madelaine \emph{et al.} (submitted).
 }
 
-  \references{Goreaud, F. 2000. \emph{Apports de l'analyse de la structure spatiale en foret tempérée à l'étude et la modélisation des peuplements complexes}. Thèse de doctorat, ENGREF, Nancy, France.\cr\cr
-Goreaud F. & Pélissier R. 1999. On explicit formulas of edge effect correction for Ripley's K-function. \emph{Journal of Vegetation Science}, 10:433-438.\cr\cr
-Madelaine, C., Pélissier, R., Vincent, G., Molino, J.-F., Sabatier, D., Prévost, M.-F. & de Namur, C. 2007. Mortality and recruitment in a lowland tropical rainforest of French Guiana: effects of soil type and species guild. \emph{Journal of Tropical Ecology}, 23:277-287.
+  \references{Goreaud, F. 2000. \emph{Apports de l'analyse de la structure spatiale en foret tempï¿½rï¿½e ï¿½ l'ï¿½tude et la modï¿½lisation des peuplements complexes}. Thï¿½se de doctorat, ENGREF, Nancy, France.\cr\cr
+Goreaud F. & PÃ©lissier R. 1999. On explicit formulas of edge effect correction for Ripley's K-function. \emph{Journal of Vegetation Science}, 10:433-438.\cr\cr
+Madelaine, C., PÃ©lissier, R., Vincent, G., Molino, J.-F., Sabatier, D., Prï¿½vost, M.-F. & de Namur, C. 2007. Mortality and recruitment in a lowland tropical rainforest of French Guiana: effects of soil type and species guild. \emph{Journal of Tropical Ecology}, 23:277-287.
 
-Oddou-Muratorio, S., Demesure-Musch, B., Pélissier, R. & Gouyon, P.-H. 2004. Impacts of gene flow and logging history on the local genetic structure of a scattered tree species, Sorbus torminalis L. \emph{Molecular Ecology}, 13:3689-3702.
+Oddou-Muratorio, S., Demesure-Musch, B., Pï¿½lissier, R. & Gouyon, P.-H. 2004. Impacts of gene flow and logging history on the local genetic structure of a scattered tree species, Sorbus torminalis L. \emph{Molecular Ecology}, 13:3689-3702.
 
 Ripley B.D. 1977. Modelling spatial patterns. \emph{Journal of the Royal Statistical Society B}, 39:172-192.
 }
@@ -70,17 +70,17 @@ Ripley B.D. 1977. Modelling spatial patterns. \emph{Journal of the Royal Statist
 \examples{
   data(BPoirier)
   BP <- BPoirier
-  # spatial point pattern in a rectangle sampling window of size [0,110] x [0,90]
+  \dontrun{spatial point pattern in a rectangle sampling window of size [0,110] x [0,90]}
   swrm <- spp(BP$trees, win=BP$rect, marks=BP$dbh)
   kmswrm <- kmfun(swrm, 25, 2, 500)
   plot(kmswrm)
   
-  # spatial point pattern in a circle with radius 50 centred on (55,45)
+  \dontrun{spatial point pattern in a circle with radius 50 centred on (55,45)}
   swc <- spp(BP$trees, win=c(55,45,45), marks=BP$dbh)
   kmswc <- kmfun(swc, 25, 2, 500)
   plot(kmswc)
 
-  # spatial point pattern in a complex sampling window
+  \dontrun{spatial point pattern in a complex sampling window}
   swrt <- spp(BP$trees, win=BP$rect, tri=BP$tri2, marks=BP$dbh)
   kmswrt <- kmfun(swrt, 25, 2, 500)
   plot(kmswrt)

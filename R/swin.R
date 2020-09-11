@@ -171,6 +171,7 @@ plot.swin<-function (x,main,edge,scale=TRUE,add=FALSE,csize=1,...) {
 inside.swin<-function(x,y,w,bdry=TRUE) {
 	stopifnot(inherits(w,"swin"))
 	stopifnot(length(x)==length(y))
+	inside<-vector(mode="logical",length=length(x))
 	if("rectangle"%in%w$type)
 		inside<-in.rectangle(x,y,w$xmin,w$ymin,w$xmax,w$ymax,bdry)
 	else if("circle"%in%w$type)
@@ -179,9 +180,8 @@ inside.swin<-function(x,y,w,bdry=TRUE) {
 		stop("invalid window type")
 	if("complex"%in%w$type) {
 		tri<-w$triangles
-		for(i in 1:nrow(tri)) 
-			inside[in.triangle(x,y,tri$ax[i],tri$ay[i],tri$bx[i],tri$by[i],tri$cx[i],tri$cy[i])]<-FALSE
-	}   
+		inside[in.triangle(x,y,tri$ax,tri$ay,tri$bx,tri$by,tri$cx,tri$cy,bdry)]<-FALSE
+	}  
 	return(inside)
 }
 
@@ -200,7 +200,7 @@ owin2swin<-function(w) {
 		else { #polygon with holes
 			stopifnot(w$bdry[[1]]$hole==FALSE)
 			bb<-bounding.box.xy(w$bdry[[1]][1:2])
-			if((bb$xrange==w$xrange)&&(bb$yrange==w$yrange)&&(area.owin(bb)==w$bdry[[1]]$area)) {	#first poly is rectangular window frame
+			if(all(bb$xrange==w$xrange)&&all(bb$yrange==w$yrange)&&(area.owin(bb)==w$bdry[[1]]$area)) {	#first poly is rectangular window frame
 				outer.poly<-data.frame(x=c(rep(w$xrange[1],2),rep(w$xrange[2],2)),y=c(w$yrange,w$yrange[2:1]))
 				for(i in 2:length(w$bdry)) {
 					stopifnot(w$bdry[[i]]$hole==TRUE)

@@ -48,15 +48,15 @@ mimetic(x,upto=NULL,by=NULL,prec=NULL,nsimax=3000,conv=50)
 \examples{
   data(BPoirier)
   BP<-BPoirier
-  # performing point pattern analysis in a rectangle sampling window
+  \dontrun{performing point pattern analysis in a rectangle sampling window}
   swr <- spp(BP$trees, win=BP$rect)
   plot(swr)
   
-  # performing the mimetic point process from "spp" object
+  \dontrun{performing the mimetic point process from "spp" object}
   mimswr <- mimetic(swr, 20, 2)
   plot(mimswr)
 
-   # performing the mimetic point process from "fads" object
+  \dontrun{performing the mimetic point process from "fads" object}
   mimkswr <- mimetic(kfun(swr, 20, 2))
   plot(mimkswr)
   

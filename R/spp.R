@@ -19,6 +19,7 @@ spp<-function (x,y=NULL,window,triangles,marks,int2fac=TRUE) {
 			w<-swin(window,triangles)
 	}
 	else if("simple"%in%window$type&&!missing(triangles)) {
+	#buggggggggggg
 		if("rectangle"%in%window$type)
 			w<-swin(c(window$xmin,window$ymin,window$xmax,window$ymax),triangles=triangles)
 		else if("circle"%in%window$type)

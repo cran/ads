@@ -32,6 +32,7 @@
 \alias{summary.vads.kval}
 \alias{testIC}
 \alias{testInteger}
+\alias{transpose}
 \alias{subsetdist}       
 \title{Internal ads functions}
 \description{
@@ -58,6 +59,7 @@ sortmat(dis,ind)
 subsetdist(dis,sub)
 testIC(nbSimu, lev)
 testInteger(i)
+transpose(x, y)
 }
 \details{
   These are usually not to be called by the user.

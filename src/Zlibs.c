@@ -2458,11 +2458,11 @@ int intertype_rect_ic(int *point_nb1, double *x1, double *y1, int *point_nb2, do
                       int *t2, double *dt, int *nbSimu, int *h0, double *prec, int *nsimax, int *conv, int *rep, double *lev, double *g, double *k,
                       double *gic1, double *gic2, double *kic1, double *kic2, double *gval, double *kval, double *lval, double *nval)
     {
-    int i, j, i0, i1, i2, ptot, r;
+    int i, j, i0, i1, i2, r;
     double **gic, **kic;
     double *gg, *kk, *ll, *nn;
     double *gt, *kt, *lt, *nt;
-    int erreur=0, mess;
+    int erreur=0;
     int *type;
     //double *x,*y,*cost,surface,*xx,*yy;
     double *x, *y, *cost, densite_1, densite_2, densite_tot;
@@ -2522,7 +2522,6 @@ int intertype_rect_ic(int *point_nb1, double *x1, double *y1, int *point_nb2, do
         vecalloc(&kt, *t2);
         vecalloc(&lt, *t2);
         vecalloc(&nt, *t2);
-        /*ptot=*point_nb1+*point_nb2;*/
         erreur=ripley_rect(&point_nbtot, x, y, xmi, xma, ymi, yma, t2, dt, gt, kt);
         if (erreur!=0) return -1;
         for (j=0; j<*t2; j++)
@@ -2700,11 +2699,11 @@ int intertype_disq_ic(int *point_nb1, double *x1, double *y1, int *point_nb2, do
                       int *nsimax, int *conv, int *rep, double *lev, double *g, double *k, double *gic1, double *gic2,
                       double *kic1, double *kic2, double *gval, double *kval, double *lval, double *nval)
     {
-    int i, j, i0, i1, i2, ptot, r;
+    int i, j, i0, i1, i2, r;
     double **gic, **kic;
     double *gt, *kt, *lt, *nt;
     double *gg, *kk, *ll, *nn;
-    int erreur=0, mess;
+    int erreur=0;
     int *type;
     double *x, *y, *cost, densite_1, densite_2, densite_tot;
     int point_nb=0, point_nbtot;
@@ -2941,11 +2940,11 @@ int intertype_tr_rect_ic(int *point_nb1, double *x1, double *y1, int *point_nb2,
                          int *t2, double *dt, int *nbSimu, int *h0, double *prec, int *nsimax, int *conv, int *rep, double *lev, double *g, double *k,
                          double *gic1, double *gic2, double *kic1, double *kic2, double *gval, double *kval, double *lval, double *nval)
     {
-    int i, j, i0, i1, i2, ptot, r;
+    int i, j, i0, i1, i2, r;
     double **gic, **kic;
     double *gg, *kk, *ll, *nn;
     double *gt, *kt, *lt, *nt;
-    int erreur=0, mess;
+    int erreur=0;
     int *type;
     double *x, *y, *cost, densite_1, densite_2, densite_tot;
     int point_nb=0, point_nbtot;
@@ -3183,11 +3182,11 @@ int intertype_tr_disq_ic(int *point_nb1, double *x1, double *y1, int *point_nb2,
                          int *t2, double *dt, int *nbSimu, int *h0, double *prec, int *nsimax, int *conv, int *rep, double *lev, double *g, double *k,
                          double *gic1, double *gic2, double *kic1, double *kic2, double *gval, double *kval, double *lval, double *nval)
     {
-    int i, j, i0, i1, i2, ptot, r;
+    int i, j, i0, i1, i2, r;
     double **gic, **kic;
     double *gg, *kk, *ll, *nn;
     double *gt, *kt, *lt, *nt;
-    int erreur=0, mess;
+    int erreur=0;
     int *type;
     double *x, *y, *cost, densite_1, densite_2, densite_tot;
     int point_nb=0, point_nbtot;
@@ -6145,7 +6144,7 @@ int rao_rect(int *point_nb, double *x, double *y, double *xmi, double *xma, doub
     complete_tab(*point_nb, xx, yy, type, compt, l, x, y);
 
     int erreur;
-    double intensity1, point_nb2, point_nb1, intensity2;
+    double intensity1, intensity2;
     double intensity=*point_nb/(*surface);
     double *gii, *kii;
     vecalloc(&gii, *t2);
@@ -6285,7 +6284,7 @@ int rao_rect_ic(int *point_nb, double *x, double *y, double *xmi, double *xma, d
 
     //Ripley for all points	
     int erreur;
-    double intensity1, point_nb2, point_nb1, intensity2;
+    double intensity1, intensity2;
     double intensity=*point_nb/(*surface);
     double *gii, *kii;
     vecalloc(&gii, *t2);
@@ -6546,7 +6545,7 @@ int rao_disq(int *point_nb, double *x, double *y, double *x0, double *y0, double
     complete_tab(*point_nb, xx, yy, type, compt, l, x, y);
 
     int erreur;
-    double intensity1, point_nb1, point_nb2, intensity2;
+    double intensity1, intensity2;
     double intensity=*point_nb/(*surface);
     double *gii, *kii;
     vecalloc(&gii, *t2);
@@ -6683,8 +6682,8 @@ int rao_disq_ic(int *point_nb, double *x, double *y, double *x0, double *y0, dou
     complete_tab(*point_nb, xx, yy, type, compt, l, x, y);
 
     //Ripley for all points	
-    int erreur, ind;
-    double intensity1, point_nb1, point_nb2, intensity2;
+    int erreur;
+    double intensity1, intensity2;
     double intensity=*point_nb/(*surface);
     double *gii, *kii;
     vecalloc(&gii, *t2);
@@ -6940,7 +6939,7 @@ int rao_tr_rect(int *point_nb, double *x, double *y, double *xmi, double *xma, d
     complete_tab(*point_nb, xx, yy, type, compt, l, x, y);
 
     int erreur;
-    double intensity1, point_nb2, point_nb1, intensity2;
+    double intensity1, intensity2;
     double intensity=*point_nb/(*surface);
     double *gii, *kii;
     vecalloc(&gii, *t2);
@@ -7076,7 +7075,7 @@ int rao_tr_disq(int *point_nb, double *x, double *y, double *x0, double *y0,
     complete_tab(*point_nb, xx, yy, type, compt, l, x, y);
 
     int erreur;
-    double intensity1, point_nb2, point_nb1, intensity2;
+    double intensity1, intensity2;
     double intensity=*point_nb/(*surface);
     double *gii, *kii;
     vecalloc(&gii, *t2);
@@ -7213,7 +7212,7 @@ int rao_tr_rect_ic(int *point_nb, double *x, double *y, double *xmi, double *xma
 
     //Ripley for all points	
     int erreur;
-    double intensity1, point_nb2, point_nb1, intensity2;
+    double intensity1, intensity2;
     double intensity=*point_nb/(*surface);
     double *gii, *kii;
     vecalloc(&gii, *t2);
@@ -7474,7 +7473,7 @@ int rao_tr_disq_ic(int *point_nb, double *x, double *y, double *x0, double *y0, 
 
     //Ripley for all points	
     int erreur;
-    double intensity1, point_nb2, point_nb1, intensity2;
+    double intensity1, intensity2;
     double intensity=*point_nb/(*surface);
     double *gii, *kii;
     vecalloc(&gii, *t2);
@@ -7705,7 +7704,7 @@ int rao_tr_disq_ic(int *point_nb, double *x, double *y, double *x0, double *y0, 
 int randomdist(int *vec, int nb_type, double *mat, double *matp)
     {
     int i, j, a, jj;
-    int mat_size, rowvec, colvec, ind;
+    int rowvec, colvec, ind;
     int erreur=0;
 
     GetRNGstate();
@@ -8368,8 +8367,8 @@ int shen(int *point_nb, double *x, double *y,
     complete_tab(*point_nb, xx, yy, type, compt, l, x, y);
 
     int erreur;
-    double intensity1, point_nb2, point_nb1, intensity2;
-    double intensity=*point_nb/(*surface);
+    double intensity1, intensity2;
+    //double intensity=*point_nb/(*surface);
     double *gsii, *ksii, *grii, *krii;
     vecalloc(&gsii, *t2);
     vecalloc(&ksii, *t2);
@@ -8490,8 +8489,8 @@ int shen_ic(int *point_nb, double *x, double *y,
     complete_tab(*point_nb, xx, yy, type, compt, l, x, y);
 
     int erreur;
-    double intensity1, point_nb2, point_nb1, intensity2;
-    double intensity=*point_nb/(*surface);
+    double intensity1, intensity2;
+    //double intensity=*point_nb/(*surface);
     double *gsii, *ksii, *grii, *krii;
     vecalloc(&gsii, *t2);
     vecalloc(&ksii, *t2);

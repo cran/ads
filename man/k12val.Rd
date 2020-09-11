@@ -22,7 +22,7 @@
 \details{
   Function \code{K12val} returns individual values of \emph{K12(r)} and associated functions (see \code{\link{k12fun}})
  estimated at each type 1 point of the pattern. For a given distance \emph{r}, these values can be mapped within the sampling window, as in
- Getis & Franklin 1987 or Pélissier & Goreaud 2001. 
+ Getis & Franklin 1987 or Pï¿½lissier & Goreaud 2001. 
 }
 \value{
  A list of class \code{c("vads","k12val")} with essentially the following components:
@@ -35,7 +35,7 @@
 }
 \references{ 
  Getis, A. and Franklin, J. 1987. Second-order neighborhood analysis of mapped point patterns. \emph{Ecology}, 68:473-477.\cr\cr
-  Pélissier, R. and Goreaud, F. 2001. A practical approach to the study of spatial structure in simple cases of heterogeneous vegetation. \emph{Journal of Vegetation Science}, 12:99-108.
+  Pï¿½lissier, R. and Goreaud, F. 2001. A practical approach to the study of spatial structure in simple cases of heterogeneous vegetation. \emph{Journal of Vegetation Science}, 12:99-108.
 }
 \author{
 	\email{Raphael.Pelissier@ird.fr}
@@ -52,19 +52,19 @@
 \examples{
   data(BPoirier)
   BP <- BPoirier
-  # spatial point pattern in a rectangle sampling window of size [0,110] x [0,90]
+  \dontrun{spatial point pattern in a rectangle sampling window of size [0,110] x [0,90]}
   swrm <- spp(BP$trees, win=BP$rect, marks=BP$species)
   k12vswrm <- k12val(swrm, 25, 1, marks=c("beech","oak"))
   summary(k12vswrm)
   plot(k12vswrm)
  
-  # spatial point pattern in a circle with radius 50 centred on (55,45)
+  \dontrun{spatial point pattern in a circle with radius 50 centred on (55,45)}
   swc <- spp(BP$trees, win=c(55,45,45), marks=BP$species)
   k12vswc <- k12val(swc, 25, 1, marks=c("beech","oak"))
   summary(k12vswc)
   plot(k12vswc)
   
-  # spatial point pattern in a complex sampling window
+  \dontrun{spatial point pattern in a complex sampling window}
   swrt <- spp(BP$trees, win=BP$rect, tri=BP$tri2, marks=BP$species)
   k12vswrt <- k12val(swrt, 25, 1, marks=c("beech","oak"))
   summary(k12vswrt)
