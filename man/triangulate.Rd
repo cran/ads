@@ -9,7 +9,7 @@
 triangulate(outer.poly, holes)
 }
 \arguments{
-  \item{outer.poly}{a list with two component vectors \code{x} and \code{y} giving vertice coordinates of the polygon 
+  \item{outer.poly}{a list with two component vectors \code{x} and \code{y} giving vertex coordinates of the polygon 
   or a vector \code{(xmin,ymin,xmax,ymax)} giving coordinates \eqn{(ximn,ymin)} and \eqn{(xmax,ymax)} of the origin and the
   opposite corner of a rectangle sampling window (see \code{\link{swin}}).  }
   \item{holes}{(optional) a list (or a list of list) with two component vectors \code{x} and \code{y} giving vertices 
@@ -23,12 +23,12 @@ triangulate(outer.poly, holes)
  }
 \value{
  A list of 6 variables, suitable for using in \code{\link{swin}} and \code{\link{spp}}, and giving the vertices coordinates \eqn{(ax,ay,bx,by,cx,cy)} of the triangles that
- pave the polygon. For a polygon with \emph{t} holes totalling \eqn{n} vertices (outer contour + holes), the number of triangles produced 
+ pave the polygon. For a polygon with \emph{t} holes totaling \eqn{n} vertices (outer contour + holes), the number of triangles produced 
 is \eqn{(n-2)+2t}, with \eqn{n<200} in this version of the program.
 }
 \references{
- Goreaud, F. and Pélissier, R. 1999. On explicit formula of edge effect correction for Ripley's \emph{K}-function. \emph{Journal of Vegetation Science}, 10:433-438.\cr\cr
- Narkhede, A. & Manocha, D. 1995. Fast polygon triangulation based on Seidel's algoritm. Pp 394-397 In A.W. Paeth (Ed.)
+ Goreaud, F. and P?Pelissier, R. 1999. On explicit formula of edge effect correction for Ripley's \emph{K}-function. \emph{Journal of Vegetation Science}, 10:433-438.\cr\cr
+ Narkhede, A. & Manocha, D. 1995. Fast polygon triangulation based on Seidel's algorithm. Pp 394-397 In A.W. Paeth (Ed.)
   \emph{Graphics Gems V}. Academic Press. \url{http://www.cs.unc.edu/~dm/CODE/GEM/chapter.html}.
 }
 \author{

@@ -11,7 +11,7 @@ overlapping.polygons<-function(listpoly) {
 	return(res)
 }
 
-#from area.xypolygon{spatstat}
+#from area.xypolygon{spatstat.geom}
 #return area>0 when (xp,yp) vertices are ranked anticlockwise
 #or area<0 when (xp,yp) vertices are ranked clockwise
 area.poly<-function(xp,yp) {
@@ -98,33 +98,7 @@ in.triangle<-function(x,y,ax,ay,bx,by,cx,cy,bdry=TRUE) {
 	return(inside)			
 }
 
-#function (x, y, xx, yy) 
-#{
-#    v0x <- xx[3] - xx[1]
-#    v0y <- yy[3] - yy[1]
-#    v1x <- xx[2] - xx[1]
-#    v1y <- yy[2] - yy[1]
-#    v2x <- x - xx[1]
-#    v2y <- y - yy[1]
-#    dot00 <- v0x^2 + v0y^2
-#    dot01 <- v0x * v1x + v0y * v1y
-#    dot02 <- v0x * v2x + v0y * v2y
-#    dot11 <- v1x^2 + v1y^2
-#    dot12 <- v1x * v2x + v1y * v2y
-#    Denom <- dot00 * dot11 - dot01 * dot01
-#    u <- dot11 * dot02 - dot01 * dot12
-#    v <- dot00 * dot12 - dot01 * dot02
-#    return((u > 0) & (v > 0) & (u + v < Denom))
-#}
-
-
-
-
-
-
-
-
-#modified from plot.ppp{spatstat}
+#modified from plot.ppp{spatstat.core}
 adjust.marks.size<-function(marks,window,maxsize=NULL) {
 	if(is.null(maxsize)) {
 		if("rectangle"%in%window$type)

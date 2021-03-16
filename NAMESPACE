@@ -2,13 +2,17 @@
 useDynLib(ads, .registration = TRUE, .fixes = "C_")
 
 # Import external pkg names
-importFrom(ade4,"divc","is.euclid")
-importFrom(spatstat,"border","bounding.box.xy","area.owin")
-importFrom("graphics", "abline", "barplot", "layout", "lines", "par",
-             "plot", "plot.default", "points", "polygon", "symbols",
-             "text")
-importFrom("stats", "as.dist", "var")
-importFrom("utils", "read.table", "str")
+importFrom(ade4,
+           divc, is.euclid)
+importFrom(spatstat.geom,
+           border, bounding.box.xy, area.owin)
+importFrom(graphics,
+           abline, barplot, layout, lines, par, plot, plot.default, points,
+           polygon, symbols, text)
+importFrom(stats,
+           as.dist, var)
+importFrom(utils,
+           read.table, str)
 
 # Export all names (should be improved in the future)
 export(

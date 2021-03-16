@@ -2,7 +2,7 @@
 \name{kp.fun}
 \alias{kp.fun}
 \alias{ki.fun}
-\title{ Multiscale second-order neigbourhood analysis of a multivariate spatial point pattern}
+\title{ Multiscale second-order neighbourhood analysis of a multivariate spatial point pattern}
 \description{
 (Formerly \code{ki.fun}) Computes a set of \emph{K12}-functions between all possible marks \eqn{p} and the other marks in
  a multivariate spatial point pattern defined in a simple (rectangular or circular) 

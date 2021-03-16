@@ -22,7 +22,7 @@
    for a rectangle ; \code{c(x0,y0,r0)} for a circle.}
   \item{triangles}{(optional) a list of triangles removed from a simple initial window to define a complex 
   sampling window (see Details).}`
-  \item{w}{a \code{"owin"} object from package \code{spatstat}.}
+  \item{w}{a \code{"owin"} object from package \code{spatstat.geom}.}
 }
 \details{
 A sampling window may be of simple or complex type. A simple sampling window may be a rectangle or a circle.
@@ -51,15 +51,15 @@ A sampling window may be of simple or complex type. A simple sampling window may
  with different arguments:
  \item{\code{$type}}{a vector of two character strings defining the type of sampling window among \code{c("simple","rectangle")}, \code{c("simple","circle")}, \code{c("complex","rectangle")} or \code{c("complex","circle")}.}
  \item{\code{$xmin,$ymin,$xmax,$ymax}}{(optional) coordinates of the origin and the opposite corner for a rectangular sampling window (see details).}
- \item{\code{$x0,$y0,$r0}}{(optional) coordinates of the center and radius for a circular sampling window (see details).}
+ \item{\code{$x0,$y0,$r0}}{(optional) coordinates of the centre and radius for a circular sampling window (see details).}
  \item{\code{$triangles}}{(optional) vertices coordinates of triangles for a complex sampling window (see details).}
 }
 \references{
- Goreaud, F. and Pélissier, R. 1999. On explicit formula of edge effect correction for Ripley's \emph{K}-function. \emph{Journal of Vegetation Science}, 10:433-438.
+ Goreaud, F. and P?Pelissier, R. 1999. On explicit formula of edge effect correction for Ripley's \emph{K}-function. \emph{Journal of Vegetation Science}, 10:433-438.
 }
 \note{
 There are printing, summary and plotting methods for \code{"swin"} objects.\cr
-Function \code{owin2swin} converts an \code{\link[spatstat]{owin.object}} from package \code{spatstat} into an \code{"swin"} object.
+Function \code{owin2swin} converts an \code{\link[spatstat.geom]{owin.object}} from package \code{spatstat.geom} into an \code{"swin"} object.
 }
 \seealso{
   \code{\link{area.swin}},
@@ -101,7 +101,7 @@ Function \code{owin2swin} converts an \code{\link[spatstat]{owin.object}} from p
  summary(wch)
  plot(wch)
  
- \dontrun{converting an owin object from spatstat}
+ \dontrun{converting an owin object from spatstat.geom}
  data(demopat)
  demo.swin<-owin2swin(demopat$window)
  plot(demo.swin)

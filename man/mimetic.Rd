@@ -13,14 +13,14 @@ mimetic(x,upto=NULL,by=NULL,prec=NULL,nsimax=3000,conv=50)
   \item{x }{either a \code{("fads", "kfun")} object or a \code{"spp"} object of type "univariate" defining a spatial point pattern in a given sampling window (see \code{\link{kfun}} or \code{\link{spp}}).}
   \item{upto }{(optional) maximum radius of the sample circles when \code{x} is a \code{"spp"} object.}
   \item{by }{(optional) interval length between successive sample circles radii when \code{x} is a \code{"spp"} object.}
-  \item{prec }{precision of point coordinates generated during simulations when \code{x} is a \code{"spp"} object. By default prec=0.01 or the value used in fonction \code{kfun} when \code{x} is a \code{("fads", "kfun")} object.}
+  \item{prec }{precision of point coordinates generated during simulations when \code{x} is a \code{"spp"} object. By default prec=0.01 or the value used in function \code{kfun} when \code{x} is a \code{("fads", "kfun")} object.}
   \item{nsimax }{maximum number of simulations allowed. By default the process stops after \code{nsimax=3000} if convergence is not reached.}
   \item{conv }{maximum number of simulations without optimization gain (convergence criterion).}
 }
 \details{
  Function \code{mimetic} uses a stepwise depletion-replacement algorithm to generate a point pattern whose L-function is optimized with regards to an observed one, following the mimetic point process principle (Goreaud et al. 2004).  
- Four points are randomly deleted at each step of the process and replaced by new points that minimize the following cost function:||\eqn{Lobs(r) - Lsim (r)}||)^2. The simulation stops as soon as the cost fonction doesn't decrease 
- after \code{conv} simulations or after a maximum of \code{nsimax} simulations. The process apply to rectangular, circular or comlex sampling windows (see \code{\link{spp}}). There exist a \code{plot} method that displays diagnostic 
+ Four points are randomly deleted at each step of the process and replaced by new points that minimize the following cost function:||\eqn{Lobs(r) - Lsim (r)}||)^2. The simulation stops as soon as the cost function doesn't decrease 
+ after \code{conv} simulations or after a maximum of \code{nsimax} simulations. The process apply to rectangular, circular or complex sampling windows (see \code{\link{spp}}). There exist a \code{plot} method that displays diagnostic 
  plots, i.e. the observed and simulated L-function, the simulated point pattern and the successive values of the cost function. 
 }
 \value{

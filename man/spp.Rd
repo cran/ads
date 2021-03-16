@@ -24,7 +24,7 @@ ppp2spp(p)
   complex sampling window (see \code{\link{swin}}).}
   \item{marks}{(optional) a vector of mark values, which may be factor levels or numerical values (see Details).}
   \item{int2fac}{if TRUE, integer marks are automatically coerced into factor levels.}
-  \item{p}{a \code{"ppp"} object from package \code{spatstat}.}
+  \item{p}{a \code{"ppp"} object from package \code{spatstat.geom}.}
 }
 \details{
 A spatial point pattern is assumed to have been observed within a specific
@@ -58,11 +58,11 @@ A spatial point pattern is assumed to have been observed within a specific
   \item{\code{$marksout}}{(optional) a vector of the marks attached to points located outside the sampling window.}
 }
 \references{
- Goreaud, F. and Pélissier, R. 1999. On explicit formula of edge effect correction for Ripley's \emph{K}-function. \emph{Journal of Vegetation Science}, 10:433-438.
+ Goreaud, F. and P?Pelissier, R. 1999. On explicit formula of edge effect correction for Ripley's \emph{K}-function. \emph{Journal of Vegetation Science}, 10:433-438.
 }
 \note{
 There are printing, summary and plotting methods for \code{"spp"} objects.\cr
-Function \code{ppp2spp} converts an \code{\link[spatstat]{ppp.object}} from package \code{spatstat} into an \code{"spp"} object.
+Function \code{ppp2spp} converts an \code{\link[spatstat.geom]{ppp.object}} from package \code{spatstat.geom} into an \code{"spp"} object.
 }
 \seealso{
   \code{\link{plot.spp}},
@@ -105,7 +105,7 @@ Function \code{ppp2spp} converts an \code{\link[spatstat]{ppp.object}} from pack
 	plot(swrt, out=TRUE) # plot points outside the sampling window
 	
 	
-	\dontrun{converting a ppp object from spatstat}
+	\dontrun{converting a ppp object from spatstat.geom}
 	data(demopat)
 	demo.spp<-ppp2spp(demopat)
 	plot(demo.spp)

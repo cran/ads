@@ -1,9 +1,9 @@
 \encoding{latin1}
 \name{kmfun}
 \alias{kmfun}
-\title{Multiscale second-order neigbourhood analysis of a marked spatial point pattern}
+\title{Multiscale second-order neighbourhood analysis of a marked spatial point pattern}
 \description{
-   Computes estimates of the mark correlation \emph{Km}-function and associated neigbourhood functions from a marked spatial point pattern 
+   Computes estimates of the mark correlation \emph{Km}-function and associated neighbourhood functions from a marked spatial point pattern 
   in a simple (rectangular or circular) or complex sampling window. Computes optionally local confidence limits of the functions
   under the null hypothesis of no correlation between marks (see Details).
 }
@@ -30,7 +30,7 @@ kmfun(p, upto, by, nsim=0, alpha=0.01)
  
  \eqn{gm(r)} is the derivative of \eqn{Km(r)} or pair mark correlation function, which gives the correlation of marks within an annuli between two successive circles with radii \eqn{r} and \eqn{r-by}).\cr\cr
   
-  The program introduces an edge effect correction term according to the method proposed by Ripley (1977) and extended to circular and complex sampling windows by Goreaud & P�lissier (1999).
+  The program introduces an edge effect correction term according to the method proposed by Ripley (1977) and extended to circular and complex sampling windows by Goreaud & P?Pelissier (1999).
   
   Local Monte Carlo confidence limits and p-values of departure from the null hypothesis of no correlation are estimated at each distance \eqn{r}, after reallocating at random the values of \emph{X} over all points of the pattern, the location of trees being kept unchanged.
 }
@@ -50,11 +50,11 @@ kmfun(p, upto, by, nsim=0, alpha=0.01)
 Applications of this function can be found in Oddou-Muratorio \emph{et al.} (2004) and Madelaine \emph{et al.} (submitted).
 }
 
-  \references{Goreaud, F. 2000. \emph{Apports de l'analyse de la structure spatiale en foret temp�r�e � l'�tude et la mod�lisation des peuplements complexes}. Th�se de doctorat, ENGREF, Nancy, France.\cr\cr
-Goreaud F. & Pélissier R. 1999. On explicit formulas of edge effect correction for Ripley's K-function. \emph{Journal of Vegetation Science}, 10:433-438.\cr\cr
-Madelaine, C., Pélissier, R., Vincent, G., Molino, J.-F., Sabatier, D., Pr�vost, M.-F. & de Namur, C. 2007. Mortality and recruitment in a lowland tropical rainforest of French Guiana: effects of soil type and species guild. \emph{Journal of Tropical Ecology}, 23:277-287.
+  \references{Goreaud, F. 2000. \emph{Apports de l'analyse de la structure spatiale en foret tempere a l'etude et la modelisation des peuplements complexes}. These de doctorat, ENGREF, Nancy, France.\cr\cr
+Goreaud F. & P?Pelissier R. 1999. On explicit formulas of edge effect correction for Ripley's K-function. \emph{Journal of Vegetation Science}, 10:433-438.\cr\cr
+Madelaine, C., Pelissier, R., Vincent, G., Molino, J.-F., Sabatier, D., Prevost, M.-F. & de Namur, C. 2007. Mortality and recruitment in a lowland tropical rainforest of French Guiana: effects of soil type and species guild. \emph{Journal of Tropical Ecology}, 23:277-287.
 
-Oddou-Muratorio, S., Demesure-Musch, B., P�lissier, R. & Gouyon, P.-H. 2004. Impacts of gene flow and logging history on the local genetic structure of a scattered tree species, Sorbus torminalis L. \emph{Molecular Ecology}, 13:3689-3702.
+Oddou-Muratorio, S., Demesure-Musch, B., Pelissier, R. & Gouyon, P.-H. 2004. Impacts of gene flow and logging history on the local genetic structure of a scattered tree species, Sorbus torminalis L. \emph{Molecular Ecology}, 13:3689-3702.
 
 Ripley B.D. 1977. Modelling spatial patterns. \emph{Journal of the Royal Statistical Society B}, 39:172-192.
 }

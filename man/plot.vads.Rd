@@ -18,10 +18,10 @@
   \item{opt}{(optional) a character string to change the type of values to be plotted (see Details).}
   \item{select}{(optional) a vector of selected distances in \code{x$r}. By default, a multiple window displays all distances.}
   \item{chars}{one of \code{c("circles","squares")} plotting symbols with areas proportional to local density values. By default, circles are plotted.} 
-  \item{cols}{(optional) the coulour used for the plotting symbols. Black colour is the default.}
+  \item{cols}{(optional) the colour used for the plotting symbols. Black colour is the default.}
   \item{maxsize}{(optional) maximum size of the circles/squares plotted. By default, maxsize is automatically adjusted to plot size.}
   \item{char0}{(optional) the plotting symbol used to represent null values. By default, null values are not plotted.}
-  \item{col0}{(optional) the coulour used for the null values plotting symbol. By default, the same as argument \code{cols}.}
+  \item{col0}{(optional) the colour used for the null values plotting symbol. By default, the same as argument \code{cols}.}
   \item{legend}{If \code{legend = TRUE} (the default) a legend for the plotting values is displayed.}
   \item{csize}{scaling factor for font size so that actual font size is \code{par("cex")*csize}. By default \code{csize = 1}.}
   \item{\dots}{extra arguments that will be passed to the plotting functions \code{\link{plot.swin}}, \cr

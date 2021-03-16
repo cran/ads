@@ -22,7 +22,7 @@
 \details{
   Function \code{K12val} returns individual values of \emph{K12(r)} and associated functions (see \code{\link{k12fun}})
  estimated at each type 1 point of the pattern. For a given distance \emph{r}, these values can be mapped within the sampling window, as in
- Getis & Franklin 1987 or P�lissier & Goreaud 2001. 
+ Getis & Franklin 1987 or P?Pelissier & Goreaud 2001. 
 }
 \value{
  A list of class \code{c("vads","k12val")} with essentially the following components:
@@ -35,7 +35,7 @@
 }
 \references{ 
  Getis, A. and Franklin, J. 1987. Second-order neighborhood analysis of mapped point patterns. \emph{Ecology}, 68:473-477.\cr\cr
-  P�lissier, R. and Goreaud, F. 2001. A practical approach to the study of spatial structure in simple cases of heterogeneous vegetation. \emph{Journal of Vegetation Science}, 12:99-108.
+  P?Pelissier, R. and Goreaud, F. 2001. A practical approach to the study of spatial structure in simple cases of heterogeneous vegetation. \emph{Journal of Vegetation Science}, 12:99-108.
 }
 \author{
 	\email{Raphael.Pelissier@ird.fr}

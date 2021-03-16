@@ -1,9 +1,9 @@
 \encoding{latin1}
 \name{k12fun}
 \alias{k12fun}
-\title{Multiscale second-order neigbourhood analysis of a bivariate spatial point pattern}
+\title{Multiscale second-order neighbourhood analysis of a bivariate spatial point pattern}
 \description{
-  Computes estimates of the intertype \emph{K12}-function and associated neigbourhood functions from a bivariate spatial point pattern 
+  Computes estimates of the intertype \emph{K12}-function and associated neighbourhood functions from a bivariate spatial point pattern 
   in a simple (rectangular or circular) or complex sampling window. Computes optionally local confidence limits of the functions
   under the null hypotheses of population independence or random labelling (see Details).
 }
@@ -28,7 +28,7 @@ k12fun(p, upto, by, nsim=0, H0=c("pitor","pimim","rl"), prec=0.01, nsimax=3000, 
    of points of type 1 and 2, respectively.}
 }
 \details{
-  Function \code{k12fun} computes the intertype \eqn{K12(r)} function of second-order neigbourhood analysis and the associated functions \eqn{g12(r)},
+  Function \code{k12fun} computes the intertype \eqn{K12(r)} function of second-order neighbourhood analysis and the associated functions \eqn{g12(r)},
    \eqn{n12(r)} and \eqn{L12(r)}.\cr\cr
   For a homogeneous isotropic bivariate point process of intensities \eqn{\lambda1} and \eqn{\lambda2},
   the second-order property could be characterized by a function \eqn{K12(r)} (Lotwick & Silverman 1982), so that the expected
@@ -43,7 +43,7 @@ k12fun(p, upto, by, nsim=0, H0=c("pitor","pimim","rl"), prec=0.01, nsimax=3000, 
   \eqn{O12(r) = \lambda2*g12(r)} (Wiegand & Moloney 2004).\cr\cr
   
   The program introduces an edge effect correction term according to the method proposed by Ripley (1977)
-  and extended to circular and complex sampling windows by Goreaud & P�lissier (1999).\cr\cr
+  and extended to circular and complex sampling windows by Goreaud & Pelissier (1999).\cr\cr
  
   Theoretical values under the null hypothesis of either population independence or random labelling as well as
   local Monte Carlo confidence limits and p-values of departure from the null hypothesis (Besag & Diggle 1977) are estimated at each distance \eqn{r}.\cr
@@ -54,7 +54,7 @@ k12fun(p, upto, by, nsim=0, H0=c("pitor","pimim","rl"), prec=0.01, nsimax=3000, 
   to mimic the pattern of type 1 points (see \code{\link{mimetic}}.\cr
   The random labelling hypothesis \code{"rl"} assumes that the probability to bear a given mark is the same for all points of the pattern and
    doesn't depends on neighbours. It is therefore tested conditionally to the whole spatial pattern, by randomizing the marks over the points'
-  locations kept unchanged (see Goreaud & P�lissier 2003 for further details). 
+  locations kept unchanged (see Goreaud & Pelissier 2003 for further details). 
 }
 \value{
   A list of class \code{"fads"} with essentially the following components:
@@ -72,8 +72,8 @@ k12fun(p, upto, by, nsim=0, H0=c("pitor","pimim","rl"), prec=0.01, nsimax=3000, 
 }
 \references{
  Besag J.E. & Diggle P.J. 1977. Simple Monte Carlo tests spatial patterns. \emph{Applied Statistics}, 26:327-333.\cr\cr
- Goreaud F. & P�lissier R. 1999. On explicit formulas of edge effect correction for Ripley's K-function. \emph{Journal of Vegetation Science}, 10:433-438.\cr\cr
- Goreaud, F. & P�lissier, R. 2003. Avoiding misinterpretation of biotic interactions with the intertype \emph{K12}-function: population independence vs. random labelling hypotheses. \emph{Journal of Vegetation Science}, 14: 681-692.\cr\cr
+ Goreaud F. & Pelissier R. 1999. On explicit formulas of edge effect correction for Ripley's K-function. \emph{Journal of Vegetation Science}, 10:433-438.\cr\cr
+ Goreaud, F. & Pelissier, R. 2003. Avoiding misinterpretation of biotic interactions with the intertype \emph{K12}-function: population independence vs. random labelling hypotheses. \emph{Journal of Vegetation Science}, 14: 681-692.\cr\cr
  Lotwick, H.W. & Silverman, B.W. 1982. Methods for analysing spatial processes of several types of points. \emph{Journal of the Royal Statistical Society B}, 44:403-413.\cr\cr
  Ripley B.D. 1977. Modelling spatial patterns. \emph{Journal of the Royal Statistical Society B}, 39:172-192.\cr\cr
  Wiegand, T. & Moloney, K.A. 2004. Rings, circles, and null-models for point pattern analysis in ecology. \emph{Oikos}, 104:209-229.

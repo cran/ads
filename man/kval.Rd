@@ -18,9 +18,9 @@
   \item{by }{interval length between successive sample circles radii (see Details).}
 }
 \details{
- Function \code{kval} returns indivdiual values of \emph{K(r)} and associated functions (see \code{\link{kfun}})
+ Function \code{kval} returns individual values of \emph{K(r)} and associated functions (see \code{\link{kfun}})
  estimated for each point of the pattern. For a given distance \emph{r}, these values can be mapped within the sampling window 
- (Getis & Franklin 1987, P�lissier & Goreaud 2001).  
+ (Getis & Franklin 1987, P?Pelissier & Goreaud 2001).  
 }
 \value{
 A list of class \code{c("vads","kval")} with essentially the following components:
@@ -33,7 +33,7 @@ A list of class \code{c("vads","kval")} with essentially the following component
  }
 \references{ 
   Getis, A. and Franklin, J. 1987. Second-order neighborhood analysis of mapped point patterns. \emph{Ecology}, 68:473-477.\cr\cr
-  Pélissier, R. and Goreaud, F. 2001. A practical approach to the study of spatial structure in simple cases of heterogeneous vegetation. \emph{Journal of Vegetation Science}, 12:99-108.
+  P?Pelissier, R. and Goreaud, F. 2001. A practical approach to the study of spatial structure in simple cases of heterogeneous vegetation. \emph{Journal of Vegetation Science}, 12:99-108.
 }
 \author{
 	\email{Raphael.Pelissier@ird.fr}

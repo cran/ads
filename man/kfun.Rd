@@ -1,9 +1,9 @@
 \encoding{latin1}
 \name{kfun}
 \alias{kfun}
-\title{Multiscale second-order neigbourhood analysis of an univariate spatial point pattern}
+\title{Multiscale second-order neighbourhood analysis of an univariate spatial point pattern}
 \description{
-  Computes estimates of Ripley's \emph{K}-function and associated neigbourhood functions from an univariate spatial point pattern 
+  Computes estimates of Ripley's \emph{K}-function and associated neighbourhood functions from an univariate spatial point pattern 
   in a simple (rectangular or circular) or complex sampling window. Computes optionally local confidence limits of the functions
   under the null hypothesis of Complete Spatial Randomness (see Details).
 }
@@ -33,7 +33,7 @@ kfun(p, upto, by, nsim=0, prec=0.01, alpha=0.01)
   \eqn{O(r) = \lambda*g(r)}.\cr\cr
   
   The program introduces an edge effect correction term according to the method proposed by Ripley (1977)
-  and extended to circular and complex sampling windows by Goreaud & P�lissier (1999).\cr\cr
+  and extended to circular and complex sampling windows by Goreaud & P?Pelissier (1999).\cr\cr
  
   Theoretical values under the null hypothesis of CSR as well as
   local Monte Carlo confidence limits and p-values of departure from CSR (Besag & Diggle 1977) are estimated at each distance \eqn{r}.
@@ -57,7 +57,7 @@ kfun(p, upto, by, nsim=0, prec=0.01, alpha=0.01)
   
  Besag J.E. & Diggle P.J. 1977. Simple Monte Carlo tests spatial patterns. \emph{Applied Statistics}, 26:327-333.
   
- Goreaud F. & Pélissier R. 1999. On explicit formulas of edge effect correction for Ripley's K-function. \emph{Journal of Vegetation Science}, 10:433-438.
+ Goreaud F. & P?Pelissier R. 1999. On explicit formulas of edge effect correction for Ripley's K-function. \emph{Journal of Vegetation Science}, 10:433-438.
 
  Ripley B.D. 1977. Modelling spatial patterns. \emph{Journal of the Royal Statistical Society B}, 39:172-192.
   

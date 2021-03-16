@@ -1,7 +1,7 @@
 \encoding{latin1}
 \name{kdfun}
 \alias{kdfun}
-\title{Multiscale second-order neigbourhood analysis of a spatial phylogenetic or functional community pattern from fully mapped data}
+\title{Multiscale second-order neighbourhood analysis of a spatial phylogenetic or functional community pattern from fully mapped data}
 \description{
   Computes distance-dependent estimates of Shen et al. (2014) phylogenetic or functional mark correlation functions from a multivariate spatial point pattern 
   in a simple (rectangular or circular) or complex sampling window. Computes optionally local confidence limits of the functions
@@ -21,13 +21,13 @@ kdfun(p, upto, by, dis, nsim=0, alpha = 0.01)
 }
 \details{
  Function \code{kdfun} computes Shen et al. (2014) \eqn{Kd} and \emph{gd}-functions. For a multivariate point pattern consisting of \eqn{S} species with intensity \eqn{\lambda}p, such functions can be estimated from the bivariate \eqn{Kpq}-functions between each pair of different species \eqn{p} and \eqn{q}.
- Function \code{kdfun} is thus a simple wrapper of \code{\link{k12fun}} (P�lissier & Goreaud 2014):
+ Function \code{kdfun} is thus a simple wrapper of \code{\link{k12fun}} (P?Pelissier & Goreaud 2014):
 
   \eqn{Kd(r) = D * Kr(r) / HD * Ks(r) = D * sum(\lambda p * \lambda q * Kpq(r) * dpq) / HD * sum(\lambda p * \lambda q * Kpq(r))}.\cr
   \eqn{gd(r) = D * g(r) / HD * gs(r) = D * sum(\lambda p * \lambda q * gpq(r) * dpq) / HD * sum(\lambda p * \lambda q * gpq(r))}.\cr\cr
 
   where \eqn{Ks(r)} and \eqn{gs(r)} are distance-dependent versions of Simpson's diversity index, \eqn{D} (see \code{\link{ksfun}}), \eqn{Kr(r)} and \eqn{gr(r)} are distance-dependent versions of Rao's diversity coefficient (see \code{\link{krfun}}); 
-  \eqn{dpq} is the distance between species \eqn{p} and \eqn{q} defined by matrix \code{dis}, typically a taxonomic, phylogentic or functional distance. The advantage here is that as the edge effects vanish between \eqn{Kr(r)} and \eqn{Ks(r)},
+  \eqn{dpq} is the distance between species \eqn{p} and \eqn{q} defined by matrix \code{dis}, typically a taxonomic, phylogenetic or functional distance. The advantage here is that as the edge effects vanish between \eqn{Kr(r)} and \eqn{Ks(r)},
    implementation is fast for a sampling window of any shape. \eqn{Kd(r)} provides the expected phylogenetic or functional distance of two heterospecific individuals a distance less than \emph{r} apart (Shen et al. 2014), while \eqn{gd(r)} 
    provides the same within an annuli between two consecutive distances of \emph{r} and \emph{r-by}.
    
@@ -50,7 +50,7 @@ kdfun(p, upto, by, dis, nsim=0, alpha = 0.01)
 \references{
  Shen, G., Wiegand, T., Mi, X. & He, F. (2014). Quantifying spatial phylogenetic structures of fully stem-mapped plant communities. \emph{Methods in Ecology and Evolution}, 4, 1132-1141.
  
- Pélissier, R. & Goreaud, F. ads package for R: A fast unbiased implementation of the K-function family for studying spatial point patterns in irregular-shaped sampling windows. \emph{Journal of Statistical Software}, in press.
+ P?Pelissier, R. & Goreaud, F. ads package for R: A fast unbiased implementation of the K-function family for studying spatial point patterns in irregular-shaped sampling windows. \emph{Journal of Statistical Software}, in press.
  
 }
 \author{\email{Raphael.Pelissier@ird.fr}}

@@ -2,7 +2,7 @@
 \name{kpqfun}
 \alias{kpqfun}
 \alias{kijfun}
-\title{Multiscale second-order neigbourhood analysis of a multivariate spatial point pattern}
+\title{Multiscale second-order neighbourhood analysis of a multivariate spatial point pattern}
 \description{
   (Formerly \code{kijfun}) Computes a set of \emph{K}- and \emph{K12}-functions for all possible pairs of marks \eqn{(p,q)} in a multivariate spatial 
   point pattern defined in a simple (rectangular or circular) 

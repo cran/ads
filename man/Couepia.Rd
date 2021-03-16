@@ -10,15 +10,15 @@ Spatial pattern of 34 mature individuals and 173 young individuals of the tree s
 \format{
 A list with 4 components:\cr
 \code{$rect  } is a vector of coordinates \eqn{(xmin,ymin,xmax,ymax)} of the origin and the opposite corner of a 500 by 500 m rectangular plot.\cr
-\code{$tri   } is a list of vertice coordinates \eqn{(ax,ay,bx,by,cx,cy)} of contiguous triangles covering swampy parts of the plot.\cr
+\code{$tri   } is a list of vertex coordinates \eqn{(ax,ay,bx,by,cx,cy)} of contiguous triangles covering swampy parts of the plot.\cr
 \code{$trees } is a list of tree coordinates \eqn{(x,y)}.\cr
 \code{$stage } is a factor with 2 levels \eqn{("mature","young")}.\cr
 }
 \source{
-  Collinet, F. 1997. \emph{Essai de regroupement des principales espèces structurantes d'une foret dense humide d'après l'analyse de leur répartition spatiale (foret de Paracou - Guyane).} Thèse de doctorat, Université Claude Bernard, Lyon, France.
+  Collinet, F. 1997. \emph{Essai de regroupement des principales especes structurantes d'une foret dense humide d'apres l'analyse de leur repartition spatiale (foret de Paracou - Guyane).} These de doctorat, Universite Claude Bernard, Lyon, France.
 }
 \references{
-Goreaud, F. & Pélissier, R. 2003. Avoiding misinterpretation of biotic interactions with the intertype \emph{K12}-function: population independence vs. random labelling hypotheses. \emph{Journal of Vegetation Science}, 14: 681-692.
+Goreaud, F. & P?Pelissier, R. 2003. Avoiding misinterpretation of biotic interactions with the intertype \emph{K12}-function: population independence vs. random labelling hypotheses. \emph{Journal of Vegetation Science}, 14: 681-692.
 }
 \examples{
 data(Couepia)

@@ -1,7 +1,7 @@
 \encoding{latin1}
 \name{inside.swin}
 \alias{inside.swin}
-\title{Test wether points are inside a sampling window}
+\title{Test whether points are inside a sampling window}
 \description{
  Function \code{inside.swin} tests whether points lie inside or outside a given sampling window.
 }

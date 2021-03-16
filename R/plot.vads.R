@@ -28,8 +28,7 @@ plot.vads.dval<-function (x,main,opt=c("dval","cval"),select,chars=c("circles","
 	val<-data.frame(adjust.marks.size(val,x$window,if(!missing(maxsize)) maxsize))
 	def.par <- par(no.readonly = TRUE)
 	on.exit(par(def.par))
-	#if(options()$device=="windows")
-	#	csize<-0.75*csize
+
 	if (missing(main)) 
         main <- deparse(substitute(x))
 	mylayout<-layout(matrix(c(rep(1,nf),seq(2,((nf*nf)+1),1)),(nf+1),nf,byrow=TRUE))
@@ -54,14 +53,7 @@ plot.vads.dval<-function (x,main,opt=c("dval","cval"),select,chars=c("circles","
 				text(c(xl[1]+lms[1],xl[2]+lms[2],xl[3]+lms[3]),yl,labels=signif(lm,2),pos=4,cex=1.5)
 			}
 	}
-	#if(!is.null(main)) {
-	#	mylayout<-layout(matrix(c(rep(1,nf),seq(2,((nf*nf)+1),1)),(nf+1),nf,byrow=TRUE))
-	#	plot.default(x$xy$x,x$xy$y,type="n",axes=FALSE)
-	#	text(mean(range(x$xy$x)),mean(range(x$xy$y)),pos=3,cex=2,labels=main)
-		#ajouter une legende ???
-	#}
-	#else
-	#	mylayout<-layout(matrix(seq(1,(nf*nf),1),nf,nf,byrow=TRUE))
+	
 	ifelse(missing(cols),cols<-1,cols<-cols[1])
 	if(!missing(char0)||!missing(col0)) {
 		ifelse(missing(col0),col0<-cols,col0<-col0[1])	
@@ -82,7 +74,6 @@ plot.vads.dval<-function (x,main,opt=c("dval","cval"),select,chars=c("circles","
 					fg=cols,bg=cols,inches=FALSE,add=TRUE,...)
 		}
 	}
-	## methode en courbes de niveaux ?
 }
 
 plot.vads.kval<-function (x,main,opt=c("lval","kval","nval","gval"),select,chars=c("circles","squares"),cols,maxsize,char0,col0,legend=TRUE,csize=1,...) {
@@ -117,14 +108,12 @@ plot.vads.kval<-function (x,main,opt=c("lval","kval","nval","gval"),select,chars
 	else
 		stopifnot(opt%in%c("lval","kval","nval","gval"))
 	v<-val
-	#val<-data.frame(adjust.marks.size(val,x$window,if(!missing(maxsize)) maxsize))
 	val<-data.frame(adjust.marks.size(val,x$window))
 	if(!missing(maxsize))
 		val<-val*maxsize
 	def.par <- par(no.readonly = TRUE)
 	on.exit(par(def.par))
-	#if(options()$device=="windows")
-	#	csize<-0.75*csize
+
 	if (missing(main)) 
         main <- deparse(substitute(x))
 	mylayout<-layout(matrix(c(rep(1,nf),seq(2,((nf*nf)+1),1)),(nf+1),nf,byrow=TRUE))
@@ -155,14 +144,7 @@ plot.vads.kval<-function (x,main,opt=c("lval","kval","nval","gval"),select,chars
 
 			}
 	}
-	#if(!is.null(main)) {
-	#	mylayout<-layout(matrix(c(rep(1,nf),seq(2,((nf*nf)+1),1)),(nf+1),nf,byrow=TRUE))
-	#	plot.default(x$xy$x,x$xy$y,type="n",axes=FALSE)
-	#	text(mean(range(x$xy$x)),mean(range(x$xy$y)),pos=3,cex=2,labels=main)
-		#ajouter une legende ???
-	#}
-	#else
-	#	mylayout<-layout(matrix(seq(1,(nf*nf),1),nf,nf,byrow=TRUE))
+
 	ifelse(missing(cols),cols<-1,cols<-cols[1])
 	if(!missing(char0)||!missing(col0)) {
 		ifelse(missing(col0),col0<-cols,col0<-col0[1])	
@@ -194,7 +176,6 @@ plot.vads.kval<-function (x,main,opt=c("lval","kval","nval","gval"),select,chars
 			}	
 		}
 	}
-	## methode en courbes de niveaux ?
 }
 
 plot.vads.k12val<-function (x,main,opt=c("lval","kval","nval","gval"),select,chars=c("circles","squares"),cols,maxsize,char0,col0,legend=TRUE,csize=1,...) {
@@ -235,8 +216,7 @@ plot.vads.k12val<-function (x,main,opt=c("lval","kval","nval","gval"),select,cha
 		val<-val*maxsize
 	def.par <- par(no.readonly = TRUE)
 	on.exit(par(def.par))
-	#if(options()$device=="windows")
-	#	csize<-0.75*csize
+
 	if (missing(main)) 
         main <- deparse(substitute(x))
 	mylayout<-layout(matrix(c(rep(1,nf),seq(2,((nf*nf)+1),1)),(nf+1),nf,byrow=TRUE))
@@ -265,14 +245,7 @@ plot.vads.k12val<-function (x,main,opt=c("lval","kval","nval","gval"),select,cha
 				text(c(xl[1]+lms[1],xl[2]+lms[2],xl[3]+lms[3]),yl*0.5,labels=signif(-lm,2),pos=4,cex=1)
 			}
 	}
-	#if(!is.null(main)) {
-	#	mylayout<-layout(matrix(c(rep(1,nf),seq(2,((nf*nf)+1),1)),(nf+1),nf,byrow=TRUE))
-	#	plot.default(x$xy$x,x$xy$y,type="n",axes=FALSE)
-	#	text(mean(range(x$xy$x)),mean(range(x$xy$y)),pos=3,cex=2,labels=main)
-		#ajouter une legende ???
-	#}
-	#else
-	#	mylayout<-layout(matrix(seq(1,(nf*nf),1),nf,nf,byrow=TRUE))
+
 	ifelse(missing(cols),cols<-1,cols<-cols[1])
 	if(!missing(char0)||!missing(col0)) {
 		ifelse(missing(col0),col0<-cols,col0<-col0[1])	
@@ -304,5 +277,4 @@ plot.vads.k12val<-function (x,main,opt=c("lval","kval","nval","gval"),select,cha
 			}	
 		}
 	}
-	## methode en courbes de niveaux ?
 }

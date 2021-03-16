@@ -10,9 +10,9 @@
 \alias{plot.fads.krfun}
 \alias{plot.fads.kdfun}
 \alias{plot.fads.mimetic}
-\title{Plot second-order neigbourhood functions}
+\title{Plot second-order neighbourhood functions}
 \description{
- Plot second-order neigbourhood function estimates returned by functions \code{\link{kfun}, \link{k12fun}, \link{kmfun}}, \cr
+ Plot second-order neighbourhood function estimates returned by functions \code{\link{kfun}, \link{k12fun}, \link{kmfun}}, \cr
  	\code{ \link{kijfun} or \link{ki.fun}}.
 }
 \usage{
@@ -20,9 +20,9 @@
 }
 \arguments{
   \item{x}{an object of class \code{"fads"} (see Details).}
-  \item{opt}{one of \code{c("all","L","K","n","g")} to dislay either all or one of the functions in a single window. By default \code{opt = "all"} for \code{fads} 
+  \item{opt}{one of \code{c("all","L","K","n","g")} to display either all or one of the functions in a single window. By default \code{opt = "all"} for \code{fads} 
   objects of subclass \code{"kfun"}, \code{"k12fun"}, or \code{"kmfun"};  by default \code{opt = "L"} for \code{fads} objects of subclass \code{"kij"}, or \code{"ki."}.}
-  \item{cols}{(optional) coulours used for plotting functions.}
+  \item{cols}{(optional) colours used for plotting functions.}
   \item{lty}{(optional) line types used for plotting functions.}
   \item{main}{by default, the value of argument x, otherwise a text to be displayed as a title of the plot. \code{main=NULL} displays no title.}
   \item{sub}{by default, the name of the function displayed, otherwise a text to be displayed as function subtitle. \code{sub=NULL} displays no subtitle.}
