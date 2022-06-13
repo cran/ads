@@ -43,8 +43,8 @@ The species equivalence hypothesis (H0 = "se") is tested by randomizing the betw
  A list of class \code{"fads"} with essentially the following components:
   \item{r }{a vector of regularly spaced out distances (\code{seq(by,upto,by)}).}
   \item{gr }{a data frame containing values of the function \eqn{gr(r)}.}
-  \item{kr }{a data frame containing values of the function \eqn{Kr(r)}.\cr\cr}
-    \item{}{Each component except \code{r} is a data frame with the following variables:\cr\cr}
+  \item{kr }{a data frame containing values of the function \eqn{Kr(r)}.\cr}
+  Each component except \code{r} is a data frame with the following variables:\cr
 \item{obs }{a vector of estimated values for the observed point pattern.}
  \item{theo }{a vector of theoretical values expected under the selected null hypothesis.}
  \item{sup }{(optional) if \code{nsim>0} a vector of the upper local confidence limits of a random distribution of the selected null hypothesis at a significant level \eqn{\alpha}.}

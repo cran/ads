@@ -44,8 +44,8 @@ kfun(p, upto, by, nsim=0, prec=0.01, alpha=0.01)
   \item{g }{a data frame containing values of the pair density function \eqn{g(r)}.}
   \item{n }{a data frame containing values of the local neighbour density function \eqn{n(r)}.}
   \item{k }{a data frame containing values of Ripley's function \eqn{K(r)}.}
-  \item{l }{a data frame containing values of the modified Ripley's function \eqn{L(r)}.\cr\cr}
-   \item{}{Each component except \code{r} is a data frame with the following variables:\cr\cr}
+  \item{l }{a data frame containing values of the modified Ripley's function \eqn{L(r)}.\cr}
+  Each component except \code{r} is a data frame with the following variables:\cr
 \item{obs }{a vector of estimated values for the observed point pattern.}
  \item{theo }{a vector of theoretical values expected for a Poisson pattern.}
  \item{sup }{(optional) if \code{nsim>0} a vector of the upper local confidence limits of a Poisson pattern at a significant level \eqn{\alpha}.}

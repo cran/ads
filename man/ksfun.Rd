@@ -41,8 +41,8 @@ ksfun(p, upto, by, nsim=0, alpha=0.01)
  A list of class \code{"fads"} with essentially the following components:
   \item{r }{a vector of regularly spaced out distances (\code{seq(by,upto,by)}).}
   \item{gs }{a data frame containing values of the function \eqn{gs(r)}.}
-  \item{ks }{a data frame containing values of the function \eqn{Ks(r)}.\cr\cr}
-    \item{}{Each component except \code{r} is a data frame with the following variables:\cr\cr}
+  \item{ks }{a data frame containing values of the function \eqn{Ks(r)}.\cr}
+  Each component except \code{r} is a data frame with the following variables:\cr
 \item{obs }{a vector of estimated values for the observed point pattern.}
  \item{theo }{a vector of theoretical values expected under the null hypothesis of random labelling, i.e. 1 for all \eqn{r}.}
  \item{sup }{(optional) if \code{nsim>0} a vector of the upper local confidence limits of a random distribution of species labels at a significant level \eqn{\alpha}.}

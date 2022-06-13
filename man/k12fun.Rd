@@ -62,8 +62,8 @@ k12fun(p, upto, by, nsim=0, H0=c("pitor","pimim","rl"), prec=0.01, nsimax=3000, 
   \item{g12 }{a data frame containing values of the bivariate pair density function \eqn{g12(r)}.}
   \item{n12 }{a data frame containing values of the bivariate local neighbour density function \eqn{n12(r)}.}
   \item{k12 }{a data frame containing values of the intertype function \eqn{K12(r)}.}
-  \item{l12 }{a data frame containing values of the modified intertype function \eqn{L12(r)}.\cr\cr}
- \item{ }{Each component except \code{r} is a data frame with the following variables:\cr\cr}
+  \item{l12 }{a data frame containing values of the modified intertype function \eqn{L12(r)}.\cr}
+  Each component except \code{r} is a data frame with the following variables:\cr
  \item{obs }{a vector of estimated values for the observed point pattern.}
  \item{theo }{a vector of theoretical values expected under the selected null hypothesis.}
  \item{sup }{(optional) if \code{nsim>0} a vector of the upper local confidence limits of the selected null hypothesis at a significant level \eqn{\alpha}.}

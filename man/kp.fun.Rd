@@ -27,8 +27,8 @@ kp.fun(p, upto, by)
   \item{gp.  }{a data frame containing values of the pair density function \eqn{g12(r)}.}
   \item{np.  }{a data frame containing values of the local neighbour density function \eqn{n12(r)}.}
   \item{kp.  }{a data frame containing values of the \eqn{K12(r)} function.}
-  \item{lp.  }{a data frame containing values of the modified \eqn{L12(r)} function.\cr\cr}
- \item{ }{Each component except \code{r} is a data frame with the following variables:\cr\cr}
+  \item{lp.  }{a data frame containing values of the modified \eqn{L12(r)} function.\cr}
+ Each component except \code{r} is a data frame with the following variables:\cr
  \item{obs }{a vector of estimated values for the observed point pattern.}
  \item{theo }{a vector of theoretical values expected under the null hypothesis of population independence (see \code{\link{k12fun}}).}
 }

@@ -27,8 +27,8 @@ A list of class \code{"fads"} with essentially the following components:
   \item{gpq }{a data frame containing values of the pair density functions \eqn{g(r)} and \eqn{g12(r)}.}
   \item{npq }{a data frame containing values of the local neighbour density functions \eqn{n(r)} and \eqn{n12(r)}.}
   \item{kpq }{a data frame containing values of the \eqn{K(r)} and \eqn{K12(r)} functions.}
-\item{lpq }{a data frame containing values of the modified \eqn{L(r)} and \eqn{L12(r)} functions.\cr\cr}
- \item{ }{Each component except \code{r} is a data frame with the following variables:\cr}
+  \item{lpq }{a data frame containing values of the modified \eqn{L(r)} and \eqn{L12(r)} functions.\cr}
+ Each component except \code{r} is a data frame with the following variables:\cr
  \item{obs }{a vector of estimated values for the observed point pattern.}
  \item{theo }{a vector of theoretical values expected under the null hypotheses of spatial randomness (see \code{\link{kfun}}) and
   population independence (see \code{\link{k12fun}}).}

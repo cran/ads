@@ -278,7 +278,7 @@ overlap.trapez <- function(xa, ya, xb, yb, verb=FALSE) {
 }
 
 #Points on boundary are considered outside. No alternative option implemented yet.
-in.poly<-function(x,y,poly,bdry=TRUE) {
+in.poly<-function(x,y,poly,bdry=FALSE) {
 	if(bdry) {
 		bdry<-FALSE
 		warning("argument 'bdry' automatically set to FALSE. No alternative implemented yet")

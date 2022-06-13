@@ -39,8 +39,8 @@ kdfun(p, upto, by, dis, nsim=0, alpha = 0.01)
  A list of class \code{"fads"} with essentially the following components:
   \item{r }{a vector of regularly spaced out distances (\code{seq(by,upto,by)}).}
   \item{gd }{a data frame containing values of the function \eqn{gd(r)}.}
-  \item{kd }{a data frame containing values of the function \eqn{Kd(r)}.\cr\cr}
-    \item{}{Each component except \code{r} is a data frame with the following variables:\cr\cr}
+  \item{kd }{a data frame containing values of the function \eqn{Kd(r)}.\cr}
+  Each component except \code{r} is a data frame with the following variables:\cr
 \item{obs }{a vector of estimated values for the observed point pattern.}
  \item{theo }{a vector of theoretical values expected under the null hypothesis of species equivalence.}
  \item{sup }{(optional) if \code{nsim>0} a vector of the upper local confidence limits of a random distribution of the null hypothesis at a significant level \eqn{\alpha}.}
