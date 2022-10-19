@@ -39,11 +39,14 @@ static int visited[TRSIZE];
 static int chain_idx, op_idx, mon_idx;
 
 
-static int triangulate_single_polygon(int, int, int, int**);
-static int traverse_polygon(int, int, int, int);
+/*static int triangulate_single_polygon(int, int, int, int**);*/
+int triangulate_single_polygon(int, int, int, int**);
+/*static int traverse_polygon(int, int, int, int);*/
+int traverse_polygon(int, int, int, int);
 
 /* Function returns TRUE if the trapezoid lies inside the polygon */
-static int inside_polygon(t)
+/*static int inside_polygon(t)*/
+int inside_polygon(t)
      trap_t *t;
 {
   int rseg = t->rseg;
@@ -63,20 +66,23 @@ static int inside_polygon(t)
 
 
 /* return a new mon structure from the table */
-static int newmon()
+/*static int newmon()*/
+int newmon()
 {
   return ++mon_idx;
 }
 
 
 /* return a new chain element from the table */
-static int new_chain_element()
+/*static int new_chain_element()*/
+int new_chain_element()
 {
   return ++chain_idx;
 }
 
 
-static double get_angle(vp0, vpnext, vp1)
+/*static double get_angle(vp0, vpnext, vp1)*/
+double get_angle(vp0, vpnext, vp1)
      point_t *vp0;
      point_t *vpnext;
      point_t *vp1;
@@ -98,7 +104,8 @@ static double get_angle(vp0, vpnext, vp1)
 
 /* (v0, v1) is the new diagonal to be added to the polygon. Find which */
 /* chain to use and return the positions of v0 and v1 in p and q */
-static int get_vertex_positions(v0, v1, ip, iq)
+/*static int get_vertex_positions(v0, v1, ip, iq)*/
+int get_vertex_positions(v0, v1, ip, iq)
      int v0;
      int v1;
      int *ip;
@@ -156,7 +163,8 @@ static int get_vertex_positions(v0, v1, ip, iq)
  * the current monotone polygon mcur. Split the current polygon into
  * two polygons using the diagonal (v0, v1)
  */
-static int make_new_monotone_poly(mcur, v0, v1)
+/*static int make_new_monotone_poly(mcur, v0, v1)*/
+int make_new_monotone_poly(mcur, v0, v1)
      int mcur;
      int v0;
      int v1;
@@ -294,7 +302,8 @@ int monotonate_trapezoids(n)
 
 
 /* recursively visit all the trapezoids */
-static int traverse_polygon(mcur, trnum, from, dir)
+/*static int traverse_polygon(mcur, trnum, from, dir)*/
+int traverse_polygon(mcur, trnum, from, dir)
      int mcur;
      int trnum;
      int from;
@@ -676,7 +685,8 @@ int triangulate_monotone_polygons(nvert, nmonpoly, op)
  * polygon in O(n) time.
  * Joseph O-Rourke, Computational Geometry in C.
  */
-static int triangulate_single_polygon(nvert, posmax, side, op)
+/*static int triangulate_single_polygon(nvert, posmax, side, op)*/
+int triangulate_single_polygon(nvert, posmax, side, op)
      int nvert;
      int posmax;
      int side;
@@ -942,7 +952,8 @@ int math_N(n, h)
 
 
 /* Return a new node to be added into the query tree */
-static int newnode()
+/*static int newnode()*/
+int newnode()
 {
   if (q_idx < QSIZE)
     return q_idx++;
@@ -954,7 +965,8 @@ static int newnode()
 }
 
 /* Return a free trapezoid */
-static int newtrap()
+/*static int newtrap()*/
+int newtrap()
 {
   if (tr_idx < TRSIZE)
     {
@@ -972,7 +984,8 @@ static int newtrap()
 
 
 /* Return the maximum of the two points into the yval structure */
-static int _max(yval, v0, v1)
+/*static int _max(yval, v0, v1)*/
+int _max(yval, v0, v1)
      point_t *yval;
      point_t *v0;
      point_t *v1;
@@ -994,7 +1007,8 @@ static int _max(yval, v0, v1)
 
 
 /* Return the minimum of the two points into the yval structure */
-static int _min(yval, v0, v1)
+/*static int _min(yval, v0, v1)*/
+int _min(yval, v0, v1)
      point_t *yval;
      point_t *v0;
      point_t *v1;
@@ -1073,7 +1087,8 @@ int _less_than(v0, v1)
  *                3
  */
 
-static int init_query_structure(segnum)
+/*static int init_query_structure(segnum)*/
+int init_query_structure(segnum)
      int segnum;
 {
   int i1, i2, i3, i4, i5, i6, i7, root;
@@ -1155,7 +1170,8 @@ static int init_query_structure(segnum)
  * have the same y--cood, etc.
  */
 
-static int is_left_of(segnum, v)
+/*static int is_left_of(segnum, v)*/
+int is_left_of(segnum, v)
      int segnum;
      point_t *v;
 {
@@ -1213,7 +1229,8 @@ static int is_left_of(segnum, v)
 /* already inserted into the segment tree. Use the simple test of */
 /* whether the segment which shares this endpoint is already inserted */
 
-static int inserted(segnum, whichpt)
+/*static int inserted(segnum, whichpt)*/
+int inserted(segnum, whichpt)
      int segnum;
      int whichpt;
 {
@@ -1289,7 +1306,8 @@ int locate_endpoint(v, vo, r)
  * divided because of its insertion
  */
 
-static int merge_trapezoids(segnum, tfirst, tlast, side)
+/*static int merge_trapezoids(segnum, tfirst, tlast, side)*/
+int merge_trapezoids(segnum, tfirst, tlast, side)
      int segnum;
      int tfirst;
      int tlast;
@@ -1370,7 +1388,8 @@ static int merge_trapezoids(segnum, tfirst, tlast, side)
  * the  lower trapezoid dividing all the trapezoids in between .
  */
 
-static int add_segment(segnum)
+/*static int add_segment(segnum)*/
+int add_segment(segnum)
      int segnum;
 {
   segment_t s;
@@ -1944,7 +1963,8 @@ static int add_segment(segnum)
  * This is done to speed up the location-query for the endpoint when
  * the segment is inserted into the trapezoidation subsequently
  */
-static int find_new_roots(segnum)
+/*static int find_new_roots(segnum)*/
+int find_new_roots(segnum)
      int segnum;
 {
   segment_t *s = &seg[segnum];
@@ -1995,7 +2015,8 @@ int construct_trapezoids(nseg)
 
 
 
-static int initialise(n)
+/*static int initialise(n)*/
+int initialise(n)
      int n;
 {
   register int i;

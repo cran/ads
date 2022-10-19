@@ -166,5 +166,38 @@ extern int read_segments(char *, int *);
 extern int math_logstar_n(int);
 extern int math_N(int, int);
 
+int inside_polygon(trap_t *);
+int newmon(void);
+int new_chain_element(void);
+double get_angle(point_t *, point_t *, point_t *);
+int get_vertex_positions(int, int, int *, int *);
+int make_new_monotone_poly(int, int, int);
+/*int monotonate_trapezoids(int);*/
+int traverse_polygon(int, int, int, int);
+/*int triangulate_monotone_polygons(int, int, int **);*/
+int triangulate_single_polygon(int, int, int, int **);
+/*int choose_segment(int);
+int math_logstar_n(int);
+int math_N(int, int);*/
+int newnode(void);
+int newtrap(void);
+int _max(point_t *, point_t *, point_t *);
+int _min(point_t *, point_t *, point_t *);
+/*int _greater_than(point_t *, point_t *);
+int _equal_to(point_t *, point_t *);
+int _greater_than_equal_to(point_t *, point_t *);
+int _less_than(point_t *, point_t *);*/
+int init_query_structure(int);
+int is_left_of(int, point_t *);
+int inserted(int, int);
+/*int locate_endpoint(point_t *, point_t *, int);*/
+int merge_trapezoids(int, int, int, int);
+int add_segment(int);
+int find_new_roots(int);
+/*int construct_trapezoids(int);*/
+int initialise(int);
+/*int triangulate_polygon(int, int *, double **, int **);
+int is_point_inside_polygon(double *);*/
+
 #endif /* triangulate_h */
 

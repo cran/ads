@@ -3,7 +3,7 @@
 #include <limits.h>
 #include <R_ext/PrtUtil.h>
 
-double Pi();
+double Pi(void);
 void progress(int,int*, int);
 /*double alea ();*/
 void freeintvec (int *);
