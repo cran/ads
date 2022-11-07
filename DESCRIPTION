@@ -1,8 +1,8 @@
 Package: ads
 Type: Package
 Title: Spatial Point Patterns Analysis
-Version: 1.5-7
-Date: 2022-10-18
+Version: 1.5-8
+Date: 2022-11-04
 Author: Raphael Pelissier [aut], Francois Goreaud [aut], Philippe Verley [ctb, cre]
 Maintainer: Raphael Pelissier <raphael.pelissier@ird.fr>
 Imports: ade4, spatstat.geom
@@ -15,5 +15,5 @@ NeedsCompilation: yes
 Repository: CRAN
 RoxygenNote: 7.1.2
 Language: en-GB
-Packaged: 2022-10-19 09:24:54 UTC; root
-Date/Publication: 2022-10-19 09:55:10 UTC
+Packaged: 2022-11-07 09:53:16 UTC; pverley
+Date/Publication: 2022-11-07 11:40:15 UTC

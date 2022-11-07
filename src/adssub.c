@@ -1,7 +1,7 @@
 #include "adssub.h"
 #include <math.h>
 
-double Pi() {
+double Pi(void) {
 	return 2*acos(0);
 }
 

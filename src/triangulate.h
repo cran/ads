@@ -198,6 +198,10 @@ int find_new_roots(int);
 int initialise(int);
 /*int triangulate_polygon(int, int *, double **, int **);
 int is_point_inside_polygon(double *);*/
+/*static int triangulate_single_polygon(int, int, int, int**);*/
+int triangulate_single_polygon(int, int, int, int**);
+/*static int traverse_polygon(int, int, int, int);*/
+int traverse_polygon(int, int, int, int);
 
 #endif /* triangulate_h */
 
