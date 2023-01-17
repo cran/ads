@@ -6420,7 +6420,7 @@ int rao_rect_ic(int *point_nb, double *x, double *y, double *xmi, double *xma, d
                     {
                     if (*h0==1)
                         dis=mat[p*(*nbtype-2)-(p-1)*p/2+i-1];
-                    if (*h0==2)
+                    else // (*h0==2)
                         {
                         dis=matp[p*(*nbtype-2)-(p-1)*p/2+i-1];
                         HDsim+=(float) l[i+1]/(float) (*point_nb)*(float) l[p+1]/(float) (*point_nb)*dis;
@@ -6817,7 +6817,7 @@ int rao_disq_ic(int *point_nb, double *x, double *y, double *x0, double *y0, dou
                     {
                     if (*h0==1)
                         dis=mat[p*(*nbtype-2)-(p-1)*p/2+i-1];
-                    if (*h0==2)
+                    else // (*h0==2)
                         {
                         dis=matp[p*(*nbtype-2)-(p-1)*p/2+i-1];
                         HDsim+=(float) l[i+1]/(float) (*point_nb)*(float) l[p+1]/(float) (*point_nb)*dis;
@@ -7348,7 +7348,7 @@ int rao_tr_rect_ic(int *point_nb, double *x, double *y, double *xmi, double *xma
                     {
                     if (*h0==1)
                         dis=mat[p*(*nbtype-2)-(p-1)*p/2+i-1];
-                    if (*h0==2)
+                    else // (*h0==2)
                         {
                         dis=matp[p*(*nbtype-2)-(p-1)*p/2+i-1];
                         HDsim+=(float) l[i+1]/(float) (*point_nb)*(float) l[p+1]/(float) (*point_nb)*dis;
@@ -7608,7 +7608,7 @@ int rao_tr_disq_ic(int *point_nb, double *x, double *y, double *x0, double *y0, 
                     {
                     if (*h0==1)
                         dis=mat[p*(*nbtype-2)-(p-1)*p/2+i-1];
-                    if (*h0==2)
+                    else // (*h0==2)
                         {
                         dis=matp[p*(*nbtype-2)-(p-1)*p/2+i-1];
                         HDsim+=(float) l[i+1]/(float) (*point_nb)*(float) l[p+1]/(float) (*point_nb)*dis;

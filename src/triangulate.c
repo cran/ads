@@ -292,7 +292,6 @@ int traverse_polygon(int mcur, int trnum, int from, int dir)
   int mnew;
   int v0, v1;
   int retval=0;
-  int do_switch = FALSE;
 
   //if ((trnum <= 0) || visited[trnum]) return 0;
 
@@ -316,7 +315,6 @@ int traverse_polygon(int mcur, int trnum, int from, int dir)
 	  v1 = t->lseg;
 	  if (from == t->d1)
 	    {
-	      do_switch = TRUE;
 	      mnew = make_new_monotone_poly(mcur, v1, v0);
 	      traverse_polygon(mcur, t->d1, trnum, TR_FROM_UP);
 	      traverse_polygon(mnew, t->d0, trnum, TR_FROM_UP);
@@ -346,7 +344,6 @@ int traverse_polygon(int mcur, int trnum, int from, int dir)
 	  v1 = tr[t->u0].rseg;
 	  if (from == t->u1)
 	    {
-	      do_switch = TRUE;
 	      mnew = make_new_monotone_poly(mcur, v1, v0);
 	      traverse_polygon(mcur, t->u1, trnum, TR_FROM_DN);
 	      traverse_polygon(mnew, t->u0, trnum, TR_FROM_DN);
@@ -378,7 +375,6 @@ int traverse_polygon(int mcur, int trnum, int from, int dir)
 	  if (((dir == TR_FROM_DN) && (t->d1 == from)) ||
 	      ((dir == TR_FROM_UP) && (t->u1 == from)))
 	    {
-	      do_switch = TRUE;
 	      mnew = make_new_monotone_poly(mcur, v1, v0);
 	      traverse_polygon(mcur, t->u1, trnum, TR_FROM_DN);
 	      traverse_polygon(mcur, t->d1, trnum, TR_FROM_UP);
@@ -404,7 +400,6 @@ int traverse_polygon(int mcur, int trnum, int from, int dir)
 	      retval = SP_2UP_LEFT;
 	      if ((dir == TR_FROM_UP) && (t->u0 == from))
 		{
-		  do_switch = TRUE;
 		  mnew = make_new_monotone_poly(mcur, v1, v0);
 		  traverse_polygon(mcur, t->u0, trnum, TR_FROM_DN);
 		  traverse_polygon(mnew, t->d0, trnum, TR_FROM_UP);
@@ -427,7 +422,6 @@ int traverse_polygon(int mcur, int trnum, int from, int dir)
 	      retval = SP_2UP_RIGHT;
 	      if ((dir == TR_FROM_UP) && (t->u1 == from))
 		{
-		  do_switch = TRUE;
 		  mnew = make_new_monotone_poly(mcur, v1, v0);
 		  traverse_polygon(mcur, t->u1, trnum, TR_FROM_DN);
 		  traverse_polygon(mnew, t->d1, trnum, TR_FROM_UP);
@@ -456,7 +450,6 @@ int traverse_polygon(int mcur, int trnum, int from, int dir)
 	      retval = SP_2DN_LEFT;
 	      if (!((dir == TR_FROM_DN) && (t->d0 == from)))
 		{
-		  do_switch = TRUE;
 		  mnew = make_new_monotone_poly(mcur, v1, v0);
 		  traverse_polygon(mcur, t->u1, trnum, TR_FROM_DN);
 		  traverse_polygon(mcur, t->d1, trnum, TR_FROM_UP);
@@ -480,7 +473,6 @@ int traverse_polygon(int mcur, int trnum, int from, int dir)
 	      retval = SP_2DN_RIGHT;
 	      if ((dir == TR_FROM_DN) && (t->d1 == from))
 		{
-		  do_switch = TRUE;
 		  mnew = make_new_monotone_poly(mcur, v1, v0);
 		  traverse_polygon(mcur, t->d1, trnum, TR_FROM_UP);
 		  traverse_polygon(mnew, t->u1, trnum, TR_FROM_DN);
@@ -507,7 +499,6 @@ int traverse_polygon(int mcur, int trnum, int from, int dir)
 	      retval = SP_SIMPLE_LRDN;
 	      if (dir == TR_FROM_UP)
 		{
-		  do_switch = TRUE;
 		  mnew = make_new_monotone_poly(mcur, v1, v0);
 		  traverse_polygon(mcur, t->u0, trnum, TR_FROM_DN);
 		  traverse_polygon(mcur, t->u1, trnum, TR_FROM_DN);
@@ -532,7 +523,6 @@ int traverse_polygon(int mcur, int trnum, int from, int dir)
 	      retval = SP_SIMPLE_LRUP;
 	      if (dir == TR_FROM_UP)
 		{
-		  do_switch = TRUE;
 		  mnew = make_new_monotone_poly(mcur, v1, v0);
 		  traverse_polygon(mcur, t->u0, trnum, TR_FROM_DN);
 		  traverse_polygon(mcur, t->u1, trnum, TR_FROM_DN);
@@ -1336,7 +1326,7 @@ int add_segment(int segnum)
   int tfirstr=0, tlastr=0, tfirstl, tlastl;
   int i1, i2, t, tn;
   point_t tpt;
-  int tritop = 0, tribot = 0, is_swapped = 0;
+  int tribot = 0, is_swapped = 0;
   int tmptriseg,tmpseg=0;
 
   s = seg[segnum];
@@ -1406,7 +1396,6 @@ int add_segment(int segnum)
   else				/* v0 already present */
     {       /* Get the topmost intersecting trapezoid */
       tfirst = locate_endpoint(&s.v0, &s.v1, s.root0);
-      tritop = 1;
     }
 
 
@@ -1416,7 +1405,7 @@ int add_segment(int segnum)
       int tmp_d;
 
       tu = locate_endpoint(&s.v1, &s.v0, s.root1);
-
+  
       tl = newtrap();		/* tl is the new lower trapezoid */
       tr[tl].state = ST_VALID;
       tr[tl] = tr[tu];
@@ -1992,7 +1981,7 @@ int initialise(int n)
 int triangulate_polygon(int ncontours, int cntr[], double **vertices, int **triangles)
 {
   register int i;
-  int nmonpoly, ccount, npoints, genus;
+  int nmonpoly, ccount, npoints;
   int n;
 
   memset((void *)seg, 0, sizeof(seg));
@@ -2037,7 +2026,6 @@ int triangulate_polygon(int ncontours, int cntr[], double **vertices, int **tria
       ccount++;
     }
 
-  genus = ncontours - 1;
   n = i-1;
 
   initialise(n);
@@ -2047,34 +2035,3 @@ int triangulate_polygon(int ncontours, int cntr[], double **vertices, int **tria
 
   return 0;
 }
-
-
-/* This function returns TRUE or FALSE depending upon whether the
- * vertex is inside the polygon or not. The polygon must already have
- * been triangulated before this routine is called.
- * This routine will always detect all the points belonging to the
- * set (polygon-area - polygon-boundary). The return value for points
- * on the boundary is not consistent!!!
- */
-
-int is_point_inside_polygon(double vertex[2])
-{
-  point_t v;
-  int trnum, rseg;
-  trap_t *t;
-
-  v.x = vertex[0];
-  v.y = vertex[1];
-
-  trnum = locate_endpoint(&v, &v, 1);
-  t = &tr[trnum];
-
-  if (t->state == ST_INVALID)
-    return FALSE;
-
-  if ((t->lseg <= 0) || (t->rseg <= 0))
-    return FALSE;
-  rseg = t->rseg;
-  return _greater_than_equal_to(&seg[rseg].v1, &seg[rseg].v0);
-}
-

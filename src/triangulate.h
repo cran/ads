@@ -144,7 +144,6 @@ extern segment_t seg[SEGSIZE];		/* Segment table */
 /* Functions */
 
 extern int triangulate_polygon(int, int *, double**,int**);
-extern int is_point_inside_polygon(double *);
 
 int triangulate_polygon(int, int [], double**, int**);
 
