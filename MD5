@@ -1,4 +1,4 @@
-b58fe0b8653fe634f39707d8a7477a0a *DESCRIPTION
+a7190061910c1b44639399ab43872ce8 *DESCRIPTION
 fa794261fe3c8f96f8701947b1a58b23 *NAMESPACE
 f3446ce87d2b9555674084cdc00495f7 *R/fads.R
 7a71372e86fd8aadfc770b261cd953ca *R/mimetic.R
@@ -18,7 +18,7 @@ b9f4aaeac158d6b0a7a231501e93baae *R/zzz.R
 24fea786746fc897f8918300f2f2c544 *data/Couepia.rda
 4f0da7352d2317c6750447a088ec70bb *data/Paracou15.rda
 674867657e9a3df07b6eced02aa022a1 *data/demopat.rda
-ae90188ce7c0a45afbaa041a725a434b *inst/CITATION
+53065b59fa2f0a2b2afcb219e55b62bb *inst/CITATION
 fe27b8d65a850f4ff019c832d16485cd *man/Allogny.Rd
 0b3c74dfa223d983966a99a2cb556194 *man/BPoirier.Rd
 a93ef3f8bfc9909d60ba25bbe511facc *man/Couepia.Rd
@@ -30,9 +30,9 @@ b7757ca3c5f8a40ccfb65ed3dfe5de11 *man/dval.Rd
 cb9bd5d12112f283171fce329de38e0a *man/internal.Rd
 fd18b66179f59eefe782c07467c73309 *man/k12fun.Rd
 b55f1fe8cf3e1cda2c5ff86183838c57 *man/k12val.Rd
-7aecbe0cb1088e36c41cc7c2e4aae910 *man/kdfun.Rd
+ba6c1a6469eaba273530d24210b8cdc9 *man/kdfun.Rd
 0b30c3a2b2b7509c153c4a7614ef8bdc *man/kfun.Rd
-2cb7ce4baa084527191f98fde748556a *man/kmfun.Rd
+ce7d72a9527eed0d551309137cf13bd1 *man/kmfun.Rd
 6da15dc4d56b3349a577a69644f1d41c *man/kp.fun.Rd
 7b39f7b6aa823df824b8713c9b88d2d0 *man/kpqfun.Rd
 d2d6f00f6a5fa5e516ec2c2bcac7d869 *man/krfun.Rd
@@ -45,7 +45,7 @@ ea1d40c0dc836014b34a13cac934daba *man/plot.spp.Rd
 48f981054c040eeaf06c64f39eef39d9 *man/spp.Rd
 4e242b5a91fbe5cc4c7b39fc4db9e9f4 *man/swin.Rd
 31898f5a6462a234b3f22f79aa5ac8a8 *man/triangulate.Rd
-48017f49a1ee1cb13f9cc4aca1a29705 *src/Zlibs.c
+f850030ceba31e9c819a8acc54aa0808 *src/Zlibs.c
 1c1b148fdc049d409209e4af81f1b171 *src/Zlibs.h
 d7aee6584118b3e0f8ad41b5b05a483d *src/adssub.c
 8c55176c91a0284722d8b50eaf98c9aa *src/adssub.h

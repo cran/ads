@@ -1,10 +1,12 @@
 Package: ads
 Type: Package
 Title: Spatial Point Patterns Analysis
-Version: 1.5-9
-Date: 2023-01-16
-Author: Raphael Pelissier [aut], Francois Goreaud [aut], Philippe Verley [ctb, cre]
-Maintainer: Raphael Pelissier <raphael.pelissier@ird.fr>
+Version: 1.5-10
+Date: 2023-12-09
+Authors@R: c(
+	person("Raphael", "Pelissier", email = "raphael.pelissier@ird.fr", role = c("aut")),
+  person("Francois", "Goreaud", role = c("aut")),	
+  person("Dominique", "Lamonica", email = "dominique.lamonica@ird.fr", role = c("cre")))
 URL: https://forge.ird.fr/amap/ads
 BugReports: https://forge.ird.fr/amap/ads/-/issues
 Imports: ade4, spatstat.geom
@@ -15,7 +17,12 @@ Depends: R (>= 3.5.0)
 License: GPL-2
 NeedsCompilation: yes
 Repository: CRAN
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 Language: en-GB
-Packaged: 2023-01-16 15:05:33 UTC; pverley
-Date/Publication: 2023-01-17 10:20:02 UTC
+Encoding: UTF-8
+Packaged: 2023-12-09 17:56:18 UTC; lamonica
+Author: Raphael Pelissier [aut],
+  Francois Goreaud [aut],
+  Dominique Lamonica [cre]
+Maintainer: Dominique Lamonica <dominique.lamonica@ird.fr>
+Date/Publication: 2023-12-11 07:40:21 UTC

@@ -303,7 +303,7 @@ double trois_point(double ax, double ay, double bx, double by, double cx, double
 
     /*if ((ang<0)||(ang>Pi()))*/
     if ((ang<0)||(ang>3.141593))
-        Rprintf("erreur12 : ang=%11.10f, %d %d %d %d %d %d\n", ang, te, tf, tg, th, ti, tj);
+        Rprintf("erreur12 : ang=%11.10f, %f %f %f %f %f %f\n", ang, te, tf, tg, th, ti, tj);
 
     return ang;
     }
@@ -2576,7 +2576,7 @@ int intertype_rect_ic(int *point_nb1, double *x1, double *y1, int *point_nb2, do
                 if (r==*rep)
                     {
                     Rprintf("\nStop: mimetic_rect failed to converge more than %d times\n", r);
-                    Rprintf("Adjust arguments nsimax and/or conv\n", r);
+                    Rprintf("Adjust arguments nsimax and/or conv\n");
                     return -1;
                     }
                 }
@@ -2815,7 +2815,7 @@ int intertype_disq_ic(int *point_nb1, double *x1, double *y1, int *point_nb2, do
                 if (r==*rep)
                     {
                     Rprintf("\nStop: mimetic_disq failed to converge more than %d times\n", r);
-                    Rprintf("Adjust arguments nsimax and/or conv\n", r);
+                    Rprintf("Adjust arguments nsimax and/or conv\n");
                     return -1;
                     }
                 }
@@ -3060,7 +3060,7 @@ int intertype_tr_rect_ic(int *point_nb1, double *x1, double *y1, int *point_nb2,
                 if (r==*rep)
                     {
                     Rprintf("\nStop: mimetic_tr_rect failed to converge more than %d times\n", r);
-                    Rprintf("Adjust arguments nsimax and/or conv\n", r);
+                    Rprintf("Adjust arguments nsimax and/or conv\n");
                     return -1;
                     }
                 }
@@ -3298,7 +3298,7 @@ int intertype_tr_disq_ic(int *point_nb1, double *x1, double *y1, int *point_nb2,
                 if (r==*rep)
                     {
                     Rprintf("\nStop: mimetic_tr_disq failed to converge more than %d times\n", r);
-                    Rprintf("Adjust arguments nsimax and/or conv\n", r);
+                    Rprintf("Adjust arguments nsimax and/or conv\n");
                     return -1;
                     }
                 }

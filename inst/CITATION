@@ -1,9 +1,9 @@
 citHeader("To cite ads in publications use:")
 
-citEntry(entry = "Article",
+bibentry(bibtype = "article",
   title        = "{ads} Package for {R}: A Fast Unbiased Implementation of the $K$-function Family for Studying Spatial Point Patterns in Irregular-Shaped Sampling Windows",
-  author       = personList(as.person("Rapha{\\\"e}l P{\\'e}lissier"),
-                   as.person("Fran\\c{c}ois Goreaud")),
+  author       = c(person("Rapha{\\\"e}l", "P{\\'e}lissier"),
+                   person("Fran\\c{c}ois", "Goreaud")),
   journal      = "Journal of Statistical Software",
   year         = "2015",
   volume       = "63",
