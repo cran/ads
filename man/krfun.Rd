@@ -21,7 +21,7 @@ krfun(p, upto, by, nsim=0, dis = NULL, H0 = c("rl", "se"), alpha = 0.01)
   \item{alpha }{if \code{nsim>0}, significant level of the confidence limits. By default \eqn{\alpha = 0.01}.}
 }
 \details{
- Function \code{krfun} computes distance-dependent functions of Rao (1982) quadratic entropy (see \code{\link{divc}} in package \code{ade4}).\cr\cr
+ Function \code{krfun} computes distance-dependent functions of Rao (1982) quadratic entropy (see \code{\link[ade4]{divc}} in package \code{ade4}).\cr\cr
  For a multivariate point pattern consisting of \eqn{S} species with intensity \eqn{\lambda}p, such functions can be estimated from the bivariate \eqn{Kpq}-functions between each pair of different species \eqn{p} and \eqn{q}.
  Function \code{krfun} is thus a simple wrapper function of \code{\link{k12fun}} and \code{\link{kfun}}, standardized by Rao diversity coefficient (Pelissier & Goreaud 2014):
 
@@ -72,7 +72,7 @@ The species equivalence hypothesis (H0 = "se") is tested by randomizing the betw
  \code{\link{spp}},
  \code{\link{ksfun}},
  \code{\link{kdfun}},
- \code{\link{divc}}.
+ \code{\link[ade4]{divc}}.
 }
 \examples{
   data(Paracou15)

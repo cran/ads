@@ -62,7 +62,7 @@ kdfun(p, upto, by, dis, nsim=0, alpha = 0.01)
  \code{\link{spp}},
  \code{\link{ksfun}},
  \code{\link{krfun}},
- \code{\link{divc}}.
+ \code{\link[ade4]{divc}}.
 }
 \examples{
   data(Paracou15)
@@ -84,9 +84,9 @@ kdfun(p, upto, by, dis, nsim=0, alpha = 0.01)
   
  \dontrun{spatial point pattern in a complex sampling window}
   swrt <- spp(P15$trees, win = c(125,125,250,250), tri = P15$tri, marks = P15$species)
-  \donttest{kdswrt <- kdfun(swrt, dis = P15$spdist, 50, 2, 100)}
+  kdswrt <- kdfun(swrt, dis = P15$spdist, 50, 2, 100)
   \dontrun{running simulations is slow}
-  \donttest{kdswrt <- kdfun(swrt, dis = P15$spdist, 50, 2, 500)
-  plot(kdswrt)}
+  \donttest{kdswrt <- kdfun(swrt, dis = P15$spdist, 50, 2, 500)}
+  plot(kdswrt)
 }
 \keyword{spatial}

@@ -81,9 +81,9 @@ Ripley B.D. 1977. Modelling spatial patterns. \emph{Journal of the Royal Statist
   plot(kmswc)
 
   \dontrun{spatial point pattern in a complex sampling window}
-  \donttest{swrt <- spp(BP$trees, win=BP$rect, tri=BP$tri2, marks=BP$dbh)
+  swrt <- spp(BP$trees, win=BP$rect, tri=BP$tri2, marks=BP$dbh)
   kmswrt <- kmfun(swrt, 25, 2, 500)
-  plot(kmswrt)}
+  plot(kmswrt)
 
 }
 \keyword{spatial}

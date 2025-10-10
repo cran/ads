@@ -1050,7 +1050,7 @@ krfun<-function(p,upto,by,nsim=0,dis=NULL,H0=c("rl","se"),alpha=0.01) {
 	nbMarks<-nlevels(p$marks)
 	marks<-as.numeric(p$marks) # => position du label dans levels(p$marks)
 	dis<-as.dist(sortmat(dis,levels(p$marks)))
-	HD<-suppressWarnings(divc(as.data.frame(unclass(table(p$marks))),sqrt(2*dis),scale=F)[1,1])
+	HD<-suppressWarnings(ade4::divc(as.data.frame(unclass(table(p$marks))),sqrt(2*dis),scale=F)[1,1])
 	HD<-HD*p$n/(p$n-1)
 	dis<-as.vector(dis)
 		
@@ -1210,7 +1210,7 @@ kdfun<-function(p,upto,by,dis,nsim=0,alpha=0.01) {
 	nbMarks<-nlevels(p$marks)
 	marks<-as.numeric(p$marks) # => position du label dans levels(p$marks)
 	dis<-as.dist(sortmat(dis,levels(p$marks)))
-	HD<-suppressWarnings(divc(as.data.frame(unclass(table(p$marks))),sqrt(2*dis),scale=F)[1,1])
+	HD<-suppressWarnings(ade4::divc(as.data.frame(unclass(table(p$marks))),sqrt(2*dis),scale=F)[1,1])
 	HD<-HD*p$n/(p$n-1)
 	dis<-as.vector(dis)
 
