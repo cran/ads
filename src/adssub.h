@@ -1,7 +1,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <limits.h>
-#include <R_ext/PrtUtil.h>
+#include <R_ext/Print.h>
 
 double Pi(void);
 void progress(int,int*, int);
